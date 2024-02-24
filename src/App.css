@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.autofill-bg:-webkit-autofill {
+  background-color: #f3f3f3; /* Define a cor de fundo desejada */
+}
