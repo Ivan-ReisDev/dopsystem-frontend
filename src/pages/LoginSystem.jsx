@@ -102,7 +102,7 @@ const LoginSystem = () => {
 
                         </div>
                         {console.log(message)} 
-                            { message && <Alert variant='danger' className='h-[15px] flex items-center'>
+                            { message.error && <Alert variant='danger' className='h-[15px] flex items-center'>
                                     <p className='text-[13px] text-center'>{message ? message.error : ''}</p>
                                 </Alert> }   
 
