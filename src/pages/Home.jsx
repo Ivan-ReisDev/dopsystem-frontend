@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import Navbar from '../components/Navbar'
 
 const Home = () => {
+  useEffect(() => {
+    document.title = "Polícia DOP - Home"; 
+  }, []);
+
+
   return (
-    <div><h2>Teste de rota</h2></div>
+    <div> <Navbar /> </div>
   )
 }
 

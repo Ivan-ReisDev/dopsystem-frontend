@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 // const API = 'http://localhost:3000/api/';
-const PRD = 'http://localhost:3000/api/'
+const PRD = 'https://backend-a5fznvv1t-ivan-reisdev.vercel.app/api/'
 
 const UserContext = createContext('');
 
@@ -61,6 +61,7 @@ const AuthContext = ({ children }) => {
 
             if (res.ok) {
                 localStorage.setItem('token', resJSON.token);
+                localStorage.setItem('dataUser', resJSON);
                 navigate('/home');
             } else {
                 localStorage.removeItem('token');
