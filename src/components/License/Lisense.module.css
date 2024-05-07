@@ -1,0 +1,97 @@
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.title span {
+    margin-right: 10px ;
+
+}
+
+.LicenseForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.LicenseForm label {
+    font-size: 14px;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #031149;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+}
+
+.LicenseForm input {
+    width: 100%;
+    padding: 10px 20px;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+    font-weight: normal;
+    outline: #031149;
+}
+
+.LicenseForm input:focus {
+    border: 1px solid #5572e4;
+    box-shadow: 1px 1px 45px 1px #5797f786;
+
+}
+
+.LicenseForm textarea {
+    width: 100%;
+    padding: 10px 20px;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+    font-weight: normal;
+    outline: #031149;
+    overflow: hidden;
+}
+
+.LicenseForm textarea:focus {
+    border: 1px solid #5572e4;
+    box-shadow: 1px 1px 45px 1px #5797f786;
+
+}
+
+.LicenseForm button {
+    background-color: #269b0f;
+    font-size: 15px;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    color: #fff;
+    height: 40px;
+    width: 160px;
+    margin: 15px;
+}
+
+.LicenseForm span {
+    height:100%;
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formInterno {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.formInterno label {
+    width: 44%;
+}
+
+.formInterno label:nth-child(1) {
+    margin-right: 2%;
+
+}

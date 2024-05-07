@@ -3,18 +3,31 @@ import Navbar from '../components/Navbar'
 import FastMenu from '../components/FastMenu/FastMenu';
 import './Home.css'
 import Docs from '../components/Docs/Docs';
+import QuickSearch from '../components/QuickSearch/QuickSearch';
+import Publication from '../components/Publication/Publication';
+import License from '../components/License/License';
 const Home = () => {
   useEffect(() => {
-    document.title = "Polícia DOP - Home"; 
+    document.title = "Polícia DOP - Home";
   }, []);
-
 
   return (
     <div className='body'>
+      <div className='one'>
+        <FastMenu />
+        <Docs />
+      </div>
+      <div className='two'>
+        <QuickSearch />
+      </div>
+      <div className="try">
+        <h1>Publicações</h1>
+        <Publication />
+        <Publication />
+        <Publication />
+        <License />
+      </div>
 
-      <FastMenu />
-      <Docs />
-    
     </div>
   )
 }

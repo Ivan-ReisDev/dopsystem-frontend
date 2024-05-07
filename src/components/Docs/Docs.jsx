@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Docs = () => {
   return (
     <div className='contentBodyElement'>
-    <div>
+    <div className='contentBodyElementTitle'>
         <h3>Documentos</h3>
     </div>
     <ul>

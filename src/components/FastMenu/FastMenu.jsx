@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom'
 const FastMenu = () => {
   return (
     <div className='contentBodyElement'>
-        <div>
+        <div className='contentBodyElementTitle'>
             <h3>Menu Rápido</h3>
         </div>
         <ul>

@@ -13,6 +13,15 @@ body {
 
 }
 
+input {
+  outline: none;
+}
+
+input:focus {
+    outline: none;
+
+}
+
 
 @keyframes showDocs {
   from {
@@ -49,16 +58,17 @@ body {
 }
 
 .contentBodyElement {
-  width: 220px;
+  min-width: 200px;
+  width: 100%;
   background-color: rgb(255, 255, 255);
   border-radius: 5px;
   overflow: hidden;
   border: solid 1px #e4e4e4;
-  margin: 10px;
+  margin-bottom: 10px ;
   
 }
 
-.contentBodyElement div {
+.contentBodyElementTitle  {
   width: 100%;
   height: 40px;
   padding: 10px;

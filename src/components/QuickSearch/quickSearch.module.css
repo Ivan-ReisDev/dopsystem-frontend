@@ -1,0 +1,129 @@
+.QuickSearch {
+
+}
+
+.QuickSearch input {
+    height: 35px;
+    
+}
+
+.QuickSearchInfo {
+    width: 100%;
+
+}
+
+.QuickSearchInput {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.QuickSearchInput input {
+    width: 90%;
+    padding-left: 10px ;
+}
+
+.QuickSearchInput input::placeholder {
+    padding-left: 10px;
+
+}
+
+.QuickSearchInput button {
+    height: 100%;
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.QuickSearchInput svg {
+    font-size: 22px;
+
+}
+
+.img {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    width: 90px;
+    background-color: #c7c7c7;
+    border: solid 1px #a1a1a1;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 100px;
+    justify-content: center;
+
+}
+
+.img img {
+    width: 90px;
+    z-index: 4;
+    position: absolute;
+}
+
+.img::before {
+    background-image: url("../../assets//DOP Padrão (com borda).png");
+    background-size: 80px;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1;
+    opacity: 0.4;
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.QuickSearchInfoBody {
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+    padding: 10px;
+}
+
+.QuickSearchInfoBody p {
+    font-size: 13px;
+
+}
+
+.QuickSearchInfoBody span {
+    font-weight: bold;
+
+}
+
+.info {
+    margin: 10px;
+    margin-left: 50px;
+
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.header img {
+    width: 40px;
+}
+
+.header h4 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    color: #031149;
+}
+
+.header div {
+    margin-left: 10px;
+
+}

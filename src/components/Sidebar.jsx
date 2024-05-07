@@ -36,6 +36,8 @@ const activeShowClasses = () => setShowClasses(!showClasses);
          className='bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4  rounded-full'> Painel <span className='uppercase'>admin</span></NavLink>
       </div>}
       <ul className='border-b'>
+      <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/'}>Página Inicial</NavLink></li>
+
         <button className='w-full h-[30px] font-bold flex items-center ml-5'
         onClick={activeShowDocs}>
           Documentos <span className={`ml-2 text-[13px] ${showDocs ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>
