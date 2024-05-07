@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { SlArrowUp } from "react-icons/sl";
 import Button from 'react-bootstrap/Button'
@@ -20,9 +20,6 @@ const [showForms, setShowForms] = useState(false)
 
 const activeShowDocs = () => setShowDocs(!showDocs);
 const activeShowClasses = () => setShowClasses(!showClasses);
-
-
-
 
   return (
     <nav className={showSidebar ? `duration-1000 absolute right-[0] top-[8vh] px-3 h-[92vh] w-[330px] bg-[#031149] text-[#ffffff]`
