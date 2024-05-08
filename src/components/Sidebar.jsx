@@ -2,17 +2,41 @@ import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { SlArrowUp } from "react-icons/sl";
 import Button from 'react-bootstrap/Button'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+//redux 
+
+import { logout, reset } from '../slices/authSlice';
 
 import '../index.css'
+import { profile } from '../slices/userSlice';
 
-const dataUserJSON = localStorage.getItem('dataUser');
-const objProfile = dataUserJSON ? JSON.parse(dataUserJSON) : {};
+
+
 
 const docs = ['Estatuto', 'Código Penal', 'Código de Conduta'];
 
 const classes = ['Instrutores', 'Supervisores', 'Treinadores']
 
 const Sidebar = ({ showSidebar }) => {
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
+  const { user, loading } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(profile())
+  }, [dispatch])
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+    navigate('/')
+
+  }
 
 const [showDocs, setShowDocs] = useState(false);
 const [showClasses, setShowClasses] = useState(false);
@@ -26,15 +50,15 @@ const activeShowClasses = () => setShowClasses(!showClasses);
       : `absolute duration-1000 top-[8vh] px-3 h-[92vh]  w-[330px] right-[-330px] bg-[#031149] text-[#ffffff]`}>
       <div className='w-full h-[20%] flex flex-col items-center justify-center  border-b' >
         <div className='border rounded-full	overflow-hidden	 min-w-16 max-w-16 min-h-16	max-h-16 bg-[#0084FF]'>
-          <img className='m-0 relative  bottom-3' src="http://www.habbo.com.br/habbo-imaging/avatarimage?&user=.Disco.Master.&action=std&direction=4&head_direction=4&img_format=png&gesture=sml&frame=1&headonly=0&size=m" alt="" />
+          <img className='m-0 relative  bottom-3' src={`http://www.habbo.com.br/habbo-imaging/avatarimage?&user=${user.nickname}&action=std&direction=4&head_direction=4&img_format=png&gesture=sml&frame=1&headonly=0&size=m`} alt="" />
         </div>
-        <h2 className='mt-2 font-bold'>{objProfile.nickname}</h2>
-        <span>{objProfile.patent}</span>
+        <h2 className='mt-2 font-bold'>{user.nickname}</h2>
+        <span>{user.patent}</span>
       </div>
-      {objProfile && objProfile.userType === 'Admin' && <div className='w-full h-[10%] flex flex-col items-center justify-center  border-b' >
+       {user && user.userType === 'Admin' && <div className='w-full h-[10%] flex flex-col items-center justify-center  border-b' >
         <NavLink to={'/paneladmin'}
          className='bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4  rounded-full'> Painel <span className='uppercase'>admin</span></NavLink>
-      </div>}
+      </div>} 
       <ul className='border-b'>
       <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/'}>Página Inicial</NavLink></li>
 
@@ -87,7 +111,7 @@ const activeShowClasses = () => setShowClasses(!showClasses);
       </ul>
 
       <div className='w-full h-[10%] flex flex-col items-center justify-center' >
-        <Button className='rounded-full font-bold bg-[#dc3545]' variant="danger">Log out</Button>
+        <Button onClick={handleLogout} className='rounded-full font-bold bg-[#dc3545]' variant="danger">Log out</Button>
       </div>
       
     </nav>

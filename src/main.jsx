@@ -2,20 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
+import { Provider } from 'react-redux'; 
 import './index.css';
-import { AuthContext, UserContext } from './context/UserContext.jsx';
-import Navbar from './components/Navbar.jsx';
-
-
-const dataUserJSON = localStorage.getItem('users');
-const objProfile = dataUserJSON ? JSON.parse(dataUserJSON) : {};
+import { store } from './store.js';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-      {objProfile &&  <Navbar />}
-    <AuthContext>
-      <App />
-    </AuthContext>
+      <Provider store={store}> 
+        <App />
+      </Provider>
   </BrowserRouter>
 );

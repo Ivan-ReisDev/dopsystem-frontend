@@ -4,11 +4,22 @@ import Alert from 'react-bootstrap/Alert';
 import { FaUser, FaLock } from "react-icons/fa";
 import LogoDOP from '../assets/logodop.png'
 import CreateCont from '../components/CreateCont.jsx';
-import { UserContext } from '../context/UserContext.jsx';
+
+//Redux 
+import { useSelector, useDispatch } from 'react-redux';
+import { login, reset } from '../slices/authSlice.js';
+import { useNavigate } from 'react-router-dom';
+//nick password
 
 const LoginSystem = () => {
+    const [nick, setNick] = useState('');
+    const [password, setPassword] = useState('')
 
-    const { dataLogin, setDataLogin, handleSubmitLogin, dataActive, setDataActive, setMessage, message } = useContext(UserContext)
+    const navigate = useNavigate()
+
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.auth)
+
     const [stateColorInput, setStateColorInput] = useState(false);
     const [stateColorSecondFocus, setStateColorSecondFocus] = useState(false);
     const [createCont, setCreateCont] = useState(false);
@@ -17,14 +28,27 @@ const LoginSystem = () => {
     useEffect(()=> {
         const genereteCode = Math.ceil(Math.random() * 9999);
         const securityoode = `DOP-${genereteCode}`;
-        setCode(securityoode) ;
-        setDataActive(securityoode)
+            setCode(securityoode) ;
+        // setDataActive(securityoode)
         return ;
     }, [])
 
+    const handleSubmitLogin = (e) => {
+        e.preventDefault();
+        const dataLogin = {
+            nick,
+            password,
+        }
+        dispatch(login(dataLogin, '/home'));
+        
+    }
+
+    useEffect(() => {
+        dispatch(reset())
+    }, [dispatch])
+
     const handleCreateCont = (e) => {
         e.preventDefault()
-        setMessage('')
         setCreateCont(!createCont)
     }
 
@@ -72,7 +96,8 @@ const LoginSystem = () => {
                                     autoComplete="userDopSystem"
                                     onFocus={handleFirstDivFocus}
                                     onBlur={handleFirstDivBlur}
-                                    onChange={(e) => setDataLogin({ ...dataLogin, nick: e.target.value })}
+                                    onChange={(e) => setNick(e.target.value )}
+                                    value={nick || ""}
                                     className='placeholder:font-bold w-full h-8 outline-none focus:ring-0 border-gray-300 focus:border-transparent'
                                     type="text"
                                     name="userDopSystem"
@@ -87,7 +112,8 @@ const LoginSystem = () => {
                                     autoComplete="passwordDopSystem"
                                     onFocus={handleSecondDivFocus}
                                     onBlur={handleSecondDivBlur}
-                                    onChange={(e) => setDataLogin( { ...dataLogin, password: e.target.value })}
+                                    onChange={(e) => setPassword(e.target.value )}
+                                    value={password || ""}
                                     className='placeholder:font-bold w-full h-8 outline-none focus:ring-0 bg-transparent border-gray-300 focus:border-transparent'
                                     type="password"
                                     name="passwordDopSystem"
@@ -101,13 +127,12 @@ const LoginSystem = () => {
                         <div className='flex items-center mt-2'>
 
                         </div>
-                        {console.log(message)} 
-                            { message.error && <Alert variant='danger' className='h-[15px] flex items-center'>
+                            {/* { message.error && <Alert variant='danger' className='h-[15px] flex items-center'>
                                     <p className='text-[13px] text-center'>{message ? message.error : ''}</p>
-                                </Alert> }   
+                                </Alert> }    */}
 
                             <div className='h-[50px] mt-3 flex flex-row justify-between w-full'>
-                                <Button onClick={handleCreateCont} className='w-[49%] text-[#0D1450]  hover:bg-[#0D1450]' variant="outline-primary">Ativar Conta</Button>
+                                <Button  onClick={handleCreateCont} className='w-[49%] text-[#0D1450]  hover:bg-[#0D1450]' variant="outline-primary">Ativar Conta</Button>
                                 <Button type='submit' className='w-[49%] bg-[#0D1450] hover:bg-[#29327a]' variant="primary">Login</Button>
                             </div>
                         </form>

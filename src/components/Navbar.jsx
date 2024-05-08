@@ -5,6 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import Sidebar from './Sidebar';
 import LogoDOP from '../assets/DOP Padrão (com borda).png'
 const Navbar = () => {
+
     const [showSidebar, setShowSidebar] = useState(false);
 
     const activeSidebar = () => setShowSidebar(!showSidebar);

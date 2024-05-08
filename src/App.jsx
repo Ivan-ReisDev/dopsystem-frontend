@@ -3,17 +3,21 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import LoginSystem from './pages/LoginSystem'
 import Home from './pages/Home.jsx';
-import { useContext } from 'react';
-import { UserContext } from './context/UserContext';
-
+import { useNavigate, Navigate } from 'react-router-dom';
+import Navbar from './components/Navbar.jsx';
+import { useAuth } from './hooks/useAuth.jsx';
 
 function App() {
-  const { tokenUser, profile } = useContext(UserContext)
+
+const navigate = useNavigate()
+const {auth, loading} = useAuth();
+
   return (
     <>
+      { auth && <Navbar />}
       <Routes>
-        <Route path='/' element={tokenUser ? <Home /> : <LoginSystem />} />
-        <Route path='/home' element={tokenUser && <Home />} />
+        <Route path='/' element={auth ? <Home /> : <LoginSystem />}/>
+        <Route path='/home' element={!auth ? <LoginSystem /> : <Home />} />
       </Routes>
     </>
   )
