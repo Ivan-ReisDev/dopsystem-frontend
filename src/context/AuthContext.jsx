@@ -97,7 +97,7 @@ const AuthProvider = ({ children }) => {
 
     const signIn = async (dataLogin) => {
         try {
-            const res = await fetch(`${PRD}/login`, { // Adicionando '/' após PRD
+            const res = await fetch(`${PRD}login`, { // Adicionando '/' após PRD
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
