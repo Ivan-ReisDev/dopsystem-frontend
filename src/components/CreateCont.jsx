@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useForm } from "react-hook-form";
 import Alert from 'react-bootstrap/Alert';
 import { FaUser, FaLock } from "react-icons/fa";
+import { AuthContext } from '../context/AuthContext';
 
 
 
@@ -22,6 +23,8 @@ const CreateCont = ({
 
     const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm();
     const [handleTriDivBlur, seThandleTriDivBlur] = useState(false);
+    
+    const { handleActiveCout } = useContext(AuthContext)
 
     const onSubmit = (data) => {
         handleActiveCout(data);

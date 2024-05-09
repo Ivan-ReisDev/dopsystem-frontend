@@ -12,8 +12,8 @@ const Navbar = () => {
 
 
     return (
-        <div className='h-[8vh] w-[100vw] bg-[#000340] z-1' >
-            <header className='w-full h-full flex flex-row items-center justify-between'>
+        <div className='h-[61px] w-[100vw] bg-[#000340] positionFixed z-1' >
+            <header className='nabBarNew  w-full h-full flex flex-row items-center justify-between'>
                 <div className=' ml-12 flex flex-row items-center justify-center'>
                     <img src={LogoDOP} alt="logo da DOP" className='w-[40px] m-0' />
                     <h1 className='text-[25px] font-semibold ml-4  text-[#ffffff]'> <span className='text-[#0084FF]'>DOP</span>System</h1>

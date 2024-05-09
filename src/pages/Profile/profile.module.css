@@ -1,0 +1,49 @@
+.profile {
+    padding: 1em 2em;
+    position: relative;
+    background-color: bisque;
+    border: none;
+    top: 61px;
+    width: 100%;
+    height:auto;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+.profileBody {
+    border: none;
+    width: 100%;
+    height:auto;
+    min-height: 80vh ;
+    background-color: rgb(26, 146, 26);
+    justify-content: center;
+    margin: 0;
+}
+
+.functions {
+    width: 420px;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(252, 252, 252);
+    color:#031149 ;
+ 
+
+}
+
+.functions h3 {
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
+.functions p {
+    font-size: 13px;
+}
+
+.functions span {
+    font-weight: bold;
+
+}
