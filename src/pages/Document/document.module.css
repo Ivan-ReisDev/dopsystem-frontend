@@ -1,0 +1,27 @@
+.Documents {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 92vh;
+    align-items: center;
+    position: absolute;
+    background-color: #f7f7f7;
+    top: 60px;
+}
+
+.Documents h2 {
+    margin: 1.4em;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.DocumentContent {
+    width: 90%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 1px 15px #a0a0a0;
+    padding: 20px;
+    margin-bottom: 2em;
+
+}

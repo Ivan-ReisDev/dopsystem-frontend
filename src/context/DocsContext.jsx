@@ -1,0 +1,83 @@
+import React, { createContext, useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+
+const PRD = 'https://dopsystem-backend.vercel.app/api/';
+
+const DocsContext = createContext("");
+
+const DocsProvider = ({ children }) => {
+    const navigate = useNavigate();
+    const [message, setMessage] = useState('');
+    const [Documents, setDocuments] = useState([]);
+    const [loadingDocs, setLoadingDocs] = useState(false);
+
+    const createDocs = async (data) => {
+        setLoadingDocs(true)
+        try {
+            const res = await fetch(`${PRD}create/docs`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const resJSON = await res.json();
+            setMessage(resJSON);
+
+            if (res.ok) {
+                console.log("Documento criado com sucesso.");
+
+            } else {
+                console.log('Não foi possível criar o documento.');
+            }
+        } catch (error) {
+            console.error('Erro na criação do documento:', error);
+        }
+        setLoadingDocs(false)
+    };
+
+    const getDocuments = useCallback(async (tokenAuth) => {
+        try {
+            const res = await fetch(`${PRD}all/docs`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${tokenAuth}`,
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error('Erro na requisição');
+            }
+            const data = await res.json();
+            setDocuments(data);
+        } catch (error) {
+            setMessage(error.message || 'Erro desconhecido');
+        }
+    }, []);
+
+    useEffect(() => {
+        getDocuments(localStorage.getItem('@Auth:Token'));
+    }, [getDocuments]);
+
+    return (
+        <DocsContext.Provider
+            value={{
+                createDocs,
+                Documents,
+                loadingDocs
+            }}
+        >
+            {children}
+        </DocsContext.Provider>
+    );
+};
+
+// Propriedades esperadas pelo componente DocsProvider
+DocsProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+
+// Exporta o contexto e o provedor
+export { DocsProvider, DocsContext };

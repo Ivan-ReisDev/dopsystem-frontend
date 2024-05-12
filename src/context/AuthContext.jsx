@@ -17,22 +17,18 @@ const AuthProvider = ({ children }) => {
         const loadingStorageData = async () => {
             const storageToken = localStorage.getItem("@Auth:Token");
             const storageProfile = localStorage.getItem("@Auth:Profile");
-
-
+            
             if (!storageProfile || !storageToken) {
                 localStorage.removeItem('@Auth:Token');
                 localStorage.removeItem('@Auth:Profile');
-    
-                
-                navigate("/login");
-
+                navigate('/login') 
             } else {
                 setIsAuthentication(true)
                 setAuthToken(storageToken);
             }
         };
         loadingStorageData();
-    }, [authToken]);
+    }, []);
 
 
     useEffect(() => {
@@ -46,86 +42,87 @@ const AuthProvider = ({ children }) => {
                         Authorization: `Bearer ${storageToken}`,
                     },
                 });
-
-                    const resJSON = await res.json();
-                    console.log(resJSON)
+    
                 if (res.ok) {
-                    setAuthProfile(resJSON)
+                    const resJSON = await res.json();
+                    console.log('CONSOLE AQUI  '  + resJSON);
+                    setAuthProfile(resJSON);
                     setIsAuthentication(true);
-                    
+
                 } else {
                     setIsAuthentication(false);
-                    navigate('/login');
+                    navigate('/login') ;
                     localStorage.clear();
                 }
             } catch (error) {
                 setIsAuthentication(false);
                 console.log(error, 'Erro ao verificar autenticação');
                 localStorage.clear();
-                navigate('/');
+                window.location.reload('/') ;
             }
         };
-
+    
         checkAuthentication();
     }, []);
+    
+
+   const getProfile = useCallback(async (tokenAuth) => {
+        try {
+            const res = await fetch(`${PRD}profile`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${tokenAuth}`,
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error('Erro na requisição');
+            }
+
+            const data = await res.json();
+            localStorage.setItem("@Auth:ProfileUser", JSON.stringify(data));
+        } catch (error) {
+            setMessage(error.message || 'Erro desconhecido');
+        }
+    }, []); // Não há dependências externas, então [] vazio
 
     useEffect(() => {
-            const getProfile = async (tokenAuth) => {
-                try {
-                    const res = await fetch(`${PRD}profile`, {
-                        method: 'GET',
-                        headers: {
-                            Authorization: `Bearer ${tokenAuth}`,
-                        },
-                    });
-        
-                    if (!res.ok) {
-                        throw new Error('Erro na requisição');
-                    }
-                    const data = await res.json();
-                    localStorage.setItem("@Auth:ProfileUser", JSON.stringify(data));
-                    
-                } catch (error) {
-                    setMessage(error.message || 'Erro desconhecido');
-                }
-            };
-        
-            if (authToken) {
-                getProfile(authToken);
-            }
-        }, [authToken]);
+        if (authToken) {
+            getProfile(authToken);
+        }
+    }, [authToken, getProfile]);
 
-    const signIn = async (dataLogin) => {
+    const signIn = useCallback(async (dataLogin) => {
         try {
-            const res = await fetch(`${PRD}login`, { // Adicionando '/' após PRD
+            const res = await fetch(`${PRD}login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(dataLogin),
             });
-
+    
             const resJSON = await res.json();
-            setMessage(resJSON)
-            console.log(message.msg)
-
+            setMessage(resJSON);
+    
             if (res.ok) {
                 setAuthToken(resJSON.token);
                 setAuthProfile(resJSON);
                 localStorage.setItem('@Auth:Token', resJSON.token);
                 localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
-                
-                navigate('/home');
+                window.location.reload('/home')
             } else {
                 localStorage.removeItem('@Auth:Token');
                 localStorage.removeItem('@Auth:Profile');
                 console.error('Erro de login:', resJSON.error); // Assumindo que o servidor envia uma mensagem de erro no corpo da resposta
-                navigate('/'); // Redirecionando o usuário de volta para a página inicial
+                navigate('/') // Redirecionando o usuário de volta para a página inicial
             }
         } catch (error) {
             console.error('Erro no login:', error);
+            // Poderia mostrar uma mensagem de erro amigável para o usuário aqui
         }
-    };
+    }, [navigate, setAuthToken, setAuthProfile, setMessage]);
+    
 
         const handleActiveCout = async (data) => {
         try {

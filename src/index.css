@@ -128,3 +128,36 @@ input:focus {
   font-size: 13px;
 
 }
+
+.BtnActive  {
+  background-color: #0c4c69;
+  font-size: 15px;
+  display: flex;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: #fff;
+  height: 40px;
+  width: 160px;
+  margin: 15px;
+}
+
+.BtnActive:hover {
+  background-color: #09384e;
+
+
+}
+
+.SpanBtn  {
+  height:100%;
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.BtnActiveDisable {
+  opacity: 0.5;
+
+}

@@ -1,0 +1,41 @@
+.editDocs {
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 70px;
+}
+
+.editDocsBody {
+    display: flex;
+    justify-content: center;
+    background-color: aqua;
+    width: 90%;
+
+}
+
+.editDocs label {
+    width: 100%;
+    font-size: 19px;
+    font-weight: bold;
+    color: #031149;
+    margin: 15px 0;
+    display: flex; 
+    flex-direction: column;
+}
+
+.editDocs input {
+    width: 350px;
+    padding: 20px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: #ccc 1px solid;
+}
+
+.editDocs input::placeholder {
+    font-weight: normal;
+}

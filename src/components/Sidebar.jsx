@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import '../index.css'
 import { AuthContext } from '../context/AuthContext';
+import { DocsContext } from '../context/DocsContext';
 
 const docs = ['Estatuto', 'Código Penal', 'Código de Conduta'];
 
@@ -14,14 +15,15 @@ const classes = ['Instrutores', 'Supervisores', 'Treinadores']
 const Sidebar = ({ showSidebar }) => {
   const navigate = useNavigate();
 
-const { logout, getProfile } = useContext(AuthContext);
+const { logout } = useContext(AuthContext);
 const [showDocs, setShowDocs] = useState(false);
 const [showClasses, setShowClasses] = useState(false);
 const [showForms, setShowForms] = useState(false)
 const activeShowDocs = () => setShowDocs(!showDocs);
 const activeShowClasses = () => setShowClasses(!showClasses);
-console.log(getProfile)
-const infoProfileUser = JSON.parse(localStorage.getItem("@Auth:ProfileUser"))
+
+const { Documents } = useContext(DocsContext);
+const infoProfileUser = JSON.parse(localStorage.getItem("@Auth:Profile"))
 
   return (
     <nav className={showSidebar ? `nabBarNew duration-1000 absolute right-[0] top-[8vh] px-3 h-[92vh] w-[330px] bg-[#031149] text-[#ffffff]`
@@ -48,10 +50,10 @@ const infoProfileUser = JSON.parse(localStorage.getItem("@Auth:ProfileUser"))
         </button>
         <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3]
          ${showDocs ? "h-auto " : "h-0 hidden"}`}>
-        {docs &&
-          docs.map((doc, index) => (
+        {Documents &&
+          Documents.map((doc, index) => (
             <li key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-              <NavLink to={'/docs'}>{doc}</NavLink>
+              <NavLink to={`/docs/${doc._id}`} >{doc.nameDocs}</NavLink>
             </li>
           ))
         }

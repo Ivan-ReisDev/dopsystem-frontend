@@ -5,8 +5,7 @@ import { CiSearch } from "react-icons/ci";
 
 const QuickSearch = () => {
 
-const infoProfileUser = JSON.parse(localStorage.getItem("@Auth:ProfileUser"))
-
+const infoProfileUser = JSON.parse(localStorage.getItem("@Auth:Profile"))
     return (
         <div className={`contentBodyElement ${style.QuickSearch}`}>
             <div className='contentBodyElementTitle'>

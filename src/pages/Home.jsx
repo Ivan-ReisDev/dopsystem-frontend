@@ -25,7 +25,6 @@ const Home = () => {
     return (
       <div className='preloader'>
         <img src={Preloader} alt="" />
-
       </div>
     )
   }
