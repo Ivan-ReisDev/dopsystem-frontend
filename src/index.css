@@ -45,15 +45,10 @@ input:focus {
   }
 }
 
-.activeRotate {
-  
-  animation: 1s showDocs;
-  -webkit-animation-fill-mode: forwards;
-}
 
 .disabled {
   animation: 1s showDocsDisabled;
-  -webkit-animation-fill-mode: forwards;
+
 
 }
 
@@ -87,8 +82,7 @@ input:focus {
   align-items: center;
   justify-content: space-between;
   font-size: 14px;
-  transition: .8s;
-  
+  transition: .8s; 
 }
 
 .contentBodyElement li:hover {

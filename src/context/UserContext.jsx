@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 // const API = 'http://localhost:3000/api/';
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
+const PRD = 'http://localhost:3000/api/';
+
 const UserContext = createContext('');
 const UserProvider = ({ children }) => {
-
-    const [usersArray, setUsersArray] = useState("");
+    const navigate = useNavigate()
+    const [usersArray, setUsersArray] = useState('');
+ 
+    const [loggers, setLoggers] = useState([])
 
     const tokenUser = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
 
@@ -22,7 +25,7 @@ const UserProvider = ({ children }) => {
                 },
             });
             const data = await res.json();
-            console.log('data', data);
+            console.log('data' + "TESSSSSSSSSSTEEEEEEEEEEEEEE" + JSON.parse(data) );
             setUsersArray(data); // Atualize o estado local com os novos dados
             return data;
         } catch (error) {
@@ -31,12 +34,39 @@ const UserProvider = ({ children }) => {
 
     };
 
+    const getLogs = useCallback(async (tokenAuth, nickname) => {
+        try {
+            const res = await fetch(`${PRD}loggers?nickname=${nickname}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${tokenAuth}`,
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error('Erro na requisição');
+            }
+            const data = await res.json();
+            setLoggers(data);
+        } catch (error) {
+            console.log(error.message || 'Erro desconhecido');
+        }
+    }, []);
+
+    useEffect(() => {
+        if(localStorage.getItem('@Auth:Token') && tokenUser){
+            getLogs(localStorage.getItem('@Auth:Token'), tokenUser.nickname)
+        }
+    }, [navigate]);
+
     // Fornecimento do contexto para os componentes filhos
     return (
         <UserContext.Provider
             value={{
                 usersArray,
-                searchAllUsers
+                searchAllUsers,
+                getLogs,
+                loggers,
             }}
         >
             {children}

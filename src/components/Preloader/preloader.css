@@ -1,0 +1,12 @@
+.preloader {
+    background-color: #ffffff;
+    position: fixed;
+    display: flex;
+    top: 0;
+    bottom: 0;
+
+}
+
+.preloaderActive {
+    display: none;
+}

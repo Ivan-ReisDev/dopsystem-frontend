@@ -1,0 +1,32 @@
+.logger {
+    width: 100%;
+    min-height: 93vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 61px;
+    padding: 50px;
+    background-color: #eeeeeeda;
+}
+
+.logger table {
+    text-align: center;
+    width: 1000px;
+    font-size: 13px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.logger a {
+    font-weight: bold;
+    color: #344cad;
+}
+.logger h2{
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 1.5em;
+    color: #031149;
+
+}

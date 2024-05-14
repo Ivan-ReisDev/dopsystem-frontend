@@ -7,9 +7,10 @@ import CreateCont from '../components/CreateCont.jsx';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
 
-const LoginSystem = () => {
-    const { signIn, message } = useContext(AuthContext);
+const LoginSystem = ({ setLoading }) => {
 
+    
+    const { signIn, message } = useContext(AuthContext);
     const [nick, setNick] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ const LoginSystem = () => {
     }, []);
     
     const handleSubmitLogin = async (e) => {
+        setLoading(true)
         e.preventDefault();
         
         const dataLogin = {
@@ -35,6 +37,7 @@ const LoginSystem = () => {
         };
 
        await signIn(dataLogin);
+       setLoading(false)
     };
     
 

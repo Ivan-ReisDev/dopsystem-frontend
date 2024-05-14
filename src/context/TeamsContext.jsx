@@ -8,7 +8,7 @@ const TeamsContext = createContext("");
 const TeamsProvider = ({ children }) => {
 
     const [message, setMessage] = useState("");
-    const [teams, setTeams] = useState("");
+    const [teams, setTeams] = useState([]);
     // const createDocs = async (data) => {
     //     setLoadingDocs(true)
     //     setResOk(false)

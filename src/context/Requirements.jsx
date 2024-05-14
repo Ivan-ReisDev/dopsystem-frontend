@@ -35,14 +35,12 @@ const RequirementsProvider = ({ children }) => {
     // }, [getTeams]);
 
 
-
-    const searchRequerimentsUser = async (nickname) => {
+    const searchRequerimentsUser = useCallback(async (nickname) => {
         try {
-            const value = nickname ? nickname.target.value : '';
-            const res = await fetch(`${PRD}search/requeriments?promoted=${value}`, {
+            const res = await fetch(`${PRD}search/requeriments?promoted=${nickname}`, {
                 method: 'GET',
                 headers: {
-                    
+                    // Adicione os cabeçalhos necessários aqui, se houver
                 },
             });
             const data = await res.json();
@@ -52,8 +50,7 @@ const RequirementsProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
         }
-
-    };
+    }, []);
 
     function formatarData(dataDoMongoDB) {
         const dataObjeto = new Date(dataDoMongoDB);

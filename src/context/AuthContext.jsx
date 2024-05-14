@@ -1,13 +1,13 @@
-import { createContext, useEffect, useState, useCallback } from 'react';
+import { createContext, useEffect, useState, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from './UserContext';
 
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
-
+const PRD = 'http://localhost:3000/api/';
 const AuthContext = createContext('');
 const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
-
+    const [userAllArray, setUserAllArray] = useState()
     const [isAuthentication, setIsAuthentication] = useState(false);
     const [authToken, setAuthToken] = useState(null);
     const [authProfile, setAuthProfile] = useState(null);
@@ -21,6 +21,8 @@ const AuthProvider = ({ children }) => {
             if (!storageProfile || !storageToken) {
                 localStorage.removeItem('@Auth:Token');
                 localStorage.removeItem('@Auth:Profile');
+                localStorage.removeItem('@Auth:ProfileUser');
+                setIsAuthentication(false)
                 navigate('/login') 
             } else {
                 setIsAuthentication(true)
@@ -28,7 +30,7 @@ const AuthProvider = ({ children }) => {
             }
         };
         loadingStorageData();
-    }, []);
+    }, [navigate]);
 
 
     useEffect(() => {
@@ -45,7 +47,6 @@ const AuthProvider = ({ children }) => {
     
                 if (res.ok) {
                     const resJSON = await res.json();
-                    console.log('CONSOLE AQUI  '  + resJSON);
                     setAuthProfile(resJSON);
                     setIsAuthentication(true);
 
@@ -66,33 +67,27 @@ const AuthProvider = ({ children }) => {
     }, []);
     
 
-   const getProfile = useCallback(async (tokenAuth) => {
+   
+
+    const getProfileAll = useCallback(async () => {
+        
         try {
-            const res = await fetch(`${PRD}profile`, {
+            const res = await fetch(`${PRD}profile/pages`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${tokenAuth}`,
+                    Authorization: `Bearer ${localStorage.getItem("@Auth:Token")}`,
                 },
             });
+                const data = await res.json();
+                setUserAllArray(data);
 
-            if (!res.ok) {
-                throw new Error('Erro na requisição');
-            }
-
-            const data = await res.json();
-            localStorage.setItem("@Auth:ProfileUser", JSON.stringify(data));
         } catch (error) {
-            setMessage(error.message || 'Erro desconhecido');
+            console.log(error.message || 'Erro desconhecido');
         }
-    }, []); // Não há dependências externas, então [] vazio
+    }, []);
 
-    useEffect(() => {
-        if (authToken) {
-            getProfile(authToken);
-        }
-    }, [authToken, getProfile]);
 
-    const signIn = useCallback(async (dataLogin) => {
+    const signIn = async (dataLogin)  => {
         try {
             const res = await fetch(`${PRD}login`, {
                 method: 'POST',
@@ -110,7 +105,11 @@ const AuthProvider = ({ children }) => {
                 setAuthProfile(resJSON);
                 localStorage.setItem('@Auth:Token', resJSON.token);
                 localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
-                window.location.reload('/home')
+                localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
+                console.log(resJSON.token)
+                getProfileAll(resJSON.token)
+                navigate('/home');
+
             } else {
                 localStorage.removeItem('@Auth:Token');
                 localStorage.removeItem('@Auth:Profile');
@@ -121,7 +120,7 @@ const AuthProvider = ({ children }) => {
             console.error('Erro no login:', error);
             // Poderia mostrar uma mensagem de erro amigável para o usuário aqui
         }
-    }, [navigate, setAuthToken, setAuthProfile, setMessage]);
+    };
     
 
         const handleActiveCout = async (data) => {
@@ -166,6 +165,7 @@ const AuthProvider = ({ children }) => {
                 localStorage.removeItem('@Auth:Profile');
                 setIsAuthentication(false)
                 console.error('Erro de login:', resJSON.error);
+                navigate('/');
 
             }
         } catch (error) {
@@ -190,7 +190,9 @@ return (
             logout,
             authProfile,
             handleActiveCout,
-            message
+            getProfileAll,
+            message,
+            userAllArray
         }}
     >
         {children}

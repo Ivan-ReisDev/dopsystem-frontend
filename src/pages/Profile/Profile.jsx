@@ -1,15 +1,27 @@
 import { UserContext } from "../../context/UserContext";
 import { FaUser } from "react-icons/fa";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import style from "./profile.module.css"
 import Logo from '../../assets/DOP Padrão (com borda).png'
 import { CiSearch } from "react-icons/ci";
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { RequirementsContext } from "../../context/Requirements";
-const Profile = () => {
-    const { searchAllUsers, usersArray } = useContext(UserContext);
+const Profile = ({profile}) => {
+    const { searchAllUsers,  usersArray } = useContext(UserContext);
     const { searchRequerimentsUser, requerimentsArray, formatarData } = useContext(RequirementsContext);
-    const [firstUser = {}] = usersArray;
+    const [ busca, setBusca] = useState('');
+
+    const navigate = useNavigate();
+        useEffect(() => {
+            searchRequerimentsUser(profile.nickname);
+        }, []);
+
+       const  hadleSubmitt = (e) => {
+        e.preventDefault()
+        searchRequerimentsUser(busca)
+        navigate(`/search/profile/${busca}`)
+       }
+
     return (
         <div>
             <div className={style.profile}>
@@ -17,20 +29,15 @@ const Profile = () => {
                     <label>Buscar</label>
                 </div>
 
-                <div className={style.profileUser}>
+                <form onSubmit={hadleSubmitt} className={style.profileUser}>
                     <input
                         type="text"
                         name="search"
                         id="search"
                         placeholder='Digite a identificação do militar.'
-                        onChange={(e) => {
-                            searchAllUsers(e)
-                            searchRequerimentsUser(e)
-                        }
-
-                        } />
-                    <button><CiSearch /></button>
-                </div>
+                        onChange={(e) => setBusca(e.target.value) } />
+                    <button type="submit"><CiSearch /></button>
+                </form>
                 <div className={style.profileBody}>
                     <article>
                         <div className={style.QuickSearchInfoBody}>
@@ -42,16 +49,16 @@ const Profile = () => {
                                 </div>
                             </div>
                             <div>
-                                <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${firstUser.nickname}&direction=2&head_direction=3&size=m&gesture=sml&action=std`} alt="" />
+                                <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${profile.nickname}&direction=2&head_direction=3&size=m&gesture=sml&action=std`} alt="" />
                             </div>
 
                             <div>
-                                <h3>{firstUser.nickname}</h3>
-                                <p><span>Patente: </span>{firstUser.patent}</p>
-                                <p><span>TAG: </span>[ {firstUser.tag}]</p>
-                                <p><span>Status: </span>{firstUser.status}</p>
+                                <h3>{profile.nickname}</h3>
+                                <p><span>Patente: </span>{profile.patent}</p>
+                                <p><span>TAG: </span>[ {profile.tag}]</p>
+                                <p><span>Status: </span>{profile.status}</p>
                                 <p><span>Admissão: </span>12/11/2010</p>
-                                <p><span>Advertências: </span>{firstUser.warning}</p>
+                                <p><span>Advertências: </span>{profile.warning}</p>
                             </div>
                         </div>
                     </article>

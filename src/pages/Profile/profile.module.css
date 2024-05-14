@@ -138,8 +138,6 @@
     border-radius: 100px;
 }
 
-.Operator div:nth-child(1) {}
-
 .Operator img {
     position: relative;
     top: -10px;
