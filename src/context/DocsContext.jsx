@@ -2,18 +2,20 @@ import React, { createContext, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
+const PRD = 'http://localhost:3000/api/';
 
 const DocsContext = createContext("");
 
 const DocsProvider = ({ children }) => {
-    const navigate = useNavigate();
+
     const [message, setMessage] = useState('');
+    const [resOk, setResOk] = useState(false)
     const [Documents, setDocuments] = useState([]);
     const [loadingDocs, setLoadingDocs] = useState(false);
 
     const createDocs = async (data) => {
         setLoadingDocs(true)
+        setResOk(false)
         try {
             const res = await fetch(`${PRD}create/docs`, {
                 method: 'POST',
@@ -28,12 +30,16 @@ const DocsProvider = ({ children }) => {
 
             if (res.ok) {
                 console.log("Documento criado com sucesso.");
+                setResOk(true)
+                
 
             } else {
                 console.log('Não foi possível criar o documento.');
+                
             }
         } catch (error) {
             console.error('Erro na criação do documento:', error);
+            
         }
         setLoadingDocs(false)
     };
@@ -66,7 +72,9 @@ const DocsProvider = ({ children }) => {
             value={{
                 createDocs,
                 Documents,
-                loadingDocs
+                loadingDocs,
+                message,
+                resOk
             }}
         >
             {children}

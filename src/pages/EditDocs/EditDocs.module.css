@@ -1,5 +1,4 @@
 .editDocs {
-
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -28,7 +27,7 @@
 }
 
 .editDocs input {
-    width: 350px;
+    width: 90%;
     padding: 20px;
     height: 30px;
     border-radius: 5px;
@@ -38,4 +37,25 @@
 
 .editDocs input::placeholder {
     font-weight: normal;
+}
+
+.editDocsBodyTop select{
+    width: 90%;
+    height: 43px;
+    padding: 0 19px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: #ccc 1px solid;
+}
+
+.editDocsBodyTop select:focus{
+    outline: none;
+}
+
+.editDocsBodyTop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
 }

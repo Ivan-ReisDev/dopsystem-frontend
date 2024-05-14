@@ -10,10 +10,13 @@ import { AuthContext } from './context/AuthContext';
 import Profile from './pages/Profile/Profile';
 import EditDocs from './pages/EditDocs/EditDocs';
 import { DocsContext } from './context/DocsContext';
+import { TeamsContext } from './context/TeamsContext';
+import Teams from './pages/Teams/Teams';
 
 function App() {
   const { isAuthentication } = useContext(AuthContext);
   const { Documents } = useContext(DocsContext);
+  const { teams } = useContext(TeamsContext);
 
   const userType = JSON.parse(localStorage.getItem('@Auth:ProfileUser'));
 
@@ -44,7 +47,18 @@ function App() {
               element={isAuthentication ? <Document doc={doc} /> : <LoginSystem />}
             />
           ))}
+
+        {teams &&
+          teams.map((team, index) => (
+            <Route
+              key={index}
+              path={`/team/${team._id}`}
+              element={isAuthentication ? <Teams team={team} /> : <LoginSystem />}
+            />
+          ))}
       </Routes>
+
+      
     </>
   );
 }

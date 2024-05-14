@@ -5,13 +5,22 @@ import App from './App.jsx';
 import './index.css';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { DocsProvider } from './context/DocsContext.jsx';
+import { UserProvider } from './context/UserContext.jsx';
+import { TeamsProvider } from './context/TeamsContext.jsx';
+import { RequirementsProvider } from './context/Requirements.jsx';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <AuthProvider>
       <DocsProvider>
-        <App />
+        <UserProvider>
+          <TeamsProvider>
+            <RequirementsProvider>
+              <App />
+            </RequirementsProvider>
+          </TeamsProvider>
+        </UserProvider>
       </DocsProvider>
     </AuthProvider>
   </BrowserRouter>

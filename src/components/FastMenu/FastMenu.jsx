@@ -12,15 +12,18 @@ import { FaAddressBook,
 
 
 import { Link } from 'react-router-dom'
-
 const FastMenu = () => {
+
+const user = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
+
+
   return (
     <div className='contentBodyElement'>
         <div className='contentBodyElementTitle'>
             <h3>Menu Rápido</h3>
         </div>
         <ul>
-            <li><Link to='/'>DPanel <span><IoIosSpeedometer /></span></Link></li>
+            { user && user.userType === "Admin" && <li><Link to='/'>DPanel <span><IoIosSpeedometer /></span></Link></li>}
             <li><Link to='/'>Aulas <span>< FaAddressBook/></span></Link></li>
             <li><Link to='/'>Promoções <span><FaArrowAltCircleUp /></span> </Link></li>
             <li><Link to='/'>Advertências <span><FaExclamationTriangle /></span></Link></li>

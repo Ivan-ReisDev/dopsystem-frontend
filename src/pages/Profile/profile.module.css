@@ -1,49 +1,198 @@
 .profile {
     padding: 1em 2em;
     position: relative;
-    background-color: bisque;
+    background-color: #eeeeeeda;
     border: none;
     top: 61px;
     width: 100%;
     height:auto;
     min-height: 90vh;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
 }
 
+.profile main {
+    width: 67%;
+
+}
+
+.ProfilleBody {
+    width: 100%;
+    height: 100%;
+
+}
+
+.profile article {
+    max-width: 32%;
+    min-width: 400px;
+}
 
 .profileBody {
     border: none;
     width: 100%;
     height:auto;
-    min-height: 80vh ;
-    background-color: rgb(26, 146, 26);
-    justify-content: center;
     margin: 0;
-}
-
-.functions {
-    width: 420px;
     display: flex;
-    justify-content: center;
-    background-color: rgb(252, 252, 252);
-    color:#031149 ;
- 
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.profileUser  {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #e4e4e4;
+    background-color: rgb(255, 255, 255);
+}
+
+.profileUser input {
+    background-color: transparent;
+    width: 90%;
+    height: 35px;
+    padding: 10px;
+}
+
+.profileUser button {
+    margin-right: 10px;
+}
+
+.QuickSearchInfoBody {
+    padding: 15px;
+   background-color: #FFF;
+   color: #031149;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: space-around;
+   border: 1px solid #e4e4e4;
 
 }
 
-.functions h3 {
-    font-size: 15px;
+
+.QuickSearchInfoBody h3{
     font-weight: bold;
-
 }
 
-.functions p {
+.QuickSearchInfoBody p {
     font-size: 13px;
 }
 
-.functions span {
+.QuickSearchInfoBody span {
     font-weight: bold;
+}
+
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.header img {
+    width: 40px;
+}
+
+.header h4 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    color: #031149;
+}
+
+.header div {
+    margin-left: 10px;
+
+}
+
+
+.requeriment {
+    background-color: #FFF;
+    height: auto;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.requerimentBody {
+    padding: 15px;
+}
+
+.Operator {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.Operator div:first-child {
+    margin-top: 10px;
+    overflow: hidden;
+    position: relative;
+    background-color: #344cad;
+    width: 55px;
+    height: 55px;
+    border-radius: 100px;
+}
+
+.Operator div:nth-child(1) {}
+
+.Operator img {
+    position: relative;
+    top: -10px;
+}
+
+.Operator div:nth-child(2)  {
+    margin-top: 15px;
+    width: 80%;
+    
+}
+.Operator div:nth-child(2) p {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 12px;
+}
+.Operator div:nth-child(2) p:nth-child(2),
+.Operator div:nth-child(2) p:nth-child(3) {
+    color: #999999;
+}
+
+.Operator div:nth-child(2) p:nth-child(4) {
+    color: #fff;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    width: 80px;
+    font-weight: bold;
+    background-color: #e4a700;
+}
+
+.Operator span {
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+
+}
+
+.Operator a {
+    margin-right: 5px;
+    font-weight: bold;
+    color: #344cad;
+}
+
+.Operator strong {
+    margin-left: 5px;
+
+}
+
+.motivo {
+    font-size: 13px;
+    padding: 10px 0;
+    width: 100%;
+    margin-left: 7%;
 
 }
