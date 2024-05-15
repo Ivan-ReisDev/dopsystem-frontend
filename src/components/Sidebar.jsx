@@ -95,7 +95,7 @@ const Sidebar = ({ showSidebar }) => {
 
         <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/members'}>Membros</NavLink></li>
         <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/profile'}>Perfil</NavLink></li>
-        { infoProfileUserCompleted.userType === "Admin" && <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/loggers'}>Logs</NavLink></li>}
+        { infoProfileUserCompleted && infoProfileUserCompleted.userType === "Admin" && <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/loggers'}>Logs</NavLink></li>}
       </ul>
 
       <div className='w-full borderSidebar h-[10%] flex flex-col items-center justify-center'>

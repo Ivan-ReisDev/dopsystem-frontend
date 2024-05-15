@@ -64,7 +64,7 @@ const AuthProvider = ({ children }) => {
         };
     
         checkAuthentication();
-    }, []);
+    }, [navigate]);
     
 
    
