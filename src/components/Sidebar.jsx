@@ -30,10 +30,10 @@ const Sidebar = ({ showSidebar }) => {
   return (
     <nav className={showSidebar ? `nabBarNew duration-1000 absolute right-[0] top-[8vh] px-3 h-[92vh] w-[330px] bg-[#031149] text-[#ffffff]`
       : `absolute duration-1000 top-[8vh] px-3 h-[92vh]  w-[330px] right-[-330px] bg-[#031149] text-[#ffffff] nabBarNew`}>
-      <div className='w-full h-[20%] flex flex-col items-center justify-center  border-b'>
+      <div className=' borderSidebar w-full h-[20%] flex flex-col items-center justify-center  border-b'>
         {infoProfileUser && (
           <>
-            <div className='border rounded-full overflow-hidden min-w-16 max-w-16 min-h-16 max-h-16 bg-[#0084FF]'>
+            <div className='border  rounded-full overflow-hidden min-w-16 max-w-16 min-h-16 max-h-16 bg-[#0084FF]'>
               <img className='m-0 relative  bottom-3' src={`http://www.habbo.com.br/habbo-imaging/avatarimage?&user=${infoProfileUser.nickname}&action=std&direction=4&head_direction=4&img_format=png&gesture=sml&frame=1&headonly=0&size=m`} alt="" />
             </div>
             <h2 className='mt-2 font-bold'>{infoProfileUser.nickname}</h2>
@@ -42,11 +42,11 @@ const Sidebar = ({ showSidebar }) => {
         )}
       </div>
       {infoProfileUser ? infoProfileUser.userType === "Admin" && (
-        <div className='w-full h-[10%] flex flex-col items-center justify-center  border-b'>
-          <NavLink to={'/paneladmin'} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> Painel <span className='uppercase'>admin</span></NavLink>
+        <div className='borderSidebar w-full h-[10%] flex flex-col items-center justify-center  border-b'>
+          <NavLink to={'/paneladmin'} className='buttonRadiosSidebar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> Painel <span className='uppercase'>admin</span></NavLink>
         </div>
       ) : null}
-      <ul className='border-b'>
+      <ul className='border-b borderSidebar'>
         <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/'}>Página Inicial</NavLink></li>
 
         <button className='w-full h-[30px] font-bold flex items-center ml-5' onClick={activeShowDocs}>
@@ -98,8 +98,8 @@ const Sidebar = ({ showSidebar }) => {
         { infoProfileUserCompleted.userType === "Admin" && <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/loggers'}>Logs</NavLink></li>}
       </ul>
 
-      <div className='w-full h-[10%] flex flex-col items-center justify-center'>
-        <Button onClick={logout} className='rounded-full font-bold bg-[#dc3545]' variant="danger">Log out</Button>
+      <div className='w-full borderSidebar h-[10%] flex flex-col items-center justify-center'>
+        <Button onClick={logout} className='buttonRadiosSidebar rounded-full font-bold bg-[#dc3545]' variant="danger">Logout</Button>
       </div>
     </nav>
   );

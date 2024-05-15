@@ -1,7 +1,7 @@
 .Publication {
     width: 100%;
     margin: 10px 0;
-    height: 60px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,6 +11,7 @@
     overflow: hidden;
     transition: 1s;
     cursor: pointer;
+    
 
 }
 
@@ -44,30 +45,40 @@
 
 .PublicationTitle button {
     font-weight: bold;
-
 }
 
 .PublicationBody {
-    display: none;
-
+    display: block;
 
 }
+
 .activePublic {
-    height: auto;
     transition: 1s;
+    overflow: hidden;
+    
+}
+
+.PublicationBodyAnim {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1s ease;
 }
 
 .active {
+    max-height: 1000px; 
+    overflow: hidden;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    width: auto;
 }
 
 .active p {
+    
     width: 80%;
     font-size: 14px;
     margin: 5px;
 
 }
+
+

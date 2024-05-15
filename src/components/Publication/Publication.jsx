@@ -21,7 +21,7 @@ const Publication = () => {
                 <button onClick={sidebar}> {publication ? "-" : <FaPlus />}   </button>
             </div>
 
-            <div className={publication ? `${style.active} ${style.PublicationBody}` : style.PublicationBody} >
+            <div className={publication ? `${style.active} ${style.PublicationBodyAnim}` : style.PublicationBodyAnim} >
                 <img src="https://dophabbo.systemhb.net/template/uploads/plugins/publicacao/bbbc4bb56707eaf7ef2279476430d944.jpg" alt="" />
                 <h5>Teste</h5>
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit, illum non quia eveniet officiis ea ex explicabo ipsa accusantium nam laboriosam aperiam soluta fugiat minus nemo repellat modi beatae sunt?</p>

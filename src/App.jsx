@@ -22,7 +22,7 @@ function App() {
   const { teams } = useContext(TeamsContext);
   const [loading, setLoading] = useState(false)
   const userType = JSON.parse(localStorage.getItem('@Auth:ProfileUser'));
- 
+
 
   useEffect(() => {
     getProfileAll()
@@ -44,9 +44,18 @@ function App() {
         {isAuthentication && userType?.userType === "Admin" && (
           <Route path='/loggers' element={<Logger />} />
         )}
+
+        {/* RODAS DO PAINEL ADMINISTRATIVO */}
         {isAuthentication && userType?.userType === "Admin" && (
           <Route path='/dpanel/editor' element={<EditDocs />} />
         )}
+
+        {isAuthentication && userType?.userType === "Admin" && (
+          <Route path='/dpanel' element={<EditDocs />} />
+        )}
+
+
+
         {Array.isArray(Documents) && Documents.map((doc, index) => (
           <Route
             key={index}

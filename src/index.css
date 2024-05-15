@@ -156,3 +156,11 @@ input:focus {
   opacity: 0.5;
 
 }
+
+.borderSidebar {
+  border-color: #3f4075 !important;
+}
+
+.buttonRadiosSidebar {
+  border-radius: 5px !important;
+}

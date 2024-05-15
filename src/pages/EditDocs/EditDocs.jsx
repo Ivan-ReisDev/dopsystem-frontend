@@ -46,7 +46,7 @@ const EditDocs = ({ placeholder }) => {
     const data = {
       nameDocs: title,
       content,
-      create: profileUser.nickname,
+      idUser: profileUser._id,
       docsType,
     }
     
