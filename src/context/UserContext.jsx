@@ -9,29 +9,28 @@ const UserContext = createContext('');
 const UserProvider = ({ children }) => {
     const navigate = useNavigate()
     const [usersArray, setUsersArray] = useState('');
- 
+    const [user, setUser] = useState([])
     const [loggers, setLoggers] = useState([])
 
     const tokenUser = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
 
-    const searchAllUsers = async (nickname) => {
+    const searchAllUsers = async (nickname, typeRequeriment) => {
         try {
-            const value = nickname ? nickname.target.value : '';
-            
-            const res = await fetch(`${PRD}search?nickname=${value}`, {
+            const value = nickname;
+ 
+            const res = await fetch(`${PRD}search?nickname=${value}&typeRequeriment=${typeRequeriment}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${tokenUser.token}`,
                 },
             });
             const data = await res.json();
-            console.log('data' + "TESSSSSSSSSSTEEEEEEEEEEEEEE" + JSON.parse(data) );
-            setUsersArray(data); // Atualize o estado local com os novos dados
+            setUser(data); 
+                 console.log(user)    // Atualize o estado local com os novos dados
             return data;
         } catch (error) {
             console.log(error);
         }
-
     };
 
     const getLogs = useCallback(async (tokenAuth, nickname) => {
@@ -67,6 +66,7 @@ const UserProvider = ({ children }) => {
                 searchAllUsers,
                 getLogs,
                 loggers,
+                user
             }}
         >
             {children}

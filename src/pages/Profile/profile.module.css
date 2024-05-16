@@ -119,6 +119,7 @@
 
 .requerimentBody {
     padding: 15px;
+    width: 100%;
 }
 
 .Operator {
@@ -190,7 +191,7 @@
 .motivo {
     font-size: 13px;
     padding: 10px 0;
-    width: 100%;
+    width: 90%;
     margin-left: 7%;
 
 }

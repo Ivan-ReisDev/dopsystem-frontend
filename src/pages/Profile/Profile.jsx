@@ -8,13 +8,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { RequirementsContext } from "../../context/Requirements";
 const Profile = ({profile}) => {
     const { searchAllUsers,  usersArray } = useContext(UserContext);
-    const { searchRequerimentsUser, requerimentsArray, formatarData } = useContext(RequirementsContext);
+    const { searchRequerimentsUser, requerimentsArray, formatarDataHora } = useContext(RequirementsContext);
     const [ busca, setBusca] = useState('');
-
     const navigate = useNavigate();
         useEffect(() => {
             searchRequerimentsUser(profile.nickname);
-        }, []);
+        }, [navigate]);
+        
 
        const  hadleSubmitt = (e) => {
         e.preventDefault()
@@ -57,14 +57,13 @@ const Profile = ({profile}) => {
                                 <p><span>Patente: </span>{profile.patent}</p>
                                 <p><span>TAG: </span>[ {profile.tag}]</p>
                                 <p><span>Status: </span>{profile.status}</p>
-                                <p><span>Admissão: </span>12/11/2010</p>
+                                <p><span>Admissão: </span>{formatarDataHora(profile.createdAt)}</p>
                                 <p><span>Advertências: </span>{profile.warning}</p>
+                                <p><span>Medalhas: </span>{profile.warning}</p>
                             </div>
                         </div>
                     </article>
                     <main>
-
-
                         {requerimentsArray &&
                             [...requerimentsArray].reverse().map((requeriment, index) => (
                                 <div key={index} className={style.requeriment}>
@@ -74,15 +73,13 @@ const Profile = ({profile}) => {
                                                 <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${requeriment.operator}&direction=3&head_direction=3&size=m&action=std`} alt="" />
                                             </div>
                                             <div>
-                                                <p><Link to={`/${requeriment.operator}`}>{requeriment.operator}</Link> Publicou <strong>{requeriment.typeRequirement}</strong></p>
-                                                <p>{formatarData(requeriment.createdAt)}</p>
-                                                <p><span><FaUser /></span> Subcomandante</p> 
+                                                <p><Link to={`/search/profile/${requeriment.operator}`}>{requeriment.operator}</Link> Publicou <strong>{requeriment.typeRequirement}</strong></p>
+                                                <p>{formatarDataHora(requeriment.createdAt)}</p>
+                                                <p><span><FaUser /></span> {requeriment.newPatent}</p> 
                                                 <p>{requeriment.status}</p>
                                             </div>
                                         </div>
-
                                         <p className={style.motivo}>{requeriment.reason}</p>
-
                                     </div>
 
                                 </div>

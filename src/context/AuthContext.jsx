@@ -67,8 +67,6 @@ const AuthProvider = ({ children }) => {
     }, [navigate]);
     
 
-   
-
     const getProfileAll = useCallback(async () => {
         
         try {

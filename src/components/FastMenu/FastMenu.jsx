@@ -6,12 +6,11 @@ import { FaAddressBook,
   FaSuitcase,
   FaDollarSign    
  } from "react-icons/fa";
+ import { Link } from 'react-router-dom';
 
  import { GiExitDoor } from "react-icons/gi";
  import { IoIosSpeedometer } from "react-icons/io";
 
-
-import { Link } from 'react-router-dom'
 const FastMenu = () => {
 
 const user = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
@@ -25,9 +24,9 @@ const user = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
         <ul>
             { user && user.userType === "Admin" && <li><Link to='/'>DPanel <span><IoIosSpeedometer /></span></Link></li>}
             <li><Link to='/'>Aulas <span>< FaAddressBook/></span></Link></li>
-            <li><Link to='/'>Promoções <span><FaArrowAltCircleUp /></span> </Link></li>
-            <li><Link to='/'>Advertências <span><FaExclamationTriangle /></span></Link></li>
-            <li><Link to='/'>Rebaixamento <span><FaArrowCircleDown /></span></Link></li>
+            <li><Link to={'/promotion'}>Promoções <span><FaArrowAltCircleUp /></span> </Link></li>
+            <li><Link to='/warning'>Advertências <span><FaExclamationTriangle /></span></Link></li>
+            <li><Link to='/relegation'>Rebaixamento <span><FaArrowCircleDown /></span></Link></li>
             <li><Link to='/'>Demissão <span> <GiExitDoor/></span></Link></li>
             <li><Link to='/'>Contratos <span><FaSuitcase /></span> </Link></li>
             <li><Link to='/'>Vendas <span><FaDollarSign /></span></Link></li>

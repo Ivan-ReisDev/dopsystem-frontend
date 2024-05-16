@@ -47,7 +47,7 @@ const Sidebar = ({ showSidebar }) => {
         </div>
       ) : null}
       <ul className='border-b borderSidebar'>
-        <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/'}>Página Inicial</NavLink></li>
+        <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/home'}>Home</NavLink></li>
 
         <button className='w-full h-[30px] font-bold flex items-center ml-5' onClick={activeShowDocs}>
           Documentos <span className={`ml-2 text-[13px] ${showDocs ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>

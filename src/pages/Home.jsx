@@ -12,7 +12,7 @@ import { AuthContext } from '../context/AuthContext';
 
 
 const Home = () => {
-  
+
   const { loading } = useContext(AuthContext);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Home = () => {
 
 
 
-  if(loading) {
+  if (loading) {
     return (
       <div className='preloader'>
         <img src={Preloader} alt="" />
