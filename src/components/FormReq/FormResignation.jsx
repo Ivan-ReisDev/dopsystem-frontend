@@ -2,14 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { FaFloppyDisk } from "react-icons/fa6";
 import { UserContext } from '../../context/UserContext';
 import { RequirementsContext } from '../../context/Requirements';
-const FormWarning = () => {
+const FormResignation = () => {
 
     const [loadingDocs, setLoadingDocs] = useState(false)
     const [promoted, setPromoted] = useState('');
     const [reason, setReason] = useState('');
     const [operator, setOperator ] = useState('');
     const { user, searchAllUsers} = useContext(UserContext);
-    const { createRequerimentWarning } = useContext(RequirementsContext)
+    const { createRequerimentResignation } = useContext(RequirementsContext)
     const { resUser, newPatents} = user;
     useEffect(() => {
         setOperator(JSON.parse(localStorage.getItem("@Auth:Profile")))
@@ -26,12 +26,12 @@ const FormWarning = () => {
         }
 
         console.log(data)
-        createRequerimentWarning(data)
+        createRequerimentResignation(data)
     }
     return (
         <div className='DivForm'>
             <div>
-                <h2>Aplicar advertência</h2>
+                <h2>Aplicar Demissão</h2>
             </div>
         
             <form onSubmit={handleSubmit}>
@@ -41,7 +41,7 @@ const FormWarning = () => {
                 </label>
 
                 <label>
-                    * Advertido:
+                    * Demitido:
                     <input type="text"
                         onChange={(e) => {
                         setPromoted(e.target.value)}}
@@ -49,7 +49,6 @@ const FormWarning = () => {
                         placeholder='Digite o nick do militar que será rebaixado'
                     />
                 </label>
-
 
                 <label>
                     * Motivo:
@@ -66,4 +65,4 @@ const FormWarning = () => {
     );
 }
 
-export default FormWarning;
+export default FormResignation;

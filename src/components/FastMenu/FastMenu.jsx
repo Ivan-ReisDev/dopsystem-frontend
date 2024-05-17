@@ -27,8 +27,8 @@ const user = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
             <li><Link to={'/promotion'}>Promoções <span><FaArrowAltCircleUp /></span> </Link></li>
             <li><Link to='/warning'>Advertências <span><FaExclamationTriangle /></span></Link></li>
             <li><Link to='/relegation'>Rebaixamento <span><FaArrowCircleDown /></span></Link></li>
-            <li><Link to='/'>Demissão <span> <GiExitDoor/></span></Link></li>
-            <li><Link to='/'>Contratos <span><FaSuitcase /></span> </Link></li>
+            <li><Link to='/resignation'>Demissão <span> <GiExitDoor/></span></Link></li>
+            <li><Link to='/contract'>Contratos <span><FaSuitcase /></span> </Link></li>
             <li><Link to='/'>Vendas <span><FaDollarSign /></span></Link></li>
         </ul>
     </div>

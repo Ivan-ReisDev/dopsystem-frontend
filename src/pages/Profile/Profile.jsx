@@ -58,8 +58,8 @@ const Profile = ({profile}) => {
                                 <p><span>TAG: </span>[ {profile.tag}]</p>
                                 <p><span>Status: </span>{profile.status}</p>
                                 <p><span>Admissão: </span>{formatarDataHora(profile.createdAt)}</p>
-                                <p><span>Advertências: </span>{profile.warning}</p>
-                                <p><span>Medalhas: </span>{profile.warning}</p>
+                                <p><span>Advertências: </span>{profile.warnings}</p>
+                                <p><span>Medalhas: </span>{profile.medals}</p> {}
                             </div>
                         </div>
                     </article>

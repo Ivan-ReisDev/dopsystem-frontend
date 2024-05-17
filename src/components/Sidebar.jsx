@@ -28,7 +28,7 @@ const Sidebar = ({ showSidebar }) => {
   const infoProfileUserCompleted = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
 
   return (
-    <nav className={showSidebar ? `nabBarNew duration-1000 absolute right-[0] top-[8vh] px-3 h-[92vh] w-[330px] bg-[#031149] text-[#ffffff]`
+    <nav className={showSidebar ? `nabBarNew duration-1000 absolute right-[0] top-[61px] px-3 h-[100vh] w-[330px] bg-[#031149] text-[#ffffff]`
       : `absolute duration-1000 top-[8vh] px-3 h-[92vh]  w-[330px] right-[-330px] bg-[#031149] text-[#ffffff] nabBarNew`}>
       <div className=' borderSidebar w-full h-[20%] flex flex-col items-center justify-center  border-b'>
         {infoProfileUser && (

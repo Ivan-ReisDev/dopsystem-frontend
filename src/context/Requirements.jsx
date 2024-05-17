@@ -91,6 +91,110 @@ const RequirementsProvider = ({ children }) => {
 
     };
 
+    const createRequerimentWarning = async (data) => {
+
+        try {
+            const res = await fetch(`${PRD}post/requirement/warning`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const resJSON = await res.json();
+
+            if (res.ok) {
+                console.log("Advertência aplicada com sucesso.");
+                navigate(`search/profile/${data.promoted}`)
+            } else {
+                console.log('Não foi possível criar o documento.');
+                
+            }
+        } catch (error) {
+            console.error('Erro na criação do documento:', error);
+            
+        }
+
+    };
+
+    const createRequerimentResignationUpdateUser = async (idUser, promoted) => {
+
+        try {
+            console.log(idUser)
+            const res = await fetch(`${PRD}put/requirement/resignation`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ idUser: idUser }),
+            });
+    
+            const DataMSG = await res.json();
+    
+            if (res.ok) {
+                console.log('Usuário demitido com sucesso.')
+                navigate(`search/profile/${promoted}`)
+            } else {
+                console.log('Erro ao atualizar produto.')
+            }
+        } catch (error) {
+            console.error('Erro ao atualizar produto', error);
+        }
+    };
+
+    const createRequerimentResignation = async (data) => {
+
+        try {
+            const res = await fetch(`${PRD}post/requirement/resignation`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const resJSON = await res.json();
+
+            if (res.ok) {
+                createRequerimentResignationUpdateUser(data.idUser, data.promoted)
+            } else {
+                console.log('Não foi possível criar o documento.');
+                
+            }
+        } catch (error) {
+            console.error('Erro na criação do documento:', error);
+            
+        }
+
+    };
+
+    const createRequerimentContract = async (data) => {
+
+        try {
+            const res = await fetch(`${PRD}post/requeriments/contract`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const resJSON = await res.json();
+
+            if (res.ok) {
+                console.log('Requerimento postado com sucesso.');
+            } else {
+                console.log('Não foi possível criar o documento.');
+                
+            }
+        } catch (error) {
+            console.error('Erro na criação do documento:', error);
+            
+        }
+
+    };
+
 
     const searchRequerimentsUser = useCallback(async (nickname) => {
         try {
@@ -155,7 +259,10 @@ const RequirementsProvider = ({ children }) => {
                 requerimentsFilter,
                 searchRequerimentsPromotedsUser,
                 createRequeriment,
-                createRequerimentRelegation
+                createRequerimentRelegation,
+                createRequerimentWarning,
+                createRequerimentResignation,
+                createRequerimentContract
                 
             }}
         >

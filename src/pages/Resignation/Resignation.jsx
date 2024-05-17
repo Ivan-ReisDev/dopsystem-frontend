@@ -1,22 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { FaExclamationTriangle  , FaListUl } from "react-icons/fa";
-import { Link } from 'react-router-dom'
-
+import { FaArrowAltCircleUp, FaListUl } from "react-icons/fa";
+import { GiExitDoor } from "react-icons/gi";
 import '../forms.css'
 import { RequirementsContext } from '../../context/Requirements';
 import TableRequirements from '../../components/TableRequirements/TableRequirements';
 import FormReq from '../../components/FormReq/FormReq';
-import FormReqdemi from '../../components/FormReq/FormRelegation';
-import FormWarning from '../../components/FormReq/FormWarning';
+import FormResignation from '../../components/FormReq/FormResignation';
 
-const Warning = () => {
+const Resignation = () => {
     const { searchRequerimentsPromotedsUser, requerimentsFilter } = useContext(RequirementsContext);
     const [showPromotions, setShowPromotions] = useState(false)
 
     useEffect(() => {
-        searchRequerimentsPromotedsUser("Advertência", "")
-        document.title = "Polícia DOP - Advertências";
+        searchRequerimentsPromotedsUser("Demissão", "")
+        document.title = "Polícia DOP - Demissões";
     }, [])
+
+
 
     return (
         <div className='BodyForms'>
@@ -26,8 +26,8 @@ const Warning = () => {
                         <h3>Menu Rápido</h3>
                     </div>
                     <ul>
-                        <li><button className='contentBodyElementMenu' onClick={() => setShowPromotions(true)}>Advertir<span><FaExclamationTriangle /></span></button></li>
-                        <li><button className='contentBodyElementMenu' onClick={() => setShowPromotions(false)}>Todos as Advetências<span><FaListUl /></span></button></li>
+                        <li><button className='contentBodyElementMenu' onClick={() => setShowPromotions(true)}>Demitir<span><GiExitDoor /></span></button></li>
+                        <li><button className='contentBodyElementMenu' onClick={() => setShowPromotions(false)}>Todas as Demissões<span><FaListUl /></span></button></li>
                     </ul>
                 </div>
             </article>
@@ -36,7 +36,7 @@ const Warning = () => {
                     <>
 
                         <div className='divMainForms'>
-                            <h2><span> <FaListUl /></span>Lista de Advertências</h2>
+                            <h2><span> <FaListUl /></span>Lista de Demissões</h2>
                         </div>
                         <TableRequirements
                             searchRequerimentsPromotedsUser={searchRequerimentsPromotedsUser}
@@ -45,7 +45,7 @@ const Warning = () => {
                          </>)
                    : (
 
-                    <FormWarning />
+                    <FormResignation />
 
                 )}
             </main>
@@ -53,4 +53,4 @@ const Warning = () => {
     )
 }
 
-export default Warning;
+export default Resignation
