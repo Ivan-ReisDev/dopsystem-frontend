@@ -26,7 +26,6 @@ const UserProvider = ({ children }) => {
             });
             const data = await res.json();
             setUser(data); 
-                 console.log(user)    // Atualize o estado local com os novos dados
             return data;
         } catch (error) {
             console.log(error);

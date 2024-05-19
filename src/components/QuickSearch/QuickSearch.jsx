@@ -5,14 +5,17 @@ import { CiSearch } from "react-icons/ci";
 import { FaAddressBook } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
+import { RequirementsContext } from '../../context/Requirements';
 
 const QuickSearch = () => {
-    const { searchAllUsers, usersArray } = useContext(UserContext);
+    const { searchAllUsers, usersArray, user } = useContext(UserContext);
+    const {formatarDataHora } = useContext(RequirementsContext);
     const [search, setSearch] = useState("");
     const infoProfileUser = localStorage.getItem("@Auth:Profile") ? JSON.parse(localStorage.getItem("@Auth:Profile")) : null;
     const navigate = useNavigate()
     // Verifica se usersArray tem algum usuário
-    const firstUser = usersArray.length > 0 ? usersArray[0] : null;
+    const firstUser = user && user.users && user.users.length > 0 ? user.users[0] : null;
+    console.log(firstUser)
 
     return (
         <div className={`contentBodyElement ${style.QuickSearch}`}>
@@ -35,46 +38,32 @@ const QuickSearch = () => {
                     />
                     <button><CiSearch /></button>
                 </div>
+                {search &&
+                <>
                 <div className={style.header}>
                     <img src={Logo} alt="" />
                     <div>
                         <h4>Departamento de Operações Policiais</h4>
                         <h4>Carteira De Identificação Militar</h4>
                     </div>
-                </div>
-                {!search ? (
-                    <div className={style.QuickSearchInfoBody}>
-                        <div className={style.img}>
-                            <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${infoProfileUser ? infoProfileUser.nickname : ''}&direction=3&head_direction=3&size=l&action=std`} alt="" />
-                        </div>
-
-                        <div className={style.info}>
-                            <Link to={`/search/profile/${infoProfileUser ? infoProfileUser.nickname : ''}`}><FaAddressBook /></Link>
-                            <p><span>Nick: </span>{infoProfileUser ? infoProfileUser.nickname : ''}</p>
-                            <p><span>Patente: </span>{infoProfileUser ? infoProfileUser.patent : ''}</p>
-                            <p><span>TAG: </span>[ {infoProfileUser ? infoProfileUser.tag : ''}]</p>
-                            <p><span>Status: </span>{infoProfileUser ? infoProfileUser.status : ''}</p>
-                            <p><span>Admissão: </span>12/11/2010</p>
-                            <p><span>Advertências: </span>{infoProfileUser ? infoProfileUser.warning : ''}</p>
-                        </div>
-                    </div>
-                ) : (
+                </div> 
                     <div className={style.QuickSearchInfoBody}>
                         <div className={style.img}>
                             <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${firstUser ? firstUser.nickname : ''}&direction=3&head_direction=3&size=l&action=std`} alt="" />
                         </div>
 
                         <div className={style.info}>
-                            {firstUser && <Link to={`/search/profile/${firstUser.nickname}`}><FaAddressBook /></Link>}
-                            <p><span>Nick: </span>{firstUser ? firstUser.nickname : ''}</p>
+                            
+                            <p><span>{firstUser ? firstUser.nickname : ''}</span>{firstUser && <Link to={`/search/profile/${firstUser.nickname}`}><FaAddressBook /></Link>}</p> 
                             <p><span>Patente: </span>{firstUser ? firstUser.patent : ''}</p>
                             <p><span>TAG: </span>[ {firstUser ? firstUser.tag : ''}]</p>
                             <p><span>Status: </span>{firstUser ? firstUser.status : ''}</p>
-                            <p><span>Admissão: </span>12/11/2010</p>
-                            <p><span>Advertências: </span>{firstUser ? firstUser.warning : ''}</p>
+                            <p><span>Admissão: </span>{firstUser ? formatarDataHora(firstUser.createdAt) : ''}</p>
+                            <p><span>Advertências: </span>{firstUser ? firstUser.warnings : ''}</p>
                         </div>
                     </div>
-                )}
+                    </>
+                }  
             </div>
         </div>
     );
