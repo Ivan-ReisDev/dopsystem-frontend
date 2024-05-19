@@ -28,7 +28,7 @@ const Sidebar = ({ showSidebar }) => {
   const infoProfileUserCompleted = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
 
   return (
-    <nav className={showSidebar ? `nabBarNew duration-1000 absolute right-[0] top-[61px] px-3 h-[100vh] w-[330px] bg-[#031149] text-[#ffffff]`
+    <nav className={showSidebar ? `nabBarNew -z-9999 duration-1000 absolute right-[0] top-[61px] px-3 h-[100vh] w-[330px] bg-[#031149] text-[#ffffff]`
       : `absolute duration-1000 top-[8vh] px-3 h-[92vh]  w-[330px] right-[-330px] bg-[#031149] text-[#ffffff] nabBarNew`}>
       <div className=' borderSidebar w-full h-[20%] flex flex-col items-center justify-center  border-b'>
         {infoProfileUser && (
@@ -86,10 +86,22 @@ const Sidebar = ({ showSidebar }) => {
         </button>
         <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showForms ? "h-auto " : "h-0 hidden"}`}>
           <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-            <NavLink to={'/docs'}>Listagens</NavLink>
+            <NavLink to={'/promotion'}>Promoções</NavLink>
           </li>
           <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-            <NavLink to={'/docs'}>Requerimentos</NavLink>
+            <NavLink to={'/warning'}>Advertências</NavLink>
+          </li>
+          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+            <NavLink to={'/relegation'}>Rebaixamentos</NavLink>
+          </li>
+          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+            <NavLink to={'/resignation'}>Demissões</NavLink>
+          </li>
+          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+            <NavLink to={'/contract'}>Contratos</NavLink>
+          </li>
+          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+            <NavLink to={'/sale'}>Vendas de Cargo</NavLink>
           </li>
         </div>
 

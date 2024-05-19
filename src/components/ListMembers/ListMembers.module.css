@@ -1,0 +1,49 @@
+.ListMembers {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+}
+
+.ListMembers label {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    flex-direction: column;
+    text-align: left;
+    align-items: center;
+    font-size: 15px;
+    border-bottom: 1px solid #ccc; 
+}
+
+.CardUser {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.CardUser a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    font-weight: 600;
+}
+
+
+.ListMembers select {
+    position: relative; 
+    width: 350px;
+    z-index: 0;
+}
+
+.ListMembers select option{
+    position: relative; 
+    z-index: 0 !important;
+}

@@ -101,7 +101,9 @@ input:focus {
 }
 
 .nabBarNew {
-  z-index: 9999;
+  position: absolute !important;
+  z-index: 9999999 !important;
+  
 
 }
 

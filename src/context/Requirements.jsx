@@ -195,6 +195,32 @@ const RequirementsProvider = ({ children }) => {
 
     };
 
+    const createRequerimentSale = async (data) => {
+
+        try {
+            const res = await fetch(`${PRD}post/requeriments/sales`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const resJSON = await res.json();
+
+            if (res.ok) {
+                console.log('Requerimento postado com sucesso.');
+            } else {
+                console.log('Não foi possível criar o requerimento.');
+                
+            }
+        } catch (error) {
+            console.error('Erro na criação do documento:', error);
+            
+        }
+
+    };
+
 
     const searchRequerimentsUser = useCallback(async (nickname) => {
         try {
@@ -262,7 +288,8 @@ const RequirementsProvider = ({ children }) => {
                 createRequerimentRelegation,
                 createRequerimentWarning,
                 createRequerimentResignation,
-                createRequerimentContract
+                createRequerimentContract,
+                createRequerimentSale
                 
             }}
         >

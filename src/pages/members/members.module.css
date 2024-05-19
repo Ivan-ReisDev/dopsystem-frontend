@@ -1,0 +1,68 @@
+.Members{
+    padding: 1em 2em;
+    position: relative;
+    top: 61px;
+    width: 100%;
+    height:auto;
+    min-height: 90vh;
+    background-color: #eeeeeeda;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    z-index: 0;
+}
+
+.Members select:focus {
+    z-index: 0;
+
+}
+
+.Members select option {
+    z-index: -1;
+    
+}
+
+.Members main{
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.Members main button {
+    display: flex;
+    font-size: 14px;
+    align-items: center;
+    justify-content: center;
+    color: #031149;
+
+    
+}
+.Members main button svg {
+    margin-right: 5px;
+
+}
+
+.Members h2{
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 1.5em;
+    color: #031149;
+}
+
+.btns button {
+    background-color: #dfdfdf;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    color: #727272;
+    transition: .6s;
+    font-weight: 500;
+}
+
+.btns button:hover {
+    transition: .6s;
+    background-color: #b8b8b8;
+}

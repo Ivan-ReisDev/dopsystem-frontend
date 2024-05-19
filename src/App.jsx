@@ -16,11 +16,13 @@ import Logger from './pages/Logger/Logger';
 import { UserContext } from './context/UserContext';
 import Preloader from './components/Preloader/Preloader';
 import Promotion from './pages/Promotion/Promotion';
+import Sale from "./pages/Sales/Sale"
 
 import Warning from './pages/Warning/Warning';
 import Relegation from './pages/Relegation/Relegation';
 import Resignation from './pages/Resignation/Resignation';
 import Contract from './pages/Contract/Contract';
+import Members from './pages/members/Members';
 
 function App() {
   const { isAuthentication, userAllArray, getProfileAll } = useContext(AuthContext);
@@ -61,6 +63,8 @@ function App() {
        <Route path='/warning' element={isAuthentication ? <Warning /> : <LoginSystem setLoading={setLoading} />} />
        <Route path='/resignation' element={isAuthentication ? <Resignation /> : <LoginSystem setLoading={setLoading} />} />
        <Route path='/contract' element={isAuthentication ? <Contract /> : <LoginSystem setLoading={setLoading} />} />
+       <Route path='/sale' element={isAuthentication ? <Sale /> : <LoginSystem setLoading={setLoading} />} />
+       <Route path='/members' element={isAuthentication ? <Members /> : <LoginSystem setLoading={setLoading} />} />
         {Array.isArray(Documents) && Documents.map((doc, index) => (
           <Route
             key={index}
