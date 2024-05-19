@@ -47,3 +47,26 @@
     font-weight: bold;
 
 }
+
+@media (max-width: 1000px) {
+    .body {
+        flex-direction: column;
+    }
+
+    .one {
+        width: 100%;;
+    
+    }
+    
+    .two {
+        width: 100%;
+      
+    }
+    
+    .try {
+        width: 100%;
+     
+    }
+
+
+}

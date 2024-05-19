@@ -241,3 +241,86 @@
     z-index: 0;
   }
 
+  @media (max-width:890px) {
+    .BodyForms {
+        flex-direction: column;
+    }
+
+    .BodyForms article {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .BodyForms main {
+        width: 100%;
+        padding: 0;
+
+    }
+
+    .BodyForms table {
+      width: 100% !important;
+    }
+    .BodyForms table tr {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100% !important;
+    }
+
+    .BodyForms table  {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100% !important;
+  }
+
+  }
+
+  @media(max-width:650px) {
+
+  .BodyForms table  {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100% !important;
+}
+
+.BodyForms table  td{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100% !important;
+}
+
+.BodyForms table tr {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100% !important;
+}
+
+
+.BodyForms table tbody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100% !important;
+}
+
+.BodyForms table th {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100% !important;
+  
+}
+
+.BodyForms table thead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100% !important;
+}
+
+    
+  }
