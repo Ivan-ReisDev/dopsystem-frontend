@@ -1,7 +1,7 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table';
 import { FaEye } from "react-icons/fa";
-const TableRequirements = ({ searchRequerimentsPromotedsUser, requerimentsFilter }) => {
+const TableRequirements = ({ requerimentsFilter }) => {
     
     return (
         <Table striped bordered hover>

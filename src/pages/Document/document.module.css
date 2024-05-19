@@ -5,9 +5,9 @@
     height: auto;
     min-height: 92vh;
     align-items: center;
-    position: absolute;
+    position: relative;
     background-color: #f7f7f7;
-    top: 60px;
+    top: 61px;
 }
 
 .Documents h2 {

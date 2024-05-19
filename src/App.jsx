@@ -23,6 +23,9 @@ import Relegation from './pages/Relegation/Relegation';
 import Resignation from './pages/Resignation/Resignation';
 import Contract from './pages/Contract/Contract';
 import Members from './pages/members/Members';
+import Footer from './components/Footer/Footer';
+import DPanel from './pages/DPanel/DPanel';
+
 
 function App() {
   const { isAuthentication, userAllArray, getProfileAll } = useContext(AuthContext);
@@ -55,7 +58,7 @@ function App() {
         )}
 
         {isAuthentication && userType?.userType === "Admin" && (
-          <Route path='/dpanel' element={<EditDocs />} />
+          <Route path='/dpanel' element={<DPanel />} />
         )}
 
        <Route path='/promotion' element={isAuthentication ? <Promotion /> : <LoginSystem setLoading={setLoading} />} />
@@ -73,8 +76,6 @@ function App() {
           />
         ))}
 
-
-
         {Array.isArray(userAllArray) && userAllArray.map((profile) => (
           <Route
             key={profile.nickname}
@@ -91,6 +92,7 @@ function App() {
           />
         ))}
       </Routes>
+      <Footer />
     </>
   );
 }

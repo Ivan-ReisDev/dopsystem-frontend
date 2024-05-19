@@ -53,7 +53,6 @@ const QuickSearch = () => {
                         </div>
 
                         <div className={style.info}>
-                            
                             <p><span>{firstUser ? firstUser.nickname : ''}</span>{firstUser && <Link to={`/search/profile/${firstUser.nickname}`}><FaAddressBook /></Link>}</p> 
                             <p><span>Patente: </span>{firstUser ? firstUser.patent : ''}</p>
                             <p><span>TAG: </span>[ {firstUser ? firstUser.tag : ''}]</p>

@@ -1,11 +1,12 @@
 .BodyForms {
+    position: relative;
     background-color: #eeeeeeda;
     width: 100vw;
-    height: auto;
+    height: 93vh;
     min-height: 93vh;
     display: flex;
     flex-wrap: wrap;
-    position: absolute;
+    position: relative;
     top: 61px;
     padding: 50px;
 }
