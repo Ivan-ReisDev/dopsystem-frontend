@@ -2,11 +2,10 @@
     position: relative;
     background-color: #eeeeeeda;
     width: 100vw;
-    height: 93vh;
+    height: auto;
     min-height: 93vh;
     display: flex;
     flex-wrap: wrap;
-    position: relative;
     top: 61px;
     padding: 50px;
 }
@@ -244,23 +243,38 @@
 
   @media (max-width:890px) {
     .BodyForms {
-        flex-direction: column;
+        flex-direction: column ;
+        flex-wrap: nowrap;
     }
 
     .BodyForms article {
         width: 100%;
+        height: auto;
+        min-height: auto;
         margin-bottom: 10px;
     }
 
     .BodyForms main {
         width: 100%;
         padding: 0;
+        height: auto;
+        min-height: auto
 
     }
+    .BodyForms table tbody,
+    .BodyForms thead,
+    .BodyForms tr,
+    .BodyForms th,
+    .BodyForms td{
+      width: 100%;
+
+    }
+
 
     .BodyForms table {
       width: 100% !important;
     }
+    
     .BodyForms table tr {
         display: flex;
         flex-direction: column;

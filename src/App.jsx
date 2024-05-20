@@ -28,10 +28,9 @@ import DPanel from './pages/DPanel/DPanel';
 
 
 function App() {
-  const { isAuthentication, userAllArray, getProfileAll } = useContext(AuthContext);
+  const { isAuthentication, userAllArray, getProfileAll, loading, setLoading } = useContext(AuthContext);
   const { Documents } = useContext(DocsContext);
   const { teams } = useContext(TeamsContext);
-  const [loading, setLoading] = useState(false)
   const userType = JSON.parse(localStorage.getItem('@Auth:ProfileUser'));
 
 
@@ -76,7 +75,7 @@ function App() {
           />
         ))}
 
-        {Array.isArray(userAllArray) && userAllArray.map((profile) => (
+        {isAuthentication && Array.isArray(userAllArray) && userAllArray.map((profile) => (
           <Route
             key={profile.nickname}
             path={`/search/profile/${profile.nickname}`}

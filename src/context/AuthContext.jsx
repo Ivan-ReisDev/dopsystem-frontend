@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
     const [authToken, setAuthToken] = useState(null);
     const [authProfile, setAuthProfile] = useState(null);
     const [message, setMessage ] = useState('')
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const loadingStorageData = async () => {
@@ -68,7 +69,7 @@ const AuthProvider = ({ children }) => {
     
 
     const getProfileAll = useCallback(async () => {
-        
+        setAuthProfile(true)
         try {
             const res = await fetch(`${PRD}profile/pages`, {
                 method: 'GET',
@@ -78,9 +79,11 @@ const AuthProvider = ({ children }) => {
             });
                 const data = await res.json();
                 setUserAllArray(data);
+                setAuthProfile(false)
 
         } catch (error) {
             console.log(error.message || 'Erro desconhecido');
+            setAuthProfile(false)
         }
     }, []);
 
@@ -161,6 +164,7 @@ const AuthProvider = ({ children }) => {
             if (res.ok) {
                 localStorage.removeItem('@Auth:Token');
                 localStorage.removeItem('@Auth:Profile');
+                localStorage.clear()
                 setIsAuthentication(false)
                 console.error('Erro de login:', resJSON.error);
                 navigate('/');
@@ -190,7 +194,8 @@ return (
             handleActiveCout,
             getProfileAll,
             message,
-            userAllArray
+            userAllArray,
+            loading, setLoading
         }}
     >
         {children}

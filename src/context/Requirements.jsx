@@ -1,6 +1,7 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './AuthContext';
 
 const PRD = 'https://dopsystem-backend.vercel.app/api/';
 
@@ -11,6 +12,7 @@ const RequirementsProvider = ({ children }) => {
     const [teams, setTeams] = useState("");
     const [requerimentsFilter, setRequerimentsFilter] = useState([])
     const [requerimentsArray, setRequerimentsArray] = useState([])
+    const {setLoading} = useContext(AuthContext);
 
     // const getTeams = useCallback(async (tokenAuth) => {
     //     try {
@@ -223,6 +225,7 @@ const RequirementsProvider = ({ children }) => {
 
 
     const searchRequerimentsUser = useCallback(async (nickname) => {
+        setLoading(true);
         try {
             const res = await fetch(`${PRD}search/requeriments?promoted=${nickname}`, {
                 method: 'GET',
@@ -233,6 +236,7 @@ const RequirementsProvider = ({ children }) => {
             const data = await res.json();
             console.log('data', data);
             setRequerimentsArray(data); // Atualize o estado local com os novos dados
+            setLoading(false);
             return data;
         } catch (error) {
             console.log(error);

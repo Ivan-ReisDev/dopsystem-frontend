@@ -89,7 +89,8 @@ input:focus {
   background-color: #eeeeee ;
 
 }
-.contentBodyElement a {
+.contentBodyElement a
+{
   padding: 10px 20px;
   width: 100%;
   height: 100%;

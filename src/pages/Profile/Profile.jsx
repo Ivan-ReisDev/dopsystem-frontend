@@ -6,8 +6,11 @@ import Logo from '../../assets/DOP Padrão (com borda).png'
 import { CiSearch } from "react-icons/ci";
 import React, { useContext, useEffect, useState } from 'react'
 import { RequirementsContext } from "../../context/Requirements";
+import { AuthContext } from "../../context/AuthContext";
+import Preloader from "../../components/Preloader/Preloader";
 const Profile = ({profile}) => {
     const { searchAllUsers,  usersArray } = useContext(UserContext);
+    const { loading } = useContext(AuthContext)
     const { searchRequerimentsUser, requerimentsArray, formatarDataHora } = useContext(RequirementsContext);
     const [ busca, setBusca] = useState('');
     const navigate = useNavigate();
@@ -21,6 +24,15 @@ const Profile = ({profile}) => {
         searchRequerimentsUser(busca)
         navigate(`/search/profile/${busca}`)
        }
+
+
+       if (loading) {
+        return (
+          <div className='preloader'>
+            <img src={Preloader} alt="" />
+          </div>
+        )
+      }
 
     return (
         <div>
