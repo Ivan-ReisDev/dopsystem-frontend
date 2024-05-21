@@ -23,13 +23,14 @@ const Sidebar = ({ showSidebar }) => {
 
   const { Documents } = useContext(DocsContext);
   const { teams } = useContext(TeamsContext);
-
+  
+  const newArrayDocumentos =  Documents.filter(script => script.docsType === "System");
   const infoProfileUser = JSON.parse(localStorage.getItem("@Auth:Profile"));
   const infoProfileUserCompleted = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
 
   return (
-    <nav className={showSidebar ? `nabBarNew -z-9999 duration-1000 absolute right-[0] top-[61px] px-3 h-[100vh] w-[330px] bg-[#031149] text-[#ffffff]`
-      : `absolute duration-1000 top-[8vh] px-3 h-[92vh]  w-[330px] right-[-330px] bg-[#031149] text-[#ffffff] nabBarNew`}>
+    <nav className={showSidebar ? ` z-10 duration-1000 absolute right-[0] top-[61px] px-3 h-[100vh] w-[330px] bg-[#031149] text-[#ffffff]`
+      : `z-10 absolute duration-1000 top-[8vh] px-3 h-[92vh]  w-[330px] right-[-330px] bg-[#031149] text-[#ffffff] nabBarNew`}>
       <div className=' borderSidebar w-full h-[20%] flex flex-col items-center justify-center  border-b'>
         {infoProfileUser && (
           <>
@@ -53,24 +54,29 @@ const Sidebar = ({ showSidebar }) => {
           Documentos <span className={`ml-2 text-[13px] ${showDocs ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>
         </button>
         <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showDocs ? "h-auto " : "h-0 hidden"}`}>
-          {Documents && Documents.map((doc, index) => (
+          {Documents && newArrayDocumentos.map((doc, index) => (
             <li key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
               <NavLink to={`/docs/${doc._id}`} >{doc.nameDocs}</NavLink>
             </li>
           ))}
         </div>
 
-        {infoProfileUserCompleted && (infoProfileUserCompleted.teans[0] !== "" || infoProfileUserCompleted.userType === "Admin") && (
+        {infoProfileUserCompleted && (infoProfileUserCompleted.teans !== "" || infoProfileUserCompleted.userType === "Admin") && (
           <>
             <button className='w-full h-[30px] font-bold flex items-center ml-5' onClick={activeShowClasses}>
               Equipes <span className={`ml-2 text-[13px] ${showClasses ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>
             </button>
             <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showClasses ? "h-auto " : "h-0 hidden"}`}>
               {teams && teams.map((team, index) => {
-                if (team.members.includes(`${infoProfileUser.nickname}`) || infoProfileUser.userType === "Admin") {
+                { console.log(team) }
+
+                // Verifica se algum membro do time tem o mesmo nickname que infoProfileUser.nickname
+                const isMember = team.members.some(member => member.nickname === infoProfileUser.nickname);
+
+                if (isMember || infoProfileUser.userType === "Admin") {
                   return (
                     <li key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-                      <NavLink to={`/team/${team._id}`}>{team.nameTeams}</NavLink>
+                      <NavLink to={`/team/${team.nameTeams}`}>{team.nameTeams}</NavLink>
                     </li>
                   );
                 } else {
@@ -107,7 +113,7 @@ const Sidebar = ({ showSidebar }) => {
 
         <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/members'}>Membros</NavLink></li>
         <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/profile'}>Perfil</NavLink></li>
-        { infoProfileUserCompleted && infoProfileUserCompleted.userType === "Admin" && <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/loggers'}>Logs</NavLink></li>}
+        {infoProfileUserCompleted && infoProfileUserCompleted.userType === "Admin" && <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/loggers'}>Logs</NavLink></li>}
       </ul>
 
       <div className='w-full borderSidebar h-[10%] flex flex-col items-center justify-center'>

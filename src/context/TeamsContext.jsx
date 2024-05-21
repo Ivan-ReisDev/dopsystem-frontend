@@ -4,41 +4,55 @@ import { useNavigate } from 'react-router-dom';
 
 const PRD = 'https://dopsystem-backend.vercel.app/api/';
 
-const TeamsContext = createContext("");
+const TeamsContext = createContext({});
 const TeamsProvider = ({ children }) => {
 
     const [message, setMessage] = useState("");
     const [teams, setTeams] = useState([]);
-    // const createDocs = async (data) => {
-    //     setLoadingDocs(true)
-    //     setResOk(false)
-    //     try {
-    //         const res = await fetch(`${PRD}create/docs`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(data),
-    //         });
+    const [infoTeamsArray, setInfoTeamsArray] = useState([]);
+    
+    const infoTeams = async (tokenAuth, teams) => {
 
-    //         const resJSON = await res.json();
-    //         setMessage(resJSON);
+        try {
+            const res = await fetch(`${PRD}teams/info?typeRequirement=${teams}&teams=${teams}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${tokenAuth}`,
+                },
+            });
+    
+            if (!res.ok) {
+                throw new Error('Erro na requisição');
+            }
+            const data = await res.json();
+            setInfoTeamsArray(data);
+        } catch (error) {
+            setMessage(error.message || 'Erro desconhecido');
+        }
+    };
+    
 
-    //         if (res.ok) {
-    //             console.log("Documento criado com sucesso.");
-    //             setResOk(true)
-                
-
-    //         } else {
-    //             console.log('Não foi possível criar o documento.');
-                
-    //         }
-    //     } catch (error) {
-    //         console.error('Erro na criação do documento:', error);
-            
-    //     }
-    //     setLoadingDocs(false)
-    // };
+    const removeMember = async (data) => {
+        try {
+            const response = await fetch(`${PRD}teams/remove`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+    
+            const responseData = await response.json();
+    
+            if (response.ok) {
+                console.log("Usuário removido sucesso:", responseData);
+            } else {
+                console.error("Erro ao remover usuário :", responseData);
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+        }
+    };
 
     const getTeams = useCallback(async (tokenAuth) => {
         try {
@@ -60,15 +74,20 @@ const TeamsProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        getTeams(localStorage.getItem('@Auth:Token'));
+        const token = localStorage.getItem('@Auth:Token');
+        if (token) {
+            getTeams(token);
+        }
     }, [getTeams]);
 
     return (
         <TeamsContext.Provider
             value={{
                 message,
-                teams
-                
+                teams,
+                infoTeamsArray,
+                infoTeams,
+                removeMember
             }}
         >
             {children}

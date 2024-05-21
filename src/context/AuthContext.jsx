@@ -123,7 +123,6 @@ const AuthProvider = ({ children }) => {
         }
     };
     
-
         const handleActiveCout = async (data) => {
         try {
             const res = await fetch(`${PRD}users/update`, {

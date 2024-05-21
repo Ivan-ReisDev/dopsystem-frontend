@@ -25,6 +25,7 @@ import Contract from './pages/Contract/Contract';
 import Members from './pages/members/Members';
 import Footer from './components/Footer/Footer';
 import DPanel from './pages/DPanel/DPanel';
+import NotFound from './pages/Notfound/NotFound';
 
 
 function App() {
@@ -75,6 +76,32 @@ function App() {
           />
         ))}
 
+{Array.isArray(Documents) && Documents.map((doc, index) => (
+          <Route
+            key={index}
+            path={`{/docs/${doc._id}`}
+            element={isAuthentication ? <Document doc={doc} /> : <LoginSystem />}
+          />
+        ))};
+
+
+{Array.isArray(Documents) && Documents.map((doc, index) => (
+          <Route
+            key={index}
+            path={`/team/${doc.docsType}/doc/${doc._id}`}
+            element={isAuthentication ? <Document doc={doc} /> : <LoginSystem />}
+          />
+        ))}
+
+{Array.isArray(Documents) && Documents.map((doc, index) => (
+          <Route
+            key={index}
+            path={`/editor/${doc.docsType}/doc/${doc._id}`}
+            element={isAuthentication ? <EditDocs doc={doc} /> : <LoginSystem />}
+          />
+        ))}
+       
+
         {isAuthentication && Array.isArray(userAllArray) && userAllArray.map((profile) => (
           <Route
             key={profile.nickname}
@@ -86,10 +113,12 @@ function App() {
         {Array.isArray(teams) && teams.map((team, index) => (
           <Route
             key={index}
-            path={`/team/${team._id}`}
+            path={`/team/${team.nameTeams}`}
             element={isAuthentication ? <Teams team={team} /> : <LoginSystem />}
           />
         ))}
+
+       <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>

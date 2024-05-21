@@ -4,14 +4,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 70px;
+    position: relative;
+    top: 61px;
 }
 
 .editDocsBody {
     display: flex;
     justify-content: center;
-    background-color: aqua;
+    z-index: 0;
     width: 90%;
 
 }

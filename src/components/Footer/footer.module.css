@@ -31,7 +31,7 @@
 
 .body div {
     height: 150px;
-     background-color: #031149; 
+    background-color: #031149;
     width: 30%;
     flex-direction: column;
 
@@ -44,6 +44,7 @@
     font-size: 18px;
 
 }
+
 .body svg {
     margin-right: 5px;
 
@@ -57,7 +58,7 @@
 
 }
 
-.midia  {
+.midia {
     display: flex;
     align-items: center;
     flex-direction: column !important;
@@ -69,7 +70,7 @@
 
 
 .midia img {
- width: 400px;
+    width: 400px;
 
 }
 
@@ -92,7 +93,7 @@
     text-align: center;
     align-items: center;
     font-size: 13px;
-     background-color: #020d38;
+    background-color: #020d38;
 
 
 }
@@ -113,5 +114,30 @@
 .dev a {
     font-weight: bold;
 
+
+}
+
+@media (max-width: 930px) {
+    .Header {
+        flex-direction: column;
+
+    }
+
+    .Header img {
+        width: 120px;
+
+    }
+
+    .body {
+        width: 100% !important;
+        display: flex;
+        flex-direction: column !important;
+
+    }
+
+    .body div {
+        width: 100% !important;
+
+    }
 
 }

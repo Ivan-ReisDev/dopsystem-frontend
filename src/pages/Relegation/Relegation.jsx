@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FaArrowCircleDown  , FaListUl } from "react-icons/fa";
-import { Link } from 'react-router-dom'
 import '../forms.css'
 import { RequirementsContext } from '../../context/Requirements';
 import TableRequirements from '../../components/TableRequirements/TableRequirements';
-import FormReq from '../../components/FormReq/FormReq';
 import FormReqdemi from '../../components/FormReq/FormRelegation';
 
 const Relegation = () => {

@@ -5,6 +5,7 @@ import { DocsContext } from '../../context/DocsContext';
 const Docs = () => {
 
   const { Documents } = useContext(DocsContext);
+  const newArrayDocumentos =  Documents.filter(script => script.docsType === "System");
 
   return (
     <div className='contentBodyElement'>
@@ -13,7 +14,7 @@ const Docs = () => {
     </div>
     <ul>
     {Documents &&
-          Documents.map((doc, index) => (
+          newArrayDocumentos.map((doc, index) => (
             <li key={index}><Link to={`/docs/${doc._id}`}>{doc.nameDocs}</Link></li>
           ))
         }

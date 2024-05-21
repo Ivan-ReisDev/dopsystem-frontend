@@ -1,0 +1,100 @@
+.ListTeamsMembers {
+    width: 100%;
+    border-radius: 5px;
+    background-color: #fff;
+    border: 1px solid #ececec ;
+    text-align: center;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+
+.ListTeamsMembers h2 {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.ListTeamsMembers div  {
+    width: 100%;
+    height: 40px;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: bold;
+    color: #fff;
+    background-color: #031149;
+  }
+
+  .ListTeamsMembers span {
+    width: 50%;
+    height: 100%;
+    padding: 0 10px;
+    display: flex;
+    margin: 20px;
+    justify-self: center !important;
+    align-items: center !important;
+
+  }
+
+  .ListTeamsMembers ul {
+    height: 40px;
+    width: 100%;
+    height: auto;
+
+  }
+
+  .ListTeamsMembers li {
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid #ececec ;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+
+  }
+
+  .ListTeamsMembers li:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+
+  }
+
+  .ListTeamsMembers button {
+    margin-right: 5px;
+    font-weight: 700;
+    width: 70px;
+    color: #fff;
+    height: 30px;
+    border-radius: 3px;
+  }
+
+  .ListTeamsMembers a {
+  margin-right: 5px;
+  font-weight: 700;
+  width: 70px;
+  color: #fff;
+  height: 30px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+  .buttonEdit {
+    background-color: #0c4c69;
+  }
+
+  .buttonExcluir {
+    background-color: #a30606;
+
+  }
+
+
+
+

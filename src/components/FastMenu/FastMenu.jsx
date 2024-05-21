@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaAddressBook,
+import {
   FaArrowAltCircleUp,
   FaArrowCircleDown,
   FaExclamationTriangle,
@@ -23,7 +23,7 @@ const user = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
         </div>
         <ul>
             { user && user.userType === "Admin" && <li><Link to='/'>DPanel <span><IoIosSpeedometer /></span></Link></li>}
-            <li><Link to='/'>Aulas <span>< FaAddressBook/></span></Link></li>
+            
             <li><Link to={'/promotion'}>Promoções <span><FaArrowAltCircleUp /></span> </Link></li>
             <li><Link to='/warning'>Advertências <span><FaExclamationTriangle /></span></Link></li>
             <li><Link to='/relegation'>Rebaixamento <span><FaArrowCircleDown /></span></Link></li>
