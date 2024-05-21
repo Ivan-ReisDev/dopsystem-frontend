@@ -52,7 +52,7 @@ const EditDocs = ({ placeholder, doc }) => {
       idDoc: doc._id
     }
 
-    console.log(doc._id)
+
     
     editDoc(data);
     if(resOk) {
@@ -119,7 +119,7 @@ const EditDocs = ({ placeholder, doc }) => {
       </div>
       
       {!loadingDocs && <button className='BtnActive' onClick={handleSubmitDocs}> <span className='SpanBtn'><FaFloppyDisk /></span>Publicar</button>}
-      { doc._id && <button className='BtnActive' onClick={handleSubmitDocsEdit}> <span className='SpanBtn'><FaFloppyDisk /></span>Editar</button>}
+      {doc ? <button className='BtnActive' onClick={handleSubmitDocsEdit}> <span className='SpanBtn'><FaFloppyDisk /></span>Editar</button>: ""}
       {loadingDocs && <button className='BtnActive BtnActiveDisable' disabled onClick={handleSubmitDocs}> <span className='SpanBtn'><FaFloppyDisk /></span>Aguarde...</button>}
       {messege && <p className='error'>{messege}</p>}
       {messageBack && <p className='error'>{messageBack.msg}</p>}
