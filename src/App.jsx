@@ -84,6 +84,22 @@ function App() {
           />
         ))};
 
+{Array.isArray(teams) && teams.map((team, index) => (
+          <Route
+            key={index}
+            path={`/team/${team.nameTeams}`}
+            element={isAuthentication ? <Teams team={team} /> : <LoginSystem />}
+          />
+        ))}
+
+
+        {Array.isArray(teams) && teams.map((team, index) => (
+          <Route
+            key={index}
+            path={`/team/${team.nameTeams}/doc/new`}
+            element={isAuthentication ? <EditDocs team={team} /> : <LoginSystem />}
+          />
+        ))}
 
 {Array.isArray(Documents) && Documents.map((doc, index) => (
           <Route

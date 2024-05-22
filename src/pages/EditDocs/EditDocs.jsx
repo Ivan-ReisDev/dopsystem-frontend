@@ -5,7 +5,7 @@ import JoditEditor from 'jodit-react';
 import { DocsContext } from '../../context/DocsContext';
 import { set } from 'react-hook-form';
 import { FaFloppyDisk } from "react-icons/fa6";
-const EditDocs = ({ placeholder, doc }) => {
+const EditDocs = ({ placeholder, doc, team }) => {
 
 
 

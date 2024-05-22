@@ -10,6 +10,8 @@ const TeamsProvider = ({ children }) => {
     const [message, setMessage] = useState("");
     const [teams, setTeams] = useState([]);
     const [infoTeamsArray, setInfoTeamsArray] = useState([]);
+    const navigate = useNavigate()
+
     
     const infoTeams = async (tokenAuth, teams) => {
 
@@ -54,6 +56,28 @@ const TeamsProvider = ({ children }) => {
         }
     };
 
+
+    const addMember = async (data) => {
+        try {
+            const response = await fetch(`${PRD}/teams/add`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+    
+            const responseData = await response.json();
+    
+            if (response.ok) {
+                console.log("Usuário removido sucesso:", responseData);
+            } else {
+                console.error("Erro ao remover usuário :", responseData);
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+        }
+    };
     const getTeams = useCallback(async (tokenAuth) => {
         try {
             const res = await fetch(`${PRD}teams/all`, {
@@ -71,7 +95,7 @@ const TeamsProvider = ({ children }) => {
         } catch (error) {
             setMessage(error.message || 'Erro desconhecido');
         }
-    }, []);
+    }, [navigate]);
 
     useEffect(() => {
         const token = localStorage.getItem('@Auth:Token');
@@ -87,7 +111,8 @@ const TeamsProvider = ({ children }) => {
                 teams,
                 infoTeamsArray,
                 infoTeams,
-                removeMember
+                removeMember,
+                addMember
             }}
         >
             {children}

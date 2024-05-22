@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import style from './teams.module.css';
 import { RiTeamFill } from "react-icons/ri";
-import { FaUsersCog, FaAddressBook, FaListUl } from "react-icons/fa";
+import { FaUsersCog, FaAddressBook, FaListUl, FaPlus } from "react-icons/fa";
 import { IoIosDocument } from "react-icons/io";
+import { IoArrowUndo } from "react-icons/io5";
+
 import { FaUsers } from "react-icons/fa6";
 import { MdEditDocument } from "react-icons/md";
 
@@ -12,6 +14,7 @@ import { DocsContext } from '../../context/DocsContext';
 import TableTeamsMembers from '../../components/TableTeamsMembers/TableTeamsMembers';
 import DocsTeams from '../../components/DocsTeams/DocsTeams';
 import { TeamsContext } from '../../context/TeamsContext';
+import { FormAdd } from '../../components/FormTeams/FormAdd';
 
 const Teams = ({ team }) => {
   const storedUser = localStorage.getItem("@Auth:ProfileUser");
@@ -22,12 +25,17 @@ const Teams = ({ team }) => {
   const { infoTeamsArray, infoTeams } = useContext(TeamsContext)
   const [DocsScripts, setDocsScripts] = useState([])
   const [userOk, setUserOK] = useState([]);
-  const [typeMenu, setTypeMenu] = useState("members")
+  const [typeMenu, setTypeMenu] = useState("members");
+  const [addMember, setAddMember] = useState(false)
 
-  useEffect(async () => {
-    await infoTeams(" ",team.nameTeams) 
-    infoTeamsArray
-}, []);
+  const fetchData = useCallback(async () => {
+    await infoTeams("ergerg", team.nameTeams);
+  }, [team.nameTeams]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -53,29 +61,26 @@ const Teams = ({ team }) => {
   }, [user]);
 
   useEffect(() => {
-    if (userOk.length > 0) {
-      console.log(userOk[0].nickname);
-    }
     setDocsScripts(Documents.filter(script => script.docsType === team.nameTeams))
 
   }, [userOk, Documents]);
 
   const { members } = team
-  
+
 
   return (
     <div className={style.Teams}>
       <div className={style.TeamsHeader}>
         <h2><RiTeamFill /> {team.nameTeams}</h2>
-        <span>Membros: { console.log(team)}</span>
+        <span>Membros: {infoTeamsArray.length + 2}</span>
       </div>
       <div className={style.TeamsBody}>
         <main>
 
           {typeMenu && typeMenu === "members" && (
             <div className={style.members}>
-              <div>
-                <h2>Lista de Membros</h2>
+              <div className='divMainForms'>
+                <h2><span> <FaListUl /></span>Lista de Membros</h2> 
               </div>
               <h3>Líder</h3>
               <ul className={style.ListMembers}>
@@ -120,7 +125,7 @@ const Teams = ({ team }) => {
               </ul>
               <h3>Membros</h3>
               <ul className={style.ListMembers}>
-              {members && members
+                {members && members
                   .filter(user => user.office === "Membro")
                   .map(user => (
                     <li key={user.nickname}>
@@ -138,7 +143,9 @@ const Teams = ({ team }) => {
           )}
           {typeMenu && typeMenu === "docs" && (
             <div className={style.docs}>
-              <h2>Lista de Documentos</h2> 
+              <div className='divMainForms'>
+                <h2><span> <FaListUl /></span>Lista de Documentos</h2> 
+              </div>
               <div className="contentBodyElement">
                 <div className="contentBodyElementTitle">
                   <h3>Documentos</h3>
@@ -155,12 +162,14 @@ const Teams = ({ team }) => {
           {typeMenu && typeMenu === "editDocs" && (
             <>
               <div className={style.docs}>
-                <h2>Editar documento</h2>
-                  <DocsTeams 
-                    DocsScripts={DocsScripts}
-                    team={team}
-                    userOk={userOk}
-                  />
+                <div className='divMainForms'>
+                  <h2><span> <FaListUl /></span>Gerenciar documentação</h2> <Link to={`/team/${team.nameTeams}/doc/new`} className={style.btnDocs}><FaPlus /></Link>
+                </div>
+                <DocsTeams
+                  DocsScripts={DocsScripts}
+                  team={team}
+                  userOk={userOk}
+                />
               </div>
 
             </>
@@ -169,11 +178,16 @@ const Teams = ({ team }) => {
           {typeMenu && typeMenu === "Controle de Membros" && (
             <div className={style.ListMembersEdit}>
               <div className='divMainForms'>
-                <h2><span> <FaListUl /></span>Lista de Membros</h2>
+              <h2><span> <FaListUl /></span>Gerenciar Membros</h2> <button onClick={() => setAddMember(!addMember)} className={style.btnDocs}>{ !addMember ? <FaPlus /> : <IoArrowUndo />}</button>
               </div>
-              <TableTeamsMembers
+           { !addMember ?
+            <TableTeamsMembers
                 team={team}
               />
+              :
+              <FormAdd
+                team={team}
+              />}
             </div>
           )}
 
@@ -197,7 +211,6 @@ const Teams = ({ team }) => {
               <ul>
                 <li><button onClick={() => setTypeMenu('Controle de Membros')}>Controle de membros<span><FaUsersCog /></span></button></li>
                 <li><button onClick={() => setTypeMenu("editDocs")}>Editar documento<span><MdEditDocument /></span> </button></li>
-                
               </ul>
             </div>
           )}

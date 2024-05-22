@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import style from './TableTeamsMembers.module.css';
 import { TeamsContext } from '../../context/TeamsContext';
 import Confirmation from '../Confirmation/Confirmation';
+import { useNavigate } from 'react-router-dom';
 
 const TableTeamsMembers = ({ team, userOk }) => {
     const { infoTeamsArray, infoTeams } = useContext(TeamsContext);
     const [isRemove, setIsRemove] = useState(false);
     const [dataUser, setDataUser] = useState([])
+    const navigate = useNavigate()
 
     const handleRemove = (data) => {
         setDataUser(data)
@@ -16,7 +18,7 @@ const TableTeamsMembers = ({ team, userOk }) => {
     useEffect(() => {
         const fetchTeamInfo = async () => {
             const token = localStorage.getItem("@Auth:Token");
-            await infoTeams(token, team.nameTeams); // Use infoTeams com "i" minúsculo
+
         };
 
         fetchTeamInfo();
