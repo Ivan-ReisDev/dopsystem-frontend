@@ -15,15 +15,13 @@ const FastMenu = () => {
 
 const user = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
 
-
   return (
     <div className='contentBodyElement'>
         <div className='contentBodyElementTitle'>
             <h3>Menu Rápido</h3>
         </div>
         <ul>
-            { user && user.userType === "Admin" && <li><Link to='/'>DPanel <span><IoIosSpeedometer /></span></Link></li>}
-            
+            {user && user.userType === "Admin" && <li><Link to='/dpanel'>DPanel <span><IoIosSpeedometer /></span></Link></li>}
             <li><Link to={'/promotion'}>Promoções <span><FaArrowAltCircleUp /></span> </Link></li>
             <li><Link to='/warning'>Advertências <span><FaExclamationTriangle /></span></Link></li>
             <li><Link to='/relegation'>Rebaixamento <span><FaArrowCircleDown /></span></Link></li>

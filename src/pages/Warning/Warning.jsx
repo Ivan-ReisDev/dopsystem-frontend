@@ -8,7 +8,8 @@ import FormWarning from '../../components/FormReq/FormWarning';
 
 const Warning = () => {
     const { searchRequerimentsPromotedsUser, requerimentsFilter } = useContext(RequirementsContext);
-    const [showPromotions, setShowPromotions] = useState(false)
+    const [showPromotions, setShowPromotions] = useState(false);
+    const typeStatus = "Advertência"
 
     useEffect(() => {
         searchRequerimentsPromotedsUser("Advertência", "")
@@ -36,13 +37,16 @@ const Warning = () => {
                             <h2><span> <FaListUl /></span>Lista de Advertências</h2>
                         </div>
                         <TableRequirements
+                            typeStatus={typeStatus}
                             searchRequerimentsPromotedsUser={searchRequerimentsPromotedsUser}
                             requerimentsFilter={requerimentsFilter}
                         />
                          </>)
                    : (
 
-                    <FormWarning />
+                    <FormWarning
+                    
+                    />
 
                 )}
             </main>

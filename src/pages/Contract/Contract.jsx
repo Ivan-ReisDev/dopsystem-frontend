@@ -9,7 +9,8 @@ import { SystemContext } from '../../context/SystemContext';
 const Contract = () => {
     const { searchRequerimentsPromotedsUser, requerimentsFilter } = useContext(RequirementsContext);
    
-    const [showPromotions, setShowPromotions] = useState(false)
+    const [showPromotions, setShowPromotions] = useState(false);
+    const typeStatus = "Contrato";
     useEffect(() => {
         searchRequerimentsPromotedsUser("Contrato", "")
         document.title = "Polícia DOP - Contratos";
@@ -36,13 +37,16 @@ const Contract = () => {
                             <h2><span> <FaListUl /></span>Lista de Contratados</h2>
                         </div>
                         <TableRequirements
+                            typeStatus={typeStatus}
                             searchRequerimentsPromotedsUser={searchRequerimentsPromotedsUser}
                             requerimentsFilter={requerimentsFilter}
                         />
                          </>)
                    : (
 
-                    <FormContract />
+                    <FormContract
+                    
+                    />
 
                 )}
             </main>

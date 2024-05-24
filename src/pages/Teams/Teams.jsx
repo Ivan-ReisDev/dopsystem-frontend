@@ -172,7 +172,6 @@ const Teams = ({ team }) => {
                   userOk={userOk}
                 />
               </div>
-
             </>
           )}
 
@@ -181,7 +180,9 @@ const Teams = ({ team }) => {
               <div className='divMainForms'>
                 <h2><span> <FaListUl /></span>Postar Aula</h2> <button onClick={() => setAddMember(!addMember)} className={style.btnDocs}>{!addMember ? <FaPlus /> : <IoArrowUndo />}</button>
               </div>
-              <FormClasses />
+              <FormClasses
+              team={team}
+              />
             </div>
           )}
 

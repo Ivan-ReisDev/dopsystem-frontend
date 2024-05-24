@@ -8,6 +8,7 @@ import FormReqdemi from '../../components/FormReq/FormRelegation';
 const Relegation = () => {
     const { searchRequerimentsPromotedsUser, requerimentsFilter } = useContext(RequirementsContext);
     const [showPromotions, setShowPromotions] = useState(false)
+    const typeStatus = "Rebaixamento";
     useEffect(() => {
         searchRequerimentsPromotedsUser("Rebaixamento", "")
         document.title = "Polícia DOP - Promoções";
@@ -36,13 +37,16 @@ const Relegation = () => {
                             <h2><span> <FaListUl /></span>Lista de Rebaixamento</h2>
                         </div>
                         <TableRequirements
+                            typeStatus={typeStatus}
                             searchRequerimentsPromotedsUser={searchRequerimentsPromotedsUser}
                             requerimentsFilter={requerimentsFilter}
                         />
                          </>)
                    : (
 
-                    <FormReqdemi />
+                    <FormReqdemi
+                    
+                    />
 
                 )}
             </main>

@@ -10,7 +10,7 @@ const ClassesProvider = ({ children }) => {
 
     const [Classes, setClasses] = useState([])
     const [message, setMessage] = useState('');
-
+    const [loading, setLoading] = useState(false)
 
     const createClasse = async (data) => {
         try {
@@ -31,6 +31,35 @@ const ClassesProvider = ({ children }) => {
                 setMessage('Não foi possível criar o documento.');
                 
             }
+        } catch (error) {
+            console.error('Erro na criação do documento:', error);
+            
+        }
+      
+    };
+
+    const createClasseRequeriment = async (data) => {
+        setLoading(true)
+        try {
+            const res = await fetch(`${PRD}create/classe/requirement`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const resJSON = await res.json();
+           
+            if (res.ok) {
+                setMessage(resJSON); 
+                setLoading(false)
+
+            } else {
+                setMessage('Não foi possível criar o documento.');
+                setLoading(false)
+            }
+            setLoading(false)
         } catch (error) {
             console.error('Erro na criação do documento:', error);
             
@@ -93,8 +122,9 @@ const ClassesProvider = ({ children }) => {
                 setMessage,
                 message,
                 editClasse,
-                createClasse
-                
+                createClasse,
+                createClasseRequeriment,
+                loading
             }}
         >
             {children}

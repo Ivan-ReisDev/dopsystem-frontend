@@ -9,7 +9,8 @@ import FormResignation from '../../components/FormReq/FormResignation';
 
 const Resignation = () => {
     const { searchRequerimentsPromotedsUser, requerimentsFilter } = useContext(RequirementsContext);
-    const [showPromotions, setShowPromotions] = useState(false)
+    const [showPromotions, setShowPromotions] = useState(false);
+    const typeStatus = "Demissão"
 
     useEffect(() => {
         searchRequerimentsPromotedsUser("Demissão", "")
@@ -39,13 +40,16 @@ const Resignation = () => {
                             <h2><span> <FaListUl /></span>Lista de Demissões</h2>
                         </div>
                         <TableRequirements
+                            typeStatus={typeStatus}
                             searchRequerimentsPromotedsUser={searchRequerimentsPromotedsUser}
                             requerimentsFilter={requerimentsFilter}
                         />
                          </>)
                    : (
 
-                    <FormResignation />
+                    <FormResignation
+                    
+                    />
 
                 )}
             </main>

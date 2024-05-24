@@ -1,5 +1,5 @@
 import { UserContext } from "../../context/UserContext";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaBook, FaExclamationTriangle } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom'
 import style from "./profile.module.css"
 import Logo from '../../assets/DOP Padrão (com borda).png'
@@ -8,31 +8,31 @@ import React, { useContext, useEffect, useState } from 'react'
 import { RequirementsContext } from "../../context/Requirements";
 import { AuthContext } from "../../context/AuthContext";
 import Preloader from "../../components/Preloader/Preloader";
-const Profile = ({profile}) => {
-    const { searchAllUsers,  usersArray } = useContext(UserContext);
+const Profile = ({ profile }) => {
+    const { searchAllUsers, usersArray } = useContext(UserContext);
     const { loading } = useContext(AuthContext)
     const { searchRequerimentsUser, requerimentsArray, formatarDataHora } = useContext(RequirementsContext);
-    const [ busca, setBusca] = useState('');
+    const [busca, setBusca] = useState('');
     const navigate = useNavigate();
-        useEffect(() => {
-            searchRequerimentsUser(profile.nickname);
-        }, [navigate]);
-        
+    useEffect(() => {
+        searchRequerimentsUser(profile.nickname);
+    }, [navigate]);
 
-       const  hadleSubmitt = (e) => {
+
+    const hadleSubmitt = (e) => {
         e.preventDefault()
         searchRequerimentsUser(busca)
         navigate(`/search/profile/${busca}`)
-       }
+    }
 
 
-       if (loading) {
+    if (loading) {
         return (
-          <div className='preloader'>
-            <img src={Preloader} alt="" />
-          </div>
+            <div className='preloader'>
+                <img src={Preloader} alt="" />
+            </div>
         )
-      }
+    }
 
     return (
         <div>
@@ -47,7 +47,7 @@ const Profile = ({profile}) => {
                         name="search"
                         id="search"
                         placeholder='Digite a identificação do militar.'
-                        onChange={(e) => setBusca(e.target.value) } />
+                        onChange={(e) => setBusca(e.target.value)} />
                     <button type="submit"><CiSearch /></button>
                 </form>
                 <div className={style.profileBody}>
@@ -71,7 +71,7 @@ const Profile = ({profile}) => {
                                 <p><span>Status: </span>{profile.status}</p>
                                 <p><span>Admissão: </span>{formatarDataHora(profile.createdAt)}</p>
                                 <p><span>Advertências: </span>{profile.warnings}</p>
-                                <p><span>Medalhas: </span>{profile.medals}</p> {}
+                                <p><span>Medalhas: </span>{profile.medals}</p> { }
                             </div>
                         </div>
                     </article>
@@ -87,8 +87,20 @@ const Profile = ({profile}) => {
                                             <div>
                                                 <p><Link to={`/search/profile/${requeriment.operator}`}>{requeriment.operator}</Link> Publicou <strong>{requeriment.typeRequirement}</strong></p>
                                                 <p>{formatarDataHora(requeriment.createdAt)}</p>
-                                                <p><span><FaUser /></span> {requeriment.newPatent}</p> 
-                                                <p>{requeriment.status}</p>
+                                                <div className="flex ">
+
+                                                    {(requeriment.typeRequirement === "Promoção" ||
+                                                        requeriment.typeRequirement === "Rebaixamento") &&
+                                                        <p className="text-slate-500"><span><FaUser /></span> {requeriment.newPatent}</p>}
+
+                                                    {(requeriment.typeRequirement === "Aula") &&
+                                                        <p className="text-slate-500"><span><FaBook /></span> {requeriment.classe}</p>}
+                                                    {(requeriment.typeRequirement === "Advertência") &&
+                                                        <p className="text-slate-500"><span><FaExclamationTriangle /></span>Advertência</p>}
+                                                    {requeriment.status === "Pendente" && <p className="bg-yellow-600 text-white font-semibold text-[12px] w-[80px] h-[18px] rounded-sm flex items-center justify-center">{requeriment.status}</p>}
+                                                    {requeriment.status === "Aprovado" && <p className="bg-green-600 text-white font-semibold text-[12px] w-[80px] h-[18px] rounded-sm flex items-center justify-center">{requeriment.status}</p>}
+                                                    {requeriment.status === "Reprovado" && <p className="bg-red-600 text-white font-semibold text-[12px] w-[80px] h-[18px] rounded-sm flex items-center justify-center">{requeriment.status}</p>}
+                                                </div>
                                             </div>
                                         </div>
                                         <p className={style.motivo}>{requeriment.reason}</p>

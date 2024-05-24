@@ -3,16 +3,19 @@ import { FaFloppyDisk } from "react-icons/fa6";
 import { UserContext } from '../../context/UserContext';
 import { RequirementsContext } from '../../context/Requirements';
 import { SystemContext } from '../../context/SystemContext';
-const FormClasses = () => {
-    const [promoted, setPromoted] = useState('');
+import { ClassesContext } from '../../context/ClassesContext';
+import { useNavigate } from 'react-router-dom';
+const FormClasses = ({team}) => {
+    const [student, setStudent] = useState('');
     const [reason, setReason] = useState('');
     const [operator, setOperator] = useState('');
-    const [patent, setPatent] = useState('')
-    const { infoSystem, getSystem } = useContext(SystemContext)
-    const { createRequerimentContract } = useContext(RequirementsContext)
+    const [classeRecebida, setClasseRecebida] = useState('')
+    const { infoSystem, getSystem } = useContext(SystemContext);
+    const  navigate = useNavigate()
+
+    const { Classes, createClasseRequeriment, loading, message } = useContext(ClassesContext)
+    const newArrayClesses = Classes.filter(classes => classes.team === team.nameTeams);
    
-
-
     useEffect(() => {
         setOperator(JSON.parse(localStorage.getItem("@Auth:Profile")))
         infoSystem
@@ -21,17 +24,21 @@ const FormClasses = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(operator.nickname)
         const data = {
             idUser: operator._id,
-            promoted,
-            patent,
-            reason,
+            promoted: student,
+            reason: reason,
+            classe:classeRecebida,
+            team: team.nameTeams
+            }
+
+            createClasseRequeriment(data);
+            setStudent("");
+            setReason("")
+            classeRecebida("")
         }
-        createRequerimentContract(data);
-        setPromoted('')
-        setReason('')
-    }
+
+    
     return (
         <div className='DivForm'>
             <div>
@@ -43,7 +50,7 @@ const FormClasses = () => {
                     * Aluno:
                     <input type="text"
                         onChange={(e) => {
-                            setPromoted(e.target.value)
+                            setStudent(e.target.value)
                         }}
                         required
                         placeholder='Digite o nick do militar que teve aula.'
@@ -52,11 +59,9 @@ const FormClasses = () => {
 
                 <label>
                     * Aula
-                    <select onChange={(e) => setPatent(e.target.value)}>
-                        {infoSystem && infoSystem.map((patents, patentsIndex) => (
-                            patents.patents.map((patent, index) => (
-                                <option key={`${patentsIndex}-${index}`} value={patent}>{patent}</option>
-                            ))
+                    <select onChange={(e) => setClasseRecebida(e.target.value)}>
+                        {newArrayClesses && newArrayClesses.map((classe) => (
+                                <option key={`${classe._id}`} value={classe.nameClasse}>{classe.nameClasse}</option>
                         ))}
                     </select>
                 </label>
@@ -66,9 +71,9 @@ const FormClasses = () => {
 
                     </textarea>
                 </label>
-
-                {!loadingDocs && <button className='BtnActive btn' onClick={handleSubmit}> <span className='SpanBtn'><FaFloppyDisk /></span>Publicar</button>}
-                {loadingDocs && <button className='BtnActive BtnActiveDisable btn' disabled onClick={handleSubmit}> <span className='SpanBtn'><FaFloppyDisk /></span>Aguarde...</button>}
+                        {message && <p>{message.msg}</p>}
+                {!loading && <button className='BtnActive btn' onClick={handleSubmit}> <span className='SpanBtn'><FaFloppyDisk /></span>Publicar</button>}
+                {loading && <button className='BtnActive BtnActiveDisable btn' disabled onClick={handleSubmit}> <span className='SpanBtn'><FaFloppyDisk /></span>Aguarde...</button>}
             </form>
         </div>
 

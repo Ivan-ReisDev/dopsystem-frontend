@@ -10,6 +10,7 @@ import { TeamsProvider } from './context/TeamsContext.jsx';
 import { RequirementsProvider } from './context/Requirements.jsx';
 import { SystemProvider } from './context/SystemContext.jsx';
 import { ClassesProvider } from './context/ClassesContext.jsx';
+import { RhContext, RhProvider } from './context/RhContext.jsx';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -21,7 +22,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <TeamsProvider>
               <RequirementsProvider>
                 <ClassesProvider>
-                  <App />
+                  <RhProvider>
+                    <App />
+                  </RhProvider>
                 </ClassesProvider>
               </RequirementsProvider>
             </TeamsProvider>

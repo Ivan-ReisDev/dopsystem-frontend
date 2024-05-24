@@ -9,6 +9,7 @@ import FormReq from '../../components/FormReq/FormReq';
 const Promotion = () => {
     const { searchRequerimentsPromotedsUser, requerimentsFilter } = useContext(RequirementsContext);
     const [showPromotions, setShowPromotions] = useState(false)
+    const typeStatus = "Promoção"
 
     useEffect(() => {
         searchRequerimentsPromotedsUser("Promoção", "")
@@ -38,15 +39,18 @@ const Promotion = () => {
                             <h2><span> <FaListUl /></span>Lista de Promoções</h2>
                         </div>
                         <TableRequirements
+                            typeStatus={typeStatus}
                             searchRequerimentsPromotedsUser={searchRequerimentsPromotedsUser}
                             requerimentsFilter={requerimentsFilter}
                         />
-                         </>)
-                   : (
+                    </>)
+                    : (
 
-                    <FormReq />
+                        <FormReq
 
-                )}
+                        />
+
+                    )}
             </main>
         </div>
     )

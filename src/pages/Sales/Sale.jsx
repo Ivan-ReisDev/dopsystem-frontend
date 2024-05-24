@@ -9,6 +9,7 @@ import FormSale from '../../components/FormReq/FormSale';
 
 const Contract = () => {
     const { searchRequerimentsPromotedsUser, requerimentsFilter } = useContext(RequirementsContext);
+    const typeStatus = "Venda"
    
     const [showPromotions, setShowPromotions] = useState(false)
     useEffect(() => {
@@ -37,13 +38,16 @@ const Contract = () => {
                             <h2><span> <FaListUl /></span>Lista de Venda de Cargos</h2>
                         </div>
                         <TableRequirements
+                        typeStatus={typeStatus}
                             searchRequerimentsPromotedsUser={searchRequerimentsPromotedsUser}
                             requerimentsFilter={requerimentsFilter}
                         />
                          </>)
                    : (
 
-                    <FormSale />
+                    <FormSale 
+                    
+                    />
 
                 )}
             </main>

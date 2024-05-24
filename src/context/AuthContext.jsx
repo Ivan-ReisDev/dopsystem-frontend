@@ -48,6 +48,9 @@ const AuthProvider = ({ children }) => {
     
                 if (res.ok) {
                     const resJSON = await res.json();
+
+                    localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
+                    localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
                     setAuthProfile(resJSON);
                     setIsAuthentication(true);
 
