@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import style from './quickSearch.module.css';
 import Logo from '../../assets/DOP Padrão (com borda).png';
 import { CiSearch } from "react-icons/ci";
@@ -9,9 +9,11 @@ import { RequirementsContext } from '../../context/Requirements';
 
 const QuickSearch = () => {
     const { searchAllUsers, usersArray, user } = useContext(UserContext);
+
+
     const {formatarDataHora } = useContext(RequirementsContext);
     const [search, setSearch] = useState("");
-    const infoProfileUser = localStorage.getItem("@Auth:Profile") ? JSON.parse(localStorage.getItem("@Auth:Profile")) : null;
+    const infoProfileUser = localStorage.getItem("") ? JSON.parse(localStorage.getItem("@Auth:Profile")) : null;
     const navigate = useNavigate()
     // Verifica se usersArray tem algum usuário
     const firstUser = user && user.users && user.users.length > 0 ? user.users[0] : null;

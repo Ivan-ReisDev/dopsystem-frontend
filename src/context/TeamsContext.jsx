@@ -32,7 +32,83 @@ const TeamsProvider = ({ children }) => {
             setMessage(error.message || 'Erro desconhecido');
         }
     };
+
+    const updateTeam = async (data) => {
+        try {
+            const response = await fetch(`${PRD}teams/update/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
     
+            const responseData = await response.json();
+    
+            if (response.ok) {
+                setMessage(responseData);
+            } else {
+                setMessage({ error: 'Ocorreu um erro na atualização da equipe.', details: responseData });
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+            setMessage({ error: 'Erro na requisição. Por favor, tente novamente mais tarde.' });
+        }
+    };
+
+    const deleteTeams = async (data) => {
+        try {
+            const res = await fetch(`${PRD}teams/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const DataMSG = await res.json();
+
+            if (res.ok) {
+                console.log( "DELETE Teams" + DataMSG);
+
+            } else {
+                console.log(DataMSG);
+            }
+        } catch (error) {
+            console.error('Erro ao deletar documento', error);
+        }
+    };
+
+    
+
+    const createDocs = async (data) => {
+        try {
+            const res = await fetch(`${PRD}teams/create`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const resJSON = await res.json();
+           
+            if (res.ok) {
+                setMessage(resJSON);
+        
+            } else {
+                setMessage('Não foi possível criar equipe.');
+                
+            }
+        } catch (error) {
+            console.error('Erro na criação da equipe:', error);
+            
+        }
+ 
+    };
+
+
+
 
     const removeMember = async (data) => {
         try {
@@ -108,11 +184,16 @@ const TeamsProvider = ({ children }) => {
         <TeamsContext.Provider
             value={{
                 message,
+                setMessage,
                 teams,
                 infoTeamsArray,
                 infoTeams,
                 removeMember,
-                addMember
+                addMember,
+                updateTeam,
+                getTeams,
+                createDocs,
+                deleteTeams
             }}
         >
             {children}

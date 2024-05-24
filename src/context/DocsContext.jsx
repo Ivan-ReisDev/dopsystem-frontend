@@ -26,15 +26,14 @@ const DocsProvider = ({ children }) => {
             });
 
             const resJSON = await res.json();
-            setMessage(resJSON);
-
+           
             if (res.ok) {
-                console.log("Documento criado com sucesso.");
-                setResOk(true)
+                setMessage(resJSON);
+                setResOk(true);
                 
 
             } else {
-                console.log('Não foi possível criar o documento.');
+                setMessage('Não foi possível criar o documento.');
                 
             }
         } catch (error) {
@@ -57,10 +56,10 @@ const DocsProvider = ({ children }) => {
             const DataMSG = await res.json();
 
             if (res.ok) {
-                console.log(DataMSG.msg);
+                console.log(DataMSG);
 
             } else {
-                console.log(`Erro ao excluir documento: ${DataMSG.msg}`);
+                console.log(DataMSG);
             }
         } catch (error) {
             console.error('Erro ao deletar documento', error);
@@ -80,9 +79,9 @@ const DocsProvider = ({ children }) => {
             const responseData = await response.json();
     
             if (response.ok) {
-                console.log("Documento atualizado com sucesso:", responseData);
+                setMessage(responseData);
             } else {
-                console.error("Erro ao atualizar o documento:", responseData);
+                setMessage(responseData);
             }
         } catch (error) {
             console.error("Erro na requisição:", error);
@@ -122,7 +121,8 @@ const DocsProvider = ({ children }) => {
                 resOk,
                 editDoc,
                 deleteDoc,
-                getDocuments
+                getDocuments,
+                setMessage
             }}
         >
             {children}

@@ -13,8 +13,8 @@ import { AuthContext } from '../context/AuthContext';
 
 const Home = () => {
 
-  const { loading } = useContext(AuthContext);
-
+  const { loading, userAllArray } = useContext(AuthContext);
+  console.log(userAllArray)
   useEffect(() => {
     document.title = "Polícia DOP - Home";
   }, []);

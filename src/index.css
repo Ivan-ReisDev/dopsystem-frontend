@@ -122,7 +122,7 @@ input:focus {
 }
 
 .error {
-  color: #ce0000;
+  color: #920000;
   font-size: 13px;
 
 }
@@ -144,6 +144,16 @@ input:focus {
 .BtnActive:hover {
   background-color: #09384e;
 
+
+}
+
+.BtnActiveError {
+  background-color: #830b0b;
+
+}
+
+.BtnActiveError:hover {
+  background-color: #680b0b;
 
 }
 

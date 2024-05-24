@@ -1,0 +1,83 @@
+.MainDoc {
+    width: 100%;
+    height: 100%;
+
+
+}
+
+.MainDocUL {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+
+}
+
+.MainDocLI {
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 3px;
+    width: 220px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    font-size: 13px;
+    box-shadow: 1px 1px 15px rgba(134, 134, 134, 0.575);
+    position: relative;
+    transition: .3s ease-in-out;
+
+
+}
+
+.MainDocLI:hover {
+    transform: translateY(-10px);
+
+
+}
+
+.MainDocMain {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.head {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.back {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(190, 190, 190, 0.699);
+    border-radius: 2px;
+    position: relative;
+    top: 25px;
+    left: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(138, 138, 138);
+}
+
+.back:hover {
+    background-color: rgba(168, 168, 168, 0.699);
+
+}
+
+.TitlePrimary {
+    font-size: 25px;
+    margin: .8em;
+    margin-bottom: 1.5em;
+    font-weight: bold;
+
+}

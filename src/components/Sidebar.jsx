@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { SlArrowUp } from "react-icons/sl";
 import Button from 'react-bootstrap/Button';
@@ -9,10 +9,12 @@ import { AuthContext } from '../context/AuthContext';
 import { DocsContext } from '../context/DocsContext';
 import { TeamsContext } from '../context/TeamsContext';
 
-const classes = ['Instrutores', 'Supervisores', 'Treinadores'];
-
 const Sidebar = ({ showSidebar }) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getTeams(localStorage.getItem("@Auth:Token"))
+  }, [])
 
   const { logout } = useContext(AuthContext);
   const [showDocs, setShowDocs] = useState(false);
@@ -22,7 +24,7 @@ const Sidebar = ({ showSidebar }) => {
   const activeShowClasses = () => setShowClasses(!showClasses);
 
   const { Documents } = useContext(DocsContext);
-  const { teams } = useContext(TeamsContext);
+  const { teams, getTeams } = useContext(TeamsContext);
   
   const newArrayDocumentos =  Documents.filter(script => script.docsType === "System");
   const infoProfileUser = JSON.parse(localStorage.getItem("@Auth:Profile"));
@@ -44,7 +46,7 @@ const Sidebar = ({ showSidebar }) => {
       </div>
       {infoProfileUser ? infoProfileUser.userType === "Admin" && (
         <div className='borderSidebar w-full h-[10%] flex flex-col items-center justify-center  border-b'>
-          <NavLink to={'/paneladmin'} className='buttonRadiosSidebar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> Painel <span className='uppercase'>admin</span></NavLink>
+          <NavLink to={'/dpanel'} className='buttonRadiosSidebar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> Painel <span className='uppercase'>admin</span></NavLink>
         </div>
       ) : null}
       <ul className='border-b borderSidebar'>
@@ -113,7 +115,6 @@ const Sidebar = ({ showSidebar }) => {
 
         <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/members'}>Membros</NavLink></li>
         <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/profile'}>Perfil</NavLink></li>
-        {infoProfileUserCompleted && infoProfileUserCompleted.userType === "Admin" && <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/loggers'}>Logs</NavLink></li>}
       </ul>
 
       <div className='w-full borderSidebar h-[10%] flex flex-col items-center justify-center'>

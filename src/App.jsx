@@ -12,7 +12,6 @@ import EditDocs from './pages/EditDocs/EditDocs';
 import { DocsContext } from './context/DocsContext';
 import { TeamsContext } from './context/TeamsContext';
 import Teams from './pages/Teams/Teams';
-import Logger from './pages/Logger/Logger';
 import { UserContext } from './context/UserContext';
 import Preloader from './components/Preloader/Preloader';
 import Promotion from './pages/Promotion/Promotion';
@@ -48,15 +47,8 @@ function App() {
         <Route path='/' element={!isAuthentication ? <LoginSystem setLoading={setLoading} /> : <Home />} />
         <Route path='/home' element={isAuthentication ? <Home /> : <LoginSystem setLoading={setLoading} />} />
         <Route path='/login' element={!isAuthentication ? <LoginSystem setLoading={setLoading} /> : <Home />} />
-        {isAuthentication && userType?.userType === "Admin" && (
-          <Route path='/loggers' element={<Logger />} />
-        )}
 
         {/* RODAS DO PAINEL ADMINISTRATIVO */}
-        {isAuthentication && userType?.userType === "Admin" && (
-          <Route path='/dpanel/editor' element={<EditDocs />} />
-        )}
-
         {isAuthentication && userType?.userType === "Admin" && (
           <Route path='/dpanel' element={<DPanel />} />
         )}

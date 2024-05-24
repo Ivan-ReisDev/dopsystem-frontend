@@ -4,8 +4,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-    top: 61px;
     padding: 50px;
     background-color: #eeeeeeda;
 }
@@ -35,7 +33,6 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-
     }
 
 }

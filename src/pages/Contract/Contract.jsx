@@ -4,7 +4,7 @@ import '../forms.css'
 import { RequirementsContext } from '../../context/Requirements';
 import TableRequirements from '../../components/TableRequirements/TableRequirements';
 import FormContract from '../../components/FormReq/FormContract';
-import { SystemContext } from '../../context/SystemContent';
+import { SystemContext } from '../../context/SystemContext';
 
 const Contract = () => {
     const { searchRequerimentsPromotedsUser, requerimentsFilter } = useContext(RequirementsContext);

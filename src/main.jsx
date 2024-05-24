@@ -8,7 +8,8 @@ import { DocsProvider } from './context/DocsContext.jsx';
 import { UserProvider } from './context/UserContext.jsx';
 import { TeamsProvider } from './context/TeamsContext.jsx';
 import { RequirementsProvider } from './context/Requirements.jsx';
-import { SystemProvider } from './context/SystemContent.jsx';
+import { SystemProvider } from './context/SystemContext.jsx';
+import { ClassesProvider } from './context/ClassesContext.jsx';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -19,7 +20,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <UserProvider>
             <TeamsProvider>
               <RequirementsProvider>
-                <App />
+                <ClassesProvider>
+                  <App />
+                </ClassesProvider>
               </RequirementsProvider>
             </TeamsProvider>
           </UserProvider>

@@ -1,0 +1,285 @@
+.DpanelTeamsInfo {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.DpanelTeamsInfo h2 {
+    font-size: 25px;
+    margin: .8em;
+    margin-bottom: 1.5em;
+    font-weight: bold;
+
+}
+
+.MainDoc {
+    width: 100%;
+    height: 100%;
+
+
+}
+.MainDocUL {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+
+.MainDocLI {
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 3px;
+    width: 220px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    font-size: 13px;
+    box-shadow: 1px 1px 15px rgba(134, 134, 134, 0.575);
+
+}
+
+.MainDocMain {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.head {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.back {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(190, 190, 190, 0.699);
+    border-radius: 2px;
+    position: relative;
+    top: 25px;
+    left:  35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(138, 138, 138);
+}
+
+.back:hover {
+    background-color: rgba(168, 168, 168, 0.699);
+
+}
+
+.TitlePrimary {
+    font-size: 25px;
+    margin: .8em;
+    margin-bottom: 1.5em;
+    font-weight: bold;
+
+}
+
+
+.main {
+    border: solid 1px #e4e4e4;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+}
+
+.main form {
+    margin: 0 10px ;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    height: 100%;
+
+}
+
+.main form label {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 10px 0;
+    font-weight: 500;
+
+}
+
+.main input {
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.main input:focus {
+    border-color: #66afe9;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+
+}
+
+.main h2 {
+    padding: 15px 5px;
+    color: #031149;
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+
+.body {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 5px;
+
+}
+
+
+.BtnActive  {
+    background-color: #0c4c69 !important;
+    font-size: 15px !important;
+    display: flex !important;
+    font-weight: bold !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 5px !important;
+    color: #fff !important;
+    height: 40px !important;
+    width: 160px !important;
+    margin: 15px !important;
+  }
+  
+  .BtnActive:hover {
+    background-color: #09384e !important;
+  
+  
+  }
+
+  .TeamClassesList {
+    margin: 0 10px ;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    justify-content: space-between;
+
+  }
+
+  .TeamClassesList div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+
+  }
+
+  .TeamClassesList ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    border: solid 1px #e4e4e4;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 1px 1px 15px #d1d1d1a8;
+
+  }
+
+  .TeamClassesList li {
+    font-size: 13px;
+    min-height: 30px;
+    width: 100%;
+    background-color: #ffffff;
+    display: flex;
+    border-bottom: solid 1px #e4e4e4;
+
+
+
+  }
+  .TeamClassesList li:nth-child(1) { 
+    background-color: #031149;
+    color: #fff;
+    font-weight: 700;
+
+  }
+
+
+
+
+  .TeamClassesList span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  .TeamClassesList span:nth-child(1) {
+
+    min-width: 80%;
+
+
+  }
+
+  .TeamClassesList span:nth-child(2) {
+    width: 20%;
+
+  }
+
+  .TeamClassesList button {
+    background-color: #0c4c69;
+    font-weight: bold;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 3px;
+  }
+  .TeamClassesList button:hover {
+    background-color: #09384e;
+  }
+
+  .main select {
+    z-index: 1 !important;
+
+  }
+
+.btnForm {
+  display: flex;
+}
+
+.btnForm button:nth-child(2) {
+  background-color: #750000 !important;
+
+
+}

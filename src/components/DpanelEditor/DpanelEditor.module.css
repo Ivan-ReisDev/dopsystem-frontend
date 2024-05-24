@@ -1,0 +1,67 @@
+.editDocs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 61px;
+}
+
+.editDocsBody {
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+    width: 90%;
+
+}
+
+.editDocs label {
+    width: 100%;
+    font-size: 19px;
+    font-weight: bold;
+    color: #031149;
+    margin: 15px 0;
+    display: flex; 
+    flex-direction: column;
+}
+
+.editDocs input {
+    width: 90%;
+    padding: 20px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: #ccc 1px solid;
+}
+
+.editDocs input::placeholder {
+    font-weight: normal;
+}
+
+.editDocsBodyTop select{
+    width: 90%;
+    height: 43px;
+    padding: 0 19px;
+    border-radius: 5px;
+    background-color: transparent;
+    z-index: 1;
+    border: #ccc 1px solid;
+}
+
+.editDocsBodyTop select:focus{
+    outline: none;
+}
+
+.editDocsBodyTop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

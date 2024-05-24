@@ -4,7 +4,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import style from './members.module.css'
 import ListMembers from '../../components/ListMembers/ListMembers';
 import { AuthContext } from '../../context/AuthContext';
-import { SystemContext } from '../../context/SystemContent';
+import { SystemContext } from '../../context/SystemContext';
 
 const Members = () => {
 

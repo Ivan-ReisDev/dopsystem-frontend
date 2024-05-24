@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { FaFloppyDisk } from "react-icons/fa6";
 import { UserContext } from '../../context/UserContext';
 import { RequirementsContext } from '../../context/Requirements';
-import { SystemContext } from '../../context/SystemContent';
+import { SystemContext } from '../../context/SystemContext';
 const FormContract = () => {
 
     const [loadingDocs, setLoadingDocs] = useState(false)

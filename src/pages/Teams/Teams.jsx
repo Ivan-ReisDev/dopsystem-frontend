@@ -15,6 +15,7 @@ import TableTeamsMembers from '../../components/TableTeamsMembers/TableTeamsMemb
 import DocsTeams from '../../components/DocsTeams/DocsTeams';
 import { TeamsContext } from '../../context/TeamsContext';
 import { FormAdd } from '../../components/FormTeams/FormAdd';
+import FormClasses from '../../components/FormTeams/FormClasses';
 
 const Teams = ({ team }) => {
   const storedUser = localStorage.getItem("@Auth:ProfileUser");
@@ -80,7 +81,7 @@ const Teams = ({ team }) => {
           {typeMenu && typeMenu === "members" && (
             <div className={style.members}>
               <div className='divMainForms'>
-                <h2><span> <FaListUl /></span>Lista de Membros</h2> 
+                <h2><span> <FaListUl /></span>Lista de Membros</h2>
               </div>
               <h3>Líder</h3>
               <ul className={style.ListMembers}>
@@ -144,7 +145,7 @@ const Teams = ({ team }) => {
           {typeMenu && typeMenu === "docs" && (
             <div className={style.docs}>
               <div className='divMainForms'>
-                <h2><span> <FaListUl /></span>Lista de Documentos</h2> 
+                <h2><span> <FaListUl /></span>Lista de Documentos</h2>
               </div>
               <div className="contentBodyElement">
                 <div className="contentBodyElementTitle">
@@ -175,19 +176,29 @@ const Teams = ({ team }) => {
             </>
           )}
 
+          {typeMenu && typeMenu === "classes" && (
+            <div className={style.ListMembersEdit}>
+              <div className='divMainForms'>
+                <h2><span> <FaListUl /></span>Postar Aula</h2> <button onClick={() => setAddMember(!addMember)} className={style.btnDocs}>{!addMember ? <FaPlus /> : <IoArrowUndo />}</button>
+              </div>
+              <FormClasses />
+            </div>
+          )}
+
+
           {typeMenu && typeMenu === "Controle de Membros" && (
             <div className={style.ListMembersEdit}>
               <div className='divMainForms'>
-              <h2><span> <FaListUl /></span>Gerenciar Membros</h2> <button onClick={() => setAddMember(!addMember)} className={style.btnDocs}>{ !addMember ? <FaPlus /> : <IoArrowUndo />}</button>
+                <h2><span> <FaListUl /></span>Gerenciar Membros</h2> <button onClick={() => setAddMember(!addMember)} className={style.btnDocs}>{!addMember ? <FaPlus /> : <IoArrowUndo />}</button>
               </div>
-           { !addMember ?
-            <TableTeamsMembers
-                team={team}
-              />
-              :
-              <FormAdd
-                team={team}
-              />}
+              {!addMember ?
+                <TableTeamsMembers
+                  team={team}
+                />
+                :
+                <FormAdd
+                  team={team}
+                />}
             </div>
           )}
 

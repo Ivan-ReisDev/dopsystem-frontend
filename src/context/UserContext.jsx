@@ -26,6 +26,8 @@ const UserProvider = ({ children }) => {
             });
             const data = await res.json();
             setUser(data); 
+            console.log(user);
+
             return data;
         } catch (error) {
             console.log(error);

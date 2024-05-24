@@ -1,12 +1,20 @@
 import React from 'react'
 import style from './footer.module.css'
 import LogoDOP from '../../assets/logodop.png'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { FaArrowsAlt,FaMapMarkedAlt,FaHistory, FaDiscord, FaInstagramSquare    } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
 
 
 const Footer = () => {
+
+    const location = useLocation();
+
+    // Verifica se a rota atual é '/contact'
+    if (location.pathname === '/dpanel') {
+      return null; // Não renderiza o Header
+    }
+
     return (
         <footer className={style.Footer}>
             <div className={style.Header}>
