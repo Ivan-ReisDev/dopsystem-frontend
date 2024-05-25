@@ -75,7 +75,7 @@ const LoginSystem = ({ setLoading }) => {
                         </>
                     ) : (
                         <>
-                            <h2 className='text-center font-bold text-lg mb-1'>Ative sua conta do RCC System</h2>
+                            <h2 className='text-center font-bold text-lg mb-1'>Ative sua conta do DOP System</h2>
                             <p className='text-center pb-2'>Para ativar sua conta, é necessário que você seja um dos policiais ativos da Polícia DOP.<br />
                                 Caso não seja, não conseguirá ativá-la.</p>
                         </>

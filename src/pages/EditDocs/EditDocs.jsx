@@ -118,7 +118,7 @@ const EditDocs = ({ placeholder, doc, team }) => {
         />
       </div>
       
-      {!loadingDocs && <button className='BtnActive' onClick={handleSubmitDocs}> <span className='SpanBtn'><FaFloppyDisk /></span>Publicar</button>}
+      {!doc && !loadingDocs && <button className='BtnActive' onClick={handleSubmitDocs}> <span className='SpanBtn'><FaFloppyDisk /></span>Publicar</button>}
       {doc ? <button className='BtnActive' onClick={handleSubmitDocsEdit}> <span className='SpanBtn'><FaFloppyDisk /></span>Editar</button>: ""}
       {loadingDocs && <button className='BtnActive BtnActiveDisable' disabled onClick={handleSubmitDocs}> <span className='SpanBtn'><FaFloppyDisk /></span>Aguarde...</button>}
       {messege && <p className='error'>{messege}</p>}

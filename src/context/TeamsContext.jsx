@@ -123,6 +123,7 @@ const TeamsProvider = ({ children }) => {
             const responseData = await response.json();
     
             if (response.ok) {
+                infoTeams(localStorage.getItem("@Auth:Token"), data.nameTeams)
                 console.log("Usuário removido sucesso:", responseData);
             } else {
                 console.error("Erro ao remover usuário :", responseData);
@@ -135,7 +136,7 @@ const TeamsProvider = ({ children }) => {
 
     const addMember = async (data) => {
         try {
-            const response = await fetch(`${PRD}/teams/add`, {
+            const response = await fetch(`${PRD}teams/add`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -147,6 +148,7 @@ const TeamsProvider = ({ children }) => {
     
             if (response.ok) {
                 console.log("Usuário removido sucesso:", responseData);
+                window.location.reload("/team/Ensino")
             } else {
                 console.error("Erro ao remover usuário :", responseData);
             }

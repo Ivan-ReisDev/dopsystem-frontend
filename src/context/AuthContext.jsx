@@ -17,15 +17,16 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const loadingStorageData = async () => {
             const storageToken = localStorage.getItem("@Auth:Token");
-            const storageProfile = localStorage.getItem("@Auth:Profile");
+            const storageProfile = JSON.stringify(localStorage.getItem("@Auth:Profile"));
             
-            if (!storageProfile || !storageToken) {
+            if (!storageProfile || !storageToken ) {
                 localStorage.removeItem('@Auth:Token');
                 localStorage.removeItem('@Auth:Profile');
                 localStorage.removeItem('@Auth:ProfileUser');
                 setIsAuthentication(false)
                 navigate('/login') 
-            } else {
+            }          
+            else {
                 setIsAuthentication(true)
                 setAuthToken(storageToken);
             }
@@ -126,7 +127,7 @@ const AuthProvider = ({ children }) => {
         }
     };
     
-        const handleActiveCout = async (data) => {
+        const handleActiveCout = async (data, dataActive) => {
         try {
             const res = await fetch(`${PRD}users/update`, {
                 method: 'PUT',

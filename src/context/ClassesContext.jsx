@@ -50,6 +50,7 @@ const ClassesProvider = ({ children }) => {
             });
 
             const resJSON = await res.json();
+            
            
             if (res.ok) {
                 setMessage(resJSON); 

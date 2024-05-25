@@ -12,22 +12,19 @@ const TableTeamsMembers = ({ team, userOk }) => {
 
     const handleRemove = (data) => {
         setDataUser(data)
+        console.log("Removeu")
         setIsRemove(true)
     }
 
     useEffect(() => {
         const fetchTeamInfo = async () => {
             const token = localStorage.getItem("@Auth:Token");
-
+            infoTeams(token, team.nameTeams)
         };
 
         fetchTeamInfo();
-        console.log(infoTeamsArray)
-        // .requirements.length
-        // nickname
-        //office
-    }, []);
-    console.log(isRemove)
+    }, [infoTeams]);
+
 
     return (
         <> {!isRemove && <div className={style.ListTeamsMembers}>

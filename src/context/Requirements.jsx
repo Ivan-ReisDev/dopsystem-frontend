@@ -12,7 +12,7 @@ const RequirementsProvider = ({ children }) => {
     const [teams, setTeams] = useState("");
     const [requerimentsFilter, setRequerimentsFilter] = useState([])
     const [requerimentsArray, setRequerimentsArray] = useState([])
-    const {setLoading} = useContext(AuthContext);
+    const {setLoading, getProfileAll} = useContext(AuthContext);
 
     // const getTeams = useCallback(async (tokenAuth) => {
     //     try {
@@ -185,9 +185,11 @@ const RequirementsProvider = ({ children }) => {
             const resJSON = await res.json();
 
             if (res.ok) {
-                console.log('Requerimento postado com sucesso.');
+                getProfileAll()
+                setMessage('Requerimento postado com sucesso.');
+                navigate(`/search/profile/${data.promoted}`)
             } else {
-                console.log('Não foi possível criar o documento.');
+                setMessage('Não foi possível criar o documento.');
                 
             }
         } catch (error) {
@@ -211,9 +213,11 @@ const RequirementsProvider = ({ children }) => {
             const resJSON = await res.json();
 
             if (res.ok) {
-                console.log('Requerimento postado com sucesso.');
+                getProfileAll()
+                setMessage(resJSON);
+                navigate(`/search/profile/${data.promoted}`)
             } else {
-                console.log('Não foi possível criar o requerimento.');
+                setMessage(resJSON);
                 
             }
         } catch (error) {

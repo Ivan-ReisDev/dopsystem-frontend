@@ -1,5 +1,5 @@
 import { UserContext } from "../../context/UserContext";
-import { FaUser, FaBook, FaExclamationTriangle } from "react-icons/fa";
+import { FaUser, FaBook, FaExclamationTriangle, FaHandshake, FaDollarSign  } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom'
 import style from "./profile.module.css"
 import Logo from '../../assets/DOP Padrão (com borda).png'
@@ -92,11 +92,17 @@ const Profile = ({ profile }) => {
                                                     {(requeriment.typeRequirement === "Promoção" ||
                                                         requeriment.typeRequirement === "Rebaixamento") &&
                                                         <p className="text-slate-500"><span><FaUser /></span> {requeriment.newPatent}</p>}
-
+                                                    
                                                     {(requeriment.typeRequirement === "Aula") &&
                                                         <p className="text-slate-500"><span><FaBook /></span> {requeriment.classe}</p>}
                                                     {(requeriment.typeRequirement === "Advertência") &&
                                                         <p className="text-slate-500"><span><FaExclamationTriangle /></span>Advertência</p>}
+
+                                                    {(requeriment.typeRequirement === "Contrato") &&
+                                                        <p className="text-slate-500"><span><FaHandshake /></span>{requeriment.newPatent}</p>}
+
+                                                    {(requeriment.typeRequirement === "Venda") &&
+                                                        <p className="text-slate-500"><span><FaDollarSign  /></span>{requeriment.newPatent}</p>}
                                                     {requeriment.status === "Pendente" && <p className="bg-yellow-600 text-white font-semibold text-[12px] w-[80px] h-[18px] rounded-sm flex items-center justify-center">{requeriment.status}</p>}
                                                     {requeriment.status === "Aprovado" && <p className="bg-green-600 text-white font-semibold text-[12px] w-[80px] h-[18px] rounded-sm flex items-center justify-center">{requeriment.status}</p>}
                                                     {requeriment.status === "Reprovado" && <p className="bg-red-600 text-white font-semibold text-[12px] w-[80px] h-[18px] rounded-sm flex items-center justify-center">{requeriment.status}</p>}

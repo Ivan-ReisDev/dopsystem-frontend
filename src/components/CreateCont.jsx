@@ -24,10 +24,10 @@ const CreateCont = ({
     const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm();
     const [handleTriDivBlur, seThandleTriDivBlur] = useState(false);
     
-    const { handleActiveCout } = useContext(AuthContext)
+    const { handleActiveCout, message, setMessage } = useContext(AuthContext)
 
     const onSubmit = (data) => {
-        handleActiveCout(data);
+        handleActiveCout(data, code);
         setValue("newUserDopSystem", "")
         setValue("newPasswordDopSystem", "")
         setValue("newPasswordDopSystemConf", "")
@@ -115,11 +115,10 @@ const CreateCont = ({
                 <div className='flex flex-col items-center w-full mt-2'>
                     <p className='text-center'>Coloque na sua missão o código:<br /> {code} </p>
                 </div>
-{/* 
+
                 {message && <Alert variant='warning' className='h-[15px] flex items-center mt-2'>
                     <p className='text-[13px] text-center'>{message ? message : ''}</p>
-                </Alert>} */}
-
+                </Alert>} 
                 <div className='h-[50px] mt-3 flex flex-row justify-between w-full'>
                     <Button onClick={handleCreateCont} className='w-[49%] text-[#0D1450]  hover:bg-[#0D1450]' variant="outline-primary">Voltar</Button>
                     <Button type='submit' className='w-[49%] bg-[#0D1450] hover:bg-[#29327a]' variant="primary">Ativar</Button>

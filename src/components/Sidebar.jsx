@@ -66,7 +66,7 @@ const Sidebar = ({ showSidebar }) => {
         {infoProfileUserCompleted && (infoProfileUserCompleted.teans !== "" || infoProfileUserCompleted.userType === "Admin") && (
           <>
             <button className='w-full h-[30px] font-bold flex items-center ml-5' onClick={activeShowClasses}>
-              Equipes <span className={`ml-2 text-[13px] ${showClasses ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>
+              Funções <span className={`ml-2 text-[13px] ${showClasses ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>
             </button>
             <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showClasses ? "h-auto " : "h-0 hidden"}`}>
               {teams && teams.map((team, index) => {
@@ -90,7 +90,7 @@ const Sidebar = ({ showSidebar }) => {
         )}
 
         <button className='w-full h-[30px] font-bold flex items-center ml-5' onClick={() => setShowForms(!showForms)}>
-          Recursos Humanos <span className={`ml-2 text-[13px] ${showForms ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>
+          Requerimentos <span className={`ml-2 text-[13px] ${showForms ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>
         </button>
         <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showForms ? "h-auto " : "h-0 hidden"}`}>
           <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>

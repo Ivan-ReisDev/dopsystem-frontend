@@ -12,6 +12,7 @@ const DocsProvider = ({ children }) => {
     const [resOk, setResOk] = useState(false)
     const [Documents, setDocuments] = useState([]);
     const [loadingDocs, setLoadingDocs] = useState(false);
+    const navigate = useNavigate()
 
     const createDocs = async (data) => {
         setLoadingDocs(true)
@@ -30,6 +31,8 @@ const DocsProvider = ({ children }) => {
             if (res.ok) {
                 setMessage(resJSON);
                 setResOk(true);
+                getDocuments(localStorage.getItem('@Auth:Token'))
+                navigate(`/team/${data.docsType}`)
                 
 
             } else {
@@ -56,6 +59,7 @@ const DocsProvider = ({ children }) => {
             const DataMSG = await res.json();
 
             if (res.ok) {
+                getDocuments(localStorage.getItem('@Auth:Token'))
                 console.log(DataMSG);
 
             } else {
@@ -79,7 +83,10 @@ const DocsProvider = ({ children }) => {
             const responseData = await response.json();
     
             if (response.ok) {
+                getDocuments(localStorage.getItem('@Auth:Token'))
                 setMessage(responseData);
+                navigate(`/team/${data.docsType}/doc/${data.idDoc}`)
+                
             } else {
                 setMessage(responseData);
             }

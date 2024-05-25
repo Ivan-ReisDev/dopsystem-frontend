@@ -12,11 +12,11 @@ const Confirmation = ({ dataUser , setIsRemove, team, userOk}) => {
         const data = {
             idUser: user._id, 
             nickMember:dataUser.user.nickname, 
-            idTeams: team._id
+            idTeams: team._id,
+            team,
         }
         removeMember(data)
         setIsRemove(false)
-        console.log()
     }
 
   return (
