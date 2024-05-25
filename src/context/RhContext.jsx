@@ -39,7 +39,8 @@ const RhProvider = ({ children }) => {
         <RhContext.Provider
             value={{
                 rhStatus,
-                messege
+                messege,
+                setMessege
             }}
         >
             {children}

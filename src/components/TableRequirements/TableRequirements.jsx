@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Table from 'react-bootstrap/Table';
 import { FaEye } from "react-icons/fa";
 import FormReq from '../FormReq/FormReq';
 import FormRelegation from '../FormReq/FormRelegation';
 import FormWarning from '../FormReq/FormWarning';
 import FormSale from '../FormReq/FormSale';
+import FormContract from '../FormReq/FormContract';
+import FormResignation from '../FormReq/FormResignation'
+import { RhContext } from '../../context/RhContext';
 const TableRequirements = ({ requerimentsFilter, typeStatus }) => {
 
     const [requerimentSelected, RequerimentSelected] = useState([]);
     const [stateRequeri, setStateRequeri] = useState(false)
+    const { setMessege } = useContext(RhContext);
 
     return (
         <>
@@ -73,6 +77,7 @@ const TableRequirements = ({ requerimentsFilter, typeStatus }) => {
                                     <td><button onClick={(e) => {
                                         setStateRequeri(true)
                                         RequerimentSelected(requirement)
+                                        setMessege('')
 
                                     }} className='BtnActiveForm'><span className='SpanBtn'><FaEye /> Ver </span></button></td>
                                 </tr>
@@ -100,11 +105,14 @@ const TableRequirements = ({ requerimentsFilter, typeStatus }) => {
             />}
 
 
-            {stateRequeri && typeStatus === "Demissão" && <FormSale
+            {stateRequeri && typeStatus === "Demissão" && <FormResignation
                 requerimentSelected={requerimentSelected}
             />}
 
 
+            {stateRequeri && typeStatus === "Contrato" && <FormContract
+                requerimentSelected={requerimentSelected}
+            />}
         </>
     )
 }

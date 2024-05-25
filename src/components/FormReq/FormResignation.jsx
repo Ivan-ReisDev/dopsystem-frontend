@@ -14,7 +14,7 @@ const FormResignation = ({ requerimentSelected }) => {
     const { user, searchAllUsers } = useContext(UserContext);
     const { createRequerimentResignation } = useContext(RequirementsContext)
     const { resUser, newPatents } = user;
-    const { rhStatus, message } = useContext(RhContext);
+    const { rhStatus, messege } = useContext(RhContext);
     useEffect(() => {
         setOperator(JSON.parse(localStorage.getItem("@Auth:Profile")));
 
@@ -84,7 +84,7 @@ const FormResignation = ({ requerimentSelected }) => {
                     </textarea>
                 </label>
 
-                {!loadingDocs && <button className='BtnActive btn' onClick={handleSubmit}> <span className='SpanBtn'><FaFloppyDisk /></span>Publicar</button>}
+                {!requerimentSelected &&!loadingDocs && <button className='BtnActive btn' onClick={handleSubmit}> <span className='SpanBtn'><FaFloppyDisk /></span>Publicar</button>}
                 {loadingDocs && <button className='BtnActive BtnActiveDisable btn' disabled onClick={handleSubmit}> <span className='SpanBtn'><FaFloppyDisk /></span>Aguarde...</button>}
                 {requerimentSelected && requerimentSelected.status === "Pendente" &&
                     <section className='flex row items-center justify-center'>
@@ -108,7 +108,7 @@ const FormResignation = ({ requerimentSelected }) => {
                         </button>
                     </section>
                 }
-                {message && <p>{message.msg}</p>}
+                {messege && <p>{messege.msg}</p>}
             </form>
         </div>
 

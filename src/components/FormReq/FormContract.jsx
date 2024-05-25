@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { FaFloppyDisk } from "react-icons/fa6";
 import { UserContext } from '../../context/UserContext';
 import { RequirementsContext } from '../../context/Requirements';
+import { MdDelete } from "react-icons/md";
+import { FaCheck } from "react-icons/fa";
+import { RhContext } from '../../context/RhContext';
 import { SystemContext } from '../../context/SystemContext';
-const FormContract = () => {
+const FormContract = ({ requerimentSelected }) => {
 
     const [loadingDocs, setLoadingDocs] = useState(false)
     const [promoted, setPromoted] = useState('');
@@ -13,13 +16,18 @@ const FormContract = () => {
     const { infoSystem, getSystem } = useContext(SystemContext)
     const patents = infoSystem.patents
     const { user, searchAllUsers } = useContext(UserContext);
+    const { messege, rhStatus } = useContext(RhContext);
     const { createRequerimentContract } = useContext(RequirementsContext)
     const { resUser, newPatents } = user;
+
     useEffect(() => {
-        setOperator(JSON.parse(localStorage.getItem("@Auth:Profile")))
-        infoSystem
-        getSystem()
-    }, [])
+        setOperator(JSON.parse(localStorage.getItem("@Auth:Profile")));
+
+        if (requerimentSelected) {
+            setPromoted(requerimentSelected.promoted);
+            setReason(requerimentSelected.reason);
+        }
+    }, [requerimentSelected]);
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -34,6 +42,16 @@ const FormContract = () => {
         setPromoted('')
         setReason('')
     }
+
+    const atualizaStatus = (e, status) => {
+        e.preventDefault()
+        const data = {
+            idUser: operator._id,
+            idRequirements: requerimentSelected._id,
+            statusRequirements: status
+        }
+        rhStatus(data)
+    }
     return (
         <div className='DivForm'>
             <div>
@@ -43,23 +61,30 @@ const FormContract = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                     * Contratante:
-                    <input type="text" value={operator.nickname} disabled />
+                    <input
+                        type="text"
+                        value={!requerimentSelected ? operator.nickname : requerimentSelected.operator}
+                        disabled={requerimentSelected ? true : false}
+                    />
                 </label>
 
                 <label>
                     * Contratado:
                     <input type="text"
+                        value={promoted}
                         onChange={(e) => {
                             setPromoted(e.target.value)
                         }}
                         required
+                        disabled={requerimentSelected ? true : false}
                         placeholder='Digite o nick do militar que será promovido'
                     />
                 </label>
 
                 <label>
                     * Patente
-                    <select onChange={(e) => setPatent(e.target.value)}>
+                    <select onChange={(e) => setPatent(e.target.value)} disabled={requerimentSelected ? true : false}>
+                        {requerimentSelected && <option value={requerimentSelected.newPatent}>{requerimentSelected.newPatent}</option>}
                         {infoSystem && infoSystem.map((patents, patentsIndex) => (
                             patents.patents.map((patent, index) => (
                                 <option key={`${patentsIndex}-${index}`} value={patent}>{patent}</option>
@@ -69,13 +94,44 @@ const FormContract = () => {
                 </label>
                 <label>
                     * Motivo:
-                    <textarea placeholder='Digite o motivo da promoção' onChange={(e) => setReason(e.target.value)} required>
+                    <textarea
+                    value={reason}
+                    placeholder='Digite o motivo da promoção' onChange={(e) => setReason(e.target.value)} required>
 
                     </textarea>
                 </label>
 
-                {!loadingDocs && <button className='BtnActive btn' onClick={handleSubmit}> <span className='SpanBtn'><FaFloppyDisk /></span>Publicar</button>}
+                {!requerimentSelected && !loadingDocs && (
+                    <button className='BtnActive btn' type="submit">
+                        <span className='SpanBtn'><FaFloppyDisk /></span>Publicar
+                    </button>
+                )}
                 {loadingDocs && <button className='BtnActive BtnActiveDisable btn' disabled onClick={handleSubmit}> <span className='SpanBtn'><FaFloppyDisk /></span>Aguarde...</button>}
+                {requerimentSelected && requerimentSelected.status === "Pendente" &&
+                    <section className='flex row items-center justify-center'>
+                        <button
+                            type="button"
+                            onClick={(e) => atualizaStatus(e, "Aprovado")}
+                            className='flex m-2 items-center justify-center text-white bg-green-700 hover:bg-green-800 text-[14px] h-[30px] w-[120px] rounded-sm font-medium transition duration-300'>
+                            <span className='mr-2'><FaCheck /></span>Aprovar
+                        </button>
+
+                        <button
+                            onClick={(e) => atualizaStatus(e, "Reprovado")}
+                            type="button"
+                            className='flex m-2 items-center justify-center text-white bg-orange-600 hover:bg-orange-700 text-[14px] h-[30px] w-[120px] rounded-sm font-medium transition duration-300'>
+                            <span className='mr-2'><MdDelete /></span>Reprovado
+                        </button>
+
+
+                        <button className='flex m-2 items-center justify-center text-white bg-red-700 hover:bg-red-800 text-[14px] h-[30px] w-[120px] rounded-sm font-medium'>
+                            <span className='mr-2'><MdDelete /></span>Excluir
+                        </button>
+                        
+                    </section>
+                }
+                {messege}
+                {messege && <p>{messege.msg}</p>}
             </form>
         </div>
 

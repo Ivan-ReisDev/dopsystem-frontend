@@ -12,7 +12,7 @@ const FormReqdemi = ({ requerimentSelected }) => {
     const [operator, setOperator] = useState('');
     const { user, searchAllUsers } = useContext(UserContext);
     const { createRequerimentRelegation } = useContext(RequirementsContext);
-    const { message, rhStatus} = useContext(RhContext);
+    const { messege, rhStatus} = useContext(RhContext);
     const { resUser, newPatents } = user;
     useEffect(() => {
         setOperator(JSON.parse(localStorage.getItem("@Auth:Profile")));
@@ -117,7 +117,7 @@ const FormReqdemi = ({ requerimentSelected }) => {
                         </button>
                     </section>
                 }
-                {message && <p>{message.msg}</p>}
+                {messege && <p>{messege.msg}</p>}
             </form>
         </div>
 

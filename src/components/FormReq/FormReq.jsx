@@ -16,7 +16,7 @@ const FormReq = ({ requerimentSelected }) => {
     const { user, searchAllUsers } = useContext(UserContext);
     const { createRequeriment } = useContext(RequirementsContext);
     const { resUser, newPatents } = user;
-    const { rhStatus, message } = useContext(RhContext);
+    const { rhStatus, messege } = useContext(RhContext);
 
     useEffect(() => {
         setOperator(JSON.parse(localStorage.getItem("@Auth:Profile")));
@@ -138,7 +138,7 @@ const FormReq = ({ requerimentSelected }) => {
                         </button>
                     </section>
                 }
-                {message && <p>{message.msg}</p>}
+                {messege && <p>{messege.msg}</p>}
             </form>
         </div>
     );
