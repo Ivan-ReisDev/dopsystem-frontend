@@ -68,6 +68,36 @@ const ClassesProvider = ({ children }) => {
       
     };
 
+    const postCI = async (data) => {
+        setLoading(true)
+        try {
+            const res = await fetch(`${PRD}create/ci/requirement`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const resJSON = await res.json();
+           
+            if (res.ok) {
+                setMessage(resJSON); 
+                setLoading(false)
+
+            } else {
+                setMessage(resJSON);
+                setLoading(false)
+            }
+            setLoading(false)
+        } catch (error) {
+            console.error('Erro na criação do documento:', error);
+            
+        }
+      
+    };
+
+
 
     const getClasses = useCallback(async (tokenAuth) => {
         try {
@@ -125,7 +155,8 @@ const ClassesProvider = ({ children }) => {
                 editClasse,
                 createClasse,
                 createClasseRequeriment,
-                loading
+                loading,
+                postCI
             }}
         >
             {children}

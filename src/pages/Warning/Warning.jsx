@@ -10,7 +10,6 @@ const Warning = () => {
     const { searchRequerimentsPromotedsUser, requerimentsFilter } = useContext(RequirementsContext);
     const [showPromotions, setShowPromotions] = useState(false);
     const typeStatus = "Advertência"
-
     useEffect(() => {
         searchRequerimentsPromotedsUser("Advertência", "")
         document.title = "Polícia DOP - Advertências";

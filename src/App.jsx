@@ -25,6 +25,7 @@ import Members from './pages/members/Members';
 import Footer from './components/Footer/Footer';
 import DPanel from './pages/DPanel/DPanel';
 import NotFound from './pages/Notfound/NotFound';
+import PostClasseInitial from './pages/PostClasseInitial/PostClasseInitial';
 
 
 function App() {
@@ -52,7 +53,7 @@ function App() {
         {isAuthentication && userType?.userType === "Admin" && (
           <Route path='/dpanel' element={<DPanel />} />
         )}
-
+       <Route path='/postclasse' element={isAuthentication ? <PostClasseInitial /> : <LoginSystem setLoading={setLoading} />} />
        <Route path='/promotion' element={isAuthentication ? <Promotion /> : <LoginSystem setLoading={setLoading} />} />
        <Route path='/relegation' element={isAuthentication ? <Relegation /> : <LoginSystem setLoading={setLoading} />} />
        <Route path='/warning' element={isAuthentication ? <Warning /> : <LoginSystem setLoading={setLoading} />} />
