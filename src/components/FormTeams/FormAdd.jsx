@@ -16,7 +16,7 @@ export const FormAdd = ({team}) => {
         idTeams: team._id
     }
         addMember(data)
-        window.location.reload("/team/Ensino")
+    
   }
 
   return (
