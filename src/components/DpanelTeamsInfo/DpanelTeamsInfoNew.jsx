@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const DpanelTeamsInfoNew = ({ team }) => {
-    const { createDocs } = useContext(TeamsContext)
+    const { createTeams } = useContext(TeamsContext)
     const [nameTeams, setNameTeams] = useState('')
     const [leader, setLeader] = useState('');
     const [viceLeader, setViceLeader] = useState('')
@@ -21,8 +21,8 @@ const DpanelTeamsInfoNew = ({ team }) => {
             leader,
             viceLeader
         }
-        createDocs(data);
-        window.location.reload('/dpanel')
+        createTeams(data);
+
     }
     return (
         <div className={style.DpanelTeamsInfo}>

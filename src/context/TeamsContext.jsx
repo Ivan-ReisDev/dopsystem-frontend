@@ -83,7 +83,7 @@ const TeamsProvider = ({ children }) => {
 
     
 
-    const createDocs = async (data) => {
+    const createTeams = async (data) => {
         try {
             const res = await fetch(`${PRD}teams/create`, {
                 method: 'POST',
@@ -98,9 +98,10 @@ const TeamsProvider = ({ children }) => {
            
             if (res.ok) {
                 setMessage(resJSON);
-        
+                navigate("/dpanel")
             } else {
                 setMessage('Não foi possível criar equipe.');
+                
                 
             }
         } catch (error) {
@@ -200,7 +201,7 @@ const TeamsProvider = ({ children }) => {
                 updateTeam,
                 getTeams,
                 createDocs,
-                deleteTeams
+                createTeams
             }}
         >
             {children}
