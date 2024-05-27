@@ -29,7 +29,6 @@ const DpanelTeamsInfo = ({ team, getTeams }) => {
     setMessageTeam('');
     getTeams(localStorage.getItem(idUser.token));
     getClasses(localStorage.getItem(idUser.token));
-    console.log(editClasse);
   }, [editClasse]);
 
   const handleSubmit = (e) => {

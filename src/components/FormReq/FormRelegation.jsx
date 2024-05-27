@@ -30,8 +30,6 @@ const FormReqdemi = ({ requerimentSelected }) => {
             promoted,
             reason,
         }
-
-        console.log(data)
         createRequerimentRelegation(data);
         setPromoted('')
         setReason('')

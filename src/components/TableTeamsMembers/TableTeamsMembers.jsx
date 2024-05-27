@@ -12,7 +12,6 @@ const TableTeamsMembers = ({ team, userOk }) => {
 
     const handleRemove = (data) => {
         setDataUser(data)
-        console.log("Removeu")
         setIsRemove(true)
     }
 

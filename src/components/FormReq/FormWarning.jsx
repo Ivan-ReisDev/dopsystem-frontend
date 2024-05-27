@@ -34,8 +34,6 @@ const FormWarning = ({requerimentSelected}) => {
             promoted,
             reason,
         }
-
-        console.log(data)
         createRequerimentWarning(data)
     }
 

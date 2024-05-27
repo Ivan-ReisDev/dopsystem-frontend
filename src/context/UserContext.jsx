@@ -9,6 +9,7 @@ const UserContext = createContext('');
 const UserProvider = ({ children }) => {
     const navigate = useNavigate()
     const [usersArray, setUsersArray] = useState('');
+    const [messege, setMessege] = useState("")
     const [user, setUser] = useState([])
     const [loggers, setLoggers] = useState([])
     const token = localStorage.getItem('@Auth:Token')
@@ -27,12 +28,16 @@ const UserProvider = ({ children }) => {
                 },
             });
             const data = await res.json();
-            setUser(data); 
-            console.log(user);
+
+            if(res.ok) {
+                setUser(data); 
+
+            }
+
 
             return data;
         } catch (error) {
-            console.log(error);
+            setMessege(error);
         }
     };
 
@@ -51,7 +56,7 @@ const UserProvider = ({ children }) => {
             const data = await res.json();
             setLoggers(data);
         } catch (error) {
-            console.log(error.message || 'Erro desconhecido');
+            setMessege(error.message || 'Erro desconhecido');
         }
     }, []);
 
@@ -69,7 +74,8 @@ const UserProvider = ({ children }) => {
                 searchAllUsers,
                 getLogs,
                 loggers,
-                user
+                user,
+                messege
             }}
         >
             {children}

@@ -31,7 +31,6 @@ const FormContract = ({ requerimentSelected }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(operator.nickname)
         const data = {
             idUser: operator._id,
             promoted,

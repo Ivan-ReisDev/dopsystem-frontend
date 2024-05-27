@@ -8,6 +8,7 @@ const SystemContext = createContext("");
 
 const SystemProvider = ({ children }) => {
     const [infoSystem, setInfoSystem] = useState([])
+    const [messege, setMessage] = useState('')
     const token = localStorage.getItem('@Auth:Token')
 
     const getSystem = useCallback(async (tokenAuth) => {
@@ -24,8 +25,9 @@ const SystemProvider = ({ children }) => {
             }
             const data = await res.json();
             setInfoSystem(data);
+            setMessage(data)
         } catch (error) {
-            console.log(error.message || 'Erro desconhecido');
+            setMessage(error.message || 'Erro desconhecido');
         }
     }, []);
 
@@ -39,7 +41,8 @@ const SystemProvider = ({ children }) => {
         <SystemContext.Provider
             value={{
                 infoSystem,
-                getSystem
+                getSystem,
+                messege
             }}
         >
             {children}

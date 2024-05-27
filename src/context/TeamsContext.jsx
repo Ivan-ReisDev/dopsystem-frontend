@@ -71,10 +71,10 @@ const TeamsProvider = ({ children }) => {
             const DataMSG = await res.json();
 
             if (res.ok) {
-                console.log( "DELETE Teams" + DataMSG);
+                setMessage(DataMSG);
 
             } else {
-                console.log(DataMSG);
+                setMessage(DataMSG);
             }
         } catch (error) {
             console.error('Erro ao deletar documento', error);
@@ -129,7 +129,7 @@ const TeamsProvider = ({ children }) => {
     
             if (response.ok) {
                 infoTeams(localStorage.getItem("@Auth:Token"), data.nameTeams)
-                console.log("Usuário removido sucesso:", responseData);
+                setMessage(responseData);
             } else {
                 console.error("Erro ao remover usuário :", responseData);
             }
@@ -153,9 +153,10 @@ const TeamsProvider = ({ children }) => {
             const responseData = await response.json();
     
             if (response.ok) {
-                console.log("Usuário removido sucesso:", responseData);
+                setMessage(responseData);
                 window.location.reload("/team/Ensino")
             } else {
+                setMessage(responseData)
                 console.error("Erro ao remover usuário :", responseData);
             }
         } catch (error) {
@@ -176,8 +177,9 @@ const TeamsProvider = ({ children }) => {
             }
             const data = await res.json();
             setTeams(data);
+            setMessage(data)
         } catch (error) {
-            setMessage(error.message || 'Erro desconhecido');
+            setMessage(error || 'Erro desconhecido');
         }
     }, [navigate]);
 
@@ -187,7 +189,7 @@ const TeamsProvider = ({ children }) => {
             getTeams(token);
         }
     }, [getTeams]);
-
+    
     return (
         <TeamsContext.Provider
             value={{

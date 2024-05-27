@@ -17,7 +17,7 @@ const QuickSearch = () => {
     const navigate = useNavigate()
     // Verifica se usersArray tem algum usuário
     const firstUser = user && user.users && user.users.length > 0 ? user.users[0] : null;
-    console.log(firstUser)
+
 
     return (
         <div className={`contentBodyElement ${style.QuickSearch}`}>

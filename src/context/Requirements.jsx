@@ -52,10 +52,10 @@ const RequirementsProvider = ({ children }) => {
             const resJSON = await res.json();
 
             if (res.ok) {
-                console.log("Requerimento criado com sucesso.");
+                setMessage(resJSON);
                 navigate(`/search/profile/${data.promoted}`)
             } else {
-                console.log('Não foi possível criar o documento.');
+                setMessage(resJSON);;
                 
             }
         } catch (error) {
@@ -82,10 +82,10 @@ const RequirementsProvider = ({ children }) => {
             const resJSON = await res.json();
 
             if (res.ok) {
-                console.log("Advertência aplicada com sucesso.");
+                setMessage(resJSON);
                 navigate(`search/profile/${data.promoted}`)
             } else {
-                console.log('Não foi possível criar o documento.');
+                setMessage(resJSON);
                 
             }
         } catch (error) {
@@ -110,10 +110,10 @@ const RequirementsProvider = ({ children }) => {
             const resJSON = await res.json();
 
             if (res.ok) {
-                console.log("Advertência aplicada com sucesso.");
+                setMessage(resJSON);
                 navigate(`search/profile/${data.promoted}`)
             } else {
-                console.log('Não foi possível criar o documento.');
+                setMessage(resJSON);
                 
             }
         } catch (error) {
@@ -126,7 +126,6 @@ const RequirementsProvider = ({ children }) => {
     const createRequerimentResignationUpdateUser = async (idUser, promoted) => {
 
         try {
-            console.log(idUser)
             const res = await fetch(`${PRD}put/requirement/resignation`, {
                 method: 'PUT',
                 headers: {
@@ -139,10 +138,10 @@ const RequirementsProvider = ({ children }) => {
             const DataMSG = await res.json();
     
             if (res.ok) {
-                console.log('Usuário demitido com sucesso.')
+                setMessage(DataMSG)
                 navigate(`search/profile/${promoted}`)
             } else {
-                console.log('Erro ao atualizar produto.')
+                setMessage(DataMSG)
             }
         } catch (error) {
             console.error('Erro ao atualizar produto', error);
@@ -164,9 +163,11 @@ const RequirementsProvider = ({ children }) => {
             const resJSON = await res.json();
 
             if (res.ok) {
-                createRequerimentResignationUpdateUser(data.idUser, data.promoted)
+                createRequerimentResignationUpdateUser(data.idUser, data.promoted);
+                setMessage(resJSON)
+
             } else {
-                console.log('Não foi possível criar o documento.');
+                setMessage(resJSON);
                 
             }
         } catch (error) {
@@ -245,7 +246,6 @@ const RequirementsProvider = ({ children }) => {
                 },
             });
             const data = await res.json();
-            console.log('data', data);
             setRequerimentsArray(data); // Atualize o estado local com os novos dados
             setLoading(false);
             return data;

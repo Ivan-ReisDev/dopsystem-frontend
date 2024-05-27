@@ -32,8 +32,6 @@ const FormResignation = ({ requerimentSelected }) => {
             promoted,
             reason,
         }
-
-        console.log(data)
         createRequerimentResignation(data)
     }
 

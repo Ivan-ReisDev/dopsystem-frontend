@@ -112,7 +112,7 @@ const AuthProvider = ({ children }) => {
                 localStorage.setItem('@Auth:Token', resJSON.token);
                 localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
                 localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
-                console.log(resJSON.token)
+
                 getProfileAll(resJSON.token)
                 navigate('/home');
 
@@ -143,11 +143,11 @@ const AuthProvider = ({ children }) => {
 
             const DataMSG = await res.json();
             if (res.ok) {
-                setMessage(DataMSG.msg);
+                setMessage(DataMSG);
             } else {
-                setMessage(DataMSG.msg);
+                setMessage(DataMSG);
             }
-            console.log(message)
+
         } catch (error) {
             console.error(error);
         };

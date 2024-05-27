@@ -98,7 +98,6 @@ const DpanelEditor = ({ doc }) => {
         }
     }
 
-    console.log(messageBack)
     return (
         <div className={style.editDocs}>
             <div className={style.editDocsBody}></div>

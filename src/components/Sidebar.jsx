@@ -70,7 +70,6 @@ const Sidebar = ({ showSidebar }) => {
             </button>
             <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showClasses ? "h-auto " : "h-0 hidden"}`}>
               {teams && teams.map((team, index) => {
-                { console.log(team) }
 
                 // Verifica se algum membro do time tem o mesmo nickname que infoProfileUser.nickname
                 const isMember = team.members.some(member => member.nickname === infoProfileUser.nickname);
