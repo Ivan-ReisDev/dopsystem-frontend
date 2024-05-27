@@ -9,11 +9,13 @@ import { BsMicrosoftTeams } from "react-icons/bs";
 import Logger from '../../components/Logger/Logger';
 import DocsDpanel from '../../components/DocsDpanel/DocsDpanel';
 import DpanelTeams from '../../components/DpanelTeams/DpanelTeams';
+import DpanelUsers from '../../components/DpanelUsers/DpanelUsers';
 
 
 const DPanel = () => {
 
   const  [selectFunction, setSelectFunction ] = useState("DocsEdit");
+  
   return (
     <div className={style.Dpanel}>
       <header>
@@ -47,6 +49,13 @@ const DPanel = () => {
             selectFunction === "Teams" &&
 
             <DpanelTeams />
+
+          }
+
+{ 
+            selectFunction === "Users" &&
+
+            <DpanelUsers />
 
 
           }
