@@ -21,7 +21,7 @@ const FormSale = ({ requerimentSelected }) => {
     const { user, searchAllUsers } = useContext(UserContext);
     const { createRequerimentSale } = useContext(RequirementsContext)
     const { resUser, newPatents } = user;
-    const { rhStatus, messege } = useContext(RhContext);
+    const { rhStatus, messege, deleteRequeriment } = useContext(RhContext);
 
     useEffect(() => {
         setOperator(JSON.parse(localStorage.getItem("@Auth:Profile")));
@@ -55,6 +55,16 @@ const FormSale = ({ requerimentSelected }) => {
             statusRequirements: status
         }
         rhStatus(data)
+    }
+
+    const deleteRequirements = (e) => {
+        e.preventDefault()
+        const data = {
+            idUser: operator._id,
+            idRequirements: requerimentSelected._id,
+            type: "promotion"
+        }
+        deleteRequeriment(data)
     }
     return (
         <div className='DivForm'>
@@ -114,6 +124,9 @@ const FormSale = ({ requerimentSelected }) => {
                     </textarea>
                 </label>
 
+                {messege && <p className='text-green-700 text-[13px]'>{messege.msg}</p>}
+                {messege && <p className='text-red-700-700 text-[13px]'>{messege.error}</p>}
+
                 {!requerimentSelected && !loadingDocs && <button className='BtnActive btn' onClick={handleSubmit}> <span className='SpanBtn'><FaFloppyDisk /></span>Publicar</button>}
                 {loadingDocs && <button className='BtnActive BtnActiveDisable btn' disabled onClick={handleSubmit}> <span className='SpanBtn'><FaFloppyDisk /></span>Aguarde...</button>}
 
@@ -135,13 +148,13 @@ const FormSale = ({ requerimentSelected }) => {
                         </button>
 
 
-                        <button className='flex m-2 items-center justify-center text-white bg-red-700 hover:bg-red-800 text-[14px] h-[30px] w-[120px] rounded-sm font-medium'>
+                        <button 
+                        type="button"
+                        onClick={(e) => deleteRequirements(e)} className='flex m-2 items-center justify-center text-white bg-red-700 hover:bg-red-800 text-[14px] h-[30px] w-[120px] rounded-sm font-medium'>
                             <span className='mr-2'><MdDelete /></span>Excluir
                         </button>
                     </section>
                 }
-                {messege && <p>{messege.msg}</p>}
-
 
             </form>
         </div>

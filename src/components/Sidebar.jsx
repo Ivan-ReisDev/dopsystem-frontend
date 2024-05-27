@@ -75,7 +75,7 @@ const Sidebar = ({ showSidebar }) => {
                 // Verifica se algum membro do time tem o mesmo nickname que infoProfileUser.nickname
                 const isMember = team.members.some(member => member.nickname === infoProfileUser.nickname);
 
-                if (isMember || infoProfileUser.userType === "Admin") {
+                if (isMember || infoProfileUser.userType === "Admin" || infoProfileUser.userType === "Diretor") {
                   return (
                     <li key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
                       <NavLink to={`/team/${team.nameTeams}`}>{team.nameTeams}</NavLink>

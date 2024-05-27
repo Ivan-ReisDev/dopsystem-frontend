@@ -16,7 +16,7 @@ const FormContract = ({ requerimentSelected }) => {
     const { infoSystem, getSystem } = useContext(SystemContext)
     const patents = infoSystem.patents
     const { user, searchAllUsers } = useContext(UserContext);
-    const { messege, rhStatus } = useContext(RhContext);
+    const { rhStatus, messege, deleteRequeriment } = useContext(RhContext);
     const { createRequerimentContract } = useContext(RequirementsContext)
     const { resUser, newPatents } = user;
 
@@ -41,6 +41,16 @@ const FormContract = ({ requerimentSelected }) => {
         createRequerimentContract(data);
         setPromoted('')
         setReason('')
+    }
+
+    const deleteRequirements = (e) => {
+        e.preventDefault()
+        const data = {
+            idUser: operator._id,
+            idRequirements: requerimentSelected._id,
+            type: "promotion"
+        }
+        deleteRequeriment(data)
     }
 
     const atualizaStatus = (e, status) => {
@@ -101,6 +111,9 @@ const FormContract = ({ requerimentSelected }) => {
                     </textarea>
                 </label>
 
+                {messege && <p className='text-green-700 text-[13px]'>{messege.msg}</p>}
+                {messege && <p className='text-red-700-700 text-[13px]'>{messege.error}</p>}
+
                 {!requerimentSelected && !loadingDocs && (
                     <button className='BtnActive btn' type="submit">
                         <span className='SpanBtn'><FaFloppyDisk /></span>Publicar
@@ -124,14 +137,14 @@ const FormContract = ({ requerimentSelected }) => {
                         </button>
 
 
-                        <button className='flex m-2 items-center justify-center text-white bg-red-700 hover:bg-red-800 text-[14px] h-[30px] w-[120px] rounded-sm font-medium'>
+                        <button 
+                        type="button"
+                        onClick={(e) => deleteRequirements(e)} className='flex m-2 items-center justify-center text-white bg-red-700 hover:bg-red-800 text-[14px] h-[30px] w-[120px] rounded-sm font-medium'>
                             <span className='mr-2'><MdDelete /></span>Excluir
                         </button>
-                        
                     </section>
                 }
-                {messege}
-                {messege && <p>{messege.msg}</p>}
+
             </form>
         </div>
 

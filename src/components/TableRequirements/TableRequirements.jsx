@@ -53,6 +53,7 @@ const TableRequirements = ({ requerimentsFilter, typeStatus }) => {
 
                             <th>Patente</th>
                             <th>Status</th>
+                            
                             <th>Ações</th>
                         </tr>
                     </thead>

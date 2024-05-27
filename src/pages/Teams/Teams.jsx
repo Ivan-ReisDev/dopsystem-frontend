@@ -215,7 +215,7 @@ const Teams = ({ team }) => {
               <li><button onClick={() => setTypeMenu('classes')} >Postar Aula <span>< FaAddressBook /></span></button></li>
             </ul>
           </div>
-          {userOk.length > 0 && (team.leader === userOk[0].nickname || team.viceLeader === userOk[0].nickname || userOk[0].userType === "Admin") && (
+          {userOk.length > 0 && (team.leader === userOk[0].nickname || team.viceLeader === userOk[0].nickname || userOk[0].userType === "Admin" || userOk[0].userType === "Diretor") && (
             <div className='contentBodyElement'>
               <div className='contentBodyElementTitle'>
                 <h3>Liderança</h3>
