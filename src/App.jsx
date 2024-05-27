@@ -61,7 +61,7 @@ function App() {
         {/* ROTAS DE EQUIPE */}
 
         {Array.isArray(teams) && (
-          (userType.userType === "Admin" || userType.userType === "Diretor" ?
+          (userType && (userType.userType === "Admin" || userType.userType === "Diretor") ?
             teams.map((team, index) => (
               <Route
                 key={index}
@@ -91,7 +91,7 @@ function App() {
           teams
             .filter(team => {
               // Verifica se o usuário é Admin ou Diretor
-              if (userType.userType === "Admin" || userType.userType === "Diretor") {
+              if (userType && (userType.userType === "Admin" || userType.userType === "Diretor")) {
                 return true;
               }
               // Verifica se o usuário é líder da equipe
@@ -145,7 +145,7 @@ function App() {
           Documents
             .filter(doc => {
               // Verifica se o usuário é Admin ou Diretor
-              if (userType.userType === "Admin" || userType.userType === "Diretor") {
+              if (userType && (userType.userType === "Admin" || userType.userType === "Diretor")) {
                 return true;
               }
               // Verifica se o usuário é líder da equipe
@@ -165,7 +165,7 @@ function App() {
           Documents
             .filter(doc => {
               // Verifica se o usuário é Admin ou Diretor
-              if (userType.userType === "Admin" || userType.userType === "Diretor") {
+              if (userType && (userType.userType === "Admin" || userType.userType === "Diretor")) {
                 return true;
               }
               // Verifica se o usuário é líder da equipe
