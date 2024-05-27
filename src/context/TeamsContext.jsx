@@ -200,7 +200,6 @@ const TeamsProvider = ({ children }) => {
                 addMember,
                 updateTeam,
                 getTeams,
-                createDocs,
                 createTeams
             }}
         >
