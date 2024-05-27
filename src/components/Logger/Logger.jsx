@@ -1,7 +1,5 @@
 import { useState, useContext } from 'react';
-import Table from 'react-bootstrap/Table';
 import Pagination from 'react-bootstrap/Pagination';
-import style from './logger.module.css';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 
@@ -9,43 +7,49 @@ function Logger() {
     const { loggers } = useContext(UserContext);
     const [currentPage, setCurrentPage] = useState(1);
     const [loggersPerPage] = useState(12); // Defina quantos registros deseja exibir por página
+
+    // Invertendo a ordem dos loggers
+    const reversedLoggers = [...loggers].reverse();
+
     // Obtenha o índice do último registro na página atual
     const indexOfLastLogger = currentPage * loggersPerPage;
     // Obtenha o índice do primeiro registro na página atual
     const indexOfFirstLogger = indexOfLastLogger - loggersPerPage;
     // Obtenha os loggers da página atual
-    const currentLoggers = loggers.slice(indexOfFirstLogger, indexOfLastLogger);
+    const currentLoggers = reversedLoggers.slice(indexOfFirstLogger, indexOfLastLogger);
     // Mude de página
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-        <div className={style.logger}>
-            <h2>Loggers de acesso ao sistema</h2>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Usuário</th>
-                        <th>Ação</th>
-                        <th>Endereço de IP</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {currentLoggers.map((logger, index) => (
-                        <tr key={index}>
-                            <td>{index + indexOfFirstLogger + 1}</td>
-                            <td>{logger.user}</td>
-                            <td>{logger.loggerType}</td>
-                            <td>
-                                <Link target='_blank' to={`https://www.geolocation.com/pt?ip=${logger.ip}#ipresult`}>{logger.ip}</Link>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-            <Pagination>
+        <div className="container mx-auto p-4">
+            <h2 className="text-2xl font-bold mb-4">Loggers de acesso ao sistema</h2>
+            <ul>
+                {currentLoggers.map((logger, index) => (
+                    <li key={index} className="mb-4">
+                        <div>ID: {index + indexOfFirstLogger + 1}</div>
+                        <div>Usuário: {logger.user}</div>
+                        <div>Ação: {logger.loggerType}</div>
+                        <div>
+                            Endereço de IP: 
+                            <Link 
+                                target='_blank' 
+                                to={`https://www.geolocation.com/pt?ip=${logger.ip}#ipresult`} 
+                                className="text-blue-500 hover:underline"
+                            >
+                                {logger.ip}
+                            </Link>
+                        </div>
+                    </li>
+                ))}
+            </ul>
+            <Pagination className="mt-4">
                 {Array.from({ length: Math.ceil(loggers.length / loggersPerPage) }, (_, i) => (
-                    <Pagination.Item key={i} active={i + 1 === currentPage} onClick={() => paginate(i + 1)}>
+                    <Pagination.Item 
+                        key={i} 
+                        active={i + 1 === currentPage} 
+                        onClick={() => paginate(i + 1)}
+                        className="cursor-pointer"
+                    >
                         {i + 1}
                     </Pagination.Item>
                 ))}

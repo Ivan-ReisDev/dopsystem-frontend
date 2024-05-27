@@ -113,7 +113,7 @@ const Sidebar = ({ showSidebar }) => {
         </div>
 
         <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/members'}>Membros</NavLink></li>
-        <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/profile'}>Perfil</NavLink></li>
+        <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={`/search/profile/${infoProfileUserCompleted.nickname}`}>Perfil</NavLink></li>
       </ul>
 
       <div className='w-full borderSidebar h-[10%] flex flex-col items-center justify-center'>

@@ -13,7 +13,7 @@ const TeamsProvider = ({ children }) => {
     const navigate = useNavigate()
 
     
-    const infoTeams = async (tokenAuth, teams) => {
+    const infoTeams = async (teams) => {
 
         try {
             const res = await fetch(`${PRD}teams/info?typeRequirement=${teams}&teams=${teams}`, {
@@ -72,6 +72,7 @@ const TeamsProvider = ({ children }) => {
 
             if (res.ok) {
                 setMessage(DataMSG);
+    
 
             } else {
                 setMessage(DataMSG);
@@ -202,7 +203,8 @@ const TeamsProvider = ({ children }) => {
                 addMember,
                 updateTeam,
                 getTeams,
-                createTeams
+                createTeams,
+                deleteTeams
             }}
         >
             {children}

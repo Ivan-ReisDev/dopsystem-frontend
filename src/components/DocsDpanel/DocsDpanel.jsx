@@ -1,61 +1,75 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react';
 import { DocsContext } from '../../context/DocsContext';
 import { IoArrowUndo } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
-import style from './DocsDpanel.module.css'
 import DpanelEditor from '../DpanelEditor/DpanelEditor';
 
 const DocsDpanel = () => {
-    const { Documents, setMessage: setMessageBack, } = useContext(DocsContext);
+    const { Documents, setMessage: setMessageBack } = useContext(DocsContext);
     const [editDoc, setEditDoc] = useState(false);
-    const [doc, setDoc] = useState([])
+    const [doc, setDoc] = useState([]);
 
     const showDOC = (doc) => {
         setMessageBack('');
-        setEditDoc(!editDoc)
+        setEditDoc(!editDoc);
         setDoc(doc);
-    }
+    };
 
     const newDOC = () => {
         setMessageBack('');
-        setDoc(false)
-        setEditDoc(true)
-
-    }
+        setDoc(false);
+        setEditDoc(true);
+    };
 
     return (
-        <div>
-            <div className={style.head}>
-                <h2 className={style.TitlePrimary}>Documentos</h2>
-                { editDoc  && <button className={style.back} onClick={() => setEditDoc(false)}><IoArrowUndo /></button>}
-                { !editDoc  && <button className={style.back} onClick={() => newDOC() }><FaPlus /></button>}
+        <div className="container mx-auto p-4">
+            <div className="flex justify-between items-center mb-4">
+                <h2 className="text-3xl font-bold text-gray-800">Documentos</h2>
+                {editDoc ? (
+                    <button 
+                        className="p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition" 
+                        onClick={() => setEditDoc(false)}
+                    >
+                        <IoArrowUndo size={24} />
+                    </button>
+                ) : (
+                    <button 
+                        className="p-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition" 
+                        onClick={() => newDOC()}
+                    >
+                        <FaPlus size={24} />
+                    </button>
+                )}
             </div>
 
-            <div className={style.MainDoc}>
-                {!editDoc && <ul className={style.MainDocUL}>
-                    {Documents && Documents.map((doc) => (
-                        <li className={style.MainDocLI} key={doc._id}>
-                            <button onClick={() => showDOC(doc)}>
-                                <span className={style.title}>{doc.nameDocs}</span>
-                                <div className={style.MainDocMain}>
-                                    <span><strong>Tipo: </strong> {doc.docsType}</span>
-                                    <span><strong>Status: </strong>{doc.status}</span>
-                                </div>
-                            </button>
-                        </li>
-                    ))}
-                </ul>}
-                {editDoc &&
-                    <DpanelEditor
-                        doc={doc}
-                        
-                    />}
+            <div className="bg-white shadow rounded-lg p-4">
+                {!editDoc && (
+                    <ul className="divide-y divide-gray-200">
+                        {Documents && Documents.map((doc) => (
+                            <li 
+                                className="py-4 flex justify-between items-center" 
+                                key={doc._id}
+                            >
+                                <button 
+                                    className="w-full text-left" 
+                                    onClick={() => showDOC(doc)}
+                                >
+                                    <span className="text-xl font-semibold text-gray-900">{doc.nameDocs}</span>
+                                    <div className="mt-2 text-sm text-gray-600">
+                                        <span><strong>Tipo: </strong>{doc.docsType}</span><br />
+                                        <span><strong>Status: </strong>{doc.status}</span>
+                                    </div>
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+                {editDoc && (
+                    <DpanelEditor doc={doc} />
+                )}
             </div>
-
-
-
         </div>
-    )
-}
+    );
+};
 
-export default DocsDpanel
+export default DocsDpanel;

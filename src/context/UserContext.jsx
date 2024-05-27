@@ -20,7 +20,6 @@ const UserProvider = ({ children }) => {
     const searchAllUsers = async (nickname, typeRequeriment) => {
         try {
             const value = nickname;
- 
             const res = await fetch(`${PRD}search?nickname=${value}&typeRequeriment=${typeRequeriment}`, {
                 method: 'GET',
                 headers: {
@@ -31,9 +30,7 @@ const UserProvider = ({ children }) => {
 
             if(res.ok) {
                 setUser(data); 
-
             }
-
 
             return data;
         } catch (error) {
