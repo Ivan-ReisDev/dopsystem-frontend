@@ -6,7 +6,7 @@ const PRD = 'https://dopsystem-backend.vercel.app/api/';
 
 const TeamsContext = createContext({});
 const TeamsProvider = ({ children }) => {
-
+    const token = localStorage.getItem('@Auth:Token')
     const [message, setMessage] = useState("");
     const [teams, setTeams] = useState([]);
     const [infoTeamsArray, setInfoTeamsArray] = useState([]);
@@ -19,7 +19,7 @@ const TeamsProvider = ({ children }) => {
             const res = await fetch(`${PRD}teams/info?typeRequirement=${teams}&teams=${teams}`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${tokenAuth}`,
+                    'Authorization': `Bearer ${token}`,
                 },
             });
     
@@ -39,6 +39,7 @@ const TeamsProvider = ({ children }) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -62,6 +63,7 @@ const TeamsProvider = ({ children }) => {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -87,6 +89,7 @@ const TeamsProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -116,6 +119,7 @@ const TeamsProvider = ({ children }) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -140,6 +144,7 @@ const TeamsProvider = ({ children }) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -161,7 +166,7 @@ const TeamsProvider = ({ children }) => {
             const res = await fetch(`${PRD}teams/all`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${tokenAuth}`,
+                    'Authorization': `Bearer ${token}`,
                 },
             });
 

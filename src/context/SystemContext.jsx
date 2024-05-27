@@ -8,13 +8,14 @@ const SystemContext = createContext("");
 
 const SystemProvider = ({ children }) => {
     const [infoSystem, setInfoSystem] = useState([])
+    const token = localStorage.getItem('@Auth:Token')
 
     const getSystem = useCallback(async (tokenAuth) => {
         try {
             const res = await fetch(`${PRD}all/info`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${tokenAuth}`,
+                    'Authorization': `Bearer ${token}`,
                 },
             });
 

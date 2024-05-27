@@ -13,7 +13,7 @@ const RequirementsProvider = ({ children }) => {
     const [requerimentsFilter, setRequerimentsFilter] = useState([])
     const [requerimentsArray, setRequerimentsArray] = useState([])
     const {setLoading, getProfileAll} = useContext(AuthContext);
-
+    const token = localStorage.getItem('@Auth:Token')
     // const getTeams = useCallback(async (tokenAuth) => {
     //     try {
     //         const res = await fetch(`${PRD}teams/all`, {
@@ -44,6 +44,7 @@ const RequirementsProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -73,6 +74,7 @@ const RequirementsProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -100,6 +102,7 @@ const RequirementsProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -128,6 +131,7 @@ const RequirementsProvider = ({ children }) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({ idUser: idUser }),
             });
@@ -152,6 +156,7 @@ const RequirementsProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -178,6 +183,7 @@ const RequirementsProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -206,6 +212,7 @@ const RequirementsProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -234,7 +241,7 @@ const RequirementsProvider = ({ children }) => {
             const res = await fetch(`${PRD}search/requeriments?promoted=${nickname}`, {
                 method: 'GET',
                 headers: {
-                    // Adicione os cabeçalhos necessários aqui, se houver
+                    'Authorization': `Bearer ${token}`,
                 },
             });
             const data = await res.json();
@@ -251,6 +258,9 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}search/requeriments/promoteds?typeRequirement=${typeRequirement}&statusRequirement=${statusRequirement}`, {
                 method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
 
             const data = await res.json();

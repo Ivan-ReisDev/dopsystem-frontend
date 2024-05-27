@@ -13,7 +13,8 @@ const AuthProvider = ({ children }) => {
     const [authProfile, setAuthProfile] = useState(null);
     const [message, setMessage ] = useState('')
     const [loading, setLoading] = useState(false)
-
+    const token = localStorage.getItem('@Auth:Token')
+    
     useEffect(() => {
         const loadingStorageData = async () => {
             const storageToken = localStorage.getItem("@Auth:Token");

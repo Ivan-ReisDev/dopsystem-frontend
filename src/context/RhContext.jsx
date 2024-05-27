@@ -8,7 +8,7 @@ const RhContext = createContext("");
 
 const RhProvider = ({ children }) => {
     const [messege, setMessege] = useState("")
-
+    const token = localStorage.getItem('@Auth:Token')
     const rhStatus = async (data) => {
 
         try {
@@ -16,6 +16,7 @@ const RhProvider = ({ children }) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });

@@ -11,6 +11,8 @@ const UserProvider = ({ children }) => {
     const [usersArray, setUsersArray] = useState('');
     const [user, setUser] = useState([])
     const [loggers, setLoggers] = useState([])
+    const token = localStorage.getItem('@Auth:Token')
+              
 
     const tokenUser = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
 
@@ -21,7 +23,7 @@ const UserProvider = ({ children }) => {
             const res = await fetch(`${PRD}search?nickname=${value}&typeRequeriment=${typeRequeriment}`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${tokenUser.token}`,
+                    'Authorization': `Bearer ${token}`,
                 },
             });
             const data = await res.json();
@@ -39,7 +41,7 @@ const UserProvider = ({ children }) => {
             const res = await fetch(`${PRD}loggers?nickname=${nickname}`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${tokenAuth}`,
+                    'Authorization': `Bearer ${token}`,
                 },
             });
 

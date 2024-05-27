@@ -8,6 +8,7 @@ const DocsContext = createContext("");
 
 const DocsProvider = ({ children }) => {
 
+    const token = localStorage.getItem('@Auth:Token')
     const [message, setMessage] = useState('');
     const [resOk, setResOk] = useState(false)
     const [Documents, setDocuments] = useState([]);
@@ -22,6 +23,7 @@ const DocsProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -52,6 +54,7 @@ const DocsProvider = ({ children }) => {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -76,6 +79,7 @@ const DocsProvider = ({ children }) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -100,7 +104,7 @@ const DocsProvider = ({ children }) => {
             const res = await fetch(`${PRD}all/docs`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${tokenAuth}`,
+                    'Authorization': `Bearer ${token}`,
                 },
             });
 

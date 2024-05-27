@@ -7,7 +7,7 @@ const PRD = 'https://dopsystem-backend.vercel.app/api/';
 const ClassesContext = createContext("");
 
 const ClassesProvider = ({ children }) => {
-
+    const token = localStorage.getItem('@Auth:Token')
     const [Classes, setClasses] = useState([])
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false)
@@ -18,6 +18,7 @@ const ClassesProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -45,6 +46,7 @@ const ClassesProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -75,6 +77,7 @@ const ClassesProvider = ({ children }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -104,7 +107,7 @@ const ClassesProvider = ({ children }) => {
             const res = await fetch(`${PRD}get/classe`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${tokenAuth}`,
+                    'Authorization': `Bearer ${token}`,
                 },
             });
 
@@ -128,6 +131,7 @@ const ClassesProvider = ({ children }) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
