@@ -64,6 +64,7 @@ const DocsProvider = ({ children }) => {
             if (res.ok) {
                 getDocuments(localStorage.getItem('@Auth:Token'))
                 console.log(DataMSG);
+                navigate("/dpanel")
 
             } else {
                 console.log(DataMSG);

@@ -39,7 +39,7 @@ const DpanelEditor = ({ doc }) => {
             idDoc: doc._id
         }
         deleteDoc(data)
-        window.location.reload('/dpanel')
+        
     }
 
     const handleBlur = (newContent) => {
