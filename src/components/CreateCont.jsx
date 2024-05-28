@@ -117,7 +117,7 @@ const CreateCont = ({
                 </div>
 
                 {message && <Alert variant='warning' className='h-[15px] flex items-center mt-2'>
-                    <p className='text-[13px] text-center'>{message ? message : ''}</p>
+                    <p className='text-[13px] text-center'>{message ? message .msg: ''}</p>
                 </Alert>} 
                 <div className='h-[50px] mt-3 flex flex-row justify-between w-full'>
                     <Button onClick={handleCreateCont} className='w-[49%] text-[#0D1450]  hover:bg-[#0D1450]' variant="outline-primary">Voltar</Button>
