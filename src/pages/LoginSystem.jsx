@@ -117,7 +117,7 @@ const LoginSystem = ({ setLoading }) => {
                                 />
                             </div>
                             <div className='mt-2'>
-                                <a href="#" className='text-xs no-underline'>Redefinir minha senha</a>
+                                <button type='button' onClick={handleCreateCont} className='text-xs no-underline'>Redefinir minha senha </button>
                             </div>
                                
                                 {message &&  <p className='error'> {message.error} </p> }
