@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState,  } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import { FaUser, FaLock } from "react-icons/fa";
@@ -8,13 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
 
 const LoginSystem = ({ setLoading }) => {
-
-    
     const { signIn, message } = useContext(AuthContext);
     const [nick, setNick] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
 
     const [stateColorInput, setStateColorInput] = useState(false);
     const [stateColorSecondFocus, setStateColorSecondFocus] = useState(false);
@@ -26,7 +23,7 @@ const LoginSystem = ({ setLoading }) => {
         const securityCode = `DOP-${genereteCode}`;
         setCode(securityCode);
     }, []);
-    
+
     const handleSubmitLogin = async (e) => {
         setLoading(true)
         e.preventDefault();
@@ -39,7 +36,6 @@ const LoginSystem = ({ setLoading }) => {
        await signIn(dataLogin);
        setLoading(false)
     };
-    
 
     const handleCreateCont = (e) => {
         e.preventDefault();
@@ -63,10 +59,10 @@ const LoginSystem = ({ setLoading }) => {
     };
 
     return (
-        <div className='text-[#ffffff] w-screen h-screen flex items-center justify-center bg-[#0D1450] flex-col'>
+        <div className='text-[#ffffff] min-h-screen flex flex-col items-center justify-center bg-[#0D1450]'>
             <h1 className='text-3xl mb-4'><span className='text-[#3146ff] font-bold'>DOP</span>System</h1>
-            <div className='bg-white rounded-md p-4 w-[480px] flex items-center justify-center flex-col text-[#636363]'>
-                <div className='w-full flex flex-col items-center justify-center p-2 border-b'>
+            <div className='bg-white rounded-md p-4 max-w-md w-full flex flex-col items-center text-[#636363]'>
+                <div className='w-full flex flex-col items-center p-2 border-b'>
                     <img src={LogoDOP} alt="logo da DOP" className='w-20 mb-3' />
                     {createCont === false ? (
                         <>
@@ -119,9 +115,7 @@ const LoginSystem = ({ setLoading }) => {
                             <div className='mt-2'>
                                 <button type='button' onClick={handleCreateCont} className='text-xs no-underline'>Redefinir minha senha </button>
                             </div>
-                               
-                                {message &&  <p className='error'> {message.error} </p> }
-
+                            {message &&  <p className='error'> {message.error} </p> }
                             <div className='h-[50px] mt-3 flex flex-row justify-between w-full'>
                                 <Button onClick={handleCreateCont} className='w-[49%] text-[#0D1450]  hover:bg-[#0D1450]' variant="outline-primary">Ativar Conta</Button>
                                 <Button type='submit' className='w-[49%] bg-[#0D1450] hover:bg-[#29327a]' variant="primary">Login</Button>
