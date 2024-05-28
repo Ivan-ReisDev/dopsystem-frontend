@@ -1,3 +1,9 @@
+import { useContext, useState } from "react";
+import { TeamsContext } from "../../context/TeamsContext";
+import { useNavigate } from "react-router-dom";
+
+
+
 const DpanelTeamsInfoNew = ({ team }) => {
     const { createTeams } = useContext(TeamsContext);
     const [nameTeams, setNameTeams] = useState('');
@@ -19,12 +25,12 @@ const DpanelTeamsInfoNew = ({ team }) => {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            {team && (
+            {!team && (
                 <>
                     <h2 className="text-2xl font-bold mb-4">{team.nameTeams}</h2>
                     <div className="bg-white shadow-md rounded-lg p-8">
                         <form onSubmit={handleSubmit}>
-                            <h2 className="text-lg font-bold mb-4">Atualizar liderança</h2>
+                            <h2 className="text-lg font-bold mb-4"> Nova Equipe</h2>
                             <div className="mb-4">
                                 <label className="block text-sm font-medium text-gray-700">Nome da equipe</label>
                                 <input

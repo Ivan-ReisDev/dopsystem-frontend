@@ -4,6 +4,7 @@ import { SystemContext } from '../../context/SystemContext';
 import { TeamsContext } from '../../context/TeamsContext';
 
 const DpanelTeamsInfo = ({ team, getTeams }) => {
+  
   const [editClasse, setEditClasse] = useState("inicio");
   const [classeSelected, setClasseSelected] = useState([]);
   const [nameTeams, setNameTeams] = useState(team.nameTeams);
