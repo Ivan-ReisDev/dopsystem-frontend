@@ -5,18 +5,19 @@ import JoditEditor from 'jodit-react';
 import { DocsContext } from '../../context/DocsContext';
 import { set } from 'react-hook-form';
 import { FaFloppyDisk } from "react-icons/fa6";
+import { TeamsContext } from '../../context/TeamsContext';
 const EditDocs = ({ placeholder, doc, team }) => {
 
 
-
+  const { teams } = useContext(TeamsContext)
   const { createDocs, message: messageBack, loadingDocs, resOk, editDoc } = useContext(DocsContext);
   const profileUser = JSON.parse(localStorage.getItem('@Auth:Profile'))
 
   const editor = useRef(null);
   const [content, setContent] = useState( doc ? doc.content : '');
   const [title, setTitle] = useState(doc ? doc.nameDocs : '');
-  const [messege, setMessege] = useState();
-  const [docsType, setDocsType] = useState(doc ? doc.title : '')
+  const [messege, setMessege] = useState("");
+  const [docsType, setDocsType] = useState(doc ? doc.title : '');
 
 
   const config = useMemo(
@@ -101,10 +102,13 @@ const EditDocs = ({ placeholder, doc, team }) => {
             Tipo do documento:
             <select onChange={(e) => setDocsType(e.target.value)}>
               <option value="" disabled selected>Selecione</option>
-              <option value="System">System</option>
-              <option value="Ensino">Ensino</option>
-              <option value="Supervisores">Supervisores</option>
-              <option value="Treinadores">Treinadores</option>
+              { !doc &&<option value="System">System</option>}
+              {teams && 
+                teams.map((team) => (
+                  <option key={team._id} value={team.nameTeams}>{team.nameTeams}</option>
+                ))                
+              }
+
             </select>
           </label>
         </div>
