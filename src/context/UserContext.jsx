@@ -38,6 +38,32 @@ const UserProvider = ({ children }) => {
         }
     };
 
+    
+
+    const updateUserAdmin = async (data) => {
+        try {
+            const res = await fetch(`${PRD}admin/update`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+
+            const DataMSG = await res.json();
+            if (res.ok) {
+                setMessege(DataMSG);
+            } else {
+                setMessege(DataMSG);
+            }
+
+        } catch (error) {
+            console.error(error);
+        };
+    };
+
+
     const getLogs = useCallback(async (tokenAuth, nickname) => {
         try {
             const res = await fetch(`${PRD}loggers?nickname=${nickname}`, {
@@ -72,7 +98,8 @@ const UserProvider = ({ children }) => {
                 getLogs,
                 loggers,
                 user,
-                messege
+                messege,
+                updateUserAdmin
             }}
         >
             {children}
