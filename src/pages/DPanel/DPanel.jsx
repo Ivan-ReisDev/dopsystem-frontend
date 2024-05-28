@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RiSettings5Fill } from 'react-icons/ri';
 import { FaDatabase, FaUsersCog, FaBlogger, FaHome } from 'react-icons/fa';
@@ -9,9 +9,14 @@ import Logger from '../../components/Logger/Logger';
 import DocsDpanel from '../../components/DocsDpanel/DocsDpanel';
 import DpanelTeams from '../../components/DpanelTeams/DpanelTeams';
 import DpanelUsers from '../../components/DpanelUsers/DpanelUsers';
+import "./DPanel.module.css"
 
 const DPanel = () => {
   const [selectFunction, setSelectFunction] = useState('System');
+
+  useEffect(() => {
+    document.title = `Painel de Controle`;
+  }, []);
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -21,8 +26,8 @@ const DPanel = () => {
         </Link>
         <span>Versão: Beta</span>
       </header>
-      <div className="container mx-auto px-4 py-8 flex">
-        <article className="w-1/4 pr-8">
+      <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row">
+        <article className="w-full md:w-1/4 pr-0 md:pr-8">
           <nav>
             <Link to="/home" className="flex items-center text-gray-700 hover:text-gray-900 mb-4">
               <FaHome className="mr-2" /> Voltar ao System
@@ -30,7 +35,7 @@ const DPanel = () => {
             <button
               className={`block w-full text-left py-2 px-4 rounded-md mb-2 ${selectFunction === 'System' ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-100'}`}
               onClick={() => setSelectFunction('System')}
-           >
+            >
               <FaDatabase className="mr-2" /> System
             </button>
             <button
@@ -65,7 +70,7 @@ const DPanel = () => {
             </button>
           </nav>
         </article>
-        <main className="w-3/4">
+        <main className="w-full md:w-3/4">
           {selectFunction === 'DocsEdit' && <DocsDpanel />}
           {selectFunction === 'Logger' && <Logger />}
           {selectFunction === 'Teams' && <DpanelTeams />}

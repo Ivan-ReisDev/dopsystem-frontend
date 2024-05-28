@@ -20,7 +20,7 @@ const Navbar = () => {
             <header className='nabBarNew  w-full h-full flex flex-row items-center justify-between'>
                 <NavLink to={'/home'} className=' ml-12 flex flex-row items-center justify-center'>
                     <img src={LogoDOP} alt="logo da DOP" className='w-[40px] m-0' />
-                    <h1 className='text-[25px] font-semibold ml-4  text-[#ffffff]'> <span className='text-[#0084FF]'>DOP</span>System</h1> <p className='text-[#b1b1b1]'>v.Beta 1.0</p>
+                    <h1 className='text-[25px] font-semibold ml-4  text-[#ffffff]'> <span className='text-[#0084FF]'>DOP</span>System</h1> <p className='text-[#b1b1b1]'></p>
                 </NavLink>
                 <div className='text-[#FFFFFF] h-full flex items-center text-[28px] mr-5'>
                      <button className='mr-4'>

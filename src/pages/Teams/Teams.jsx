@@ -36,6 +36,11 @@ const Teams = ({ team }) => {
   }, [fetchData]);
 
   useEffect(() => {
+    document.title = `Polícia DOP - ${team.nameTeams}`;
+}, [])
+
+
+  useEffect(() => {
     const fetchUsers = async () => {
       try {
         if (userLocalStorage && userLocalStorage.nickname) {

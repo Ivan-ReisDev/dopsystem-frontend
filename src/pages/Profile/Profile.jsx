@@ -18,6 +18,10 @@ const Profile = ({ profile }) => {
         searchRequerimentsUser(profile.nickname);
     }, [navigate]);
 
+    useEffect(() => {
+        document.title = `Polícia DOP - Perfil ${profile.nickname}`;
+    }, [])
+
 
     const hadleSubmitt = (e) => {
         e.preventDefault()

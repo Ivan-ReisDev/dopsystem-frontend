@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './NotFound.css';
 
 const NotFound = () => {
+
+
+  useEffect(() => {
+    document.title = `Polícia DOP - Not Found`;
+}, [])
   return (
     <div className="not-found-container">
       <h1>404</h1>

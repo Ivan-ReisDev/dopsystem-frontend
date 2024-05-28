@@ -96,5 +96,15 @@
   }
 
 
+  @media (max-width: 678px) {
+    .ListTeamsMembers li {
+      height: auto;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: start;
+    }
+
+    
+  }
 
 

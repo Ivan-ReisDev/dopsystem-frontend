@@ -11,7 +11,7 @@ const Relegation = () => {
     const typeStatus = "Rebaixamento";
     useEffect(() => {
         searchRequerimentsPromotedsUser("Rebaixamento", "")
-        document.title = "Polícia DOP - Promoções";
+        document.title = "Polícia DOP - Rebaixamento";
     }, [])
 
 

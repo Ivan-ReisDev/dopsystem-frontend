@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useContext } from 'react';
+import React, { useState, useRef, useMemo, useContext, useEffect } from 'react';
 
 import style from './EditDocs.module.css';
 import JoditEditor from 'jodit-react';
@@ -28,6 +28,10 @@ const EditDocs = ({ placeholder, doc, team }) => {
     }),
     [placeholder]
   );
+
+  useEffect(() => {
+    document.title = `Polícia DOP - Editor`;
+}, [])
 
   const handleBlur = (newContent) => {
     setContent(newContent);

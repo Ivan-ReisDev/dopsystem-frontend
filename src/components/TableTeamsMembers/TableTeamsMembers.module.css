@@ -112,6 +112,33 @@
 
   }
 
+
+  @media (max-width: 694px){
+    .ListTeamsMembers div {
+        flex-direction: column;
+        height: auto;
+
+    }
+
+    .ListTeamsMembers h2 {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .ListTeamsMembers li {
+      flex-direction: column;
+      align-items: flex-start;
+      height: auto;
+      padding: 10px;
+    }
+
+    .ListTeamsMembers span {
+      width: 100%;
+
+    } 
+    
+
+}
   
 
 

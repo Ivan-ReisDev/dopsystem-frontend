@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from './document.module.css';
 import DOMPurify from 'dompurify';
 
 const Document = ({doc}) => {
   // Sanitize the content
+
+  useEffect(() => {
+    document.title = `Polícia DOP - ${doc.nameDocs}`;
+}, [])
   const sanitizedContent = DOMPurify.sanitize(doc.content);
 
   return (
