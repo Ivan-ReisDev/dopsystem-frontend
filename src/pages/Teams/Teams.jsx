@@ -1,13 +1,10 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import style from './teams.module.css';
 import { RiTeamFill } from "react-icons/ri";
-import { FaUsersCog, FaAddressBook, FaListUl, FaPlus } from "react-icons/fa";
+import { MdEditDocument } from "react-icons/md";
+import { FaUsersCog, FaAddressBook, FaListUl, FaPlus, FaUsers } from "react-icons/fa";
 import { IoIosDocument } from "react-icons/io";
 import { IoArrowUndo } from "react-icons/io5";
-
-import { FaUsers } from "react-icons/fa6";
-import { MdEditDocument } from "react-icons/md";
-
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import { DocsContext } from '../../context/DocsContext';
@@ -19,30 +16,30 @@ import FormClasses from '../../components/FormTeams/FormClasses';
 
 const Teams = ({ team }) => {
   const storedUser = localStorage.getItem("@Auth:ProfileUser");
-  const userLocalStorege = storedUser ? JSON.parse(storedUser) : {};
+  const userLocalStorage = storedUser ? JSON.parse(storedUser) : {};
 
   const { searchAllUsers, user } = useContext(UserContext);
-  const { Documents } = useContext(DocsContext)
-  const { infoTeamsArray, infoTeams } = useContext(TeamsContext)
-  const [DocsScripts, setDocsScripts] = useState([])
+  const { Documents } = useContext(DocsContext);
+  const { infoTeamsArray, infoTeams } = useContext(TeamsContext);
+
+  const [DocsScripts, setDocsScripts] = useState([]);
   const [userOk, setUserOK] = useState([]);
   const [typeMenu, setTypeMenu] = useState("members");
-  const [addMember, setAddMember] = useState(false)
+  const [addMember, setAddMember] = useState(false);
 
   const fetchData = useCallback(async () => {
-    await infoTeams("ergerg", team.nameTeams);
-  }, [team.nameTeams]);
+    await infoTeams(team.nameTeams);
+  }, [team.nameTeams, infoTeams]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        if (userLocalStorege && userLocalStorege.nickname) {
-          await searchAllUsers(userLocalStorege.nickname);
+        if (userLocalStorage && userLocalStorage.nickname) {
+          await searchAllUsers(userLocalStorage.nickname);
         } else {
           console.warn('No nickname found in localStorage');
         }
@@ -52,22 +49,32 @@ const Teams = ({ team }) => {
     };
 
     fetchUsers();
-  }, [team]); // Executa apenas uma vez ao carregar a página
+  }, [userLocalStorage.nickname, searchAllUsers]);
 
   useEffect(() => {
     if (user && user.users) {
       setUserOK(user.users);
     }
-
   }, [user]);
 
   useEffect(() => {
-    setDocsScripts(Documents.filter(script => script.docsType === team.nameTeams))
+    setDocsScripts(Documents.filter(script => script.docsType === team.nameTeams));
+  }, [Documents, team.nameTeams]);
 
-  }, [userOk, Documents]);
-
-  const { members } = team
-
+  const renderMembers = (members, office) => (
+    members && members
+      .filter(user => user.office === office)
+      .map(user => (
+        <li key={user.nickname}>
+          <Link to={`/search/profile/${user.nickname}`}>
+            <div>
+              <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${user.nickname}&direction=3&head_direction=3&size=m&action=std`} alt="" />
+            </div>
+            {user.nickname}
+          </Link>
+        </li>
+      ))
+  );
 
   return (
     <div className={style.Teams}>
@@ -77,8 +84,7 @@ const Teams = ({ team }) => {
       </div>
       <div className={style.TeamsBody}>
         <main>
-
-          {typeMenu && typeMenu === "members" && (
+          {typeMenu === "members" && (
             <div className={style.members}>
               <div className='divMainForms'>
                 <h2><span> <FaListUl /></span>Lista de Membros</h2>
@@ -105,44 +111,25 @@ const Teams = ({ team }) => {
                   </Link>
                 </li>
               </ul>
+              {team.nameTeams === "Ensino" && (
+                <>
+                  <h3>Docente</h3>
+                  <ul className={style.ListMembers}>
+                    {renderMembers(team.members, "Docente")}
+                  </ul>
+                </>
+              )}
               <h3>Coordenadores</h3>
               <ul className={style.ListMembers}>
-                {!team && <p>Nenhum coordenador encontrado</p>}
-
-                {members && members
-                  .filter(user => user.office === "Coordenador")
-                  .map(user => (
-                    <li key={user.nickname}>
-                      <Link to={`/search/profile/${user.nickname}`}>
-                        <div>
-                          <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${user.nickname}&direction=3&head_direction=3&size=m&action=std`} alt="" />
-                        </div>
-                        {user.nickname}
-                      </Link>
-                    </li>
-                  ))
-                }
-
+                {renderMembers(team.members, "Coordenador")}
               </ul>
               <h3>Membros</h3>
               <ul className={style.ListMembers}>
-                {members && members
-                  .filter(user => user.office === "Membro")
-                  .map(user => (
-                    <li key={user.nickname}>
-                      <Link to={`/search/profile/${user.nickname}`}>
-                        <div>
-                          <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${user.nickname}&direction=3&head_direction=3&size=m&action=std`} alt="" />
-                        </div>
-                        {user.nickname}
-                      </Link>
-                    </li>
-                  ))
-                }
+                {renderMembers(team.members, "Membro")}
               </ul>
             </div>
           )}
-          {typeMenu && typeMenu === "docs" && (
+          {typeMenu === "docs" && (
             <div className={style.docs}>
               <div className='divMainForms'>
                 <h2><span> <FaListUl /></span>Lista de Documentos</h2>
@@ -159,50 +146,43 @@ const Teams = ({ team }) => {
               </div>
             </div>
           )}
-
-          {typeMenu && typeMenu === "editDocs" && (
-            <>
-              <div className={style.docs}>
-                <div className='divMainForms'>
-                  <h2><span> <FaListUl /></span>Gerenciar documentação</h2> <Link to={`/team/${team.nameTeams}/doc/new`} className={style.btnDocs}><FaPlus /></Link>
-                </div>
-                <DocsTeams
-                  DocsScripts={DocsScripts}
-                  team={team}
-                  userOk={userOk}
-                />
-              </div>
-            </>
-          )}
-
-          {typeMenu && typeMenu === "classes" && (
-            <div className={style.ListMembersEdit}>
+          {typeMenu === "editDocs" && (
+            <div className={style.docs}>
               <div className='divMainForms'>
-                <h2><span> <FaListUl /></span>Postar Aula</h2> <button onClick={() => setAddMember(!addMember)} className={style.btnDocs}>{!addMember ? <FaPlus /> : <IoArrowUndo />}</button>
+                <h2><span> <FaListUl /></span>Gerenciar documentação</h2>
+                <Link to={`/team/${team.nameTeams}/doc/new`} className={style.btnDocs}><FaPlus /></Link>
               </div>
-              <FormClasses
-              team={team}
+              <DocsTeams
+                DocsScripts={DocsScripts}
+                team={team}
+                userOk={userOk}
               />
             </div>
           )}
-
-
-          {typeMenu && typeMenu === "Controle de Membros" && (
+          {typeMenu === "classes" && (
             <div className={style.ListMembersEdit}>
               <div className='divMainForms'>
-                <h2><span> <FaListUl /></span>Gerenciar Membros</h2> <button onClick={() => setAddMember(!addMember)} className={style.btnDocs}>{!addMember ? <FaPlus /> : <IoArrowUndo />}</button>
+                <h2><span> <FaListUl /></span>Postar Aula</h2>
+                <button onClick={() => setAddMember(!addMember)} className={style.btnDocs}>{!addMember ? <FaPlus /> : <IoArrowUndo />}</button>
               </div>
-              {!addMember ?
-                <TableTeamsMembers
-                  team={team}
-                />
-                :
-                <FormAdd
-                  team={team}
-                />}
+              <FormClasses
+                team={team}
+              />
             </div>
           )}
-
+          {typeMenu === "Controle de Membros" && (
+            <div className={style.ListMembersEdit}>
+              <div className='divMainForms'>
+                <h2><span> <FaListUl /></span>Gerenciar Membros</h2>
+                <button onClick={() => setAddMember(!addMember)} className={style.btnDocs}>{!addMember ? <FaPlus /> : <IoArrowUndo />}</button>
+              </div>
+              {!addMember ? (
+                <TableTeamsMembers team={team} />
+              ) : (
+                <FormAdd team={team} />
+              )}
+            </div>
+          )}
         </main>
         <article>
           <div className='contentBodyElement'>
@@ -210,19 +190,19 @@ const Teams = ({ team }) => {
               <h3>Menu Rápido</h3>
             </div>
             <ul>
-              <li><button onClick={() => setTypeMenu('members')} >Membros <span><FaUsers /></span></button></li>
-              <li><button onClick={() => setTypeMenu('docs')}>Documentos<span><IoIosDocument /></span> </button></li>
-              <li><button onClick={() => setTypeMenu('classes')} >Postar Aula <span>< FaAddressBook /></span></button></li>
+              <li><button onClick={() => setTypeMenu('members')}>Membros <span><FaUsers /></span></button></li>
+              <li><button onClick={() => setTypeMenu('docs')}>Documentos<span><IoIosDocument /></span></button></li>
+              <li><button onClick={() => setTypeMenu('classes')}>Postar Aula <span>< FaAddressBook /></span></button></li>
             </ul>
           </div>
-          {userOk.length > 0 && (team.leader === userOk[0].nickname || team.viceLeader === userOk[0].nickname || userOk[0].userType === "Admin" || userOk[0].userType === "Diretor") && (
+          {userOk.length > 0 && (team.leader === userOk[0].nickname || team.viceLeader === userOk[0].nickname || ["Admin", "Diretor"].includes(userOk[0].userType)) && (
             <div className='contentBodyElement'>
               <div className='contentBodyElementTitle'>
                 <h3>Liderança</h3>
               </div>
               <ul>
                 <li><button onClick={() => setTypeMenu('Controle de Membros')}>Controle de membros<span><FaUsersCog /></span></button></li>
-                <li><button onClick={() => setTypeMenu("editDocs")}>Editar documento<span><MdEditDocument /></span> </button></li>
+                <li><button onClick={() => setTypeMenu("editDocs")}>Editar documento<span><MdEditDocument /></span></button></li>
               </ul>
             </div>
           )}

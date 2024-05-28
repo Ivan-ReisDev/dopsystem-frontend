@@ -17,8 +17,7 @@ const EditDocs = ({ placeholder, doc, team }) => {
   const [content, setContent] = useState( doc ? doc.content : '');
   const [title, setTitle] = useState(doc ? doc.nameDocs : '');
   const [messege, setMessege] = useState("");
-  const [docsType, setDocsType] = useState(doc ? doc.title : '');
-
+  const [docsType, setDocsType] = useState(doc ? doc.docsType : '');
 
   const config = useMemo(
     () => ({

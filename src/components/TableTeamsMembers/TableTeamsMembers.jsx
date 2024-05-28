@@ -7,59 +7,57 @@ import { useNavigate } from 'react-router-dom';
 const TableTeamsMembers = ({ team, userOk }) => {
     const { infoTeamsArray, infoTeams } = useContext(TeamsContext);
     const [isRemove, setIsRemove] = useState(false);
-    const [dataUser, setDataUser] = useState([])
-    const navigate = useNavigate()
+    const [dataUser, setDataUser] = useState([]);
+    const navigate = useNavigate();
 
     const handleRemove = (data) => {
-        setDataUser(data)
-        setIsRemove(true)
-    }
+        setDataUser(data);
+        setIsRemove(true);
+    };
 
     useEffect(() => {
         const fetchTeamInfo = async () => {
             const token = localStorage.getItem("@Auth:Token");
-            infoTeams(token, team.nameTeams)
+            if (token) {
+                await infoTeams(token, team.nameTeams);
+            }
         };
 
         fetchTeamInfo();
-    }, [infoTeams]);
-
-
+    }, [team.nameTeams]);
     return (
-        <> {!isRemove && <div className={style.ListTeamsMembers}>
+        <>
+            {!isRemove && (
+                <div className={style.ListTeamsMembers}>
+                    <div>
+                        <h2>
+                            <span>Nickname</span> <span>Cargo</span> <span>Total de aulas</span> <span>Ação</span>
+                        </h2>
+                    </div>
+                    <ul>
+                        {infoTeamsArray && infoTeamsArray.map((user) => (
+                            <li key={user.user.nickname}>
+                                <span>{user.user.nickname}</span>
+                                <span>{user.user.office}</span>
+                                <span>{user.requirements.length}</span>
+                                <span>
+                                    <button onClick={() => handleRemove(user)} className={style.buttonExcluir}>Excluir</button>
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
 
-
-            <div>
-                <h2><span>Nickname</span> <span>Cargo</span> <span>Total de aulas</span> <span>Ação</span></h2>
-            </div>
-            <ul>
-                {infoTeamsArray && infoTeamsArray.map((user, requirement) => (
-                    <li key={user.user.nickname}>
-                        <span>{user.user.nickname}</span>
-                        <span>{user.user.office}</span>
-                        <span>{user.requirements.length}</span>
-                        <span>
-                            <button onClick={() => handleRemove(user)} className={style.buttonExcluir}>Excluir</button>
-                        </span>
-                    </li>
-                ))}
-            </ul>
-        </div>
-
-        }
-
-            {isRemove &&
+            {isRemove && (
                 <Confirmation
                     team={team}
                     userOk={userOk}
                     dataUser={dataUser}
                     setIsRemove={setIsRemove}
                 />
-            }
-
+            )}
         </>
-
-
     );
 };
 

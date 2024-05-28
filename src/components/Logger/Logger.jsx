@@ -2,12 +2,13 @@ import { useState, useContext } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
+import { RequirementsContext } from '../../context/Requirements';
 
 function Logger() {
     const { loggers } = useContext(UserContext);
     const [currentPage, setCurrentPage] = useState(1);
     const [loggersPerPage] = useState(12); // Defina quantos registros deseja exibir por página
-
+    const {formatarDataHora} = useContext(RequirementsContext)
     // Invertendo a ordem dos loggers
     const reversedLoggers = [...loggers].reverse();
 
@@ -29,6 +30,7 @@ function Logger() {
                         <div>ID: {index + indexOfFirstLogger + 1}</div>
                         <div>Usuário: {logger.user}</div>
                         <div>Ação: {logger.loggerType}</div>
+                        <div>Registro: {formatarDataHora(logger.createdAt)}</div>
                         <div>
                             Endereço de IP: 
                             <Link 

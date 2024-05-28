@@ -1,6 +1,6 @@
 .Form {
     width: 100%;
-    height: 140px;
+    height: 300px;
     background-color: #fff;
     display: flex;
     flex-direction: column;
@@ -16,6 +16,7 @@
     font-weight: bold;
     font-size: 15px;
     flex-direction: column;
+    margin-bottom: 10px;
     justify-content: center;
 }
 

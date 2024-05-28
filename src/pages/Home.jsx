@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import FastMenu from '../components/FastMenu/FastMenu';
 import './Home.css'
@@ -8,20 +8,55 @@ import Publication from '../components/Publication/Publication';
 import License from '../components/License/License';
 import Preloader from '../assets/preloader.gif'
 import { AuthContext } from '../context/AuthContext';
-
-
+import TagModal from '../components/TagModal/TagModal';
+import { UserContext } from '../context/UserContext';
 
 const Home = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [user, setUser] = useState(null); // Inicialize o estado do usuário como null
+  const [tag, setTag] = useState();
+  const[isButtonTag, setIsButtonTag] = useState(false)
+  
 
   const { loading, userAllArray } = useContext(AuthContext);
+  const { createTag, messege } = useContext(UserContext)
 
   useEffect(() => {
     document.title = "Polícia DOP - Home";
+    const userFromLocalStorage = JSON.parse(localStorage.getItem("@Auth:Profile"));
+    setUser(userFromLocalStorage); // Atualize o estado do usuário com as informações do localStorage
+
+    // Verifique se o usuário está definido e se sua tag é "Vazio"
+    if (userFromLocalStorage && userFromLocalStorage.tag === "Vazio") {
+      setIsModalOpen(true);
+    }
   }, []);
 
+  useEffect(() => {
+
+    if(messege.msg) {
+      setIsButtonTag(true)
+    }
+    
 
 
-  if (loading) {
+  },[messege])
+  
+
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleCreateTag = () => {
+    const data = {
+      idUser: user._id,
+      tag: tag
+    }
+    createTag(data)
+    setTag('')
+  }
+
+
+
+  if (loading || !user) {
     return (
       <div className='preloader'>
         <img src={Preloader} alt="" />
@@ -45,9 +80,41 @@ const Home = () => {
         <Publication />
         <License />
       </div>
+      <TagModal isOpen={isModalOpen} onClose={closeModal}>
+        <h2 className="text-2xl font-bold mb-4">Crie sua TAG</h2>
+        <p className="mb-2 text-[14px]">A partir de agora, para continuar usando o system, é necessário que você crie sua tag.</p>
+        <input
+          type="text"
+          maxLength={3}
+          value={tag}
+          onChange={(e) => setTag(e.target.value)}
+          className="border w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-blue-500"
+        />
+        <ul className='mb-2'>
+          <li className='text-[10px] text-slate-500'>Use apenas 3 caracteres.</li>
+          <li className='text-[10px] text-slate-500'>As letras devem fazer parte do seu apelido; caso contrário, o sistema não aceitará.</li>
+        </ul>
+        { messege && <p className='text-[13px] text-green-700'>{messege.msg}</p>}
+        { messege && <p className='text-[13px] text-red-500'>{messege.error}</p>}
+        { !isButtonTag &&<button
+          onClick={handleCreateTag}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Criar
+        </button>}
 
+        {isButtonTag && <button
+          onClick={closeModal}
+          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        >
+          Fechar
+        </button>}
+
+
+
+      </TagModal>
     </div>
   )
 }
 
-export default Home
+export default Home;

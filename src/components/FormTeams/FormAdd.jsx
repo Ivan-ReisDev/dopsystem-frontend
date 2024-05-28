@@ -5,6 +5,7 @@ import { TeamsContext } from '../../context/TeamsContext'
 export const FormAdd = ({team}) => {
     // idUser, nickMember, idTeams
     const [ nickname, setNickname ] = useState("")
+    const [office, setOffice] = useState("")
     const { addMember } = useContext(TeamsContext);
     const user = JSON.parse(localStorage.getItem("@Auth:ProfileUser"))
 
@@ -13,6 +14,7 @@ export const FormAdd = ({team}) => {
     const data = {
         idUser: user._id,
         nickMember: nickname,
+        office,
         idTeams: team._id
     }
         addMember(data)
@@ -29,6 +31,17 @@ export const FormAdd = ({team}) => {
         placeholder='Nickname de quem deseja adicionar'    
         />
         </label>
+
+        <label>
+         * Cargo 
+
+         <select onChange={(e) => setOffice(e.target.value)}>
+            <option value="Membro">Membro</option>
+            <option value="Coordenador">Coordenador</option>
+            {team.nameTeams === "Ensino" && <option value="Docente">Docente</option>}
+          
+          </select>  
+          </label>
         <button type='submit'>Adicionar</button>    
     </form>
   )

@@ -63,6 +63,30 @@ const UserProvider = ({ children }) => {
         };
     };
 
+    const createTag = async (data) => {
+        try {
+            const res = await fetch(`${PRD}update/tag`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+
+            const DataMSG = await res.json();
+            if (res.ok) {
+                setMessege(DataMSG);
+                navigate("/home")
+            } else {
+                setMessege(DataMSG);
+            }
+
+        } catch (error) {
+            console.error(error);
+        };
+    };
+
 
     const getLogs = useCallback(async (tokenAuth, nickname) => {
         try {
@@ -99,7 +123,8 @@ const UserProvider = ({ children }) => {
                 loggers,
                 user,
                 messege,
-                updateUserAdmin
+                updateUserAdmin,
+                createTag
             }}
         >
             {children}

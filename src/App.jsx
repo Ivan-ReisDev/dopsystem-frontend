@@ -61,7 +61,7 @@ function App() {
         {/* ROTAS DE EQUIPE */}
 
         {Array.isArray(teams) && (
-          (userType && (userType.userType === "Admin" || userType.userType === "Diretor") ?
+          (userType && userType.teans && (userType.userType === "Admin" || userType.userType === "Diretor")) ?
             teams.map((team, index) => (
               <Route
                 key={index}
@@ -71,18 +71,14 @@ function App() {
             ))
             :
             teams
-              .filter(team => userType.teans && Array.isArray(userType.teans) && userType.teans.includes(team.nameTeams))
+              .filter(team => userType && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(team.nameTeams))
               .map((team, index) => (
-                <>
-                  <Route
-                    key={index}
-                    path={`/team/${team.nameTeams}`}
-                    element={isAuthentication ? <Teams team={team} /> : <LoginSystem />}
-                  />
-
-                </>
+                <Route
+                  key={index}
+                  path={`/team/${team.nameTeams}`}
+                  element={isAuthentication ? <Teams team={team} /> : <LoginSystem />}
+                />
               ))
-          )
         )}
 
 
@@ -95,7 +91,7 @@ function App() {
                 return true;
               }
               // Verifica se o usuário é líder da equipe
-              return userType.teans && Array.isArray(userType.teans) && userType.teans.includes(team.nameTeams) && team.leader === userType.nickname;
+              return userType && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(team.nameTeams) && team.leader === userType.nickname;
             })
             .map((team, index) => (
               <Route
@@ -105,6 +101,7 @@ function App() {
               />
             ))
         )}
+
 
 
 
@@ -150,7 +147,7 @@ function App() {
               }
               // Verifica se o usuário é líder da equipe
               const team = teams.find(team => team.nameTeams === doc.docsType);
-              return team && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(doc.docsType) && team.leader === userType.nickname;
+              return team && userType && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(doc.docsType) && team.leader === userType.nickname;
             })
             .map((doc, index) => (
               <Route
@@ -161,6 +158,7 @@ function App() {
             ))
         )}
 
+
         {Array.isArray(Documents) && (
           Documents
             .filter(doc => {
@@ -170,7 +168,7 @@ function App() {
               }
               // Verifica se o usuário é líder da equipe
               const team = teams.find(team => team.nameTeams === doc.docsType);
-              return team && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(doc.docsType) && team.leader === userType.nickname;
+              return team && userType && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(doc.docsType) && team.leader === userType.nickname;
             })
             .map((doc, index) => (
               <Route
@@ -180,7 +178,6 @@ function App() {
               />
             ))
         )}
-
 
 
         {isAuthentication && Array.isArray(userAllArray) && userAllArray.map((profile) => (

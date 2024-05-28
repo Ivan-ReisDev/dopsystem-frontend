@@ -11,8 +11,6 @@ const TeamsProvider = ({ children }) => {
     const [teams, setTeams] = useState([]);
     const [infoTeamsArray, setInfoTeamsArray] = useState([]);
     const navigate = useNavigate()
-
-    
     const infoTeams = async (teams) => {
 
         try {
