@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 
 import '../index.css';
+import "./style.css"
 import { AuthContext } from '../context/AuthContext';
 import { DocsContext } from '../context/DocsContext';
 import { TeamsContext } from '../context/TeamsContext';
@@ -25,8 +26,8 @@ const Sidebar = ({ showSidebar }) => {
 
   const { Documents } = useContext(DocsContext);
   const { teams, getTeams } = useContext(TeamsContext);
-  
-  const newArrayDocumentos =  Documents.filter(script => script.docsType === "System");
+
+  const newArrayDocumentos = Documents.filter(script => script.docsType === "System");
   const infoProfileUser = JSON.parse(localStorage.getItem("@Auth:Profile"));
   const infoProfileUserCompleted = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
 
@@ -36,9 +37,14 @@ const Sidebar = ({ showSidebar }) => {
       <div className=' borderSidebar w-full h-[20%] flex flex-col items-center justify-center  border-b'>
         {infoProfileUser && (
           <>
-            <div className='border  rounded-full overflow-hidden min-w-16 max-w-16 min-h-16 max-h-16 bg-[#0084FF]'>
-              <img className='m-0 relative  bottom-3' src={`http://www.habbo.com.br/habbo-imaging/avatarimage?&user=${infoProfileUser.nickname}&action=std&direction=4&head_direction=4&img_format=png&gesture=sml&frame=1&headonly=0&size=m`} alt="" />
-            </div>
+<div className=" imgSidebar border rounded-full overflow-hidden min-w-16 max-w-16 min-h-16 max-h-16 bg-[url('../')] bg-cover bg-center">
+  <img
+    className="m-0 relative bottom-3"
+    src={`http://www.habbo.com.br/habbo-imaging/avatarimage?&user=${infoProfileUser.nickname}&action=std&direction=4&head_direction=4&img_format=png&gesture=sml&frame=1&headonly=0&size=m`}
+    alt=""
+  />
+</div>
+
             <h2 className='mt-2 font-bold'>{infoProfileUser.nickname}</h2>
             <span>{infoProfileUser.patent}</span>
           </>
