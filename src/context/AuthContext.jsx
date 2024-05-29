@@ -72,27 +72,6 @@ const AuthProvider = ({ children }) => {
         checkAuthentication();
     }, [navigate]);
     
-
-    const getProfileAll = useCallback(async () => {
-        setAuthProfile(true)
-        try {
-            const res = await fetch(`${PRD}profile/pages`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("@Auth:Token")}`,
-                },
-            });
-                const data = await res.json();
-                setUserAllArray(data);
-                setAuthProfile(false)
-
-        } catch (error) {
-            console.log(error.message || 'Erro desconhecido');
-            setAuthProfile(false)
-        }
-    }, []);
-
-
     const signIn = async (dataLogin)  => {
         try {
             const res = await fetch(`${PRD}login`, {
@@ -112,8 +91,6 @@ const AuthProvider = ({ children }) => {
                 localStorage.setItem('@Auth:Token', resJSON.token);
                 localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
                 localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
-
-                getProfileAll(resJSON.token)
                 navigate('/home');
 
             } else {
@@ -196,7 +173,6 @@ return (
             logout,
             authProfile,
             handleActiveCout,
-            getProfileAll,
             message,
             userAllArray,
             loading, setLoading

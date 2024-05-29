@@ -13,10 +13,6 @@ import { TeamsContext } from '../context/TeamsContext';
 const Sidebar = ({ showSidebar }) => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getTeams(localStorage.getItem("@Auth:Token"))
-  }, [])
-
   const { logout } = useContext(AuthContext);
   const [showDocs, setShowDocs] = useState(false);
   const [showClasses, setShowClasses] = useState(false);
@@ -24,12 +20,16 @@ const Sidebar = ({ showSidebar }) => {
   const activeShowDocs = () => setShowDocs(!showDocs);
   const activeShowClasses = () => setShowClasses(!showClasses);
 
-  const { Documents } = useContext(DocsContext);
   const { teams, getTeams } = useContext(TeamsContext);
-
-  const newArrayDocumentos = Documents.filter(script => script.docsType === "System");
+  const { searchDoc, docSelected } = useContext(DocsContext);
+  const newArrayDocumentos = docSelected;
   const infoProfileUser = JSON.parse(localStorage.getItem("@Auth:Profile"));
   const infoProfileUserCompleted = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
+
+  useEffect(() => {
+    getTeams(localStorage.getItem("@Auth:Token"))
+    searchDoc("System");
+  }, [])
 
   return (
     <nav className={showSidebar ? ` z-10 duration-1000 absolute right-[0] top-[61px] px-3 h-[100vh] w-[330px] bg-[#031149] text-[#ffffff]`
@@ -37,13 +37,13 @@ const Sidebar = ({ showSidebar }) => {
       <div className=' borderSidebar w-full h-[20%] flex flex-col items-center justify-center  border-b'>
         {infoProfileUser && (
           <>
-<div className=" imgSidebar border rounded-full overflow-hidden min-w-16 max-w-16 min-h-16 max-h-16 bg-[url('../')] bg-cover bg-center">
-  <img
-    className="m-0 relative bottom-3"
-    src={`http://www.habbo.com.br/habbo-imaging/avatarimage?&user=${infoProfileUser.nickname}&action=std&direction=4&head_direction=4&img_format=png&gesture=sml&frame=1&headonly=0&size=m`}
-    alt=""
-  />
-</div>
+            <div className=" imgSidebar border rounded-full overflow-hidden min-w-16 max-w-16 min-h-16 max-h-16 bg-[url('../')] bg-cover bg-center">
+              <img
+                className="m-0 relative bottom-3"
+                src={`http://www.habbo.com.br/habbo-imaging/avatarimage?&user=${infoProfileUser.nickname}&action=std&direction=4&head_direction=4&img_format=png&gesture=sml&frame=1&headonly=0&size=m`}
+                alt=""
+              />
+            </div>
 
             <h2 className='mt-2 font-bold'>{infoProfileUser.nickname}</h2>
             <span>{infoProfileUser.patent}</span>
@@ -62,7 +62,7 @@ const Sidebar = ({ showSidebar }) => {
           Documentos <span className={`ml-2 text-[13px] ${showDocs ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>
         </button>
         <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showDocs ? "h-auto " : "h-0 hidden"}`}>
-          {Documents && newArrayDocumentos.map((doc, index) => (
+          {searchDoc && newArrayDocumentos.map((doc, index) => (
             <li key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
               <NavLink to={`/docs/${doc._id}`} >{doc.nameDocs}</NavLink>
             </li>
@@ -119,7 +119,7 @@ const Sidebar = ({ showSidebar }) => {
         </div>
 
         <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/members'}>Membros</NavLink></li>
-        <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={`/search/profile/${infoProfileUserCompleted.nickname}`}>Perfil</NavLink></li>
+        <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={`/search/${infoProfileUserCompleted.nickname}`}>Perfil</NavLink></li>
       </ul>
 
       <div className='w-full borderSidebar h-[10%] flex flex-col items-center justify-center'>

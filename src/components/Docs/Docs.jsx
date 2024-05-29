@@ -4,8 +4,8 @@ import { DocsContext } from '../../context/DocsContext';
 
 const Docs = () => {
 
-  const { Documents } = useContext(DocsContext);
-  const newArrayDocumentos =  Documents.filter(script => script.docsType === "System");
+  const { searchDoc, docSelected } = useContext(DocsContext);
+  const newArrayDocumentos = docSelected;
 
   return (
     <div className='contentBodyElement'>
@@ -13,7 +13,7 @@ const Docs = () => {
         <h3>Documentos</h3>
     </div>
     <ul>
-    {Documents &&
+    {docSelected &&
           newArrayDocumentos.map((doc, index) => (
             <li key={index}><Link to={`/docs/${doc._id}`}>{doc.nameDocs}</Link></li>
           ))

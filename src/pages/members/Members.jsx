@@ -8,16 +8,13 @@ import { SystemContext } from '../../context/SystemContext';
 
 const Members = () => {
 
-    const { getProfileAll, userAllArray } = useContext(AuthContext)
+    const { userAllArray } = useContext(AuthContext)
     const { infoSystem } = useContext(SystemContext)
     const [select, setSelect] = useState('menu');
     const [patents, setPatents] = useState([]);
 
     useEffect(() => {
-        getProfileAll();
         document.title = "Polícia DOP - Membros";
-
-
 
     }, []);
 

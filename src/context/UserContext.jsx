@@ -19,24 +19,25 @@ const UserProvider = ({ children }) => {
 
     const searchAllUsers = async (nickname, typeRequeriment) => {
         try {
-            const value = nickname;
-            const res = await fetch(`${PRD}search?nickname=${value}&typeRequeriment=${typeRequeriment}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-            const data = await res.json();
-
-            if(res.ok) {
-                setUser(data); 
-            }
-
+          const res = await fetch(`${PRD}search?nickname=${nickname}&typeRequeriment=${typeRequeriment}`, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+          const data = await res.json();
+      
+          if (res.ok) {
+            setUser(data)
             return data;
+          } else {
+            throw new Error(data.message || 'Failed to fetch user');
+          }
         } catch (error) {
-            setMessege(error);
+          throw new Error(error.message || 'Error fetching user');
         }
-    };
+      };
+      
 
     
 
@@ -88,15 +89,15 @@ const UserProvider = ({ children }) => {
     };
 
 
-    const getLogs = useCallback(async (tokenAuth, nickname) => {
+    const getLogs = async () => {
         try {
-            const res = await fetch(`${PRD}loggers?nickname=${nickname}`, {
+            const res = await fetch(`${PRD}loggers?nickname=${tokenUser.nickname}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-
+    
             if (!res.ok) {
                 throw new Error('Erro na requisição');
             }
@@ -105,13 +106,7 @@ const UserProvider = ({ children }) => {
         } catch (error) {
             setMessege(error.message || 'Erro desconhecido');
         }
-    }, []);
-
-    useEffect(() => {
-        if(localStorage.getItem('@Auth:Token') && tokenUser){
-            getLogs(localStorage.getItem('@Auth:Token'), tokenUser.nickname)
-        }
-    }, [navigate]);
+    };
 
     // Fornecimento do contexto para os componentes filhos
     return (

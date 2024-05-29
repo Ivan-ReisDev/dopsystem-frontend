@@ -12,7 +12,7 @@ const RequirementsProvider = ({ children }) => {
     const [teams, setTeams] = useState("");
     const [requerimentsFilter, setRequerimentsFilter] = useState([])
     const [requerimentsArray, setRequerimentsArray] = useState([])
-    const {setLoading, getProfileAll} = useContext(AuthContext);
+    const {setLoading} = useContext(AuthContext);
     const token = localStorage.getItem('@Auth:Token')
     // const getTeams = useCallback(async (tokenAuth) => {
     //     try {
@@ -53,7 +53,7 @@ const RequirementsProvider = ({ children }) => {
 
             if (res.ok) {
                 setMessage(resJSON);
-                navigate(`/search/profile/${data.promoted}`)
+                navigate(`/search/${data.promoted}`)
             } else {
                 setMessage(resJSON);;
                 
@@ -192,9 +192,8 @@ const RequirementsProvider = ({ children }) => {
             const resJSON = await res.json();
 
             if (res.ok) {
-                getProfileAll()
                 setMessage('Requerimento postado com sucesso.');
-                navigate(`/search/profile/${data.promoted}`)
+                navigate(`/search/${data.promoted}`)
             } else {
                 setMessage('Não foi possível criar o documento.');
                 
@@ -221,9 +220,8 @@ const RequirementsProvider = ({ children }) => {
             const resJSON = await res.json();
 
             if (res.ok) {
-                getProfileAll()
                 setMessage(resJSON);
-                navigate(`/search/profile/${data.promoted}`)
+                navigate(`/search/${data.promoted}`)
             } else {
                 setMessage(resJSON);
                 

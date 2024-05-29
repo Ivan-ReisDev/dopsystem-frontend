@@ -71,7 +71,7 @@ const Teams = ({ team }) => {
       .filter(user => user.office === office)
       .map(user => (
         <li key={user.nickname}>
-          <Link to={`/search/profile/${user.nickname}`}>
+          <Link to={`/search/${user.nickname}`}>
             <div>
               <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${user.nickname}&direction=3&head_direction=3&size=m&action=std`} alt="" />
             </div>
@@ -97,7 +97,7 @@ const Teams = ({ team }) => {
               <h3>Líder</h3>
               <ul className={style.ListMembers}>
                 <li>
-                  <Link to={`/search/profile/${team.leader}`}>
+                  <Link to={`/search/${team.leader}`}>
                     <div>
                       <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${team.leader}&direction=3&head_direction=3&size=m&action=std`} alt="" />
                     </div>
@@ -108,7 +108,7 @@ const Teams = ({ team }) => {
               <h3>Vice-líder</h3>
               <ul className={style.ListMembers}>
                 <li>
-                  <Link to={`/search/profile/${team.viceLeader}`}>
+                  <Link to={`/search/${team.viceLeader}`}>
                     <div>
                       <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${team.viceLeader}&direction=3&head_direction=3&size=m&action=std`} alt="" />
                     </div>

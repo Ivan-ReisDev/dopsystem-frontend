@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Routes, Route, json } from 'react-router-dom';
+import { Routes, Route, useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import LoginSystem from './pages/LoginSystem';
@@ -15,7 +15,7 @@ import Teams from './pages/Teams/Teams';
 import { UserContext } from './context/UserContext';
 import Preloader from './components/Preloader/Preloader';
 import Promotion from './pages/Promotion/Promotion';
-import Sale from "./pages/Sales/Sale"
+import Sale from './pages/Sales/Sale';
 import Warning from './pages/Warning/Warning';
 import Relegation from './pages/Relegation/Relegation';
 import Resignation from './pages/Resignation/Resignation';
@@ -26,27 +26,17 @@ import DPanel from './pages/DPanel/DPanel';
 import NotFound from './pages/Notfound/NotFound';
 import PostClasseInitial from './pages/PostClasseInitial/PostClasseInitial';
 
-
 function App() {
-  const { isAuthentication, userAllArray, getProfileAll, loading, setLoading } = useContext(AuthContext);
+  const { isAuthentication, loading, setLoading } = useContext(AuthContext);
   const { Documents } = useContext(DocsContext);
   const userType = JSON.parse(localStorage.getItem('@Auth:ProfileUser'));
-
-
-  useEffect(() => {
-    getProfileAll()
-  }, [isAuthentication])
-
-
 
   // Configurações de equipe
   const { teams } = useContext(TeamsContext);
 
-
   return (
-
     <>
-      <Preloader shoWstatus={loading} />
+      <Preloader showStatus={loading} />
       {isAuthentication && <Navbar />}
       <Routes>
         <Route path='/' element={!isAuthentication ? <LoginSystem setLoading={setLoading} /> : <Home />} />
@@ -59,7 +49,6 @@ function App() {
         )}
 
         {/* ROTAS DE EQUIPE */}
-
         {Array.isArray(teams) && (
           (userType && userType.teans && (userType.userType === "Admin" || userType.userType === "Diretor")) ?
             teams.map((team, index) => (
@@ -81,8 +70,6 @@ function App() {
               ))
         )}
 
-
-
         {Array.isArray(teams) && (
           teams
             .filter(team => {
@@ -102,15 +89,7 @@ function App() {
             ))
         )}
 
-
-
-
-
-
-
-
         {/* ROTAS DE FORMULÁRIO */}
-
         <Route path='/postclasse' element={isAuthentication ? <PostClasseInitial /> : <LoginSystem setLoading={setLoading} />} />
         <Route path='/promotion' element={isAuthentication ? <Promotion /> : <LoginSystem setLoading={setLoading} />} />
         <Route path='/relegation' element={isAuthentication ? <Relegation /> : <LoginSystem setLoading={setLoading} />} />
@@ -120,11 +99,7 @@ function App() {
         <Route path='/sale' element={isAuthentication ? <Sale /> : <LoginSystem setLoading={setLoading} />} />
         <Route path='/members' element={isAuthentication ? <Members /> : <LoginSystem setLoading={setLoading} />} />
 
-
-
-
-        {/*  RODAS DE CONFIGURAÇÃO DE DOCUMENTOS*/}
-
+        {/*  RODAS DE CONFIGURAÇÃO DE DOCUMENTOS */}
         {Array.isArray(Documents) && (
           Documents
             .filter(doc => doc.docsType === "System")
@@ -136,7 +111,6 @@ function App() {
               />
             ))
         )}
-
 
         {Array.isArray(Documents) && (
           Documents
@@ -158,7 +132,6 @@ function App() {
             ))
         )}
 
-
         {Array.isArray(Documents) && (
           Documents
             .filter(doc => {
@@ -178,17 +151,11 @@ function App() {
               />
             ))
         )}
+        
 
-
-        {isAuthentication && Array.isArray(userAllArray) && userAllArray.map((profile) => (
-          <Route
-            key={profile.nickname}
-            path={`/search/profile/${profile.nickname}`}
-            element={<Profile profile={profile} />}
-          />
-        ))}
-
-
+        {isAuthentication && (
+          <Route path='/search/:nickname' element={<UserProfile />} />
+        )}
 
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -196,5 +163,32 @@ function App() {
     </>
   );
 }
+
+const UserProfile = () => {
+  const { nickname } = useParams();
+  const { searchAllUsers } = useContext(UserContext);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const user = await searchAllUsers(nickname); // Ajuste 'specificType' conforme necessário
+        setProfile(user);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, [nickname]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
+  return profile ? <Profile profile={profile} /> : <div>User not found</div>;
+};
 
 export default App;

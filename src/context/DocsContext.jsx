@@ -12,6 +12,7 @@ const DocsProvider = ({ children }) => {
     const [message, setMessage] = useState('');
     const [resOk, setResOk] = useState(false)
     const [Documents, setDocuments] = useState([]);
+    const [docSelected, setDocSelected] = useState([])
     const [loadingDocs, setLoadingDocs] = useState(false);
     const navigate = useNavigate()
 
@@ -122,6 +123,29 @@ const DocsProvider = ({ children }) => {
         getDocuments(localStorage.getItem('@Auth:Token'));
     }, [getDocuments]);
 
+
+
+    const searchDoc = async (typeDocument) => {
+        try {
+          const res = await fetch(`${PRD}doc/search?typeDocument=${typeDocument}`, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+          const data = await res.json();
+      
+          if (res.ok) {
+            setDocSelected(data)
+            return data;
+          } else {
+            throw new Error(data.message || 'Failed to fetch user');
+          }
+        } catch (error) {
+          throw new Error(error.message || 'Error fetching user');
+        }
+      };
+
     return (
         <DocsContext.Provider
             value={{
@@ -133,7 +157,9 @@ const DocsProvider = ({ children }) => {
                 editDoc,
                 deleteDoc,
                 getDocuments,
-                setMessage
+                setMessage,
+                searchDoc,
+                docSelected
             }}
         >
             {children}
