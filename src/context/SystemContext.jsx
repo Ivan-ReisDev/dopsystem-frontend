@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-const PRD = 'https://apipoliciadop.kinghost.net:21092/proxy/api/';
+const PRD = 'http://apipoliciadop.kinghost.net:21092/proxy/api/';
 
 const SystemContext = createContext("");
 

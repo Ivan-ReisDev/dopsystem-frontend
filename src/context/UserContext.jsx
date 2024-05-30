@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 // const API = 'http://localhost:3000/api/';
-const PRD = 'https://apipoliciadop.kinghost.net:21092/proxy/api/';
+const PRD = 'http://apipoliciadop.kinghost.net:21092/proxy/api/';
 
 const UserContext = createContext('');
 const UserProvider = ({ children }) => {
