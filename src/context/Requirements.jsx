@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 
-const PRD = 'http://apipoliciadop.kinghost.net:21092/api/';
+const PRD = 'https://apipoliciadop.kinghost.net:21092/proxy/api/';
 
 const RequirementsContext = createContext("");
 const RequirementsProvider = ({ children }) => {
