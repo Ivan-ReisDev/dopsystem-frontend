@@ -19,7 +19,7 @@ const Teams = ({ team }) => {
   const userLocalStorage = storedUser ? JSON.parse(storedUser) : {};
 
   const { searchAllUsers, user } = useContext(UserContext);
-  const { Documents } = useContext(DocsContext);
+  const { searchDoc, docSelected } = useContext(DocsContext);
   const { infoTeamsArray, infoTeams } = useContext(TeamsContext);
 
   const [DocsScripts, setDocsScripts] = useState([]);
@@ -27,17 +27,13 @@ const Teams = ({ team }) => {
   const [typeMenu, setTypeMenu] = useState("members");
   const [addMember, setAddMember] = useState(false);
 
-  const fetchData = useCallback(async () => {
-    await infoTeams(team.nameTeams);
-  }, [team.nameTeams, infoTeams]);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
   useEffect(() => {
     document.title = `Polícia DOP - ${team.nameTeams}`;
-}, [])
+    infoTeams(team.nameTeams);
+     searchDoc(team.nameTeams);
+     setDocsScripts(docSelected);
+  }, [team]);
+
 
 
   useEffect(() => {
@@ -54,7 +50,7 @@ const Teams = ({ team }) => {
     };
 
     fetchUsers();
-  }, [userLocalStorage.nickname, searchAllUsers]);
+  }, []);
 
   useEffect(() => {
     if (user && user.users) {
@@ -62,9 +58,6 @@ const Teams = ({ team }) => {
     }
   }, [user]);
 
-  useEffect(() => {
-    setDocsScripts(Documents.filter(script => script.docsType === team.nameTeams));
-  }, [Documents, team.nameTeams]);
 
   const renderMembers = (members, office) => (
     members && members
@@ -145,7 +138,7 @@ const Teams = ({ team }) => {
                 </div>
                 <ul>
                   {DocsScripts.map((doc) => (
-                    <li key={doc._id}><Link to={`/team/${doc.docsType}/doc/${doc._id}`}>{doc.nameDocs}</Link></li>
+                    <li key={doc._id}><Link to={`/doc/${doc._id}`}>{doc.nameDocs}</Link></li>
                   ))}
                 </ul>
               </div>

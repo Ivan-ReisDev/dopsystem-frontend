@@ -7,7 +7,6 @@ const PRD = 'https://dopsystem-backend.vercel.app/api/';
 const AuthContext = createContext('');
 const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
-    const [userAllArray, setUserAllArray] = useState()
     const [isAuthentication, setIsAuthentication] = useState(false);
     const [authToken, setAuthToken] = useState(null);
     const [authProfile, setAuthProfile] = useState(null);
@@ -174,7 +173,6 @@ return (
             authProfile,
             handleActiveCout,
             message,
-            userAllArray,
             loading, setLoading
         }}
     >

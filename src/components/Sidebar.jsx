@@ -3,9 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { SlArrowUp } from "react-icons/sl";
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
-
 import '../index.css';
-import "./style.css"
+import "./style.css";
 import { AuthContext } from '../context/AuthContext';
 import { DocsContext } from '../context/DocsContext';
 import { TeamsContext } from '../context/TeamsContext';
@@ -21,15 +20,21 @@ const Sidebar = ({ showSidebar }) => {
   const activeShowClasses = () => setShowClasses(!showClasses);
 
   const { teams, getTeams } = useContext(TeamsContext);
-  const { searchDoc, docSelected } = useContext(DocsContext);
-  const newArrayDocumentos = docSelected;
+  const { searchDoc } = useContext(DocsContext);
+  const [documents, setDocuments] = useState([]);
+  
   const infoProfileUser = JSON.parse(localStorage.getItem("@Auth:Profile"));
   const infoProfileUserCompleted = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
 
   useEffect(() => {
-    getTeams(localStorage.getItem("@Auth:Token"))
-    searchDoc("System");
-  }, [])
+    const fetchData = async () => {
+      await getTeams(localStorage.getItem("@Auth:Token"));
+      const docs = await searchDoc("System");
+      setDocuments(Array.isArray(docs) ? docs : []);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <nav className={showSidebar ? ` z-10 duration-1000 absolute right-[0] top-[61px] px-3 h-[100vh] w-[330px] bg-[#031149] text-[#ffffff]`
@@ -62,9 +67,9 @@ const Sidebar = ({ showSidebar }) => {
           Documentos <span className={`ml-2 text-[13px] ${showDocs ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>
         </button>
         <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showDocs ? "h-auto " : "h-0 hidden"}`}>
-          {searchDoc && newArrayDocumentos.map((doc, index) => (
+          {Array.isArray(documents) && documents.map((doc, index) => (
             <li key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-              <NavLink to={`/docs/${doc._id}`} >{doc.nameDocs}</NavLink>
+              <NavLink to={`/doc/${doc._id}`} >{doc.nameDocs}</NavLink>
             </li>
           ))}
         </div>
@@ -76,7 +81,6 @@ const Sidebar = ({ showSidebar }) => {
             </button>
             <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showClasses ? "h-auto " : "h-0 hidden"}`}>
               {teams && teams.map((team, index) => {
-
                 // Verifica se algum membro do time tem o mesmo nickname que infoProfileUser.nickname
                 const isMember = team.members.some(member => member.nickname === infoProfileUser.nickname);
 

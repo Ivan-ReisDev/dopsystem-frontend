@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 const PRD = 'https://dopsystem-backend.vercel.app/api/';
-
 const DocsContext = createContext("");
-
 const DocsProvider = ({ children }) => {
 
     const token = localStorage.getItem('@Auth:Token')
@@ -34,8 +32,7 @@ const DocsProvider = ({ children }) => {
             if (res.ok) {
                 setMessage(resJSON);
                 setResOk(true);
-                getDocuments(localStorage.getItem('@Auth:Token'))
-                navigate(`/team/${data.docsType}`)
+                navigate(`/team`)
                 
 
             } else {
@@ -63,7 +60,6 @@ const DocsProvider = ({ children }) => {
             const DataMSG = await res.json();
 
             if (res.ok) {
-                getDocuments(localStorage.getItem('@Auth:Token'))
                 setMessage(DataMSG);
 
             } else {
@@ -88,7 +84,6 @@ const DocsProvider = ({ children }) => {
             const responseData = await response.json();
     
             if (response.ok) {
-                getDocuments(localStorage.getItem('@Auth:Token'))
                 setMessage(responseData);
                 navigate(`/team/${data.docsType}/doc/${data.idDoc}`)
                 
@@ -99,6 +94,7 @@ const DocsProvider = ({ children }) => {
             console.error("Erro na requisição:", error);
         }
     };
+
 
     const getDocuments = useCallback(async (tokenAuth) => {
         try {
@@ -127,7 +123,34 @@ const DocsProvider = ({ children }) => {
 
     const searchDoc = async (typeDocument) => {
         try {
-          const res = await fetch(`${PRD}doc/search?typeDocument=${typeDocument}`, {
+            const res = await fetch(`${PRD}doc/search?typeDocument=${typeDocument}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            const data = await res.json();
+    
+            if (res.ok) {
+                if (Array.isArray(data)) {
+                    setDocSelected(data);
+                    return data;
+                } else {
+                    console.error('A resposta não é um array:', data);
+                    return [];
+                }
+            } else {
+                throw new Error(data.message || 'Erro ao buscar documentos');
+            }
+        } catch (error) {
+            console.error('Erro ao buscar documentos:', error);
+            throw new Error(error.message || 'Erro ao buscar documentos');
+        }
+    };
+
+      const searchDocCompleted = async (idDocument) => {
+        try {
+          const res = await fetch(`${PRD}doc?idDocument=${idDocument}`, {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -146,6 +169,7 @@ const DocsProvider = ({ children }) => {
         }
       };
 
+
     return (
         <DocsContext.Provider
             value={{
@@ -159,7 +183,8 @@ const DocsProvider = ({ children }) => {
                 getDocuments,
                 setMessage,
                 searchDoc,
-                docSelected
+                docSelected,
+                searchDocCompleted
             }}
         >
             {children}

@@ -162,7 +162,7 @@ const TeamsProvider = ({ children }) => {
             console.error("Erro na requisição:", error);
         }
     };
-    const getTeams = useCallback(async (tokenAuth) => {
+    const getTeams = useCallback(async () => {
         try {
             const res = await fetch(`${PRD}teams/all`, {
                 method: 'GET',

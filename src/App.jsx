@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route, useParams, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import LoginSystem from './pages/LoginSystem';
@@ -28,7 +28,7 @@ import PostClasseInitial from './pages/PostClasseInitial/PostClasseInitial';
 
 function App() {
   const { isAuthentication, loading, setLoading } = useContext(AuthContext);
-  const { Documents } = useContext(DocsContext);
+
   const userType = JSON.parse(localStorage.getItem('@Auth:ProfileUser'));
 
   // Configurações de equipe
@@ -100,58 +100,18 @@ function App() {
         <Route path='/members' element={isAuthentication ? <Members /> : <LoginSystem setLoading={setLoading} />} />
 
         {/*  RODAS DE CONFIGURAÇÃO DE DOCUMENTOS */}
-        {Array.isArray(Documents) && (
-          Documents
-            .filter(doc => doc.docsType === "System")
-            .map((doc, index) => (
-              <Route
-                key={index}
-                path={`/docs/${doc._id}`}
-                element={isAuthentication ? <Document doc={doc} /> : <LoginSystem />}
-              />
-            ))
-        )}
 
-        {Array.isArray(Documents) && (
-          Documents
-            .filter(doc => {
-              // Verifica se o usuário é Admin ou Diretor
-              if (userType && (userType.userType === "Admin" || userType.userType === "Diretor")) {
-                return true;
-              }
-              // Verifica se o usuário é líder da equipe
-              const team = teams.find(team => team.nameTeams === doc.docsType);
-              return team && userType && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(doc.docsType) && team.leader === userType.nickname;
-            })
-            .map((doc, index) => (
-              <Route
-                key={index}
-                path={`/team/${doc.docsType}/doc/${doc._id}`}
-                element={isAuthentication ? <Document doc={doc} /> : <LoginSystem />}
-              />
-            ))
-        )}
+        <Route
+          path="/doc/:docId"
+          element={isAuthentication ? <DocumentView /> : <LoginSystem />}
+        />
 
-        {Array.isArray(Documents) && (
-          Documents
-            .filter(doc => {
-              // Verifica se o usuário é Admin ou Diretor
-              if (userType && (userType.userType === "Admin" || userType.userType === "Diretor")) {
-                return true;
-              }
-              // Verifica se o usuário é líder da equipe
-              const team = teams.find(team => team.nameTeams === doc.docsType);
-              return team && userType && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(doc.docsType) && team.leader === userType.nickname;
-            })
-            .map((doc, index) => (
-              <Route
-                key={index}
-                path={`/editor/${doc.docsType}/doc/${doc._id}`}
-                element={isAuthentication ? <EditDocs doc={doc} /> : <LoginSystem />}
-              />
-            ))
-        )}
-        
+        <Route
+   
+          path={`/editor/:docId`}
+          element={isAuthentication ? <EditDocsView /> : <LoginSystem />}
+        />
+
 
         {isAuthentication && (
           <Route path='/search/:nickname' element={<UserProfile />} />
@@ -164,12 +124,115 @@ function App() {
   );
 }
 
+const EditDocsView = () => {
+  const { docId } = useParams();
+  const { searchDocCompleted } = useContext(DocsContext);
+  const { teams, getTeams } = useContext(TeamsContext);
+  const [docCompleted, setDocCompleted] = useState(null);
+  const [leader, setLeader] = useState(null);  // Inicializado como null
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const userType = JSON.parse(localStorage.getItem('@Auth:ProfileUser'));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchDoc = async () => {
+      try {
+        const doc = await searchDocCompleted(docId);
+        setDocCompleted(doc);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    const fetchTeams = async () => {
+      try {
+        await getTeams();
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchDoc();
+    fetchTeams();
+  }, [docId, getTeams]);
+
+  useEffect(() => {
+    if (docCompleted && teams.length > 0) {
+      const team = teams.find((team) => team.nameTeams === docCompleted.docsType);
+      setLeader(team);
+      setLoading(false);
+    }
+  }, [docCompleted, teams]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (docCompleted && userType) {
+    const isAdminOrDirector = userType.userType === 'Admin' || userType.userType === 'Diretor';
+    const isLeaderOrViceLeader = leader && (leader.leader === userType.nickname || leader.viceLeader === userType.nickname);
+
+    if (isAdminOrDirector || isLeaderOrViceLeader) {
+      return <EditDocs doc={docCompleted} />;
+    }
+  }
+
+  navigate('/home');
+  return null; // Adicionado para evitar warnings sobre não retornar JSX
+};
+
+
+
+
+// Certifique-se de que o contexto está definido corretamente
+const DocumentView = () => {
+  const { docId } = useParams();
+  const { searchDocCompleted } = useContext(DocsContext);
+  const [docCompleted, setDocCompleted] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const userType = JSON.parse(localStorage.getItem('@Auth:ProfileUser'));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchDoc = async () => {
+      try {
+        const doc = await searchDocCompleted(docId);
+        setDocCompleted(doc);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchDoc();
+  }, [docId]);
+
+  if (!docCompleted) {
+    return <div>Loading...</div>;
+  }
+
+  if (userType && (userType.userType === 'Admin' || userType.userType === 'Diretor' || userType.teans.includes(docCompleted.docsType))) {
+    if (error) return <div>{error}</div>;
+    return <Document docCompleted={docCompleted} />;
+  }
+  return navigate('/home');
+};
+
+
+
 const UserProfile = () => {
   const { nickname } = useParams();
   const { searchAllUsers } = useContext(UserContext);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
 
   useEffect(() => {
     const fetchUser = async () => {

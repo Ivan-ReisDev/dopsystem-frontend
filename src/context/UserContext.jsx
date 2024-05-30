@@ -37,7 +37,28 @@ const UserProvider = ({ children }) => {
           throw new Error(error.message || 'Error fetching user');
         }
       };
+     
+
+      const getAll = async () => {
+        try {
+          const res = await fetch(`${PRD}all/users`, {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+          const data = await res.json();
       
+          if (res.ok) {
+            setUser(data)
+            return data;
+          } else {
+            throw new Error(data.message || 'Failed to fetch user');
+          }
+        } catch (error) {
+          throw new Error(error.message || 'Error fetching user');
+        }
+      };
 
     
 
@@ -119,7 +140,8 @@ const UserProvider = ({ children }) => {
                 user,
                 messege,
                 updateUserAdmin,
-                createTag
+                createTag,
+                getAll
             }}
         >
             {children}
