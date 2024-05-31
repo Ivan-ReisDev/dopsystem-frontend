@@ -3,7 +3,7 @@ import DpanelEdit from './DpanelEdit';
 import { UserContext } from '../../context/UserContext';
 
 const DpanelUsers = () => {
-    const { user, getAll } = useContext(UserContext);
+    const { user, getAll, setMessege } = useContext(UserContext);
     const [currentPage, setCurrentPage] = useState(1);
     const [page, setpage] = useState('inicial');
     const [userSelect, setUserSelect] = useState('');
@@ -56,6 +56,7 @@ const DpanelUsers = () => {
                                 onClick={() => {
                                     setpage("Edit");
                                     setUserSelect(user);
+                                    setMessege('')
                                 }}    
                                 className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition"
                             >
@@ -92,6 +93,7 @@ const DpanelUsers = () => {
             </div>}  
             { page === "Edit" &&
                 <DpanelEdit
+                    setpage={setpage}
                     userSelect={userSelect}
                 />
             }

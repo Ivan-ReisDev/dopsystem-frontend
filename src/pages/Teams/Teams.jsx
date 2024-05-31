@@ -59,7 +59,6 @@ const Teams = ({ team }) => {
     }
   }, [user]);
 
-  console.log(" DocsScript aquii" + DocsScripts);
   const renderMembers = (members, office) => (
     members && members
       .filter(user => user.office === office)
@@ -79,7 +78,7 @@ const Teams = ({ team }) => {
     <div className={style.Teams}>
       <div className={style.TeamsHeader}>
         <h2><RiTeamFill /> {team.nameTeams}</h2>
-        <span>Membros: {infoTeamsArray.length + 2}</span>
+        <span>Membros: {infoTeamsArray.length}</span>
       </div>
       <div className={style.TeamsBody}>
         <main>

@@ -96,7 +96,8 @@ const DocsProvider = ({ children }) => {
     };
 
 
-    const getDocuments = useCallback(async () => {
+    const getDocuments = async () => {
+        setLoadingDocs(true)
         try {
             const res = await fetch(`${PRD}all/docs`, {
                 method: 'GET',
@@ -110,18 +111,18 @@ const DocsProvider = ({ children }) => {
             }
             const data = await res.json();
             setDocuments(data);
+            setLoadingDocs(false)
         } catch (error) {
             setMessage(error.message || 'Erro desconhecido');
+            setLoadingDocs(false)
         }
-    }, []);
-
-    useEffect(() => {
-        getDocuments(localStorage.getItem('@Auth:Token'));
-    }, [getDocuments]);
+        setLoadingDocs(false)
+    };
 
 
 
     const searchDoc = async (typeDocument) => {
+        setLoadingDocs(true);
         try {
             const res = await fetch(`${PRD}doc/search?typeDocument=${typeDocument}`, {
                 method: 'GET',
@@ -134,21 +135,26 @@ const DocsProvider = ({ children }) => {
             if (res.ok) {
                 if (Array.isArray(data)) {
                     setDocSelected(data);
+                    setLoadingDocs(false);
                     return data;
                 } else {
                     console.error('A resposta não é um array:', data);
+                    setLoadingDocs(false);
                     return [];
                 }
             } else {
+                setLoadingDocs(false);
                 throw new Error(data.message || 'Erro ao buscar documentos');
             }
         } catch (error) {
             console.error('Erro ao buscar documentos:', error);
+            setLoadingDocs(false);
             throw new Error(error.message || 'Erro ao buscar documentos');
         }
     };
 
       const searchDocCompleted = async (idDocument) => {
+        setLoadingDocs(true);
         try {
           const res = await fetch(`${PRD}doc?idDocument=${idDocument}`, {
             method: 'GET',
@@ -160,13 +166,17 @@ const DocsProvider = ({ children }) => {
       
           if (res.ok) {
             setDocSelected(data)
+            setLoadingDocs(false);
             return data;
           } else {
+            setLoadingDocs(false);
             throw new Error(data.message || 'Failed to fetch user');
           }
         } catch (error) {
+            setLoadingDocs(false);
           throw new Error(error.message || 'Error fetching user');
         }
+
       };
 
 

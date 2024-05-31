@@ -1,13 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DocsContext } from '../../context/DocsContext';
 import { IoArrowUndo } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
 import DpanelEditor from '../DpanelEditor/DpanelEditor';
+import Preloader from "../../assets/preloader.gif"
 
 const DocsDpanel = () => {
-    const { Documents, setMessage: setMessageBack } = useContext(DocsContext);
+    const { Documents, setMessage: setMessageBack, getDocuments, loadingDocs } = useContext(DocsContext);
     const [editDoc, setEditDoc] = useState(false);
     const [doc, setDoc] = useState([]);
+
+    useEffect(() => {
+        getDocuments()
+
+    },[])
 
     const showDOC = (doc) => {
         setMessageBack('');
@@ -43,7 +49,14 @@ const DocsDpanel = () => {
             </div>
 
             <div className="bg-white shadow rounded-lg p-4">
-                {!editDoc && (
+            {loadingDocs && <>
+            <div className='flex w-full items-center justify-center h-[300px]'>
+                <img src={Preloader} alt="" />
+            </div>
+            </> }
+
+
+                {!loadingDocs && !editDoc && (
                     <ul className="divide-y divide-gray-200">
                         {Documents && Documents.map((doc) => (
                             <li 

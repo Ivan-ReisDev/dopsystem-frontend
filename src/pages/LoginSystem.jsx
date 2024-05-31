@@ -81,11 +81,11 @@ const LoginSystem = ({ setLoading }) => {
                     <div className='mt-2 mb-2 w-full'>
                         <form className='flex flex-col items-center w-full' onSubmit={handleSubmitLogin}>
                             <div className={`border-b ${stateColorInput ? 'flex flex-row items-center w-full border-b-2 border-blue-500' : 'flex flex-row items-center w-full border-b-2'}`}
-                                tabIndex={0}
                                 onFocus={handleFirstDivFocus}
                                 onBlur={handleFirstDivBlur}>
                                 <i className='text-xl mr-2'><FaUser className='text-[#9CA3AF]' /></i>
                                 <input
+                                    tabIndex={1}
                                     autoComplete="userDopSystem"
                                     onChange={(e) => setNick(e.target.value )}
                                     value={nick || ""}
@@ -97,11 +97,11 @@ const LoginSystem = ({ setLoading }) => {
                                 />
                             </div>
                             <div className={`border-b my-2 ${stateColorSecondFocus ? 'flex flex-row items-center w-full border-b-2 border-blue-500' : 'flex flex-row items-center w-full border-b-2'}`}
-                                tabIndex={0}
                                 onFocus={handleSecondDivFocus}
                                 onBlur={handleSecondDivBlur}>
                                 <i className='text-xl mr-2'><FaLock className='text-[#9CA3AF]' /></i>
                                 <input
+                                tabIndex={2}
                                     autoComplete="passwordDopSystem"
                                     onChange={(e) => setPassword(e.target.value )}
                                     value={password || ""}
@@ -118,7 +118,7 @@ const LoginSystem = ({ setLoading }) => {
                             {message &&  <p className='error'> {message.error} </p> }
                             <div className='h-[50px] mt-3 flex flex-row justify-between w-full'>
                                 <Button onClick={handleCreateCont} className='w-[49%] text-[#0D1450]  hover:bg-[#0D1450]' variant="outline-primary">Ativar Conta</Button>
-                                <Button type='submit' className='w-[49%] bg-[#0D1450] hover:bg-[#29327a]' variant="primary">Login</Button>
+                                <Button tabIndex={3} type='submit' className='w-[49%] bg-[#0D1450] hover:bg-[#29327a]' variant="primary">Login</Button>
                             </div>
                         </form>
                     </div>

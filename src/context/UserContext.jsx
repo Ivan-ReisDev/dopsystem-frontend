@@ -128,13 +128,13 @@ const UserProvider = ({ children }) => {
             setMessege(error.message || 'Erro desconhecido');
         }
     };
-
     // Fornecimento do contexto para os componentes filhos
     return (
         <UserContext.Provider
             value={{
                 usersArray,
                 searchAllUsers,
+                setMessege,
                 getLogs,
                 loggers,
                 user,
