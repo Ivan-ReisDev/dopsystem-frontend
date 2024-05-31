@@ -86,7 +86,7 @@ const Profile = ({ profile }) => {
                     </article>
                     <main>
                         {requerimentsArray &&
-                            requerimentsArray.map((requeriment, index) => (
+                            requerimentsArray.slice().reverse().map((requeriment, index) => (
                                 <div key={index} className={style.requeriment}>
                                     <div className={style.requerimentBody}>
                                         <div className={style.Operator}>
@@ -100,7 +100,7 @@ const Profile = ({ profile }) => {
                                                     {(requeriment.typeRequirement === "Promoção" ||
                                                         requeriment.typeRequirement === "Rebaixamento") &&
                                                         <p className="text-slate-500"><span><FaUser /></span> {requeriment.newPatent}</p>}
-                                                    
+
                                                     {(requeriment.typeRequirement === "Aula") &&
                                                         <p className="text-slate-500"><span><FaBook /></span> {requeriment.classe}</p>}
                                                     {(requeriment.typeRequirement === "Advertência") &&
@@ -108,7 +108,7 @@ const Profile = ({ profile }) => {
                                                     {(requeriment.typeRequirement === "Contrato") &&
                                                         <p className="text-slate-500"><span><FaHandshake /></span>{requeriment.newPatent}</p>}
                                                     {(requeriment.typeRequirement === "Venda") &&
-                                                        <p className="text-slate-500"><span><FaDollarSign  /></span>{requeriment.newPatent}</p>}
+                                                        <p className="text-slate-500"><span><FaDollarSign /></span>{requeriment.newPatent}</p>}
                                                     {requeriment.status === "Pendente" && <p className="bg-yellow-600 text-white font-semibold text-[12px] w-[80px] h-[18px] rounded-sm flex items-center justify-center">{requeriment.status}</p>}
                                                     {requeriment.status === "Aprovado" && <p className="bg-green-600 text-white font-semibold text-[12px] w-[80px] h-[18px] rounded-sm flex items-center justify-center">{requeriment.status}</p>}
                                                     {requeriment.status === "Reprovado" && <p className="bg-red-600 text-white font-semibold text-[12px] w-[80px] h-[18px] rounded-sm flex items-center justify-center">{requeriment.status}</p>}
@@ -119,6 +119,7 @@ const Profile = ({ profile }) => {
                                     </div>
                                 </div>
                             ))}
+
                     </main>
                 </div>
             </div>
