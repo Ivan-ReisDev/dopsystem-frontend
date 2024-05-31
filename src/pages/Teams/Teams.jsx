@@ -30,11 +30,12 @@ const Teams = ({ team }) => {
   useEffect(() => {
     document.title = `Polícia DOP - ${team.nameTeams}`;
     infoTeams(team.nameTeams);
-     searchDoc(team.nameTeams);
-     setDocsScripts(docSelected);
+    searchDoc(team.nameTeams);
   }, [team]);
 
-
+  useEffect(() => {
+    setDocsScripts(docSelected);
+  }, [docSelected]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -58,7 +59,7 @@ const Teams = ({ team }) => {
     }
   }, [user]);
 
-
+  console.log(" DocsScript aquii" + DocsScripts);
   const renderMembers = (members, office) => (
     members && members
       .filter(user => user.office === office)

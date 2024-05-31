@@ -96,7 +96,7 @@ const DocsProvider = ({ children }) => {
     };
 
 
-    const getDocuments = useCallback(async (tokenAuth) => {
+    const getDocuments = useCallback(async () => {
         try {
             const res = await fetch(`${PRD}all/docs`, {
                 method: 'GET',
