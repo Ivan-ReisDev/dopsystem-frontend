@@ -10,6 +10,7 @@ import DocsDpanel from '../../components/DocsDpanel/DocsDpanel';
 import DpanelTeams from '../../components/DpanelTeams/DpanelTeams';
 import DpanelUsers from '../../components/DpanelUsers/DpanelUsers';
 import "./DPanel.module.css"
+import DpanelPublication from '../../components/DpanelPublication/DpanelPublication';
 
 const DPanel = () => {
   const [selectFunction, setSelectFunction] = useState('System');
@@ -75,6 +76,7 @@ const DPanel = () => {
           {selectFunction === 'Logger' && <Logger />}
           {selectFunction === 'Teams' && <DpanelTeams />}
           {selectFunction === 'Users' && <DpanelUsers />}
+          {selectFunction === 'Publication' && <DpanelPublication />}
         </main>
       </div>
     </div>

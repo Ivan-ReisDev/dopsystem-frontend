@@ -54,6 +54,7 @@
 
 .activePublic {
     transition: 1s;
+    height: auto;
     overflow: hidden;
     
 }

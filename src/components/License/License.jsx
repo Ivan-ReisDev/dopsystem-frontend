@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FaClock,
     FaPlus
  } from "react-icons/fa6";
 
-
-
 import style from './Lisense.module.css'
-
 const License = () => {
+
+    const [logs, setLogs] = useState();
+    console.log(logs)
     return (
         <div className='contentBodyElement'>
             <div className='contentBodyElementTitle'>
@@ -22,7 +22,7 @@ const License = () => {
                 <div className={style.formInterno}>
                     <label>
                         Data de início:
-                        <input type="date" />
+                        <input type="date" onChange={(e) => setLogs(e.target.value)}/>
                     </label>
 
                     <label>
