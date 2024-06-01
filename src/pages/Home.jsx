@@ -25,15 +25,16 @@ const Home = () => {
   useEffect(() => {
     document.title = "Polícia DOP - Home";
     const userFromLocalStorage = JSON.parse(localStorage.getItem("@Auth:Profile"));
+    const token = localStorage.getItem("@Auth:Token")
     setUser(userFromLocalStorage);
 
     if (userFromLocalStorage && userFromLocalStorage.tag === "Vazio") {
       setIsModalOpen(true);
     }
 
-    getPublication(userFromLocalStorage.token);
+    getPublication(token);
   }, []);
-  console.log(allPublications)
+
   useEffect(() => {
     if (messege.msg) {
       setIsButtonTag(true);

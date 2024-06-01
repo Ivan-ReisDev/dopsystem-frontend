@@ -1,11 +1,17 @@
-import React, { useState, useRef, useMemo, useContext } from 'react';
+import React, { useState, useRef, useMemo, useContext, useEffect } from 'react';
 import { IoArrowUndo } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
 import JoditEditor from 'jodit-react';
 import { PublicationContext } from '../../context/PublicationContext';
 
 const DpanelPublication = ({ placeholder }) => {
-    const { createPublication } = useContext(PublicationContext)
+    const { createPublication, getPublication, allPublications } = useContext(PublicationContext);
+
+    useEffect(() => {
+        const token = localStorage.getItem("@Auth:Token");
+        getPublication(token)
+
+    }, [])
 
     //Editor
     const editor = useRef(null);
@@ -72,11 +78,15 @@ const DpanelPublication = ({ placeholder }) => {
 
     const renderPublicationsList = () => (
         <ul className="divide-y divide-gray-200">
-            {publications.map((pub, index) => (
-                <li key={index} className="py-4">
+            {allPublications.map((pub, index) => (
+                <li key={index} className="py-4 flex justify-between items-center">
                     <span className="block text-lg font-semibold text-gray-800">{pub.title}</span>
-                    {pub.imageUrl && <img src={pub.imageUrl} alt={pub.title} className="mt-2 max-w-full h-auto rounded" />}
-                    <p className="text-sm text-gray-600 mt-2">{pub.content}</p>
+                    <button
+                        
+                        className="text-red-500 hover:text-red-700"
+                    >
+                        Excluir
+                    </button>
                 </li>
             ))}
         </ul>

@@ -36,24 +36,35 @@ const PublicationProvider = ({ children }) => {
 
     const getPublication = async (token) => {
         try {
+            console.log(token)
+            // Verifique se o token não está undefined ou null
+            if (!token) {
+                throw new Error('Token não fornecido');
+            }
+    
             const res = await fetch(`${PRD}publication`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-
+    
             if (!res.ok) {
-                throw new Error('Erro na requisição');
+                // Log adicional para depuração
+                console.error('Erro na requisição', res.status, res.statusText);
+                throw new Error(`Erro na requisição: ${res.status} ${res.statusText}`);
             }
+    
             const data = await res.json();
-            setAllPublications(data);
-            setMessage(data);
+            setAllPublications(data); // Verifique se setAllPublications está definido
+            setMessage(data); // Verifique se setMessage está definido
+ 
         } catch (error) {
+            // Log adicional para depuração
+            console.error('Erro ao buscar publicações:', error);
             setMessage(error.message || 'Erro desconhecido');
         }
     };
-
     return (
         <PublicationContext.Provider
             value={{
