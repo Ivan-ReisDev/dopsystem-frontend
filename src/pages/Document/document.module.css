@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     height: auto;
-    min-height: 92vh;
     align-items: center;
     position: relative;
     background-color: #f7f7f7;
