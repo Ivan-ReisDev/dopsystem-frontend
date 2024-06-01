@@ -5,25 +5,26 @@ import style from './members.module.css'
 import ListMembers from '../../components/ListMembers/ListMembers';
 import { AuthContext } from '../../context/AuthContext';
 import { SystemContext } from '../../context/SystemContext';
+import { UserContext } from '../../context/UserContext';
 
 const Members = () => {
-
-    const { userAllArray } = useContext(AuthContext)
+    
+    const { getAll, user} = useContext(UserContext)
     const { infoSystem } = useContext(SystemContext)
     const [select, setSelect] = useState('menu');
     const [patents, setPatents] = useState([]);
 
     useEffect(() => {
         document.title = "Polícia DOP - Membros";
-
+        getAll()
     }, []);
 
     const selectType = async (type) => {
         setSelect(type);
         if (type === "Militares") {
-            await setPatents(userAllArray.filter(user => user && infoSystem[0].patents.includes(user.patent) && (user.status === "Ativo" || user.status === "Pendente")));
+            await setPatents(user.filter(user => user && infoSystem[0].patents.includes(user.patent) && (user.status === "Ativo" || user.status === "Pendente")));
         } else if (type === "Executivos") {
-            await setPatents(userAllArray.filter(user => user && infoSystem[0].paidPositions.includes(user.patent) && (user.status === "Ativo" || user.status === "Pendente")));
+            await setPatents(user.filter(user => user && infoSystem[0].paidPositions.includes(user.patent) && (user.status === "Ativo" || user.status === "Pendente")));
         }
     };
 

@@ -7,7 +7,7 @@ import { CiSearch } from "react-icons/ci";
 import React, { useContext, useEffect, useState } from 'react';
 import { RequirementsContext } from "../../context/Requirements";
 import { AuthContext } from "../../context/AuthContext";
-import Preloader from "../../components/Preloader/Preloader";
+import Preloader from "../../assets/preloader.gif";
 
 const Profile = ({ profile }) => {
     const [newProfile, setNewProfile] = useState(null); // Inicializando com null
@@ -16,13 +16,23 @@ const Profile = ({ profile }) => {
     const [busca, setBusca] = useState('');
     const navigate = useNavigate();
 
+    // Atualiza newProfile quando profile é alterado
     useEffect(() => {
         if (profile && profile.users) {
             document.title = `Polícia DOP - Perfil`;
+            const token = localStorage.getItem('@Auth:Token')
             setNewProfile(profile.users[0]);
-            searchRequerimentsUser(profile.users[0].nickname) // Selecionando o primeiro usuário do array
+            searchRequerimentsUser(profile.users[0].nickname, token); 
+           // Selecionando o primeiro usuário do array
         }
-    }, [profile]);
+    }, [profile, searchRequerimentsUser]);
+
+    // Monitorar mudanças em requerimentsArray para atualizar o estado local
+    useEffect(() => {
+        requerimentsArray
+    }, []);
+
+    console.log(requerimentsArray)
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,8 +42,8 @@ const Profile = ({ profile }) => {
 
     if (loading) {
         return (
-            <div className='preloader'>
-                <img src={Preloader} alt="" />
+            <div className='relative flex items-center justify-center h-[100vh] w-[100vw]'>
+                <img src={Preloader} alt="Loading..." />
             </div>
         );
     }
@@ -63,14 +73,14 @@ const Profile = ({ profile }) => {
                     <article>
                         <div className={style.QuickSearchInfoBody}>
                             <div className={style.header}>
-                                <img src={LogoImage} alt="" />
+                                <img src={LogoImage} alt="Logo" />
                                 <div>
                                     <h4>Departamento de Operações Policiais</h4>
                                     <h4>Carteira de Identificação Militar</h4>
                                 </div>
                             </div>
                             <div>
-                                <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${newProfile.nickname}&direction=2&head_direction=3&size=m&gesture=sml&action=std`} alt="" />
+                                <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${newProfile.nickname}&direction=2&head_direction=3&size=m&gesture=sml&action=std`} alt="Avatar" />
                             </div>
 
                             <div>
@@ -85,13 +95,13 @@ const Profile = ({ profile }) => {
                         </div>
                     </article>
                     <main>
-                        {requerimentsArray &&
+                        {requerimentsArray && requerimentsArray.length > 0 ? (
                             requerimentsArray.slice().reverse().map((requeriment, index) => (
                                 <div key={index} className={style.requeriment}>
                                     <div className={style.requerimentBody}>
                                         <div className={style.Operator}>
                                             <div>
-                                                <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${requeriment.operator}&direction=3&head_direction=3&size=m&action=std`} alt="" />
+                                                <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${requeriment.operator}&direction=3&head_direction=3&size=m&action=std`} alt="Operator Avatar" />
                                             </div>
                                             <div>
                                                 <p><Link to={`/search/${requeriment.operator}`}>{requeriment.operator}</Link> Publicou <strong>{requeriment.typeRequirement}</strong></p>
@@ -118,8 +128,10 @@ const Profile = ({ profile }) => {
                                         <p className={style.motivo}>{requeriment.reason}</p>
                                     </div>
                                 </div>
-                            ))}
-
+                            ))
+                        ) : (
+                            <p>Nenhum requerimento encontrado.</p>
+                        )}
                     </main>
                 </div>
             </div>

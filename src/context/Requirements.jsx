@@ -234,7 +234,7 @@ const RequirementsProvider = ({ children }) => {
     };
 
 
-    const searchRequerimentsUser = useCallback(async (nickname) => {
+    const searchRequerimentsUser = useCallback(async (nickname, token) => {
         setLoading(true);
         try {
             const res = await fetch(`${PRD}search/requeriments?promoted=${nickname}`, {

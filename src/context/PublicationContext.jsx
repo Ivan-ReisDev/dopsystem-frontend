@@ -34,7 +34,7 @@ const PublicationProvider = ({ children }) => {
         }
     };
 
-    const getPublication = async () => {
+    const getPublication = async (token) => {
         try {
             const res = await fetch(`${PRD}publication`, {
                 method: 'GET',

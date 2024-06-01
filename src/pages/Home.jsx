@@ -18,7 +18,7 @@ const Home = () => {
   const [tag, setTag] = useState('');
   const [isButtonTag, setIsButtonTag] = useState(false);
   
-  const { loading: authLoading, userAllArray } = useContext(AuthContext);
+  const { loading: authLoading } = useContext(AuthContext);
   const { createTag, messege } = useContext(UserContext);
   const { getPublication, allPublications, loading: publicationLoading } = useContext(PublicationContext);
 
@@ -31,9 +31,9 @@ const Home = () => {
       setIsModalOpen(true);
     }
 
-    getPublication();
+    getPublication(userFromLocalStorage.token);
   }, []);
-
+  console.log(allPublications)
   useEffect(() => {
     if (messege.msg) {
       setIsButtonTag(true);
@@ -70,7 +70,8 @@ const Home = () => {
       </div>
       <div className="try">
         <h1>Publicações</h1>
-        {allPublications.map((publi) => (
+        {allPublications && 
+          allPublications.map((publi) => (
           <Publication key={publi._id} publi={publi} />
         ))}
         <License />
