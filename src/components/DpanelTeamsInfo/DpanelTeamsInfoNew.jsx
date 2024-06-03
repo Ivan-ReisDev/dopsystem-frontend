@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const DpanelTeamsInfoNew = ({ team }) => {
-    const { createTeams } = useContext(TeamsContext);
+    const { createTeams, message } = useContext(TeamsContext);
     const [nameTeams, setNameTeams] = useState('');
     const [leader, setLeader] = useState('');
     const [viceLeader, setViceLeader] = useState('');
@@ -64,6 +64,8 @@ const DpanelTeamsInfoNew = ({ team }) => {
                                     required
                                 />
                             </div>
+                            {message && <p className="text-red-500">{message.error}</p>}
+                            {message && <p className="text-green-500">{message.msg}</p>}
                             <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition">Criar equipe</button>
                         </form>
                     </div>

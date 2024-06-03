@@ -217,6 +217,8 @@ const DocumentView = () => {
     return <div>Loading...</div>;
   }
 
+  console.log(userType.teans)
+
   if (userType && (userType.userType === 'Admin' || userType.userType === 'Diretor' || userType.teans.includes(docCompleted.docsType))) {
     if (error) return <div>{error}</div>;
     return <Document docCompleted={docCompleted} />;
