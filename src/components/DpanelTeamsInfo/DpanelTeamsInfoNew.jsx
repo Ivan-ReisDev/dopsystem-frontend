@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const DpanelTeamsInfoNew = ({ team }) => {
-    const { createTeams, message } = useContext(TeamsContext);
+    const { createTeams, message, setMessage } = useContext(TeamsContext);
     const [nameTeams, setNameTeams] = useState('');
     const [leader, setLeader] = useState('');
     const [viceLeader, setViceLeader] = useState('');
@@ -16,11 +16,14 @@ const DpanelTeamsInfoNew = ({ team }) => {
         e.preventDefault();
         const data = {
             idUser,
-            nameTeams,
+            nameTeams: nameTeams,
             leader,
             viceLeader
         };
         createTeams(data);
+        setNameTeams("")
+        setLeader("")
+        setViceLeader("")
     };
 
     return (
@@ -36,7 +39,10 @@ const DpanelTeamsInfoNew = ({ team }) => {
                                 <input
                                     type="text"
                                     value={nameTeams}
-                                    onChange={(e) => setNameTeams(e.target.value)}
+                                    onChange={(e) => {
+                                        setNameTeams(e.target.value)
+                                        setMessage('')
+                                    }}
                                     placeholder="Digite o nome da equipe"
                                     className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     required
@@ -47,7 +53,10 @@ const DpanelTeamsInfoNew = ({ team }) => {
                                 <input
                                     type="text"
                                     value={leader}
-                                    onChange={(e) => setLeader(e.target.value)}
+                                    onChange={(e) => {
+                                        setLeader(e.target.value)
+                                        setMessage('')
+                                    }}
                                     placeholder="Digite o nickname do líder da equipe"
                                     className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     required
@@ -58,7 +67,10 @@ const DpanelTeamsInfoNew = ({ team }) => {
                                 <input
                                     type="text"
                                     value={viceLeader}
-                                    onChange={(e) => setViceLeader(e.target.value)}
+                                    onChange={(e) => {
+                                        setViceLeader(e.target.value)
+                                        setMessage('')
+                                    }}
                                     placeholder="Digite o nome do vice líder da equipe"
                                     className="mt-1 p-2 block w-full border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                                     required

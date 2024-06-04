@@ -29,7 +29,7 @@ const ClassesProvider = ({ children }) => {
                 setMessage(resJSON); 
 
             } else {
-                setMessage('Não foi possível criar o documento.');
+                setMessage(resJSON); 
                 
             }
         } catch (error) {
@@ -37,6 +37,33 @@ const ClassesProvider = ({ children }) => {
             
         }
       
+    };
+
+    
+
+    const deleteClasse = async (data) => {
+        try {
+            const res = await fetch(`${PRD}delete/classe`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+
+            const DataMSG = await res.json();
+
+            if (res.ok) {
+                setMessage(DataMSG);
+    
+
+            } else {
+                setMessage(DataMSG);
+            }
+        } catch (error) {
+            console.error('Erro ao deletar documento', error);
+        }
     };
 
     const createClasseRequeriment = async (data) => {
@@ -160,7 +187,8 @@ const ClassesProvider = ({ children }) => {
                 createClasse,
                 createClasseRequeriment,
                 loading,
-                postCI
+                postCI,
+                deleteClasse
             }}
         >
             {children}

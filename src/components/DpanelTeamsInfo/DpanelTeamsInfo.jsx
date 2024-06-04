@@ -10,12 +10,20 @@ const DpanelTeamsInfo = ({ team, getTeams }) => {
   const [nameTeams, setNameTeams] = useState(team.nameTeams);
   const [leader, setLeader] = useState(team.leader);
   const [viceLeader, setViceLeader] = useState(team.viceLeader);
-  const { Classes, message, editClasse: handleEditClasse, setMessage, getClasses, createClasse } = useContext(ClassesContext);
+  const { Classes, message, editClasse: handleEditClasse, setMessage, getClasses, createClasse, deleteClasse } = useContext(ClassesContext);
   const { message: messageTeam, setMessage: setMessageTeam, updateTeam, deleteTeams } = useContext(TeamsContext);
-  const { infoSystem } = useContext(SystemContext);
+  const { infoSystem, getSystem } = useContext(SystemContext);
   const newArrayClesses = Classes.filter(classes => classes.team === team.nameTeams);
-  const patentsArray = infoSystem[0].patents;
+ 
+  useEffect(() => {
+   const awaitFunction = async () =>{
+     await getSystem()
+     await  infoSystem
+    }
+    awaitFunction()
+  }, [])
 
+  const patentsArray = infoSystem[0].patents;
   const [patentData, setPatentData] = useState('');
   const [classeData, setClasseData] = useState('');
   const idUser = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
@@ -62,6 +70,16 @@ const DpanelTeamsInfo = ({ team, getTeams }) => {
     };
     deleteTeams(data);
   };
+
+  const handleDeleteClasse = (classe) => {
+    const data = {
+      idUser,
+      idClass: classe._id ,
+    };
+    deleteClasse(data);
+  };
+
+  
 
   const handleCreateNewClasse = (e) => {
     e.preventDefault();
@@ -123,7 +141,8 @@ const DpanelTeamsInfo = ({ team, getTeams }) => {
                     Excluir
                   </button>
                 </div>
-                {messageTeam && <p className="text-red-500">{messageTeam.msg}</p>}
+                {messageTeam && <p className="text-red-500">{messageTeam.error}</p>}
+                {messageTeam && <p className="text-green-500">{messageTeam.msg}</p>}
               </form>
               <div className="mt-6">
                 <h2 className="text-xl font-semibold text-gray-700">Lista de Aulas</h2>
@@ -189,7 +208,9 @@ const DpanelTeamsInfo = ({ team, getTeams }) => {
                   </select>
                 </label>
                 <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition">Atualizar</button>
-                {message && <p className="text-red-500">{message.msg}</p>}
+                <button type='button' onClick={() => handleDeleteClasse(classeSelected)} className="px-4 ml-2 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition">Excluir</button>
+                {message && <p className="text-red-500">{message.error}</p>}
+                {message && <p className="text-green-500">{message.msg}</p>}
               </form>
             </>
           )}
@@ -202,7 +223,7 @@ const DpanelTeamsInfo = ({ team, getTeams }) => {
                   Nome da aula:
                   <input
                     type="text"
-                    placeholder='Digite o nome da aula'
+                    placeholder='Digite o naaaaome da aula'
                     value={newAulaName}
                     onChange={(e) => setNewAulaName(e.target.value)}
                     className="mt-1 block w-full p-2 border border-gray-300 rounded"
@@ -223,8 +244,9 @@ const DpanelTeamsInfo = ({ team, getTeams }) => {
                       ))}
                   </select>
                 </label>
+                {message && <p className="text-green-500">{message.msg}</p>}
+                {message.error && <p className="text-red-500">{message.error}</p>}
                 <button className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 transition">Salvar</button>
-                {message && <p className="text-red-500">{message.msg}</p>}
               </form>
             </>
           )}

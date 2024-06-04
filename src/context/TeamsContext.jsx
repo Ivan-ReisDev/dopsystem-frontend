@@ -12,7 +12,6 @@ const TeamsProvider = ({ children }) => {
     const [infoTeamsArray, setInfoTeamsArray] = useState([]);
     const navigate = useNavigate()
     const infoTeams = async (teams) => {
-
         try {
             const res = await fetch(`${PRD}teams/info?typeRequirement=${teams}&teams=${teams}`, {
                 method: 'GET',
@@ -92,24 +91,21 @@ const TeamsProvider = ({ children }) => {
                 },
                 body: JSON.stringify(data),
             });
-
+    
             const resJSON = await res.json();
-           
+            
             if (res.ok) {
                 setMessage(resJSON);
-                navigate("/dpanel")
+                navigate("/dpanel");
             } else {
-                setMessage('Não foi possível criar equipe.');
-                
-                
+                console.error('Erro na resposta:', resJSON);  // Logar o erro detalhado
+                setMessage({ error: resJSON.error || 'Não foi possível criar equipe.' });
             }
         } catch (error) {
             console.error('Erro na criação da equipe:', error);
-            
+            setMessage({ error: 'Erro na criação da equipe.' });
         }
- 
     };
-
 
 
 

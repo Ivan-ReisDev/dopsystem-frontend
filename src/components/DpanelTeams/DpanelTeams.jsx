@@ -7,11 +7,11 @@ import { ClassesContext } from '../../context/ClassesContext';
 import DpanelTeamsInfoNew from '../DpanelTeamsInfo/DpanelTeamsInfoNew';
 
 const DpanelTeams = () => {
-  const { teams, getTeams } = useContext(TeamsContext);
+  const { teams, getTeams, setMessage } = useContext(TeamsContext);
   const { Classes } = useContext(ClassesContext);
   const [DpanelTeam, setDpanelTeam] = useState("inicio");
   const [team, setTeam] = useState([]);
-
+  
   const showTeam = () => {
     setDpanelTeam("novo");
     setTeam("");
@@ -29,8 +29,12 @@ const DpanelTeams = () => {
         {(DpanelTeam === 'novo' || DpanelTeam === "Editar") && (
           <button 
             className="text-gray-600 hover:text-gray-800 transition" 
-            onClick={() => setDpanelTeam('inicio')}
-          >
+            onClick={() => {
+              setDpanelTeam('inicio')
+              setMessage('')
+    
+            }}
+            >
             <IoArrowUndo size={24} />
           </button>
         )}
