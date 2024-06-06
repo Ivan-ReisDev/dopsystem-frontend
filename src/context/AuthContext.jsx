@@ -14,39 +14,97 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(false)
     const token = localStorage.getItem('@Auth:Token')
     
+    // useEffect(() => {
+    //     const loadingStorageData = async () => {
+    //         const storageToken = localStorage.getItem("@Auth:Token");
+    //         const storageProfile = JSON.stringify(localStorage.getItem("@Auth:Profile"));
+            
+    //         if (!storageProfile || !storageToken ) {
+    //             localStorage.removeItem('@Auth:Token');
+    //             localStorage.removeItem('@Auth:Profile');
+    //             localStorage.removeItem('@Auth:ProfileUser');
+    //             setIsAuthentication(false)
+    //             navigate('/login') 
+    //         }          
+    //         else {
+    //             setIsAuthentication(true)
+    //             setAuthToken(storageToken);
+    //         }
+    //     };
+    //     loadingStorageData();
+    // }, [navigate]);
+
     useEffect(() => {
         const loadingStorageData = async () => {
-            const storageToken = localStorage.getItem("@Auth:Token");
-            const storageProfile = JSON.stringify(localStorage.getItem("@Auth:Profile"));
+            const storageToken = localStorage.getItem('@Auth:Token');
+            const storageProfile = localStorage.getItem('@Auth:Profile');
             
-            if (!storageProfile || !storageToken ) {
+            if (!storageProfile || !storageToken) {
                 localStorage.removeItem('@Auth:Token');
                 localStorage.removeItem('@Auth:Profile');
                 localStorage.removeItem('@Auth:ProfileUser');
-                setIsAuthentication(false)
-                navigate('/login') 
-            }          
-            else {
-                setIsAuthentication(true)
+                setIsAuthentication(false);
+                navigate('/login');
+            } else {
+                setIsAuthentication(true);
                 setAuthToken(storageToken);
             }
         };
-        loadingStorageData();
-    }, [navigate]);
 
+        loadingStorageData();
+    }, [navigate, setIsAuthentication, setAuthToken]);
+
+
+    // useEffect(() => {
+    //     const checkAuthentication = async () => {
+    //         try {
+    //             const storageToken = localStorage.getItem('@Auth:Token');
+    //             setAuthToken(storageToken);
+    //             const res = await fetch(`${PRD}profile`, {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     Authorization: `Bearer ${storageToken}`,
+    //                 },
+    //             });
+    
+    //             if (res.ok) {
+    //                 const resJSON = await res.json();
+
+    //                 localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
+    //                 localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
+    //                 setAuthProfile(resJSON);
+    //                 setIsAuthentication(true);
+
+    //             } else {
+    //                 setIsAuthentication(false);
+    //                 navigate('/login') ;
+    //                 localStorage.clear();
+    //             }
+    //         } catch (error) {
+    //             setIsAuthentication(false);
+    //             console.log(error, 'Erro ao verificar autenticação');
+    //             localStorage.clear();
+    //             window.location.reload('/') ;
+    //         }
+    //     };
+    
+    //     checkAuthentication();
+    // }, [navigate]);
+    
 
     useEffect(() => {
         const checkAuthentication = async () => {
             try {
                 const storageToken = localStorage.getItem('@Auth:Token');
                 setAuthToken(storageToken);
+
                 const res = await fetch(`${PRD}profile`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${storageToken}`,
                     },
                 });
-    
+
                 if (res.ok) {
                     const resJSON = await res.json();
 
@@ -54,23 +112,21 @@ const AuthProvider = ({ children }) => {
                     localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
                     setAuthProfile(resJSON);
                     setIsAuthentication(true);
-
                 } else {
                     setIsAuthentication(false);
-                    navigate('/login') ;
+                    navigate('/login');
                     localStorage.clear();
                 }
             } catch (error) {
                 setIsAuthentication(false);
-                console.log(error, 'Erro ao verificar autenticação');
+                console.error('Erro ao verificar autenticação:', error);
                 localStorage.clear();
-                window.location.reload('/') ;
+                window.location.assign('/'); // Correção para recarregar a página corretamente
             }
         };
-    
+
         checkAuthentication();
-    }, [navigate]);
-    
+    }, [navigate, setAuthToken, setAuthProfile, setIsAuthentication]);
     const signIn = async (dataLogin)  => {
         try {
             const res = await fetch(`${PRD}login`, {

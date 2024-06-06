@@ -137,13 +137,36 @@ const Teams = ({ team }) => {
                   <h3>Documentos</h3>
                 </div>
                 <ul>
-                  {DocsScripts.map((doc) => (
-                    <li key={doc._id}><Link to={`/doc/${doc._id}`}>{doc.nameDocs}</Link></li>
+                {DocsScripts.filter((doc) => doc.script === false).map((doc) => (
+                    <li key={doc._id}>
+                      <Link to={`/doc/${doc._id}`}>{doc.nameDocs}</Link>
+                    </li>
                   ))}
                 </ul>
               </div>
             </div>
           )}
+
+          {typeMenu === "scripts" && (
+            <div className={style.docs}>
+              <div className='divMainForms'>
+                <h2><span> <FaListUl /></span>Lista de Documentos</h2>
+              </div>
+              <div className="contentBodyElement">
+                <div className="contentBodyElementTitle">
+                  <h3>Scripts</h3>
+                </div>
+                <ul>
+                  {DocsScripts.filter((doc) => doc.script === true).map((doc) => (
+                    <li key={doc._id}>
+                      <Link to={`/doc/${doc._id}`}>{doc.nameDocs}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
+
           {typeMenu === "editDocs" && (
             <div className={style.docs}>
               <div className='divMainForms'>
@@ -157,6 +180,7 @@ const Teams = ({ team }) => {
               />
             </div>
           )}
+
           {typeMenu === "classes" && (
             <div className={style.ListMembersEdit}>
               <div className='divMainForms'>
@@ -168,6 +192,7 @@ const Teams = ({ team }) => {
               />
             </div>
           )}
+
           {typeMenu === "Controle de Membros" && (
             <div className={style.ListMembersEdit}>
               <div className='divMainForms'>
@@ -190,6 +215,7 @@ const Teams = ({ team }) => {
             <ul>
               <li><button onClick={() => setTypeMenu('members')}>Membros <span><FaUsers /></span></button></li>
               <li><button onClick={() => setTypeMenu('docs')}>Documentos<span><IoIosDocument /></span></button></li>
+              <li><button onClick={() => setTypeMenu('scripts')}>Scripts<span><IoIosDocument /></span></button></li>
               <li><button onClick={() => setTypeMenu('classes')}>Postar Aula <span>< FaAddressBook /></span></button></li>
             </ul>
           </div>
