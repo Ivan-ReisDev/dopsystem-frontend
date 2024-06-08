@@ -70,7 +70,7 @@ const EditDocs = ({ placeholder, doc, team }) => {
       return setMessege("Por favor preencha todos os campos!");
     }
     setMessege('');
-    console.log(checkbox)
+  
     const data = {
       nameDocs: title,
       content,
