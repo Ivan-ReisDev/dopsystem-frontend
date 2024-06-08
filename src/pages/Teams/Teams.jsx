@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import style from './teams.module.css';
 import { RiTeamFill } from "react-icons/ri";
 import { MdEditDocument } from "react-icons/md";
@@ -27,15 +27,30 @@ const Teams = ({ team }) => {
   const [typeMenu, setTypeMenu] = useState("members");
   const [addMember, setAddMember] = useState(false);
 
+  const newDocFilter = Array.isArray(DocsScripts) ? DocsScripts.filter((doc) => doc.script === true) : [];
+
   useEffect(() => {
-    document.title = `Polícia DOP - ${team.nameTeams}`;
-    infoTeams(team.nameTeams);
-    searchDoc(team.nameTeams);
+    const updatePage = async () => {
+      document.title = `Polícia DOP - ${team.nameTeams}`;
+      await infoTeams(team.nameTeams);
+      await searchDoc(team.nameTeams);
+    }
+
+    updatePage()
   }, [team]);
 
   useEffect(() => {
-    setDocsScripts(docSelected);
+    const updatePage = async () => {
+      await setDocsScripts(docSelected);
+      console.log('docSelected:', docSelected); // Adicione este log
+    }
+    updatePage()
+
   }, [docSelected]);
+
+  useEffect(() => {
+    console.log('DocsScripts:', DocsScripts); // Adicione este log para verificar a atualização
+  }, [DocsScripts]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -85,7 +100,7 @@ const Teams = ({ team }) => {
           {typeMenu === "members" && (
             <div className={style.members}>
               <div className='divMainForms'>
-                <h2><span> <FaListUl /></span>Lista de Membros</h2>
+                <h2><span><FaListUl /></span>Lista de Membros</h2>
               </div>
               <h3>Líder</h3>
               <ul className={style.ListMembers}>
@@ -137,7 +152,7 @@ const Teams = ({ team }) => {
                   <h3>Documentos</h3>
                 </div>
                 <ul>
-                {DocsScripts.filter((doc) => doc.script === false).map((doc) => (
+                  {Array.isArray(DocsScripts) && DocsScripts.filter((doc) => doc.script === false).map((doc) => (
                     <li key={doc._id}>
                       <Link to={`/doc/${doc._id}`}>{doc.nameDocs}</Link>
                     </li>
@@ -157,11 +172,18 @@ const Teams = ({ team }) => {
                   <h3>Scripts</h3>
                 </div>
                 <ul>
-                  {DocsScripts.filter((doc) => doc.script === true).map((doc) => (
-                    <li key={doc._id}>
-                      <Link to={`/doc/${doc._id}`}>{doc.nameDocs}</Link>
-                    </li>
-                  ))}
+                  {newDocFilter.filter(
+                      (doc) =>
+                        userLocalStorage.userType === "Admin" || 
+                        userLocalStorage.userType === "Diretor" || 
+                        userLocalStorage.nickname === team.leader ||
+                        userLocalStorage.nickname === team.viceLeader ||
+                        userLocalStorage.classes.includes(doc.nameDocs)).map((doc) => (
+                      <li key={doc._id}>
+                        <Link to={`/doc/${doc._id}`}>{doc.nameDocs}</Link>
+                      </li>
+                    ))
+                  }
                 </ul>
               </div>
             </div>
@@ -188,6 +210,7 @@ const Teams = ({ team }) => {
                 <button onClick={() => setAddMember(!addMember)} className={style.btnDocs}>{!addMember ? <FaPlus /> : <IoArrowUndo />}</button>
               </div>
               <FormClasses
+              userLocalStorage={userLocalStorage}
                 team={team}
               />
             </div>

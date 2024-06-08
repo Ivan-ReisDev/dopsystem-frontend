@@ -4,7 +4,7 @@ import { SystemContext } from '../../context/SystemContext';
 import { ClassesContext } from '../../context/ClassesContext';
 import { useNavigate } from 'react-router-dom';
 
-const FormClasses = ({ team }) => {
+const FormClasses = ({ team, userLocalStorage }) => {
     const [student, setStudent] = useState('');
     const [reason, setReason] = useState('');
     const [operator, setOperator] = useState('');
@@ -14,6 +14,7 @@ const FormClasses = ({ team }) => {
 
     const { Classes, createClasseRequeriment, loading, message } = useContext(ClassesContext);
     const newArrayClasses = Classes.filter(classes => classes.team === team.nameTeams);
+    
 
     useEffect(() => {
         setOperator(JSON.parse(localStorage.getItem("@Auth:Profile")));
@@ -58,7 +59,14 @@ const FormClasses = ({ team }) => {
                     * Aula
                     <select onChange={(e) => setClasseRecebida(e.target.value)} value={classeRecebida}>
                         <option value="" disabled hidden>Selecione</option>
-                        {newArrayClasses && newArrayClasses.map((classe) => (
+                        {newArrayClasses && newArrayClasses.filter( (classe) =>
+                             userLocalStorage.userType === "Admin" || 
+                             userLocalStorage.userType === "Diretor" || 
+                             userLocalStorage.nickname === team.leader ||
+                             userLocalStorage.nickname === team.viceLeader ||
+                             userLocalStorage.classes.includes(classe.nameClasse)
+
+                        ).map((classe) => (
                             <option key={classe._id} value={classe.nameClasse}>{classe.nameClasse}</option>
                         ))}
                     </select>

@@ -32,7 +32,7 @@ const DocsProvider = ({ children }) => {
             if (res.ok) {
                 setMessage(resJSON);
                 setResOk(true);
-                navigate(`/team`)
+                navigate(`/`)
                 
 
             } else {
@@ -85,7 +85,7 @@ const DocsProvider = ({ children }) => {
     
             if (response.ok) {
                 setMessage(responseData);
-                navigate(`/team/${data.docsType}/doc/${data.idDoc}`)
+                navigate(`/doc/${data.idDoc}`)
                 
             } else {
                 setMessage(responseData);
