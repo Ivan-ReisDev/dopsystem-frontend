@@ -6,9 +6,10 @@ import LogoDOP from '../assets/logodop.png';
 import CreateCont from '../components/CreateCont.jsx';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
+import style from "./imgLogin.module.css"
 
 const LoginSystem = ({ setLoading }) => {
-    const { signIn, message } = useContext(AuthContext);
+    const { signIn, message, loadingLogin, setLoadingLogin } = useContext(AuthContext);
     const [nick, setNick] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ const LoginSystem = ({ setLoading }) => {
     }, []);
 
     const handleSubmitLogin = async (e) => {
-        setLoading(true)
+
         e.preventDefault();
         
         const dataLogin = {
@@ -34,7 +35,7 @@ const LoginSystem = ({ setLoading }) => {
         };
 
        await signIn(dataLogin);
-       setLoading(false)
+
     };
 
     const handleCreateCont = (e) => {
@@ -59,7 +60,7 @@ const LoginSystem = ({ setLoading }) => {
     };
 
     return (
-        <div className='text-[#ffffff] min-h-screen flex flex-col items-center justify-center bg-[#0D1450]'>
+        <div className={`${style.ImgLogin} text-[#ffffff] min-h-screen flex flex-col items-center justify-center`}>
             <h1 className='text-3xl mb-4'><span className='text-[#3146ff] font-bold'>DOP</span>System</h1>
             <div className='bg-white rounded-md p-4 max-w-md w-full flex flex-col items-center text-[#636363]'>
                 <div className='w-full flex flex-col items-center p-2 border-b'>
@@ -118,7 +119,8 @@ const LoginSystem = ({ setLoading }) => {
                             {message &&  <p className='error'> {message.error} </p> }
                             <div className='h-[50px] mt-3 flex flex-row justify-between w-full'>
                                 <Button onClick={handleCreateCont} className='w-[49%] text-[#0D1450]  hover:bg-[#0D1450]' variant="outline-primary">Ativar Conta</Button>
-                                <Button tabIndex={3} type='submit' className='w-[49%] bg-[#0D1450] hover:bg-[#29327a]' variant="primary">Login</Button>
+                                { !loadingLogin && <Button tabIndex={3} type='submit' className='w-[49%] bg-[#0D1450] hover:bg-[#29327a]' variant="primary">Login</Button>}
+                                { loadingLogin && <Button tabIndex={3} type='submit' className='w-[49%] bg-[#303566] hover:bg-[#29327a]' variant="primary">Aguarde...</Button>}
                             </div>
                         </form>
                     </div>

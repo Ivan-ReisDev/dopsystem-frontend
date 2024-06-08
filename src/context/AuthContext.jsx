@@ -10,6 +10,7 @@ const AuthProvider = ({ children }) => {
     const [isAuthentication, setIsAuthentication] = useState(false);
     const [authToken, setAuthToken] = useState(null);
     const [authProfile, setAuthProfile] = useState(null);
+    const [loadingLogin, setLoadingLogin] = useState(false);
     const [message, setMessage ] = useState('')
     const [loading, setLoading] = useState(false)
     const token = localStorage.getItem('@Auth:Token')
@@ -128,6 +129,7 @@ const AuthProvider = ({ children }) => {
         checkAuthentication();
     }, [navigate, setAuthToken, setAuthProfile, setIsAuthentication]);
     const signIn = async (dataLogin)  => {
+        setLoadingLogin(true);
         try {
             const res = await fetch(`${PRD}login`, {
                 method: 'POST',
@@ -139,6 +141,7 @@ const AuthProvider = ({ children }) => {
     
             const resJSON = await res.json();
             setMessage(resJSON);
+            
     
             if (res.ok) {
                 setAuthToken(resJSON.token);
@@ -147,15 +150,18 @@ const AuthProvider = ({ children }) => {
                 localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
                 localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
                 navigate('/home');
+                setLoadingLogin(false);
 
             } else {
                 localStorage.removeItem('@Auth:Token');
                 localStorage.removeItem('@Auth:Profile');
                 console.error('Erro de login:', resJSON.error); // Assumindo que o servidor envia uma mensagem de erro no corpo da resposta
-                navigate('/') // Redirecionando o usuário de volta para a página inicial
+                navigate('/') 
+                setLoadingLogin(false);// Redirecionando o usuário de volta para a página inicial
             }
         } catch (error) {
             console.error('Erro no login:', error);
+            setLoadingLogin(false);
             // Poderia mostrar uma mensagem de erro amigável para o usuário aqui
         }
     };
@@ -229,7 +235,8 @@ return (
             authProfile,
             handleActiveCout,
             message,
-            loading, setLoading
+            loading, setLoading,
+            loadingLogin
         }}
     >
         {children}

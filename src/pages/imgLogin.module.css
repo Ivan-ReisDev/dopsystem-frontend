@@ -1,0 +1,6 @@
+.ImgLogin {
+    background-image: url("../assets/Print-da-Base.png") ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
