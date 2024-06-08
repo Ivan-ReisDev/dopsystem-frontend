@@ -120,7 +120,7 @@ const LoginSystem = ({ setLoading }) => {
                             <div className='h-[50px] mt-3 flex flex-row justify-between w-full'>
                                 <Button onClick={handleCreateCont} className='w-[49%] text-[#0D1450]  hover:bg-[#0D1450]' variant="outline-primary">Ativar Conta</Button>
                                 { !loadingLogin && <Button tabIndex={3} type='submit' className='w-[49%] bg-[#0D1450] hover:bg-[#29327a]' variant="primary">Login</Button>}
-                                { loadingLogin && <Button tabIndex={3} type='submit' className='w-[49%] bg-[#303566] hover:bg-[#29327a]' variant="primary">Aguarde...</Button>}
+                                { loadingLogin && <Button tabIndex={3} disabled type='submit' className='w-[49%] bg-[#303566] hover:bg-[#29327a]' variant="primary">Aguarde...</Button>}
                             </div>
                         </form>
                     </div>
