@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext';
 
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
+const PRD = 'http://localhost:3000/api/';
 const AuthContext = createContext('');
 const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
@@ -93,26 +93,72 @@ const AuthProvider = ({ children }) => {
     // }, [navigate]);
     
 
+    // useEffect(() => {
+    //     const checkAuthentication = async () => {
+    //         try {
+    //             const storageToken = localStorage.getItem('@Auth:Token');
+    //             setAuthToken(storageToken);
+
+    //             const res = await fetch(`${PRD}profile`, {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     Authorization: `Bearer ${storageToken}`,
+    //                 },
+    //             });
+
+    //             if (res.ok) {
+    //                 const resJSON = await res.json();
+
+    //                 localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
+    //                 localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
+    //                 setAuthProfile(resJSON);
+    //                 setIsAuthentication(true);
+    //             } else {
+    //                 setIsAuthentication(false);
+    //                 navigate('/login');
+    //                 localStorage.clear();
+    //             }
+    //         } catch (error) {
+    //             setIsAuthentication(false);
+    //             console.error('Erro ao verificar autenticação:', error);
+    //             localStorage.clear();
+    //             window.location.assign('/'); // Correção para recarregar a página corretamente
+    //         }
+    //     };
+
+    //     checkAuthentication();
+    // }, [navigate, setAuthToken, setAuthProfile, setIsAuthentication]);
+
     useEffect(() => {
         const checkAuthentication = async () => {
             try {
-                const storageToken = localStorage.getItem('@Auth:Token');
-                setAuthToken(storageToken);
+                if (!authToken) {
+                    setIsAuthentication(false);
+                    navigate('/login');
+                    return;
+                }
 
                 const res = await fetch(`${PRD}profile`, {
                     method: 'GET',
                     headers: {
-                        Authorization: `Bearer ${storageToken}`,
+                        Authorization: `Bearer ${authToken}`,
                     },
                 });
 
                 if (res.ok) {
                     const resJSON = await res.json();
+                    const tokenActive = resJSON.tokenActive; // Assumindo que o token ativo é retornado pela API
 
-                    localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
-                    localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
-                    setAuthProfile(resJSON);
-                    setIsAuthentication(true);
+                    if (tokenActive === authToken && resJSON.status === "Ativo") {
+                        localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
+                        localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
+                        setAuthProfile(resJSON);
+                        setIsAuthentication(true);
+                    } else {
+                        setIsAuthentication(false);
+                        navigate('/login');
+                        localStorage.clear();
+                    }
                 } else {
                     setIsAuthentication(false);
                     navigate('/login');
@@ -127,7 +173,8 @@ const AuthProvider = ({ children }) => {
         };
 
         checkAuthentication();
-    }, [navigate, setAuthToken, setAuthProfile, setIsAuthentication]);
+    }, [authToken, navigate, setAuthProfile, setIsAuthentication]);
+    
     const signIn = async (dataLogin)  => {
         setLoadingLogin(true);
         try {

@@ -91,6 +91,7 @@ const DpanelEdit = ({ userSelect, setpage }) => {
                         <option value="Exonerado">Exonerado</option>
                         <option value="Banido">Banido</option>
                         <option value="Reformado">Reformado</option>
+                        <option value="CFO">CFO</option>
                     </select>
                 </div>
                 <div className="mb-4">
