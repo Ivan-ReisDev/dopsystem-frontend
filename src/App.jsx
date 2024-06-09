@@ -30,7 +30,6 @@ function App() {
   const { isAuthentication, loading, setLoading } = useContext(AuthContext);
 
   const userType = JSON.parse(localStorage.getItem('@Auth:ProfileUser'));
-  const teste = encodeURIComponent
   // Configurações de equipe
   const { teams } = useContext(TeamsContext);
 

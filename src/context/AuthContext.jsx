@@ -141,7 +141,7 @@ const AuthProvider = ({ children }) => {
                 const res = await fetch(`${PRD}profile`, {
                     method: 'GET',
                     headers: {
-                        Authorization: `Bearer ${authToken}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 });
 
@@ -149,7 +149,7 @@ const AuthProvider = ({ children }) => {
                     const resJSON = await res.json();
                     const tokenActive = resJSON.tokenActive; // Assumindo que o token ativo é retornado pela API
 
-                    if (tokenActive === authToken && resJSON.status === "Ativo") {
+                    if (tokenActive && (tokenActive === authToken && resJSON.status === "Ativo")) {
                         localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
                         localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
                         setAuthProfile(resJSON);
@@ -173,7 +173,7 @@ const AuthProvider = ({ children }) => {
         };
 
         checkAuthentication();
-    }, [authToken, navigate, setAuthProfile, setIsAuthentication]);
+    }, [authToken, navigate, setAuthProfile, isAuthentication, token]);
     
     const signIn = async (dataLogin)  => {
         setLoadingLogin(true);
