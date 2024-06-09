@@ -42,19 +42,16 @@ const ListMembers = ({ infoSystem, select, patents }) => {
             { users.length <= 0 && <h2>Nenhum militar encontrado</h2>}
             {users &&
                 users.map((user) => (
-                    <li>
+                    <li key={user.id}>
                         <Link to={`/search/${user.nickname}`}>
-                    <div>
-                        <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${user.nickname}&direction=3&head_direction=3&size=m&action=std`} alt="" />
-                    </div>
-                    {user.nickname}
-                    </Link>
-                </li>
-
+                            <div>
+                                <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${user.nickname}&direction=3&head_direction=3&size=m&action=std`} alt="" />
+                            </div>
+                            {user.nickname}
+                        </Link>
+                    </li>
                 ))}
-
             </ul>
-
         </div>
     )
 }

@@ -1,22 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import style from './footer.module.css'
 import LogoDOP from '../../assets/logodop.png'
 import { NavLink, useLocation } from 'react-router-dom'
 import { FaArrowsAlt,FaMapMarkedAlt,FaHistory, FaDiscord, FaInstagramSquare    } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io";
+import { AuthContext } from '../../context/AuthContext';
 
 
 const Footer = () => {
 
     const location = useLocation();
 
+    const {isAuthentication} = useContext(AuthContext)
     // Verifica se a rota atual é '/contact'
     if (location.pathname === '/dpanel') {
       return null; // Não renderiza o Header
     }
 
     return (
-        <footer className={style.Footer}>
+        <footer className={ !isAuthentication ? ` top-0 mt-0 ${style.Footer}`  : style.Footer}>
             <div className={style.Header}>
                 <div className={style.midia}>
                     <img src={LogoDOP} alt="Logo da DOP" />
