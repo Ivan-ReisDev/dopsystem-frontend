@@ -10,8 +10,11 @@ const UserProvider = ({ children }) => {
     const navigate = useNavigate()
     const [usersArray, setUsersArray] = useState('');
     const [messege, setMessege] = useState("")
+    const [message, setMessage] = useState("")
     const [user, setUser] = useState([])
     const [loggers, setLoggers] = useState([])
+    const [currentPage, setCurrentPage] = useState(1); // Página atual
+    const [itemsPerPage] = useState(10); // Itens por página (ajustável)
     const token = localStorage.getItem('@Auth:Token')
               
 
@@ -39,9 +42,9 @@ const UserProvider = ({ children }) => {
       };
      
 
-      const getAll = async () => {
+      const getAll = async (page, pageSize) => {
         try {
-          const res = await fetch(`${PRD}all/users`, {
+          const res = await fetch(`${PRD}all/users?page=${page}&pageSize=${pageSize}`, {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -50,7 +53,7 @@ const UserProvider = ({ children }) => {
           const data = await res.json();
       
           if (res.ok) {
-            setUser(data)
+            setUser(data);
             return data;
           } else {
             throw new Error(data.message || 'Failed to fetch user');
@@ -59,6 +62,7 @@ const UserProvider = ({ children }) => {
           throw new Error(error.message || 'Error fetching user');
         }
       };
+      
 
     
 
@@ -110,24 +114,38 @@ const UserProvider = ({ children }) => {
     };
 
 
-    const getLogs = async () => {
-        try {
-            const res = await fetch(`${PRD}loggers?nickname=${tokenUser.nickname}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
+    const getLogs = async (page = 1, limit = 12) => {
+      try {
+        const res = await fetch(`${PRD}loggers?nickname=${tokenUser.nickname}&page=${page}&limit=${limit}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
     
-            if (!res.ok) {
-                throw new Error('Erro na requisição');
-            }
-            const data = await res.json();
-            setLoggers(data);
-        } catch (error) {
-            setMessege(error.message || 'Erro desconhecido');
+        if (!res.ok) {
+          throw new Error('Erro na requisição');
         }
+    
+        const data = await res.json();
+        setLoggers(data.logs); // Definindo os logs retornados
+        setCurrentPage(data.currentPage); // Definindo a página atual retornada
+        setTotalPages(data.totalPages); // Definindo o total de páginas retornadas
+      } catch (error) {
+        setMessage(error.message || 'Erro desconhecido');
+      }
     };
+    
+    
+    // Função para mudar de página
+    const goToPage = (page) => {
+      getLogs(page, itemsPerPage);
+    };
+    
+    // Chame getLogs inicialmente para carregar a primeira página
+    useEffect(() => {
+      getLogs(currentPage, itemsPerPage);
+    }, []);
     // Fornecimento do contexto para os componentes filhos
     return (
         <UserContext.Provider
@@ -141,7 +159,11 @@ const UserProvider = ({ children }) => {
                 messege,
                 updateUserAdmin,
                 createTag,
-                getAll
+                getAll,
+                currentPage, 
+                setCurrentPage,
+                goToPage
+
             }}
         >
             {children}

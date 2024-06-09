@@ -96,27 +96,26 @@ const DocsProvider = ({ children }) => {
     };
 
 
-    const getDocuments = async () => {
-        setLoadingDocs(true)
+    const getDocuments = async (page, limit) => {
+        setLoadingDocs(true);
         try {
-            const res = await fetch(`${PRD}all/docs`, {
+            const res = await fetch(`${PRD}all/docs?page=${page}&limit=${limit}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-
+    
             if (!res.ok) {
                 throw new Error('Erro na requisição');
             }
             const data = await res.json();
             setDocuments(data);
-            setLoadingDocs(false)
+            setLoadingDocs(false);
         } catch (error) {
             setMessage(error.message || 'Erro desconhecido');
-            setLoadingDocs(false)
+            setLoadingDocs(false);
         }
-        setLoadingDocs(false)
     };
 
 
