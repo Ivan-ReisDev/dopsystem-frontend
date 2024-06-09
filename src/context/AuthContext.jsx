@@ -132,12 +132,6 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkAuthentication = async () => {
             try {
-                if (!authToken) {
-                    setIsAuthentication(false);
-                    navigate('/login');
-                    return;
-                }
-
                 const res = await fetch(`${PRD}profile`, {
                     method: 'GET',
                     headers: {
@@ -149,7 +143,7 @@ const AuthProvider = ({ children }) => {
                     const resJSON = await res.json();
                     const tokenActive = resJSON.tokenActive; // Assumindo que o token ativo é retornado pela API
 
-                    if (tokenActive && (tokenActive === authToken && resJSON.status === "Ativo")) {
+                    if (tokenActive && (tokenActive === token && resJSON.status === "Ativo")) {
                         localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
                         localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
                         setAuthProfile(resJSON);

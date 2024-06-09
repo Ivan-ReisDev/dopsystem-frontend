@@ -27,7 +27,7 @@ import NotFound from './pages/Notfound/NotFound';
 import PostClasseInitial from './pages/PostClasseInitial/PostClasseInitial';
 
 function App() {
-  const { isAuthentication, loading, setLoading } = useContext(AuthContext);
+  const { isAuthentication } = useContext(AuthContext);
 
   const userType = JSON.parse(localStorage.getItem('@Auth:ProfileUser'));
   // Configurações de equipe
@@ -35,12 +35,11 @@ function App() {
 
   return (
     <>
-      <Preloader showStatus={loading} />
       {isAuthentication && <Navbar />}
       <Routes>
-        <Route path='/' element={!isAuthentication ? <LoginSystem setLoading={setLoading} /> : <Home />} />
-        <Route path='/home' element={isAuthentication ? <Home /> : <LoginSystem setLoading={setLoading} />} />
-        <Route path='/login' element={!isAuthentication ? <LoginSystem setLoading={setLoading} /> : <Home />} />
+        <Route path='/' element={!isAuthentication ? <LoginSystem  /> : <Home />} />
+        <Route path='/home' element={isAuthentication ? <Home /> : <LoginSystem/>} />
+        <Route path='/login' element={!isAuthentication ? <LoginSystem /> : <Home />} />
 
         {/* RODAS DO PAINEL ADMINISTRATIVO */}
         {isAuthentication && userType?.userType === "Admin" && (
@@ -89,14 +88,14 @@ function App() {
         )}
 
         {/* ROTAS DE FORMULÁRIO */}
-        <Route path='/postclasse' element={isAuthentication ? <PostClasseInitial /> : <LoginSystem setLoading={setLoading} />} />
-        <Route path='/promotion' element={isAuthentication ? <Promotion /> : <LoginSystem setLoading={setLoading} />} />
-        <Route path='/relegation' element={isAuthentication ? <Relegation /> : <LoginSystem setLoading={setLoading} />} />
-        <Route path='/warning' element={isAuthentication ? <Warning /> : <LoginSystem setLoading={setLoading} />} />
-        <Route path='/resignation' element={isAuthentication ? <Resignation /> : <LoginSystem setLoading={setLoading} />} />
-        <Route path='/contract' element={isAuthentication ? <Contract /> : <LoginSystem setLoading={setLoading} />} />
-        <Route path='/sale' element={isAuthentication ? <Sale /> : <LoginSystem setLoading={setLoading} />} />
-        <Route path='/members' element={isAuthentication ? <Members /> : <LoginSystem setLoading={setLoading} />} />
+        <Route path='/postclasse' element={isAuthentication ? <PostClasseInitial /> : <LoginSystem  />} />
+        <Route path='/promotion' element={isAuthentication ? <Promotion /> : <LoginSystem  />} />
+        <Route path='/relegation' element={isAuthentication ? <Relegation /> : <LoginSystem  />} />
+        <Route path='/warning' element={isAuthentication ? <Warning /> : <LoginSystem  />} />
+        <Route path='/resignation' element={isAuthentication ? <Resignation /> : <LoginSystem  />} />
+        <Route path='/contract' element={isAuthentication ? <Contract /> : <LoginSystem  />} />
+        <Route path='/sale' element={isAuthentication ? <Sale /> : <LoginSystem />} />
+        <Route path='/members' element={isAuthentication ? <Members /> : <LoginSystem />} />
 
         {/*  RODAS DE CONFIGURAÇÃO DE DOCUMENTOS */}
 

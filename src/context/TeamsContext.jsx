@@ -134,7 +134,7 @@ const TeamsProvider = ({ children }) => {
     };
 
 
-    const addMember = async (data) => {
+    const addMember = async (data, team) => {
         try {
             const response = await fetch(`${PRD}teams/add`, {
                 method: 'PUT',
@@ -149,7 +149,7 @@ const TeamsProvider = ({ children }) => {
     
             if (response.ok) {
                 setMessage(responseData);
-                window.location.reload("/team/Ensino")
+                navigate(`/team/${team.nameTeams}`)
             } else {
                 setMessage(responseData)
                 console.error("Erro ao remover usuário :", responseData);

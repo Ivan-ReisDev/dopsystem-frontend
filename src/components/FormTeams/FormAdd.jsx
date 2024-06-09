@@ -17,7 +17,7 @@ export const FormAdd = ({ team }) => {
       office,
       idTeams: team._id
     }
-    addMember(data)
+    addMember(data, team);
 
   }
 
