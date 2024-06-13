@@ -8,10 +8,12 @@ function Logger() {
     const { loggers, getLogs, currentPage, totalPages, message, goToPage } = useContext(UserContext);
     const { formatarDataHora } = useContext(RequirementsContext);
     const [loggersPerPage] = useState(5); // Itens por página
+    const [searchTerm, setSearchTerm] = useState(''); // Novo estado para termo de busca
 
     useEffect(() => {
         getLogs(currentPage, loggersPerPage);
     }, [currentPage]);
+
     // Função para mudar de página
     const handlePageChange = (page) => {
         goToPage(page);
@@ -20,6 +22,16 @@ function Logger() {
     return (
         <div className="container mx-auto p-4">
             <h2 className="text-2xl font-bold mb-4">Loggers de acesso ao sistema</h2>
+            
+            {/* Input de busca */}
+            <input
+                type="text"
+                placeholder="Buscar log"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="mb-4 p-2 border rounded w-full"
+            />
+
             <ul>
                 {loggers.map((logger, index) => (
                     <li key={index} className="mb-4">

@@ -11,6 +11,7 @@ const DocsDpanel = () => {
     const [doc, setDoc] = useState([]);
     const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(10); // Defina o limite de documentos por página aqui
+    const [searchTerm, setSearchTerm] = useState(''); // Novo estado para termo de busca
 
     useEffect(() => {
         getDocuments(page, limit);
@@ -59,10 +60,19 @@ const DocsDpanel = () => {
                 )}
             </div>
 
+            {/* Input de busca */}
+            <input
+                type="text"
+                placeholder="Buscar documento"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="mb-4 p-2 border rounded w-full"
+            />
+
             <div className="bg-white shadow rounded-lg p-4">
                 {loadingDocs && (
                     <div className='flex w-full items-center justify-center h-[300px]'>
-                        <img src={Preloader} alt="" />
+                        <img src={Preloader} alt="Loading..." />
                     </div>
                 )}
 

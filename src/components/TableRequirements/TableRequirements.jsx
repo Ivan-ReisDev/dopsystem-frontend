@@ -8,10 +8,12 @@ import FormSale from '../FormReq/FormSale';
 import FormContract from '../FormReq/FormContract';
 import FormResignation from '../FormReq/FormResignation'
 import { RhContext } from '../../context/RhContext';
+import { json } from 'react-router-dom';
 const TableRequirements = ({ requerimentsFilter, typeStatus }) => {
 
     const [requerimentSelected, RequerimentSelected] = useState([]);
-    const [stateRequeri, setStateRequeri] = useState(false)
+    const [stateRequeri, setStateRequeri] = useState(false);
+    const localStoregeUser = JSON.parse(localStorage.getItem("@Auth:Profile"))
     const { setMessege } = useContext(RhContext);
 
     return (
@@ -53,36 +55,42 @@ const TableRequirements = ({ requerimentsFilter, typeStatus }) => {
 
                             <th>Patente</th>
                             <th>Status</th>
-                            
-                            <th>Ações</th>
+
+                            { localStoregeUser && (localStoregeUser.userType === "Admin" || localStoregeUser.userType === "Diretor" || localStoregeUser.userType === "Recursos Humanos")  && 
+                            <th>Ações</th> }
                         </tr>
                     </thead>
                     <tbody>
-                        {requerimentsFilter &&
-                            [...requerimentsFilter].reverse().map((requirement, index) => (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{requirement.operator}</td>
-                                    <td>{requirement.promoted}</td>
-                                    <td>{requirement.newPatent}</td>
-                                    {requirement && requirement.status === "Pendente" ? (
-                                        <td className='TdTags'> <span className='TagPendente'>{requirement.status}</span></td>
-
-                                    ) : requirement.status === "Aprovado" ? (
-
-                                        <td className='TdTags'><span className='TagAprovado'>{requirement.status}</span></td>
-                                    )
-                                        : (<td className='TdTags'> <span className='TagReprovado'>{requirement.status}</span></td>)
-                                    }
-
-                                    <td><button onClick={(e) => {
-                                        setStateRequeri(true)
-                                        RequerimentSelected(requirement)
-                                        setMessege('')
-
-                                    }} className='BtnActiveForm'><span className='SpanBtn'><FaEye /> Ver </span></button></td>
-                                </tr>
-                            ))}
+                    {requerimentsFilter &&
+    [...requerimentsFilter].reverse().map((requirement, index) => (
+        <tr key={index}>
+            <td>{index + 1}</td>
+            <td>{requirement.operator}</td>
+            <td>{requirement.promoted}</td>
+            <td>{requirement.newPatent}</td>
+            <td className='TdTags'>
+                {requirement.status === "Pendente" ? (
+                    <span className='TagPendente'>{requirement.status}</span>
+                ) : requirement.status === "Aprovado" ? (
+                    <span className='TagAprovado'>{requirement.status}</span>
+                ) : (
+                    <span className='TagReprovado'>{requirement.status}</span>
+                )}
+            </td>
+            { localStoregeUser && (localStoregeUser.userType === "Admin" || localStoregeUser.userType === "Diretor" || localStoregeUser.userType === "Recursos Humanos")  && (
+                <td>
+                    <button onClick={(e) => {
+                        setStateRequeri(true);
+                        RequerimentSelected(requirement);
+                        setMessege('');
+                    }} className='BtnActiveForm'>
+                        <span className='SpanBtn'><FaEye /> Ver </span>
+                    </button>
+                </td>
+            )}
+        </tr>
+    ))
+}
                     </tbody>
                 </Table>
 

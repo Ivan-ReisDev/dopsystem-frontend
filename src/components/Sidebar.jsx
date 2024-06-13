@@ -9,7 +9,7 @@ import { AuthContext } from '../context/AuthContext';
 import { DocsContext } from '../context/DocsContext';
 import { TeamsContext } from '../context/TeamsContext';
 
-const Sidebar = ({ showSidebar }) => {
+const Sidebar = ({ showSidebar, setShowSidebar}) => {
   const navigate = useNavigate();
 
   const { logout } = useContext(AuthContext);
@@ -57,18 +57,18 @@ const Sidebar = ({ showSidebar }) => {
       </div>
       {infoProfileUser ? infoProfileUser.userType === "Admin" && (
         <div className='borderSidebar w-full h-[10%] flex flex-col items-center justify-center  border-b'>
-          <NavLink to={'/dpanel'} className='buttonRadiosSidebar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> Painel <span className='uppercase'>admin</span></NavLink>
+          <NavLink onClick={() => setShowSidebar(!showSidebar)} to={'/dpanel'} className='buttonRadiosSidebar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> Painel <span className='uppercase'>admin</span></NavLink>
         </div>
       ) : null}
       <ul className='border-b borderSidebar'>
-        <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/home'}>Home</NavLink></li>
+        <li onClick={() => setShowSidebar(!showSidebar)} className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/home'}>Home</NavLink></li>
 
-        <button className='w-full h-[30px] font-bold flex items-center ml-5' onClick={activeShowDocs}>
+        <button  className='w-full h-[30px] font-bold flex items-center ml-5' onClick={activeShowDocs}>
           Documentos <span className={`ml-2 text-[13px] ${showDocs ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>
         </button>
         <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showDocs ? "h-auto " : "h-0 hidden"}`}>
           {Array.isArray(documents) && documents.map((doc, index) => (
-            <li key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+            <li onClick={() => setShowSidebar(!showSidebar)} key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
               <NavLink to={`/doc/${doc._id}`} >{doc.nameDocs}</NavLink>
             </li>
           ))}
@@ -86,7 +86,7 @@ const Sidebar = ({ showSidebar }) => {
 
                 if (isMember || infoProfileUser.userType === "Admin" || infoProfileUser.userType === "Diretor") {
                   return (
-                    <li key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+                    <li onClick={() => setShowSidebar(!showSidebar)} key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
                       <NavLink to={`/team/${team.nameTeams}`}>{team.nameTeams}</NavLink>
                     </li>
                   );
@@ -102,32 +102,35 @@ const Sidebar = ({ showSidebar }) => {
           Requerimentos <span className={`ml-2 text-[13px] ${showForms ? "activeRotate" : "disabled"}`}><SlArrowUp /></span>
         </button>
         <div className={`w-full  font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showForms ? "h-auto " : "h-0 hidden"}`}>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/promotion'}>Promoções</NavLink>
           </li>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/warning'}>Advertências</NavLink>
           </li>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/relegation'}>Rebaixamentos</NavLink>
           </li>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/resignation'}>Demissões</NavLink>
           </li>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/contract'}>Contratos</NavLink>
           </li>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/sale'}>Vendas de Cargo</NavLink>
           </li>
         </div>
 
-        <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/members'}>Membros</NavLink></li>
-        <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={`/search/${infoProfileUserCompleted.nickname}`}>Perfil</NavLink></li>
+        <li onClick={() => setShowSidebar(!showSidebar)} className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/members'}>Membros</NavLink></li>
+        <li onClick={() => setShowSidebar(!showSidebar)} className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={`/search/${infoProfileUserCompleted.nickname}`}>Perfil</NavLink></li>
       </ul>
 
       <div className='w-full borderSidebar h-[10%] flex flex-col items-center justify-center'>
-        <Button onClick={logout} className='buttonRadiosSidebar rounded-full font-bold bg-[#dc3545]' variant="danger">Logout</Button>
+        <Button onClick={() => {
+          setShowSidebar(!showSidebar)
+          logout()
+        } } className='buttonRadiosSidebar rounded-full font-bold bg-[#dc3545]' variant="danger">Logout</Button>
       </div>
     </nav>
   );

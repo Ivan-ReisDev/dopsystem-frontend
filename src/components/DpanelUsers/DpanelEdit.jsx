@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { SystemContext } from '../../context/SystemContext';
 import { UserContext } from '../../context/UserContext';
 
-const DpanelEdit = ({ userSelect, setpage }) => {
+const DpanelEdit = ({ userSelect, setPage }) => {
     const { infoSystem } = useContext(SystemContext);
     const { updateUserAdmin, messege } = useContext(UserContext);
     const [nickname, setNickname] = useState('');
@@ -168,7 +167,7 @@ const DpanelEdit = ({ userSelect, setpage }) => {
                 >
                     Salvar Alterações
                 </button>
-                <button  onClick={() => setpage("inicial")} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded ml-4">
+                <button type='button' onClick={() => setPage("inicial")} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded ml-4">
                     Voltar
                 </button>
             </form>
