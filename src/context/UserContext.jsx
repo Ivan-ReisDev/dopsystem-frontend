@@ -17,29 +17,47 @@ const UserProvider = ({ children }) => {
     const [itemsPerPage] = useState(10); // Itens por página (ajustável)
     const token = localStorage.getItem('@Auth:Token')
               
-
+    let currentController = null;
     const tokenUser = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
 
     const searchAllUsers = async (nickname, typeRequeriment) => {
-        try {
-          const res = await fetch(`${PRD}search?nickname=${nickname}&typeRequeriment=${typeRequeriment}`, {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-          });
-          const data = await res.json();
-      
-          if (res.ok) {
-            setUser(data)
-            return data;
-          } else {
-            throw new Error(data.message || 'Failed to fetch user');
-          }
-        } catch (error) {
+      // Abortar a solicitação anterior se houver uma
+      if (currentController) {
+        currentController.abort();
+      }
+    
+      // Criar um novo AbortController para a nova solicitação
+      currentController = new AbortController();
+      const signal = currentController.signal;
+    
+      try {
+        const res = await fetch(`${PRD}search?nickname=${nickname}&typeRequeriment=${typeRequeriment}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+          signal, // Passar o signal para o fetch
+        });
+    
+        const data = await res.json();
+    
+        if (res.ok) {
+          setUser(data);
+          return data;
+        } else {
+          throw new Error(data.message || 'Failed to fetch user');
+        }
+      } catch (error) {
+        if (error.name === 'AbortError') {
+          console.log('Fetch request was aborted');
+        } else {
           throw new Error(error.message || 'Error fetching user');
         }
-      };
+      } finally {
+        // Limpar o controller depois da solicitação ser concluída
+        currentController = null;
+      }
+    };
      
 
       const getAll = async (page, pageSize) => {
