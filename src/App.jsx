@@ -27,7 +27,7 @@ import NotFound from './pages/Notfound/NotFound';
 import PostClasseInitial from './pages/PostClasseInitial/PostClasseInitial';
 import PageBasic from './pages/PageBasic/PageBasic';
 import Endorsement from './pages/Endorsement/Endorsement';
-
+import { Analytics } from '@vercel/analytics/react';
 function App() {
   const { isAuthentication } = useContext(AuthContext);
 
@@ -125,13 +125,12 @@ function App() {
           />
 
 
-            <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
 
-  
+
         </Route>
-
       </Routes>
-
+      <Analytics />
     </>
   );
 }

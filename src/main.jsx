@@ -14,6 +14,7 @@ import { RhProvider } from './context/RhContext.jsx';
 import { PublicationProvider } from './context/PublicationContext.jsx';
 import { EndorsementProvider } from './context/EndorsementContext.jsx';
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <AuthProvider>
