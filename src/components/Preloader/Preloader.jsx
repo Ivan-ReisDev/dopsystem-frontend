@@ -2,10 +2,10 @@ import React from 'react'
 import Preload from '../../assets/preloader.gif'
 import './preloader.css'
 
-const Preloader = ({shoWstatus}) => {
+const Preloader = () => {
   return (
-    <div className={ shoWstatus ? 'preloader' : "preloaderActive" }>
-        <img src={Preload} alt="" />
+    <div className="preloader" >
+        <img src={Preload} alt="Loading..." />
     </div>
   )
 }

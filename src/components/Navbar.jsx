@@ -23,9 +23,9 @@ const Navbar = () => {
                     <h1 className='text-[25px] font-semibold ml-4  text-[#ffffff]'> <span className='text-[#0084FF]'>DOP</span>System</h1> <p className='text-[#b1b1b1]'></p>
                 </NavLink>
                 <div className='text-[#FFFFFF] h-full flex items-center text-[28px] mr-5'>
-                     <button className='mr-4'>
+                     {/* <button className='mr-4'>
                         <GoBellFill />
-                    </button>
+                    </button> */}
                     <button className='mr-2' onClick={activeSidebar}>
                         { showSidebar ? <IoMdClose />
                         : <RxHamburgerMenu /> }

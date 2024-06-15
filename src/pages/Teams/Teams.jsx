@@ -3,6 +3,7 @@ import style from './teams.module.css';
 import { RiTeamFill } from "react-icons/ri";
 import { MdEditDocument } from "react-icons/md";
 import { FaUsersCog, FaAddressBook, FaListUl, FaPlus, FaUsers } from "react-icons/fa";
+import { GiArchiveRegister } from "react-icons/gi";
 import { IoIosDocument } from "react-icons/io";
 import { IoArrowUndo } from "react-icons/io5";
 import { Link } from 'react-router-dom';
@@ -248,6 +249,7 @@ const Teams = ({ team }) => {
                 <h3>Liderança</h3>
               </div>
               <ul>
+                <li><button onClick={() => setTypeMenu("editDocs")}>Registro de Aulas<span><GiArchiveRegister /></span></button></li>
                 <li><button onClick={() => setTypeMenu('Controle de Membros')}>Controle de membros<span><FaUsersCog /></span></button></li>
                 <li><button onClick={() => setTypeMenu("editDocs")}>Editar documento<span><MdEditDocument /></span></button></li>
               </ul>

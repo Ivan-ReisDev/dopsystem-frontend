@@ -25,6 +25,8 @@ import Footer from './components/Footer/Footer';
 import DPanel from './pages/DPanel/DPanel';
 import NotFound from './pages/Notfound/NotFound';
 import PostClasseInitial from './pages/PostClasseInitial/PostClasseInitial';
+import PageBasic from './pages/PageBasic/PageBasic';
+import Endorsement from './pages/Endorsement/Endorsement';
 
 function App() {
   const { isAuthentication } = useContext(AuthContext);
@@ -35,92 +37,101 @@ function App() {
 
   return (
     <>
-      {isAuthentication && <Navbar />}
       <Routes>
-        <Route path='/' element={!isAuthentication ? <LoginSystem  /> : <Home />} />
-        <Route path='/home' element={isAuthentication ? <Home /> : <LoginSystem/>} />
-        <Route path='/login' element={!isAuthentication ? <LoginSystem /> : <Home />} />
+        <Route path='/' element={<PageBasic />} >
+          <Route path='/login' element={!isAuthentication ? <LoginSystem /> : <Home />} />
+          <Route path='/home' element={isAuthentication ? <Home /> : <LoginSystem />} />
+          <Route index element={isAuthentication ? <Home /> : <LoginSystem />} />
 
-        {/* RODAS DO PAINEL ADMINISTRATIVO */}
-        {isAuthentication && userType?.userType === "Admin" && (
-          <Route path='/dpanel' element={<DPanel />} />
-        )}
+          {/* RODAS DO PAINEL ADMINISTRATIVO */}
+          {isAuthentication && userType?.userType === "Admin" && (
+            <Route path='/dpanel' element={<DPanel />} />
+          )}
 
-        {/* ROTAS DE EQUIPE */}
-        {Array.isArray(teams) && (
-          (userType && userType.teans && (userType.userType === "Admin" || userType.userType === "Diretor")) ?
-            teams.map((team, index) => (
-              <Route
-                key={index}
-                path={`/team/${team.nameTeams}`}
-                element={isAuthentication ? <Teams team={team} /> : <LoginSystem />}
-              />
-            ))
-            :
-            teams
-              .filter(team => userType && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(team.nameTeams))
-              .map((team, index) => (
+          {/* ROTAS DE EQUIPE */}
+          {Array.isArray(teams) && (
+            (userType && userType.teans && (userType.userType === "Admin" || userType.userType === "Diretor")) ?
+              teams.map((team, index) => (
                 <Route
                   key={index}
                   path={`/team/${team.nameTeams}`}
                   element={isAuthentication ? <Teams team={team} /> : <LoginSystem />}
                 />
               ))
-        )}
+              :
+              teams
+                .filter(team => userType && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(team.nameTeams))
+                .map((team, index) => (
+                  <Route
+                    key={index}
+                    path={`/team/${team.nameTeams}`}
+                    element={isAuthentication ? <Teams team={team} /> : <LoginSystem />}
+                  />
+                ))
+          )}
 
-        {Array.isArray(teams) && (
-          teams
-            .filter(team => {
-              // Verifica se o usuário é Admin ou Diretor
-              if (userType && (userType.userType === "Admin" || userType.userType === "Diretor")) {
-                return true;
-              }
-              // Verifica se o usuário é líder da equipe
-              return userType && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(team.nameTeams) && team.leader === userType.nickname;
-            })
-            .map((team, index) => (
-              <Route
-                key={index}
-                path={`/team/${team.nameTeams}/doc/new`}
-                element={isAuthentication ? <EditDocs team={team} /> : <LoginSystem />}
-              />
-            ))
-        )}
+          {Array.isArray(teams) && (
+            teams
+              .filter(team => {
+                // Verifica se o usuário é Admin ou Diretor
+                if (userType && (userType.userType === "Admin" || userType.userType === "Diretor")) {
+                  return true;
+                }
+                // Verifica se o usuário é líder da equipe
+                return userType && userType.teans && Array.isArray(userType.teans) && userType.teans.includes(team.nameTeams) && team.leader === userType.nickname;
+              })
+              .map((team, index) => (
+                <Route
+                  key={index}
+                  path={`/team/${team.nameTeams}/doc/new`}
+                  element={isAuthentication ? <EditDocs team={team} /> : <LoginSystem />}
+                />
+              ))
+          )}
 
-        {/* ROTAS DE FORMULÁRIO */}
-        <Route path='/postclasse' element={isAuthentication ? <PostClasseInitial /> : <LoginSystem  />} />
-        <Route path='/promotion' element={isAuthentication ? <Promotion /> : <LoginSystem  />} />
-        <Route path='/relegation' element={isAuthentication ? <Relegation /> : <LoginSystem  />} />
-        <Route path='/warning' element={isAuthentication ? <Warning /> : <LoginSystem  />} />
-        <Route path='/resignation' element={isAuthentication ? <Resignation /> : <LoginSystem  />} />
-        <Route path='/contract' element={isAuthentication ? <Contract /> : <LoginSystem  />} />
-        <Route path='/sale' element={isAuthentication ? <Sale /> : <LoginSystem />} />
-        <Route path='/members' element={isAuthentication ? <Members /> : <LoginSystem />} />
+          {/* ROTAS DE FORMULÁRIO */}
+          <Route path='/postclasse' element={isAuthentication ? <PostClasseInitial /> : <LoginSystem />} />
+          <Route path='/promotion' element={isAuthentication ? <Promotion /> : <LoginSystem />} />
+          <Route path='/relegation' element={isAuthentication ? <Relegation /> : <LoginSystem />} />
+          <Route path='/warning' element={isAuthentication ? <Warning /> : <LoginSystem />} />
+          <Route path='/resignation' element={isAuthentication ? <Resignation /> : <LoginSystem />} />
+          <Route path='/contract' element={isAuthentication ? <Contract /> : <LoginSystem />} />
+          <Route path='/sale' element={isAuthentication ? <Sale /> : <LoginSystem />} />
+          <Route path='/members' element={isAuthentication ? <Members /> : <LoginSystem />} />
 
-        {/*  RODAS DE CONFIGURAÇÃO DE DOCUMENTOS */}
+          {/*  RODAS DE CONFIGURAÇÃO DE DOCUMENTOS */}
 
-        <Route
-          path="/doc/:docId"
-          element={isAuthentication ? <DocumentView /> : <LoginSystem />}
-        />
+          <Route
+            path="/doc/:docId"
+            element={isAuthentication ? <DocumentView /> : <LoginSystem />}
+          />
 
-        <Route
-   
-          path={`/editor/:docId`}
-          element={isAuthentication ? <EditDocsView /> : <LoginSystem />}
-        />
-
-
-        {isAuthentication && (
-          <Route path='/search/:nickname' element={<UserProfile />} />
-        )}
+          <Route
+            path={`/editor/:docId`}
+            element={isAuthentication ? <EditDocsView /> : <LoginSystem />}
+          />
 
 
-        
+          {isAuthentication && (
+            <Route path='/search/:nickname' element={<UserProfile />} />
+          )}
 
-        <Route path="*" element={<NotFound />} />
+
+          {/* Rota de aval */}
+
+          <Route
+            path={`/endorsement`}
+            element={isAuthentication && (userType.userType === "Admin" || userType.userType === "Diretor" || userType.userType === "Recursos Humanos") ? <Endorsement /> : <LoginSystem />}
+          />
+
+
+            <Route path="*" element={<NotFound />} />
+
+  
+        </Route>
+
       </Routes>
-      <Footer />
+
     </>
   );
 }
@@ -167,7 +178,7 @@ const EditDocsView = () => {
   }, [docCompleted, teams]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Preloader />;
   }
 
   if (error) {
@@ -215,7 +226,7 @@ const DocumentView = () => {
   }, [docId]);
 
   if (!docCompleted) {
-    return <div>Loading...</div>;
+    return <Preloader />;
   }
 
   console.log(userType.teans)
@@ -251,7 +262,7 @@ const UserProfile = () => {
     fetchUser();
   }, [nickname]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Preloader />;
   if (error) return <div>{error}</div>;
 
   return profile ? <Profile profile={profile} /> : <div>User not found</div>;

@@ -75,7 +75,9 @@ const Home = () => {
           allPublications.map((publi) => (
           <Publication key={publi._id} publi={publi} />
         ))}
-        <License />
+        <License 
+          user={user}
+        />
       </div>
       <TagModal isOpen={isModalOpen} onClose={closeModal}>
         <h2 className="text-2xl font-bold mb-4">Crie sua TAG</h2>

@@ -123,6 +123,7 @@ const Sidebar = ({ showSidebar, setShowSidebar}) => {
         </div>
 
         <li onClick={() => setShowSidebar(!showSidebar)} className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/members'}>Membros</NavLink></li>
+        {infoProfileUserCompleted && (infoProfileUserCompleted.userType === "Diretor" || infoProfileUserCompleted.userType === "Admin" || infoProfileUserCompleted.userType === "Recursos Humanos") && <li onClick={() => setShowSidebar(!showSidebar)} className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={`/endorsement`}>Avais</NavLink></li>}
         <li onClick={() => setShowSidebar(!showSidebar)} className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={`/search/${infoProfileUserCompleted.nickname}`}>Perfil</NavLink></li>
       </ul>
 
