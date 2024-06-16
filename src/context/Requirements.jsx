@@ -11,6 +11,7 @@ const RequirementsProvider = ({ children }) => {
     const [message, setMessage] = useState("");
     const [teams, setTeams] = useState("");
     const [requerimentsFilter, setRequerimentsFilter] = useState([])
+    const [requerimentsClasses, setRequerimentsClasses] = useState([])
     const [requerimentsArray, setRequerimentsArray] = useState([])
     const {setLoading} = useContext(AuthContext);
     const token = localStorage.getItem('@Auth:Token')
@@ -269,6 +270,23 @@ const RequirementsProvider = ({ children }) => {
         }
     };
 
+    const searchRequerimentsClasses= async (teamRequirement, page, limit) => {
+        try {
+            const res = await fetch(`${PRD}search/requeriments/teams?teamRequirement=${teamRequirement}&page=${page}&limit=${limit}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            const data = await res.json();
+            setRequerimentsClasses(data); // Atualize o estado local com os novos dados
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     function formatarDataHora(dataHoraString) {
         const meses = [
             "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
@@ -305,7 +323,10 @@ const RequirementsProvider = ({ children }) => {
                 createRequerimentWarning,
                 createRequerimentResignation,
                 createRequerimentContract,
-                createRequerimentSale
+                createRequerimentSale,
+                setRequerimentsClasses,
+                requerimentsClasses,
+                searchRequerimentsClasses
                 
             }}
         >

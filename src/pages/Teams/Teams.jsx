@@ -14,6 +14,8 @@ import DocsTeams from '../../components/DocsTeams/DocsTeams';
 import { TeamsContext } from '../../context/TeamsContext';
 import { FormAdd } from '../../components/FormTeams/FormAdd';
 import FormClasses from '../../components/FormTeams/FormClasses';
+import TableClasses from '../../components/TableClasses/TableClasses';
+import "../forms.css"
 
 const Teams = ({ team }) => {
   const storedUser = localStorage.getItem("@Auth:ProfileUser");
@@ -217,6 +219,19 @@ const Teams = ({ team }) => {
             </div>
           )}
 
+{typeMenu === "TableClasses" && (
+            <div className={style.ListMembersEdit}>
+              <div className='divMainForms'>
+                <h2><span> <FaListUl /></span>Postar Aula</h2>
+                <button onClick={() => setAddMember(!addMember)} className={style.btnDocs}>{!addMember ? <FaPlus /> : <IoArrowUndo />}</button>
+              </div>
+              <TableClasses
+              userLocalStorage={userLocalStorage}
+                team={team}
+              />
+            </div>
+          )}
+
           {typeMenu === "Controle de Membros" && (
             <div className={style.ListMembersEdit}>
               <div className='divMainForms'>
@@ -249,7 +264,7 @@ const Teams = ({ team }) => {
                 <h3>Liderança</h3>
               </div>
               <ul>
-                <li><button onClick={() => setTypeMenu("editDocs")}>Registro de Aulas<span><GiArchiveRegister /></span></button></li>
+                <li><button onClick={() => setTypeMenu("TableClasses")}>Registro de Aulas<span><GiArchiveRegister /></span></button></li>
                 <li><button onClick={() => setTypeMenu('Controle de Membros')}>Controle de membros<span><FaUsersCog /></span></button></li>
                 <li><button onClick={() => setTypeMenu("editDocs")}>Editar documento<span><MdEditDocument /></span></button></li>
               </ul>
