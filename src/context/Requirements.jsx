@@ -84,7 +84,7 @@ const RequirementsProvider = ({ children }) => {
 
             if (res.ok) {
                 setMessage(resJSON);
-                navigate(`search/profile/${data.promoted}`)
+                navigate(`search/${data.promoted}`)
             } else {
                 setMessage(resJSON);
                 
