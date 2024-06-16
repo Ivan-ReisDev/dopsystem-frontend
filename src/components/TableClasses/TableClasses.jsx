@@ -19,7 +19,7 @@ const TableClasses = ({ team }) => {
             setClassesDb(requerimentsClasses.requirements);
             setTotalPages(requerimentsClasses.totalPages);
         }
-    }, [requerimentsClasses]);
+    }, [requerimentsClasses, team.nameTeams]);
 
     const fetchClasses = async (page) => {
         try {
