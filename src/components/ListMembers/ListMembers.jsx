@@ -1,18 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import style from './ListMembers.module.css'
 import { Link } from 'react-router-dom'
+import { SystemContext } from '../../context/SystemContext';
 
-const ListMembers = ({ infoSystem, select, patents }) => {
-    const [users, setUsers] = useState([])
+const ListMembers = ({ infoSystem, select }) => {
+    const [users, setUsers] = useState([]);
+    const {getPatents, patents} = useContext(SystemContext);
 
-    const handleSelect = (e) => {
+    const handleSelect = async (e) => {
         const patentSelected = e.target.value;
-        if (select === "Militares") {
-            setUsers(patents.filter(user => user.patent === patentSelected));
-        } else if (select === "Executivos") {
-            setUsers(patents.filter(user => user.patent === patentSelected));
-        }
-
+        console.log(patentSelected)
+        await getPatents(patentSelected)
     }
     return (
         <div className={style.ListMembers}>
@@ -39,9 +37,9 @@ const ListMembers = ({ infoSystem, select, patents }) => {
             </label>
             
             <ul className={style.CardUser}>
-            { users.length <= 0 && <h2>Nenhum militar encontrado</h2>}
-            {users &&
-                users.map((user) => (
+            { patents.length <= 0 && <h2>Nenhum militar encontrado</h2>}
+            {patents &&
+                patents.map((user) => (
                     <li key={user.id}>
                         <Link to={`/search/${user.nickname}`}>
                             <div>

@@ -8,7 +8,8 @@ const SystemContext = createContext("");
 
 const SystemProvider = ({ children }) => {
     const [infoSystem, setInfoSystem] = useState([])
-    const [messege, setMessage] = useState('')
+    const [messege, setMessage] = useState('');
+    const [patents, setPatents] = useState([]);
     const token = localStorage.getItem('@Auth:Token')
 
     const getSystem = useCallback(async (tokenAuth) => {
@@ -35,14 +36,35 @@ const SystemProvider = ({ children }) => {
         getSystem(localStorage.getItem('@Auth:Token'));
     }, []);
 
-    
+
+    const getPatents = async (patent) => {
+        try {
+            const res = await fetch(`${PRD}patents?patent=${patent}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error('Erro na requisição');
+            }
+            const data = await res.json();
+            setPatents(data);
+        } catch (error) {
+            console.log(error.message || 'Erro desconhecido');
+        }
+    }
 
     return (
         <SystemContext.Provider
             value={{
                 infoSystem,
                 getSystem,
-                messege
+                messege,
+                getPatents,
+                patents,
+                setPatents
             }}
         >
             {children}

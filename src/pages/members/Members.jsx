@@ -10,27 +10,15 @@ import { UserContext } from '../../context/UserContext';
 const Members = () => {
     
     const { getAll, user} = useContext(UserContext)
-    const { infoSystem } = useContext(SystemContext)
+    const { infoSystem, setPatents } = useContext(SystemContext)
     const [select, setSelect] = useState('menu');
-    const [patents, setPatents] = useState([]);
 
     useEffect(() => {
         document.title = "Polícia DOP - Membros";
-        getAll()
     }, []);
 
-    const selectType = async (type) => {
-        setSelect(type);
-        if (type === "Militares") {
-            await setPatents(user.filter(user => user && infoSystem[0].patents.includes(user.patent) && (user.status === "Ativo" || user.status === "Pendente")));
-        } else if (type === "Executivos") {
-            await setPatents(user.filter(user => user && infoSystem[0].paidPositions.includes(user.patent) && (user.status === "Ativo" || user.status === "Pendente")));
-        }
-    };
 
-    useEffect(() => {
-        patents
-    }, [patents]);
+
 
     return (
         <div className={style.Members}>
@@ -39,8 +27,13 @@ const Members = () => {
                 <>
                     <h2>Escolha uma hierarquia</h2>
                     <div className={style.btns}>
-                        <button onClick={() => selectType("Militares")} >Patentes Militares</button>
-                        <button onClick={() => selectType("Executivos")}>Cargos Executivos</button>
+                        <button onClick={() => {setSelect("Militares")
+                            setPatents('');
+                        }} >Patentes Militares</button>
+                        <button onClick={() => {setSelect("Executivos")
+                            setPatents('')
+
+                        }}>Cargos Executivos</button>
                     </div>
                 </>
             }
@@ -50,7 +43,6 @@ const Members = () => {
                 <button onClick={() => setSelect("menu")}> <FaArrowLeft /> Voltar</button>
 
                 <ListMembers
-                    patents={patents}
                     infoSystem={infoSystem}
                     select={select}
                 />
