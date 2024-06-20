@@ -49,7 +49,7 @@ const Footer = () => {
                 <p>Copyright © Polícia DOP 2010 ~ 2024. Todos os direitos reservados.</p>
             </div>
             <div className={style.dev}>
-                <p>Criado e desenvolvido por <NavLink target='_blank' to="https://ivanreis.vercel.app/">Ivan Reis | .Disco.Master.</NavLink></p>
+                <p>Criado e desenvolvido por <NavLink target='_blank' to="https://ivanreis.vercel.app/">Ivan Reis | .Disco.Master</NavLink> & Créditos do designer <NavLink>João Paulo | GuerreiroBR13</NavLink></p>
 
             </div>
 

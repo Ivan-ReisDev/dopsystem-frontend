@@ -1,5 +1,5 @@
 import { UserContext } from "../../context/UserContext";
-import { FaUser, FaBook, FaExclamationTriangle, FaHandshake, FaDollarSign } from "react-icons/fa";
+import { FaUser, FaBook, FaExclamationTriangle, FaHandshake, FaDollarSign, FaHistory, FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import style from "./profile.module.css";
 import LogoImage from '../../assets/DOP Padrão (com borda).png';
@@ -7,7 +7,12 @@ import { CiSearch } from "react-icons/ci";
 import React, { useContext, useEffect, useState } from 'react';
 import { RequirementsContext } from "../../context/Requirements";
 import { AuthContext } from "../../context/AuthContext";
+
+
 import Preloader from "../../assets/preloader.gif";
+
+
+import Functions from "../../components/Funcions/Functions";
 
 const Profile = ({ profile }) => {
     const [newProfile, setNewProfile] = useState(null); // Inicializando com null
@@ -55,8 +60,26 @@ const Profile = ({ profile }) => {
     return (
         <div>
             <div className={style.profile}>
-                <div className="contentBodyElementTitle">
-                    <label>Buscar</label>
+                <div className={style.profileBody}>
+                    <article>
+                        <div className={style.QuickSearchInfoBody}>
+                            <div className={style.ImgFundo}>
+                                <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${newProfile.nickname}&direction=3&head_direction=3&size=l&gesture=sml&action=std`} alt="Avatar" />
+                            </div>
+                            <div>
+                                <h3>{newProfile.nickname}</h3>
+                                <p><span>Patente: </span>{newProfile.patent}</p>
+                                <p><span>TAG: </span>[{newProfile.tag}]</p>
+                                <p><span>Status: </span>{newProfile.status}</p>
+                                <p><span>Missão: </span>[DOP] {newProfile.patent}</p>
+                                <p><span>Advertências: </span>{newProfile.warnings}</p>
+                                <p><span>Medalhas: </span>{newProfile.medals}</p>
+                                <p><span>Admissão: </span>{formatarDataHora(newProfile.createdAt)}</p>
+                            </div>
+                        </div>
+                    </article>
+                    <div className="max-w-[1000px] w-[90%] rounded-t-[5px] contentBodyElementTitle">
+                    <label className="flex flex-row justify-center items-center" > <span className="mr-2"><FaSearch /></span> Buscar</label>
                 </div>
 
                 <form onSubmit={handleSubmit} className={style.profileUser}>
@@ -69,32 +92,11 @@ const Profile = ({ profile }) => {
                         onChange={(e) => setBusca(e.target.value)} />
                     <button type="submit"><CiSearch /></button>
                 </form>
-                <div className={style.profileBody}>
-                    <article>
-                        <div className={style.QuickSearchInfoBody}>
-                            <div className={style.header}>
-                                <img src={LogoImage} alt="Logo" />
-                                <div>
-                                    <h4>Departamento de Operações Policiais</h4>
-                                    <h4>Carteira de Identificação Militar</h4>
-                                </div>
-                            </div>
-                            <div>
-                                <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${newProfile.nickname}&direction=2&head_direction=3&size=m&gesture=sml&action=std`} alt="Avatar" />
-                            </div>
-
-                            <div>
-                                <h3>{newProfile.nickname}</h3>
-                                <p><span>Patente: </span>{newProfile.patent}</p>
-                                <p><span>TAG: </span>[{newProfile.tag}]</p>
-                                <p><span>Status: </span>{newProfile.status}</p>
-                                <p><span>Admissão: </span>{formatarDataHora(newProfile.createdAt)}</p>
-                                <p><span>Advertências: </span>{newProfile.warnings}</p>
-                                <p><span>Medalhas: </span>{newProfile.medals}</p>
-                            </div>
+                    <Functions />
+                    <main className="min-w-[200px] w-full bg-white rounded-md overflow-hidden border border-[#e4e4e4] mb-2.5">
+                        <div className="contentBodyElementTitle">
+                            <h3 className="flex flex-row"><span className="mr-2"><FaHistory /></span>Histórico Policial</h3>
                         </div>
-                    </article>
-                    <main>
                         {requerimentsArray && requerimentsArray.length > 0 ? (
                             requerimentsArray.slice().reverse().map((requeriment, index) => (
                                 <div key={index} className={style.requeriment}>

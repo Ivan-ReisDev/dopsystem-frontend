@@ -8,37 +8,41 @@
     height:auto;
     min-height: 90vh;
     display: flex;
+    align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
 }
 
 .profile main {
-    width: 67%;
+    width: 100%;
 
 }
 
 .ProfilleBody {
-    width: 100%;
+    width: 80%;
     height: 100%;
 
 }
 
 .profile article {
     max-width: 32%;
-    min-width: 400px;
+    min-width: 420px;
 }
 
 .profileBody {
     border: none;
-    width: 100%;
+    max-width: 1000px;
+    width: 90%;
     height:auto;
     margin: 0;
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .profileUser  {
+    max-width: 1000px;
     width: 100%;
     height: 40px;
     display: flex;
@@ -46,11 +50,12 @@
     justify-content: space-between;
     border-bottom: 1px solid #e4e4e4;
     background-color: rgb(255, 255, 255);
+    margin-bottom: 10px;
 }
 
 .profileUser input {
     background-color: transparent;
-    width: 90%;
+    width: 100%;
     height: 35px;
     padding: 10px;
 }
@@ -60,20 +65,17 @@
 }
 
 .QuickSearchInfoBody {
-    padding: 15px;
-   background-color: #FFF;
+   padding: 15px;
    color: #031149;
    display: flex;
    flex-direction: row;
    flex-wrap: wrap;
    justify-content: space-around;
-   border: 1px solid #e4e4e4;
-
 }
-
 
 .QuickSearchInfoBody h3{
     font-weight: bold;
+    font-size: 23px;
 }
 
 .QuickSearchInfoBody p {
@@ -84,6 +86,44 @@
     font-weight: bold;
 }
 
+.ImgFundo {
+    margin-right: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100px;
+    border: 6px solid #fff;
+    border-radius: 5px; /* Aumentei o valor para efeito visual */
+    box-shadow: 1px 1px 10px #a1a1a1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    height: 120px;
+}
+
+.ImgFundo::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../../assets/fundo.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: inherit; /* Herda o border-radius do contêiner */
+}
+
+.ImgFundo img {
+    position: relative;
+    width: 80px;
+    left: 0;
+    right: 0;
+    top: 10px;
+}
 
 .header {
     width: 100%;
@@ -191,14 +231,12 @@
     
 .profileBody {
     width: 100%;
-    background-color: #344cad;
     flex-direction: column;
     
 }
 .profile article {
     min-width: 100%;
     width: 100%;
-    background-color: #e4a700;
 }
 .profile main{
    width: 100%;     
