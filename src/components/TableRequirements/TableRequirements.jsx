@@ -9,16 +9,19 @@ import FormContract from '../FormReq/FormContract';
 import FormResignation from '../FormReq/FormResignation'
 import { RhContext } from '../../context/RhContext';
 import { json } from 'react-router-dom';
+import { RequirementsContext } from '../../context/Requirements';
+import Preloader from "../../assets/preloader.gif"
 const TableRequirements = ({ requerimentsFilter, typeStatus }) => {
 
     const [requerimentSelected, RequerimentSelected] = useState([]);
     const [stateRequeri, setStateRequeri] = useState(false);
     const localStoregeUser = JSON.parse(localStorage.getItem("@Auth:Profile"))
     const { setMessege } = useContext(RhContext);
+    const { loadingReq } = useContext(RequirementsContext)
 
     return (
         <>
-            {!stateRequeri && <>
+            {!stateRequeri && !loadingReq && <>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -122,6 +125,14 @@ const TableRequirements = ({ requerimentsFilter, typeStatus }) => {
             {stateRequeri && typeStatus === "Contrato" && <FormContract
                 requerimentSelected={requerimentSelected}
             />}
+
+            {loadingReq &&
+                <div className='h-full w-full flex items-center justify-center'>
+                    <img src={Preloader} alt="Loading..." />
+                </div>
+
+
+            }
         </>
     )
 }

@@ -23,9 +23,9 @@ const Footer = () => {
                 <div className={style.midia}>
                     <img src={LogoDOP} alt="Logo da DOP" />
                     <ul>
-                        <li><NavLink to={``}><FaDiscord /> </NavLink></li>
-                        <li><NavLink to={``}><FaInstagramSquare /> </NavLink></li>
-                        <li><NavLink to={``}><IoLogoWhatsapp /></NavLink></li>
+                        <li><NavLink target='_blank' to={`https://discord.gg/JTStBZhC`}><FaDiscord /> </NavLink></li>
+                        <li><NavLink target='_blank' to={`https://www.instagram.com/policiadophb?igsh=YzljYTk1ODg3Zg==`}><FaInstagramSquare /> </NavLink></li>
+                        <li><NavLink target='_blank' to={`https://chat.whatsapp.com/FIAzN7M4xPtBXchqCKQJN7`}><IoLogoWhatsapp /></NavLink></li>
                     </ul>
                 </div>
                 <div className={style.body}>

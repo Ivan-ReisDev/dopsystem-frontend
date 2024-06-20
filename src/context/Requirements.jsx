@@ -13,6 +13,7 @@ const RequirementsProvider = ({ children }) => {
     const [requerimentsFilter, setRequerimentsFilter] = useState([])
     const [requerimentsClasses, setRequerimentsClasses] = useState([])
     const [requerimentsArray, setRequerimentsArray] = useState([])
+    const [loadingReq, setLoadingReq] = useState(false)
     const {setLoading} = useContext(AuthContext);
     const token = localStorage.getItem('@Auth:Token')
     // const getTeams = useCallback(async (tokenAuth) => {
@@ -254,6 +255,7 @@ const RequirementsProvider = ({ children }) => {
     }, []);
 
     const searchRequerimentsPromotedsUser = async (typeRequirement, statusRequirement) => {
+        setLoadingReq(true);
         try {
             const res = await fetch(`${PRD}search/requeriments/promoteds?typeRequirement=${typeRequirement}&statusRequirement=${statusRequirement}`, {
                 method: 'GET',
@@ -264,9 +266,11 @@ const RequirementsProvider = ({ children }) => {
 
             const data = await res.json();
             setRequerimentsFilter(data); // Atualize o estado local com os novos dados
+            setLoadingReq(false);
             return data;
         } catch (error) {
             console.log(error);
+            setLoadingReq(false);
         }
     };
 
@@ -326,7 +330,8 @@ const RequirementsProvider = ({ children }) => {
                 createRequerimentSale,
                 setRequerimentsClasses,
                 requerimentsClasses,
-                searchRequerimentsClasses
+                searchRequerimentsClasses,
+                loadingReq
                 
             }}
         >
