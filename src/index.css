@@ -71,7 +71,7 @@ input:focus {
   align-items: center;
   font-weight: bold;
   color: #fff;
-  background-color: #031149;
+  background-color: #2c3136;
 
 }
 
@@ -171,7 +171,7 @@ input:focus {
 }
 
 .borderSidebar {
-  border-color: #3f4075 !important;
+  border-color: #54555a !important;
 }
 
 .buttonRadiosSidebar {

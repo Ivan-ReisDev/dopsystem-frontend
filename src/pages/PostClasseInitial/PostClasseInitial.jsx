@@ -16,7 +16,6 @@ const PostClasseInitial = () => {
             student,
             reason,
         }
-
         postCI(data);
         
     }

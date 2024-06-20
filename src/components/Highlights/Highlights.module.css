@@ -1,0 +1,42 @@
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.title span {
+    margin-right: 10px ;
+
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    display: flex;
+    width: 120px;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.card h3 {
+    font-size: 13px;
+    font-weight: 600;
+
+}
+
+.Link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+

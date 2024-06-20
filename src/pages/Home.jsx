@@ -11,6 +11,8 @@ import { AuthContext } from '../context/AuthContext';
 import TagModal from '../components/TagModal/TagModal';
 import { UserContext } from '../context/UserContext';
 import { PublicationContext } from '../context/PublicationContext';
+import Rank from '../components/Rank/Rank';
+import Highlights from '../components/Highlights/Highlights';
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,20 +66,25 @@ const Home = () => {
     <div className='body'>
       <div className='one'>
         <FastMenu />
-        <Docs />
+        <Rank />
       </div>
       <div className='two'>
         <QuickSearch />
+        <Highlights />
+        <License 
+          user={user}
+        />
+
       </div>
       <div className="try">
-        <h1>Publicações</h1>
+      <h1>Publicações</h1>
         {allPublications && 
           allPublications.map((publi) => (
           <Publication key={publi._id} publi={publi} />
         ))}
-        <License 
-          user={user}
-        />
+
+        <Docs />
+
       </div>
       <TagModal isOpen={isModalOpen} onClose={closeModal}>
         <h2 className="text-2xl font-bold mb-4">Crie sua TAG</h2>

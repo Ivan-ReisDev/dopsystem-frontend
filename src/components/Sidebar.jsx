@@ -37,8 +37,8 @@ const Sidebar = ({ showSidebar, setShowSidebar}) => {
   }, []);
 
   return (
-    <nav className={showSidebar ? ` z-10 duration-1000 absolute right-[0] top-[61px] px-3 h-[100vh] w-[330px] bg-[#031149] text-[#ffffff]`
-      : `z-10 absolute duration-1000 top-[8vh] px-3 h-[92vh]  w-[330px] right-[-330px] bg-[#031149] text-[#ffffff] nabBarNew`}>
+    <nav className={showSidebar ? ` z-10 duration-1000 absolute right-[0] top-[61px] px-3 h-[100vh] w-[330px] bg-[#2c3136] text-[#ffffff]`
+      : `z-10 absolute duration-1000 top-[8vh] px-3 h-[92vh]  w-[330px] right-[-330px] bg-[#2c3136] text-[#ffffff] nabBarNew`}>
       <div className=' borderSidebar w-full h-[20%] flex flex-col items-center justify-center  border-b'>
         {infoProfileUser && (
           <>

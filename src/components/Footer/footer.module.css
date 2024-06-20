@@ -2,8 +2,7 @@
     z-index: 0;
     position: relative;
     width: 100vw;
-    background-color: rgb(49, 49, 49);
-    background-color: #031149;
+    background-color: #343540;
     color: #fff;
     display: flex;
     margin-top: 61px;
@@ -31,7 +30,7 @@
 
 .body div {
     height: 150px;
-    background-color: #031149;
+    background-color: #343540;
     width: 30%;
     flex-direction: column;
 
@@ -93,7 +92,7 @@
     text-align: center;
     align-items: center;
     font-size: 13px;
-    background-color: #020d38;
+    background-color: rgb(32, 32, 39);
 
 
 }

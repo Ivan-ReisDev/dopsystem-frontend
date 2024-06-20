@@ -16,7 +16,7 @@ const Navbar = () => {
     }
   
     return (
-        <div className='h-[61px] w-[100vw] bg-[#000340] positionFixed z-1' >
+        <div className='h-[61px] w-[100vw] bg-[#343a40ff] positionFixed z-1' >
             <header className='nabBarNew  w-full h-full flex flex-row items-center justify-between'>
                 <NavLink to={'/home'} className=' ml-12 flex flex-row items-center justify-center'>
                     <img src={LogoDOP} alt="logo da DOP" className='w-[40px] m-0' />
