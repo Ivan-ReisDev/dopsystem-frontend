@@ -85,7 +85,7 @@ const RequirementsProvider = ({ children }) => {
 
             if (res.ok) {
                 setMessage(resJSON);
-                navigate(`search/${data.promoted}`)
+                navigate(`/search/${data.promoted}`)
             } else {
                 setMessage(resJSON);
                 
@@ -113,7 +113,7 @@ const RequirementsProvider = ({ children }) => {
 
             if (res.ok) {
                 setMessage(resJSON);
-                navigate(`search/profile/${data.promoted}`)
+                navigate(`/search/${data.promoted}`)
             } else {
                 setMessage(resJSON);
                 
@@ -141,7 +141,7 @@ const RequirementsProvider = ({ children }) => {
     
             if (res.ok) {
                 setMessage(DataMSG)
-                navigate(`search/profile/${promoted}`)
+                navigate(`/search/${promoted}`)
             } else {
                 setMessage(DataMSG)
             }

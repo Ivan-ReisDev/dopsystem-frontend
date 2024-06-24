@@ -49,13 +49,12 @@ const Sidebar = ({ showSidebar, setShowSidebar}) => {
                 alt=""
               />
             </div>
-
             <h2 className='mt-2 font-bold'>{infoProfileUser.nickname}</h2>
             <span>{infoProfileUser.patent}</span>
           </>
         )}
       </div>
-      {infoProfileUser ? infoProfileUser.userType === "Admin" && (
+      {infoProfileUser ? infoProfileUser.userType === "Admin" || infoProfileUser.userType === "Diretor" && (
         <div className='borderSidebar w-full h-[10%] flex flex-col items-center justify-center  border-b'>
           <NavLink onClick={() => setShowSidebar(!showSidebar)} to={'/dpanel'} className='buttonRadiosSidebar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> Painel <span className='uppercase'>admin</span></NavLink>
         </div>

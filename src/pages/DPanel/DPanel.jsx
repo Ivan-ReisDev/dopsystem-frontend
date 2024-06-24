@@ -14,9 +14,11 @@ import DpanelPublication from '../../components/DpanelPublication/DpanelPublicat
 
 const DPanel = () => {
   const [selectFunction, setSelectFunction] = useState('System');
+  const [user, setUser] = useState([])
 
   useEffect(() => {
     document.title = `Painel de Controle`;
+    setUser(JSON.parse(localStorage.getItem('@Auth:Profile')))
   }, []);
 
   return (
@@ -51,24 +53,29 @@ const DPanel = () => {
             >
               <BsMicrosoftTeams className="mr-2" /> Equipes
             </button>
-            <button
+            { user && user.userType === "Admin" &&
+              <button
               className={`block w-full text-left py-2 px-4 rounded-md mb-2 ${selectFunction === 'Users' ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-100'}`}
               onClick={() => setSelectFunction('Users')}
-            >
+              >
               <FaUsersCog className="mr-2" /> Usuários
             </button>
+            }
             <button
               className={`block w-full text-left py-2 px-4 rounded-md mb-2 ${selectFunction === 'Publication' ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-100'}`}
               onClick={() => setSelectFunction('Publication')}
             >
               <IoIosMegaphone className="mr-2" /> Publicações
             </button>
-            <button
+
+            {user && user.userType === "Admin" &&
+              <button
               className={`block w-full text-left py-2 px-4 rounded-md mb-2 ${selectFunction === 'Logger' ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-100'}`}
               onClick={() => setSelectFunction('Logger')}
-            >
-              <FaBlogger className="mr-2" /> Log
+              >
+              <FaBlogger className="mr-2" /> Logs
             </button>
+            }
           </nav>
         </article>
         <main className="w-full md:w-3/4">
