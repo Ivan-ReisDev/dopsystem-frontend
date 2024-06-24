@@ -4,7 +4,8 @@ import {
   FaArrowCircleDown,
   FaExclamationTriangle,
   FaSuitcase,
-  FaDollarSign
+  FaDollarSign,
+  FaStackOverflow
 } from "react-icons/fa";
 import { TbLicense } from "react-icons/tb";
 import { Link } from 'react-router-dom';
@@ -19,7 +20,7 @@ const FastMenu = () => {
   return (
     <div className='contentBodyElement'>
       <div className='contentBodyElementTitle'>
-        <h3>Menu Rápido</h3>
+        <h3 className='flex items-center'><span className='mr-2'><FaStackOverflow/></span> Menu Rápido</h3>
       </div>
       <ul>
         {user && user.userType === "Admin" && <li><Link to='/dpanel'>DPanel <span><IoIosSpeedometer /></span></Link></li>}

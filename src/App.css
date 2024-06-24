@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-3; /* Largura da scrollbar */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-[#2c3136]; /* Cor do fundo da scrollbar */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-[#4A5568] rounded-lg border-[3px] border-solid border-[#2c3136]; /* Cor, raio da borda e borda da barra de rolagem */
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-[#2d3748]; /* Cor da barra de rolagem ao passar o mouse */
+  }
+}
+
 .autofill-bg:-webkit-autofill {
   background-color: #f3f3f3; /* Define a cor de fundo desejada */
 }

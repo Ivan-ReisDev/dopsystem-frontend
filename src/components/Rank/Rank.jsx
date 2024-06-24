@@ -1,8 +1,9 @@
 import React from 'react'
-import { FaMedal } from "react-icons/fa6";
+import { FaMedal, FaRankingStar } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { IoIosMedal } from "react-icons/io";
 import { GiMedal } from "react-icons/gi";
+
 
 
 
@@ -13,7 +14,7 @@ const Rank = () => {
   return (
     <div className='contentBodyElement'>
       <div className='contentBodyElementTitle'>
-        <h3>Rank de Turnos</h3>
+        <h3 className='flex items-center'><span className='mr-2'><FaRankingStar /></span> Rank de Turnos</h3>
       </div>
       <ul>
         <li><Link to='/resignation' className='font-bold'><img className='w-[45px]' src="https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=.Disco.Master.&direction=2&head_direction=2&size=l&headonly=1" alt="" />.Disco.Master.<span><FaMedal className='text-amber-500 text-[22px]' /></span></Link></li>

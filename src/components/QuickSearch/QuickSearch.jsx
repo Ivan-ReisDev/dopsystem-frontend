@@ -2,10 +2,12 @@ import React, { useContext, useState, useCallback } from 'react';
 import style from './quickSearch.module.css';
 import Logo from '../../assets/DOP Padrão (com borda).png';
 import { CiSearch } from "react-icons/ci";
-import { FaAddressBook } from "react-icons/fa";
+import { FaAddressBook, FaSearch } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import { RequirementsContext } from '../../context/Requirements';
+
+
 
 const QuickSearch = () => {
   const { searchAllUsers, user } = useContext(UserContext);
@@ -35,7 +37,7 @@ const QuickSearch = () => {
   return (
     <div className={`contentBodyElement ${style.QuickSearch}`}>
       <div className='contentBodyElementTitle'>
-        <h3>Busca Rápida</h3>
+        <h3 className=' flex items-center'> <span className='mr-2'><FaSearch /></span> Busca Rápida</h3>
       </div>
 
       <div className={`${style.QuickSearchInfo}`}>

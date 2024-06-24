@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { IoIosDocument } from "react-icons/io";
+
 import { DocsContext } from '../../context/DocsContext';
 import Preloader from "../../assets/preloader.gif"
 const Docs = () => {
@@ -18,7 +20,7 @@ const Docs = () => {
   return (
     <div className='contentBodyElement'>
       <div className='contentBodyElementTitle'>
-        <h3>Documentos</h3>
+        <h3 className='flex items-center'> <span className='mr-2'><IoIosDocument /></span> Documentos</h3>
       </div>
       {loading ? (
         <div className='flex items-center justify-center'> <img className='w-[50px]' src={Preloader} alt="Loading..." /></div>
