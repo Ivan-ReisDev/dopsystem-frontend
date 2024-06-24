@@ -3,6 +3,7 @@ import JoditEditor from 'jodit-react';
 import { DocsContext } from '../../context/DocsContext';
 import { FaFloppyDisk } from "react-icons/fa6";
 import { TeamsContext } from '../../context/TeamsContext';
+import DOMPurify from 'dompurify';
 
 const EditDocs = ({ placeholder, doc, team }) => {
   const { teams } = useContext(TeamsContext);
@@ -15,6 +16,10 @@ const EditDocs = ({ placeholder, doc, team }) => {
   const [messege, setMessege] = useState("");
   const [docsType, setDocsType] = useState(doc ? doc.docsType : '');
   const [checkbox, setCheckbox] = useState(false);
+
+  const sanitizedContent = DOMPurify.sanitize(content);
+  const sanitizedTitle = DOMPurify.sanitize(title);
+
 
   const config = useMemo(
     () => ({
@@ -97,7 +102,7 @@ const EditDocs = ({ placeholder, doc, team }) => {
             <input
               type="text"
               onChange={(e) => setTitle(e.target.value)}
-              value={title}
+              value={sanitizedTitle}
               placeholder='Digite aqui o título.'
               className="w-full p-2 mt-2 border border-gray-300 rounded-md"
             />
@@ -129,7 +134,7 @@ const EditDocs = ({ placeholder, doc, team }) => {
         </div>
         <JoditEditor
           ref={editor}
-          value={content}
+          value={sanitizedContent}
           config={config}
           tabIndex={1}
           onBlur={handleBlur}

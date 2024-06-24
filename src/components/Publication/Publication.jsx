@@ -8,6 +8,7 @@ const Publication = ({ publi } ) => {
 
     const sidebar = () => setPublication(!publication)
     const sanitizedContent = DOMPurify.sanitize(publi.content);
+    const sanitizedTitle = DOMPurify.sanitize(publi.title);
 
 
     // getPublication,
@@ -18,7 +19,7 @@ const Publication = ({ publi } ) => {
             <div className={style.PublicationTitle} onClick={sidebar}>
                 <div>
                     <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${publi.user}&direction=2&head_direction=2&size=m&action=std`} alt="Avatar" />
-                    <h2>{publi.title}</h2>
+                    <h2>{sanitizedTitle}</h2>
                 </div>
                 <button onClick={sidebar}> {publication ? "-" : <FaPlus />}   </button>
             </div>

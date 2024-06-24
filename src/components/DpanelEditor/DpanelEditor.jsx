@@ -4,6 +4,7 @@ import { DocsContext } from '../../context/DocsContext';
 import { MdDelete } from "react-icons/md";
 import { FaFloppyDisk } from "react-icons/fa6";
 import { TeamsContext } from '../../context/TeamsContext';
+import DOMPurify from 'dompurify';
 
 const DpanelEditor = ({ doc }) => {
     const { createDocs, message: messageBack, setMessage: setMessageBack, loadingDocs, deleteDoc, resOk, editDoc } = useContext(DocsContext);
@@ -16,6 +17,9 @@ const DpanelEditor = ({ doc }) => {
     const [messege, setMessege] = useState('');
     const [docsType, setDocsType] = useState(doc ? doc.title : '');
     const [checkbox, setCheckbox] = useState(false);
+
+    const sanitizedContent = DOMPurify.sanitize(content);
+    const sanitizedTitle = DOMPurify.sanitize(title);
 
     const config = useMemo(
         () => ({
@@ -94,7 +98,7 @@ const DpanelEditor = ({ doc }) => {
                             <input
                                 type="text"
                                 onChange={(e) => setTitle(e.target.value)}
-                                value={title}
+                                value={sanitizedTitle}
                                 placeholder='Digite aqui o título.'
                                 className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
                             />
@@ -125,7 +129,7 @@ const DpanelEditor = ({ doc }) => {
                 </div>
                 <JoditEditor
                     ref={editor}
-                    value={content}
+                    value={sanitizedContent}
                     config={config}
                     tabIndex={1}
                     onBlur={handleBlur}
