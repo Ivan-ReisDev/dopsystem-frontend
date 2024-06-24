@@ -32,7 +32,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
     };
 
     fetchData();
-  }, [getTeams, searchDoc]);
+  }, [getTeams]);
 
   const activeShowDocs = () => {
     setShowDocs(!showDocs);
