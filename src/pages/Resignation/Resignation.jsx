@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { FaArrowAltCircleUp, FaListUl } from "react-icons/fa";
+import { FaListUl } from "react-icons/fa";
 import { GiExitDoor } from "react-icons/gi";
 import '../forms.css'
 import { RequirementsContext } from '../../context/Requirements';
 import TableRequirements from '../../components/TableRequirements/TableRequirements';
-import FormReq from '../../components/FormReq/FormReq';
 import FormResignation from '../../components/FormReq/FormResignation';
 
 const Resignation = () => {
@@ -16,8 +15,6 @@ const Resignation = () => {
         searchRequerimentsPromotedsUser("Demissão", "")
         document.title = "Polícia DOP - Demissões";
     }, [])
-
-
 
     return (
         <div className='BodyForms'>

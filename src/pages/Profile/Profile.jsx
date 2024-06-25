@@ -1,8 +1,6 @@
-import { UserContext } from "../../context/UserContext";
 import { FaUser, FaBook, FaExclamationTriangle, FaHandshake, FaDollarSign, FaHistory, FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import style from "./profile.module.css";
-import LogoImage from '../../assets/DOP Padrão (com borda).png';
 import { CiSearch } from "react-icons/ci";
 import React, { useContext, useEffect, useState } from 'react';
 import { RequirementsContext } from "../../context/Requirements";
