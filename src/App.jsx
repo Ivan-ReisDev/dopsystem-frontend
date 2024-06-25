@@ -44,7 +44,7 @@ function App() {
           <Route index element={isAuthentication ? <Home /> : <LoginSystem />} />
 
           {/* RODAS DO PAINEL ADMINISTRATIVO */}
-          {isAuthentication && userType?.userType === "Admin" ||  userType?.userType === "Diretor" && (
+          {isAuthentication && (userType?.userType === "Admin" ||  userType?.userType === "Diretor") && (
             <Route path='/dpanel' element={<DPanel />} />
           )}
 
