@@ -38,7 +38,27 @@ Estas são algumas das principais funções, entre várias outras funcionalidade
 
 ## Instalação
 
-Forneça instruções detalhadas sobre como instalar seu projeto, incluindo dependências, configuração de ambiente, etc.
+Segue as instruções para instação:
+
+Vale lembrar que como se trata de um projeto React e Express, será necessário que você tenha o node.js instalado.
+
+1 - Clone do projeto:
+Em seu terminal use o comando `git clone https://github.com/Ivan-ReisDev/dopsystem-frontend.git` para clonar o repositório.
+
+2 - Instalando pacotes:
+Você deverá abrir a pasta do projeto usando o comando: `cd dopsystem-frontend`.
+Após você deverá instalar os pacotes usando o comando: `npm install` (Aqui usamos o npm como gerenciador de pacotes, porém, você pode usar o de sua preferência);
+
+3 - Inicialização do projeto: 
+Em seu terminal use o comando `npm run dev` para iniciar o projeto.
+
+Este projeto é dependente de uma API. Recomendamos o uso da API do próprio projeto para testes:
+
+## Repositório da API
+
+Para mais detalhes sobre a API utilizada neste projeto, visite o repositório:
+
+- [Repositório da API](https://github.com/Ivan-ReisDev/dopsystem-backend)
 
 ## Uso
 
