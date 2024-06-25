@@ -60,15 +60,30 @@ Para mais detalhes sobre a API utilizada neste projeto, visite o repositório:
 
 - [Repositório da API](https://github.com/Ivan-ReisDev/dopsystem-backend)
 
-## Uso
-
-Dê exemplos de como usar seu projeto. Mostre comandos ou trechos de código para diferentes casos de uso.
-
 ## Contribuição
 
-Explique como outros desenvolvedores podem contribuir para o seu projeto. Liste diretrizes para contribuições, padrões de código, e orientações para enviar pull requests.
+O projeto não teve contribuição externa no código.
 
 ## Licença
 
-Declare a licença sob a qual seu projeto está disponível.
+Este projeto é disponibilizado sob os termos da Licença MIT, exceto quando explicitamente declarado de outra forma. Você é livre para utilizar, modificar e distribuir o código, desde que os créditos no rodapé sejam mantidos. Qualquer uso indevido do código é de inteira responsabilidade do usuário.
+
+Para mais detalhes, consulte o arquivo [LICENSE](LICENSE).
+
+## interface
+
+
+Página de login:
+![Login](https://raw.githubusercontent.com/Ivan-ReisDev/dopsystem-frontend/main/public/login.jpg)
+
+Página Home:
+![Home](https://raw.githubusercontent.com/Ivan-ReisDev/dopsystem-frontend/main/public/home.jpg)
+
+Página de Equipes:
+![Equipe](https://github.com/Ivan-ReisDev/dopsystem-frontend/blob/main/public/team.jpg)
+
+Página de Formulário:
+![Formulários](https://raw.githubusercontent.com/Ivan-ReisDev/dopsystem-frontend/main/public/form.jpg)
+
+
 
