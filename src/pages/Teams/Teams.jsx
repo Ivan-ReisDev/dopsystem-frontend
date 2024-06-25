@@ -181,6 +181,7 @@ const Teams = ({ team }) => {
                         userLocalStorage.userType === "Diretor" || 
                         userLocalStorage.nickname === team.leader ||
                         userLocalStorage.nickname === team.viceLeader ||
+                        userLocalStorage.classes.includes("Curso de Formação Avançada - [CFA]") ||
                         userLocalStorage.classes.includes(doc.nameDocs)).map((doc) => (
                       <li key={doc._id}>
                         <Link to={`/doc/${doc._id}`}>{doc.nameDocs}</Link>
