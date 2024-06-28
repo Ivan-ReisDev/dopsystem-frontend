@@ -1,6 +1,6 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+
 
 const PRD = 'https://dopsystem-backend.vercel.app/api/';
 
@@ -12,7 +12,7 @@ const SystemProvider = ({ children }) => {
     const [patents, setPatents] = useState([]);
     const token = localStorage.getItem('@Auth:Token')
 
-    const getSystem = useCallback(async (tokenAuth) => {
+    const getSystem = useCallback(async () => {
         try {
             const res = await fetch(`${PRD}all/info`, {
                 method: 'GET',

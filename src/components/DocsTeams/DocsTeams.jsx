@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import  { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import style from './DocsTeams.module.css';
 import { DocsContext } from '../../context/DocsContext';
@@ -7,14 +7,13 @@ const DocsTeams = ({ DocsScripts, team }) => {
 const { deleteDoc } = useContext(DocsContext);
 const idUser = JSON.parse(localStorage.getItem('@Auth:ProfileUser'));
 
-
-
 const handleDelete = (idDoc) => {
     const data  = {
         idUser: idUser._id,
         idDoc:idDoc,
         idTeam: team._id
     }
+    
     deleteDoc(data)
 }
 

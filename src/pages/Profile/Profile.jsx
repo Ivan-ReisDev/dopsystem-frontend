@@ -2,7 +2,7 @@ import { FaUser, FaBook, FaExclamationTriangle, FaHandshake, FaDollarSign, FaHis
 import { Link, useNavigate } from 'react-router-dom';
 import style from "./profile.module.css";
 import { CiSearch } from "react-icons/ci";
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { RequirementsContext } from "../../context/Requirements";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -11,10 +11,12 @@ import Preloader from "../../assets/preloader.gif";
 
 
 import Functions from "../../components/Funcions/Functions";
+import { TeamsContext } from "../../context/TeamsContext";
 
 const Profile = ({ profile }) => {
     const [newProfile, setNewProfile] = useState(null); // Inicializando com null
     const { loading } = useContext(AuthContext);
+    const { getTeams, teams } = useContext(TeamsContext);
     const { searchRequerimentsUser, requerimentsArray, formatarDataHora } = useContext(RequirementsContext);
     const [busca, setBusca] = useState('');
     const navigate = useNavigate();
@@ -27,6 +29,7 @@ const Profile = ({ profile }) => {
             setNewProfile(profile.users[0]);
             searchRequerimentsUser(profile.users[0].nickname, token); 
            // Selecionando o primeiro usuário do array
+           getTeams()
         }
     }, [profile, searchRequerimentsUser]);
 
@@ -90,7 +93,10 @@ const Profile = ({ profile }) => {
                         onChange={(e) => setBusca(e.target.value)} />
                     <button type="submit"><CiSearch /></button>
                 </form>
-                    <Functions />
+                    <Functions 
+                    teams={teams}
+                    profile={profile}
+                    />
                     <main className="min-w-[200px] w-full bg-white rounded-md overflow-hidden border border-[#e4e4e4] mb-2.5">
                         <div className="contentBodyElementTitle">
                             <h3 className="flex flex-row"><span className="mr-2"><FaHistory /></span>Histórico Policial</h3>

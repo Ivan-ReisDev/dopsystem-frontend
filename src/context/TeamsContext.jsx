@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
@@ -78,8 +78,6 @@ const TeamsProvider = ({ children }) => {
             console.error('Erro ao deletar documento', error);
         }
     };
-
-    
 
     const createTeams = async (data) => {
         try {
@@ -198,7 +196,8 @@ const TeamsProvider = ({ children }) => {
                 updateTeam,
                 getTeams,
                 createTeams,
-                deleteTeams
+                deleteTeams,
+                teams
             }}
         >
             {children}

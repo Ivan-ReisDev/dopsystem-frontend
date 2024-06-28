@@ -45,7 +45,6 @@ const Teams = ({ team }) => {
   useEffect(() => {
     const updatePage = async () => {
       await setDocsScripts(docSelected);
-      console.log('docSelected:', docSelected); // Adicione este log
     }
     updatePage()
 
@@ -95,7 +94,7 @@ const Teams = ({ team }) => {
   return (
     <div className={style.Teams}>
       <div className={style.TeamsHeader}>
-        <h2><RiTeamFill /> {team.nameTeams}</h2>
+        <h2 className='font-semibold'>{team.emblema ? <><img className='w-[45px] mr-2' src={team.emblema} alt="" /></> : <RiTeamFill />} {team.nameTeams}</h2>
         <span>Membros: {infoTeamsArray.length}</span>
       </div>
       <div className={style.TeamsBody}>

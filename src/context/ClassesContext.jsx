@@ -1,6 +1,6 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+
 
 const PRD = 'https://dopsystem-backend.vercel.app/api/';
 
@@ -129,7 +129,7 @@ const ClassesProvider = ({ children }) => {
 
 
 
-    const getClasses = useCallback(async (tokenAuth) => {
+    const getClasses = useCallback(async () => {
         try {
             const res = await fetch(`${PRD}get/classe`, {
                 method: 'GET',

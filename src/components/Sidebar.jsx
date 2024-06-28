@@ -74,7 +74,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
         </button>
         <div className={`w-full font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showDocs ? "h-auto " : "h-0 hidden"}`}>
           {Array.isArray(documents) && documents.map((doc, index) => (
-            <li key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+            <li onClick={() => setShowSidebar(!showSidebar)} key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
               <NavLink to={`/doc/${doc._id}`} >{doc.nameDocs}</NavLink>
             </li>
           ))}
@@ -91,7 +91,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
 
                 if (isMember || infoProfileUser.userType === "Admin" || infoProfileUser.userType === "Diretor") {
                   return (
-                    <li key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+                    <li onClick={() => setShowSidebar(!showSidebar)} key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
                       <NavLink to={`/team/${team.nameTeams}`}>{team.nameTeams}</NavLink>
                     </li>
                   );
@@ -107,22 +107,22 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
           Requerimentos <span className={`ml-2 text-[13px] ${showForms ? "activeRotate" : ""}`}><SlArrowUp /></span>
         </button>
         <div className={`w-full font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showForms ? "h-auto " : "h-0 hidden"}`}>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/promotion'}>Promoções</NavLink>
           </li>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/warning'}>Advertências</NavLink>
           </li>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/relegation'}>Rebaixamentos</NavLink>
           </li>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/resignation'}>Demissões</NavLink>
           </li>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/contract'}>Contratos</NavLink>
           </li>
-          <li className='w-full italic h-[25px] font-bold flex items-center ml-5'>
+          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
             <NavLink to={'/sale'}>Vendas de Cargo</NavLink>
           </li>
         </div>

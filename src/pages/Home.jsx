@@ -15,6 +15,7 @@ import Rank from '../components/Rank/Rank';
 import Highlights from '../components/Highlights/Highlights';
 
 const Home = () => {
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [tag, setTag] = useState('');

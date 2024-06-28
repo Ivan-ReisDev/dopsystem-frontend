@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import  { createContext, useCallback, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
@@ -9,7 +9,6 @@ const RequirementsContext = createContext("");
 const RequirementsProvider = ({ children }) => {
     const navigate = useNavigate()
     const [message, setMessage] = useState("");
-    const [teams, setTeams] = useState("");
     const [requerimentsFilter, setRequerimentsFilter] = useState([])
     const [requerimentsClasses, setRequerimentsClasses] = useState([])
     const [requerimentsArray, setRequerimentsArray] = useState([])
@@ -57,7 +56,7 @@ const RequirementsProvider = ({ children }) => {
                 setMessage(resJSON);
                 navigate(`/search/${data.promoted}`)
             } else {
-                setMessage(resJSON);;
+                setMessage(resJSON);
                 
             }
         } catch (error) {
@@ -180,7 +179,6 @@ const RequirementsProvider = ({ children }) => {
     };
 
     const createRequerimentContract = async (data) => {
-
         try {
             const res = await fetch(`${PRD}post/requeriments/contract`, {
                 method: 'POST',
@@ -193,7 +191,7 @@ const RequirementsProvider = ({ children }) => {
 
             const resJSON = await res.json();
 
-            if (res.ok) {
+            if (resJSON.ok) {
                 setMessage('Requerimento postado com sucesso.');
                 navigate(`/search/${data.promoted}`)
             } else {
@@ -331,7 +329,8 @@ const RequirementsProvider = ({ children }) => {
                 setRequerimentsClasses,
                 requerimentsClasses,
                 searchRequerimentsClasses,
-                loadingReq
+                loadingReq,
+                message
                 
             }}
         >

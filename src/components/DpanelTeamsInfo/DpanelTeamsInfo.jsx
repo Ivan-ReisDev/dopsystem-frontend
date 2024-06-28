@@ -10,6 +10,7 @@ const DpanelTeamsInfo = ({ team, getTeams }) => {
   const [nameTeams, setNameTeams] = useState(team.nameTeams);
   const [leader, setLeader] = useState(team.leader);
   const [viceLeader, setViceLeader] = useState(team.viceLeader);
+  const [emblema, setEmblema] = useState(team.emblema ? team.emblema : "")
   const { Classes, message, editClasse: handleEditClasse, setMessage, getClasses, createClasse, deleteClasse } = useContext(ClassesContext);
   const { message: messageTeam, setMessage: setMessageTeam, updateTeam, deleteTeams } = useContext(TeamsContext);
   const { infoSystem, getSystem } = useContext(SystemContext);
@@ -59,6 +60,7 @@ const DpanelTeamsInfo = ({ team, getTeams }) => {
       nameTeams,
       leader,
       viceLeader,
+      emblema,
     };
     updateTeam(data);
   };
@@ -129,6 +131,16 @@ const DpanelTeamsInfo = ({ team, getTeams }) => {
                     value={viceLeader}
                     onChange={(e) => setViceLeader(e.target.value)}
                     className="mt-1 block w-full p-2 border border-gray-300 rounded"
+                  />
+                </label>
+                <label className="block">
+                  Emblema
+                  <input
+                    type="text"
+                    value={emblema}
+                    onChange={(e) => setEmblema(e.target.value)}
+                    className="mt-1 block w-full p-2 border border-gray-300 rounded"
+                    placeholder='Infome o url da imagem'
                   />
                 </label>
                 <div className="flex space-x-4">
