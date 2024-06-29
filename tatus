@@ -1,0 +1,492 @@
+[33mcommit ac2df1cf51dd76a57a9ba56aec8e314ba9e63114[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Fri Jun 28 23:28:03 2024 -0300
+
+    :lock: feat: Melhoria na autenticação/segurança usando token httponly
+
+[33mcommit 52aa23ab07b0fca1ffaa0170555b2e46a9f5d2ff[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Fri Jun 28 23:12:05 2024 -0300
+
+    :lock: feat: Melhoria na autenticação/segurança usando token httponly
+
+[33mcommit 843b48b30402283be91ebd417e1844a45c1112fe[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Fri Jun 28 23:09:24 2024 -0300
+
+    :lock: feat: Melhoria na autenticação/segurança usando token httponly
+
+[33mcommit cc7591e6aa6d0c9f58da69dc4991ab213df05119[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Fri Jun 28 23:05:05 2024 -0300
+
+    :lock: feat: Melhoria na autenticação/segurança usando token httponly
+
+[33mcommit 204c654bf283b114918dd6008f620eacb0238f3c[m
+Merge: 915af52 b7410be
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Fri Jun 28 12:12:03 2024 -0300
+
+    Merge branch 'main' of github.com:Ivan-ReisDev/dopsystem-frontend
+
+[33mcommit 915af52da4d41e83ac87488491e68ab0a326d91f[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Fri Jun 28 12:10:30 2024 -0300
+
+    :sparkles: feat: Novo recurso na página profile
+
+[33mcommit b7410be34c96c766673d0e85812b9371f3cab39a[m
+Author: Ivan Reis <109477902+Ivan-ReisDev@users.noreply.github.com>
+Date:   Tue Jun 25 12:09:51 2024 -0300
+
+    LICENSE
+
+[33mcommit 1fe6fbc7e0c9faa1b4c0d68ecab0e15b81b89fb5[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue Jun 25 12:00:31 2024 -0300
+
+    :books: docs: Atualização do README
+
+[33mcommit 5d21d5c019f38c11942c8ebd8cbb723f8d9eebeb[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue Jun 25 11:45:36 2024 -0300
+
+    :books: docs: Atualização do README
+
+[33mcommit e65fdf50523693d7eff57cf1c14edef6874460a9[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue Jun 25 11:27:21 2024 -0300
+
+    :books: docs: Atualização do README
+
+[33mcommit 8a9aeb340452469480e8bc2cb9aacc37750413d4[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue Jun 25 10:47:52 2024 -0300
+
+    :books: docs: Atualização do README
+
+[33mcommit efe27002ce793ee606a42e3d89fbffed9686ca17[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue Jun 25 10:26:18 2024 -0300
+
+    :books: docs: Atualização do README
+
+[33mcommit e41e4878467c54746c2ca4354fc990add5cecc0f[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon Jun 24 22:16:30 2024 -0300
+
+    :sparkles: feat: implementando novos recursos e refatorando o código.
+
+[33mcommit 293b65223817c0630917f610cc0e1b78a1dd0116[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon Jun 24 18:52:01 2024 -0300
+
+    :sparkles: feat: implementando novos recursos e refatorando o código.
+
+[33mcommit 9495d823fec76932d28355d5f3904b566d31b274[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon Jun 24 18:05:30 2024 -0300
+
+    :sparkles: feat: implementando novos recursos e refatorando o código.
+
+[33mcommit 0abb6e5dcc8ac89012bcfbf9a51fef26542349e9[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon Jun 24 16:38:57 2024 -0300
+
+    :sparkles: feat: implementando novos recursos e refatorando o código.
+
+[33mcommit 8b0d862966963c988f4ab0eb33a86e228b1db50b[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon Jun 24 12:37:01 2024 -0300
+
+    :sparkles: feat: implementando novos recursos e refatorando o código.
+
+[33mcommit 6552c5ae72f0e780eee3db02976b2a01bdd2d549[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon Jun 24 12:34:34 2024 -0300
+
+    :sparkles: feat: implementando novos recursos e refatorando o código.
+
+[33mcommit 3acef68de32e6a0eddcf2fba600df199561b0431[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 23 21:23:28 2024 -0300
+
+    :lock: feat: Implemnetação de novo recurso de segurança contra XSS.
+
+[33mcommit 0dc81cf1284f3487f05a09da004340bbe3eaa57f[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu Jun 20 18:56:07 2024 -0300
+
+    :bug: fix: Correção de bug na função updateDocs
+
+[33mcommit 37511144b0258c2ad58cdb16e770344c0b5eec3c[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu Jun 20 12:03:55 2024 -0300
+
+    :lipstick: feat: Mudando estilização da página do perfil
+
+[33mcommit 7d46add382bde91444d0ba5ef2c589e8734d1c5b[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu Jun 20 07:59:15 2024 -0300
+
+    :sparkles: feat: implementando novos recursos e refatorando o código.
+
+[33mcommit 3b8b726bef5e4d67956d6513d2a331c888983a17[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Wed Jun 19 23:09:43 2024 -0300
+
+    :sparkles: feat: implementando novos recursos e refatorando o código.
+
+[33mcommit d0bd511e382abd6149a32b31069be9d064e268cc[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue Jun 18 19:34:50 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit df6bcc6cf630165d6392b63f6f06c2fce4ed5069[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 16 16:55:53 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit b1a1a06d34277b1183c64313b0119bc7307b9ffb[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 16 14:02:43 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit 19780e6f88bb96d5a01f18c4d0585cc90d42598e[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 16 13:30:20 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit baafba657768c68f561fe04ab30825de022a4279[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 16 13:24:27 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit 5ecedf66a2411aae9ca5d86bac8e428be83f3f3f[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 16 08:17:37 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit 253d8ae5d0193dee48bd76c71dd6a9e417e561c8[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 16 08:13:48 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit 588501f22743360ee96a0e45a55fdfaa3c4221d0[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 15 22:52:20 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit 594094cedfd0bea6ae501b4fd488c2cc2402774a[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 15 22:30:32 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit d7088b1f2a19ab736ada052c3acd2ba582f279a5[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 15 22:28:10 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit a9c2190d73f764361cde0f5b97b6d49a4832bb37[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 15 22:22:05 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit 13737c924232975237be0d7033a2a23155556ae5[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 15 22:20:36 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit b49fd8b3f60f70db4329eabb711b571612476f83[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 15 16:12:56 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit 15a4045ce28eaaf81724262988d3fc06c11db04e[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 15 15:27:53 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit d62a1d8285e92241ca7fee07cb30a38bbbe2780f[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 15 13:19:32 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao criar, editar e exluir avais
+
+[33mcommit d5d74a2e4a68daa29e34d14eb62e068a2c60f89b[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu Jun 13 21:10:50 2024 -0300
+
+    Recurso novo em recursos humanos
+
+[33mcommit e214de878c81e0cada82da6702ce4f6e6951f088[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu Jun 13 20:37:18 2024 -0300
+
+    Recurso novo em recursos humanos
+
+[33mcommit b56d518b5387db0cf6719fa35c15300bb0a75218[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 9 20:35:25 2024 -0300
+
+    :bug: fix: correção de bug em authContexh ao atualizar a variavel isAuthentication
+
+[33mcommit 8cd778ac0a97b74e14ca943408ee0ff7d204816b[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 9 17:04:47 2024 -0300
+
+    :bug: fix: correção de bug em authContexh ao atualizar a variavel isAuthentication
+
+[33mcommit d67bfc5b281ccf1c50d90ddfcd57a9bc201aae8c[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 9 12:31:35 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao editar os scripts
+
+[33mcommit ac5c081213de0d4dc98832114c3677d41d41c9e9[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 9 10:03:46 2024 -0300
+
+    :lock: feat : melhoria na segurança do token ativo
+
+[33mcommit 5e08eef97862672c3e5c40595de1a7f61751d269[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sun Jun 9 09:59:33 2024 -0300
+
+    :lock: feat : melhoria na segurança do token ativo
+
+[33mcommit a032a5ff4e66fed1c33cf1111a14bfe0b892f31e[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 8 22:13:35 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao editar os scripts
+
+[33mcommit c88070532b618a39a4b7897ab4d47edcb211a23d[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 8 19:08:49 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao editar os scripts
+
+[33mcommit bb702c70a7bfcb257662f248db2f1ac20a6c5c55[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 8 19:04:35 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao editar os scripts
+
+[33mcommit 9a725e44c2019ae8dd8b46f1208d46ea1d178387[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 8 17:30:50 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao editar os scripts
+
+[33mcommit 57376f75fe55bd9f1933102685453c736f340b60[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 8 17:19:20 2024 -0300
+
+    :sparkles: feat: implementando novo recurso ao editar os scripts
+
+[33mcommit 1a158366b1a441dfcd7dda899fd21e14b6580e44[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Wed Jun 5 21:25:30 2024 -0300
+
+    :bug: fix: correção de bug e implementação de novo recurso em Classes (Aulas).
+
+[33mcommit 4bc96efeb4416147a9f1691d26fc7f6066011315[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon Jun 3 21:57:50 2024 -0300
+
+    :bug: fix: correção de bug e adicionando novo recurso para deletear classes (Aulas)
+
+[33mcommit 604cfa6bd98a807f8e76be7398eed52bca32b3aa[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon Jun 3 20:21:32 2024 -0300
+
+    :bug: fix: correção de bug ao adicionar membros em equipes
+
+[33mcommit f98dc21bfc7743f3072348c6bd38f1fcb0b3d6bf[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 1 16:57:05 2024 -0300
+
+    :bug: fix: correção de bug na página home.
+
+[33mcommit 5853d014c44d4448ae53640055e529b8f0a043a3[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 1 12:32:16 2024 -0300
+
+    :lipstick: feat: modificando css
+
+[33mcommit d35da89e744bb4224c440d877bac96ea1037f408[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Sat Jun 1 11:38:27 2024 -0300
+
+    :bug: fix: correção de bug no token das páginas do profile e home, além da retirada de variaveis que não existem mais em members.
+
+[33mcommit 70150b45607b89856b89bcd9cf73a9f78e9f27ab[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Fri May 31 22:05:26 2024 -0300
+
+    :sparkles: feat: Implementando novos recurso de publicações.
+
+[33mcommit 4e5fa493286ef483091f62e7babea8b61a2d9a0f[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Fri May 31 12:31:37 2024 -0300
+
+    :bug: fix: correção de bug na aba profile.
+
+[33mcommit 61c8d0757054b0bf51d89936da7da906582290a6[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Fri May 31 11:23:37 2024 -0300
+
+    :zap: perf: Melhoria no tempo de resposta
+
+[33mcommit 8ef28d960527c177a723b35d7a415f4f030e6884[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Fri May 31 11:22:53 2024 -0300
+
+    :zap: perf: Melhoria no tempo de resposta
+
+[33mcommit 7bef67af36e78f2f771ca97d4846a64bc34a220e[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu May 30 22:17:15 2024 -0300
+
+    :bug: fix: correção de bug na variavel docScripts na página Teams.
+
+[33mcommit 98878bc37c37d9c070455fca0bc8d469381aba06[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu May 30 17:41:41 2024 -0300
+
+    Teste de api
+
+[33mcommit 16f692bb1df31da3858dd7b4f33e91c784a2d442[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu May 30 17:24:58 2024 -0300
+
+    Teste de api
+
+[33mcommit 83a002166ee2f735134e9bf5b9374a130707d1e3[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu May 30 17:14:50 2024 -0300
+
+    Teste
+
+[33mcommit 5cd5b84cf409e31f0977865201fb96b7413f4f0a[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu May 30 17:12:20 2024 -0300
+
+    Teste
+
+[33mcommit 7d840c65e113270de503f87422dbf85043c909b5[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu May 30 17:04:33 2024 -0300
+
+    Teste
+
+[33mcommit 204649e2cef7ac637efacbed4fca6ded99129737[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu May 30 16:48:18 2024 -0300
+
+    Teste
+
+[33mcommit 4576a201656306d6cb9b42dd4302f209a8005e0e[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu May 30 16:35:31 2024 -0300
+
+    Teste
+
+[33mcommit 33a57762185df91018bc60e15e0c3988408683e4[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Thu May 30 09:56:55 2024 -0300
+
+    :zap: perf: Melhoria no tempo de resposta
+
+[33mcommit a59a35df4566bf6eef2acea1f704b91c6912891d[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Wed May 29 14:07:15 2024 -0300
+
+    :zap: perf: Melhoria no tempo de resposta
+
+[33mcommit d5780169584b3c0495165078b8d90b837845b6c5[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue May 28 22:22:52 2024 -0300
+
+    :lipstick: feat: modificando css e adicionando imagem de fundo no sidebar
+
+[33mcommit 9c5af83d0344daa85bc82d5b884858e312acdc3b[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue May 28 17:56:28 2024 -0300
+
+    :bug: fix: correção de bug no painel de controle.
+
+[33mcommit 7b755555d1d16e85efaa043e9151ad21638f8a38[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue May 28 13:40:15 2024 -0300
+
+    :iphone: feat: adicionando responsividade
+
+[33mcommit eaf809ca33cab67251130c5e3a589342fd771423[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue May 28 13:36:24 2024 -0300
+
+    :iphone: feat: adicionando responsividade
+
+[33mcommit b7fae8baeb870ad0e0aca8a5aaa474eddefe887f[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue May 28 12:18:34 2024 -0300
+
+    :bug: fix: correção de bug ao redefinir senha
+
+[33mcommit a56cd12906f8930b7d6d6aec0eb8d3416739f1a6[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue May 28 12:01:06 2024 -0300
+
+    :sparkles: feat: Implementando novos recursos.
+
+[33mcommit c8e6dc343b9912741cef4ac68e2c36856ad15026[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Tue May 28 11:38:18 2024 -0300
+
+    :sparkles: feat: Implementando novos recursos.
+
+[33mcommit bc439eb2dcf1141e8404614cc2e89ada09b9c9f6[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon May 27 21:56:48 2024 -0300
+
+    :sparkles: feat: Implementando novos recursos.
+
+[33mcommit 0fb09aabce7e952c87559b5aa4254b4fc135d8eb[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon May 27 21:20:59 2024 -0300
+
+    :sparkles: feat: Implementando novos recursos.
+
+[33mcommit 412324155da6f7535396768855d6b92e10b7528d[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon May 27 19:09:41 2024 -0300
+
+    :sparkles: feat: Implementando novos recursos.
+
+[33mcommit c8e26a0e9c3c34af2d75782669ffb6c074e36572[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon May 27 15:45:47 2024 -0300
+
+    :sparkles: feat: Implementando novos recursos.
+
+[33mcommit af8db57ff6c03317c689167161613512ced9ae34[m
+Author: Ivan Reis <ivanreisdev@gmail.com>
+Date:   Mon May 27 15:43:31 2024 -0300
+
+    :sparkles: feat: Implementando novos recursos.

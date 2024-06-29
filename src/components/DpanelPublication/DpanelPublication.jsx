@@ -8,7 +8,8 @@ const DpanelPublication = ({ placeholder }) => {
     const { createPublication, getPublication, allPublications } = useContext(PublicationContext);
 
     useEffect(() => {
-        getPublication()
+        const token = localStorage.getItem("@Auth:Token");
+        getPublication(token)
 
     }, [])
 

@@ -36,8 +36,8 @@ const DpanelTeamsInfo = ({ team, getTeams }) => {
     setPatentData(classeSelected.patent);
     setClasseData(classeSelected.nameClasse);
     setMessageTeam('');
-    getTeams();
-    getClasses();
+    getTeams(localStorage.getItem(idUser.token));
+    getClasses(localStorage.getItem(idUser.token));
   }, [editClasse]);
 
   const handleSubmit = (e) => {

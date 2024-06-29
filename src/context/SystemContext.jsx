@@ -10,12 +10,15 @@ const SystemProvider = ({ children }) => {
     const [infoSystem, setInfoSystem] = useState([])
     const [messege, setMessage] = useState('');
     const [patents, setPatents] = useState([]);
+    const token = localStorage.getItem('@Auth:Token')
 
     const getSystem = useCallback(async () => {
         try {
             const res = await fetch(`${PRD}all/info`, {
                 method: 'GET',
-                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
 
             if (!res.ok) {
@@ -30,7 +33,7 @@ const SystemProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        getSystem();
+        getSystem(localStorage.getItem('@Auth:Token'));
     }, []);
 
 
@@ -38,7 +41,9 @@ const SystemProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}patents?patent=${patent}`, {
                 method: 'GET',
-                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
 
             if (!res.ok) {

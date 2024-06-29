@@ -6,6 +6,7 @@ const PRD = 'https://dopsystem-backend.vercel.app/api/';
 
 const TeamsContext = createContext({});
 const TeamsProvider = ({ children }) => {
+    const token = localStorage.getItem('@Auth:Token')
     const [message, setMessage] = useState("");
     const [teams, setTeams] = useState([]);
     const [infoTeamsArray, setInfoTeamsArray] = useState([]);
@@ -14,7 +15,9 @@ const TeamsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}teams/info?typeRequirement=${teams}&teams=${teams}`, {
                 method: 'GET',
-                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
     
             if (!res.ok) {
@@ -31,9 +34,9 @@ const TeamsProvider = ({ children }) => {
         try {
             const response = await fetch(`${PRD}teams/update/`, {
                 method: 'PUT',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -55,9 +58,9 @@ const TeamsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}teams/delete`, {
                 method: 'DELETE',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -80,9 +83,9 @@ const TeamsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}teams/create`, {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -108,9 +111,9 @@ const TeamsProvider = ({ children }) => {
         try {
             const response = await fetch(`${PRD}teams/remove`, {
                 method: 'PUT',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -118,7 +121,7 @@ const TeamsProvider = ({ children }) => {
             const responseData = await response.json();
     
             if (response.ok) {
-                infoTeams(data.nameTeams)
+                infoTeams(localStorage.getItem("@Auth:Token"), data.nameTeams)
                 setMessage(responseData);
             } else {
                 console.error("Erro ao remover usuário :", responseData);
@@ -133,9 +136,9 @@ const TeamsProvider = ({ children }) => {
         try {
             const response = await fetch(`${PRD}teams/add`, {
                 method: 'PUT',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -157,7 +160,9 @@ const TeamsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}teams/all`, {
                 method: 'GET',
-                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
 
             if (!res.ok) {
@@ -172,7 +177,10 @@ const TeamsProvider = ({ children }) => {
     }, [navigate]);
 
     useEffect(() => {
-            getTeams();
+        const token = localStorage.getItem('@Auth:Token');
+        if (token) {
+            getTeams(token);
+        }
     }, [getTeams]);
     
     return (
@@ -188,7 +196,8 @@ const TeamsProvider = ({ children }) => {
                 updateTeam,
                 getTeams,
                 createTeams,
-                deleteTeams
+                deleteTeams,
+                teams
             }}
         >
             {children}
