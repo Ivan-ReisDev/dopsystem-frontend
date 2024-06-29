@@ -8,7 +8,6 @@ const PRD = 'https://dopsystem-backend.vercel.app/api/';
 const EndorsementContext = createContext("");
 
 const EndorsementProvider = ({ children }) => {
-    const token = localStorage.getItem('@Auth:Token')
     const [EndorsementDb, setEndorsementDb] = useState([]); 
     const [messege, setMessege] = useState('');
     const [loading, setLoading] = useState(false);
@@ -18,9 +17,9 @@ const EndorsementProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}endorsement`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -42,13 +41,11 @@ const EndorsementProvider = ({ children }) => {
     };
 
 
-    const getEndorsement = useCallback(async (tokenAuth) => {
+    const getEndorsement = useCallback(async () => {
         try {
             const res = await fetch(`${PRD}endorsement`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                credentials: 'include',
             });
 
             if (!res.ok) {
@@ -66,9 +63,9 @@ const EndorsementProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}endorsement/status`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -91,13 +88,12 @@ const EndorsementProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}endorsement/delete`, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
-
             const DataMSG = await res.json();
 
             if (res.ok) {

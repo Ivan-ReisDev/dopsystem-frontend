@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +6,6 @@ const PRD = 'https://dopsystem-backend.vercel.app/api/';
 const DocsContext = createContext("");
 const DocsProvider = ({ children }) => {
 
-    const token = localStorage.getItem('@Auth:Token')
     const [message, setMessage] = useState('');
     const [resOk, setResOk] = useState(false)
     const [Documents, setDocuments] = useState([]);
@@ -20,9 +19,9 @@ const DocsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}create/docs`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -50,9 +49,9 @@ const DocsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}delete/docs`, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -74,9 +73,9 @@ const DocsProvider = ({ children }) => {
         try {
             const response = await fetch(`${PRD}update/docs`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -101,9 +100,8 @@ const DocsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}all/docs?page=${page}&limit=${limit}`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                credentials: 'include',
+
             });
     
             if (!res.ok) {
@@ -118,48 +116,43 @@ const DocsProvider = ({ children }) => {
         }
     };
 
-
-
     const searchDoc = async (typeDocument) => {
         setLoadingDocs(true);
         try {
             const res = await fetch(`${PRD}doc/search?typeDocument=${typeDocument}`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                credentials: 'include', // Garante que os cookies são enviados com a requisição
             });
             const data = await res.json();
     
             if (res.ok) {
                 if (Array.isArray(data)) {
                     setDocSelected(data);
-                    setLoadingDocs(false);
                     return data;
                 } else {
                     console.error('A resposta não é um array:', data);
-                    setLoadingDocs(false);
                     return [];
                 }
             } else {
-                setLoadingDocs(false);
                 throw new Error(data.message || 'Erro ao buscar documentos');
             }
         } catch (error) {
             console.error('Erro ao buscar documentos:', error);
-            setLoadingDocs(false);
             throw new Error(error.message || 'Erro ao buscar documentos');
+        } finally {
+            setLoadingDocs(false);
         }
     };
+    
+    
+    
 
       const searchDocCompleted = async (idDocument) => {
         setLoadingDocs(true);
         try {
           const res = await fetch(`${PRD}doc?idDocument=${idDocument}`, {
             method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
+            credentials: 'include',
           });
           const data = await res.json();
       

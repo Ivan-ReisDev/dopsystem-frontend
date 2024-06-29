@@ -26,7 +26,6 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getTeams(localStorage.getItem("@Auth:Token"));
       const docs = await searchDoc("System");
       setDocuments(Array.isArray(docs) ? docs : []);
     };

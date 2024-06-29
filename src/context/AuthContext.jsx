@@ -8,12 +8,11 @@ const AuthContext = createContext('');
 const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const [isAuthentication, setIsAuthentication] = useState(false);
-    const [authToken, setAuthToken] = useState(null);
     const [authProfile, setAuthProfile] = useState(null);
     const [loadingLogin, setLoadingLogin] = useState(false);
     const [message, setMessage ] = useState('')
     const [loading, setLoading] = useState(false)
-    const token = localStorage.getItem('@Auth:Token')
+
 
     // useEffect(() => {
     //     const loadingStorageData = async () => {
@@ -35,25 +34,25 @@ const AuthProvider = ({ children }) => {
     //     loadingStorageData();
     // }, [navigate]);
 
-    useEffect(() => {
-        const loadingStorageData = async () => {
-            const storageToken = localStorage.getItem('@Auth:Token');
-            const storageProfile = localStorage.getItem('@Auth:Profile');
+    // useEffect(() => {
+    //     const loadingStorageData = async () => {
+ 
+    //         const storageProfile = localStorage.getItem('@Auth:Profile');
             
-            if (!storageProfile || !storageToken) {
-                localStorage.removeItem('@Auth:Token');
-                localStorage.removeItem('@Auth:Profile');
-                localStorage.removeItem('@Auth:ProfileUser');
-                setIsAuthentication(false);
-                navigate('/login');
-            } else {
-                setIsAuthentication(true);
-                setAuthToken(storageToken);
-            }
-        };
+    //         if (!storageProfile || !storageToken) {
+    //             localStorage.removeItem('@Auth:Token');
+    //             localStorage.removeItem('@Auth:Profile');
+    //             localStorage.removeItem('@Auth:ProfileUser');
+    //             setIsAuthentication(false);
+    //             navigate('/login');
+    //         } else {
+    //             setIsAuthentication(true);
+    //             setAuthToken(storageToken);
+    //         }
+    //     };
 
-        loadingStorageData();
-    }, [navigate, setIsAuthentication, setAuthToken]);
+    //     loadingStorageData();
+    // }, [navigate, setIsAuthentication, setAuthToken]);
 
 
     // useEffect(() => {
@@ -130,87 +129,92 @@ const AuthProvider = ({ children }) => {
     // }, [navigate, setAuthToken, setAuthProfile, setIsAuthentication]);
 
     useEffect(() => {
-        const checkAuthentication = async () => {
-            try {
-                const res = await fetch(`${PRD}profile`, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-
-                if (res.ok) {
-                    const resJSON = await res.json();
-                    const tokenActive = resJSON.tokenActive; // Assumindo que o token ativo é retornado pela API
-
-                    if (tokenActive && (tokenActive === token && resJSON.status === "Ativo")) {
-                        localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
-                        localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
-                        setAuthProfile(resJSON);
-                        setIsAuthentication(true);
-                    } else {
-                        setIsAuthentication(false);
-                        navigate('/login');
-                        localStorage.clear();
-                    }
-                } else {
-                    setIsAuthentication(false);
-                    navigate('/login');
-                    localStorage.clear();
-                }
-            } catch (error) {
+        const loadingStorageData = async () => {
+            const storageProfile = localStorage.getItem('@Auth:Profile');
+            if (!storageProfile) {
+                localStorage.removeItem('@Auth:Profile');
+                localStorage.removeItem('@Auth:ProfileUser');
                 setIsAuthentication(false);
-                console.error('Erro ao verificar autenticação:', error);
-                localStorage.clear();
-                window.location.assign('/'); // Correção para recarregar a página corretamente
+                navigate('/login');
+            } else {
+                setIsAuthentication(true);
             }
         };
 
-        checkAuthentication();
-    }, [authToken, navigate, setAuthProfile, isAuthentication, token]);
+        loadingStorageData();
+    }, [navigate, setIsAuthentication]);
+
+    useEffect(() => {
+        const checkAuthentication = async () => {
+            try {
+                const res = await fetch(`${PRD}/profile`, {
+                    method: 'GET',
+                    credentials: 'include', // Inclui cookies (incluindo HTTPOnly)
+                });
     
-    const signIn = async (dataLogin)  => {
+                if (res.ok) {
+                    const resJSON = await res.json();
+                    localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
+                    localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
+                    setAuthProfile(resJSON);
+                    setIsAuthentication(true);
+                } else {
+                    localStorage.clear();
+                    setIsAuthentication(false);
+                    navigate('/login');
+                }
+            } catch (error) {
+                console.error('Erro ao verificar autenticação:', error);
+                localStorage.clear();
+                setIsAuthentication(false);
+                navigate('/'); // Correção para recarregar a página corretamente
+            }
+        };
+    
+        checkAuthentication();
+    }, [setAuthProfile, setIsAuthentication, navigate]);
+    
+    
+    
+    const signIn = async (dataLogin) => {
         setLoadingLogin(true);
         try {
-            const res = await fetch(`${PRD}login`, {
+            const res = await fetch(`${PRD}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(dataLogin),
+                credentials: 'include', // Inclui cookies
             });
     
             const resJSON = await res.json();
             setMessage(resJSON);
-            
     
             if (res.ok) {
-                setAuthToken(resJSON.token);
                 setAuthProfile(resJSON);
-                localStorage.setItem('@Auth:Token', resJSON.token);
+                setIsAuthentication(true);
                 localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
                 localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
                 navigate('/home');
-                setLoadingLogin(false);
-
             } else {
-                localStorage.removeItem('@Auth:Token');
-                localStorage.removeItem('@Auth:Profile');
                 console.error('Erro de login:', resJSON.error); // Assumindo que o servidor envia uma mensagem de erro no corpo da resposta
-                navigate('/') 
-                setLoadingLogin(false);// Redirecionando o usuário de volta para a página inicial
+                navigate('/');
             }
         } catch (error) {
             console.error('Erro no login:', error);
-            setLoadingLogin(false);
             // Poderia mostrar uma mensagem de erro amigável para o usuário aqui
+        } finally {
+            setLoadingLogin(false);
         }
     };
+    
     
         const handleActiveCout = async (data, dataActive) => {
         try {
             const res = await fetch(`${PRD}users/update`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -234,33 +238,34 @@ const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            const storageToken = localStorage.getItem('@Auth:Token');
-            setAuthToken(storageToken);
-            const res = await fetch(`${PRD}logout`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${storageToken}`,
-                },
-            });
-
-            const resJSON = await res.json();
-            if (res.ok) {
-                localStorage.removeItem('@Auth:Token');
-                localStorage.removeItem('@Auth:Profile');
-                localStorage.clear()
-                setIsAuthentication(false)
-                console.error('Erro de login:', resJSON.error);
-                navigate('/');
-
-            }
-        } catch (error) {
-            setIsAuthentication(false);
-            console.log(error, 'Erro ao verificar autenticação');
+          const res = await fetch(`${PRD}logout`, {
+            method: 'GET',
+            credentials: 'include', // Inclui cookies na solicitação
+          });
+      
+          const resJSON = await res.json();
+          if (res.ok) {
+            // Remove informações de autenticação do localStorage
+            localStorage.removeItem('@Auth:Profile');
             localStorage.clear();
-            navigate('/');
+            setIsAuthentication(false);
+            // Redireciona o usuário para a página inicial
+            navigate('/login');
+          } else {
+            // Lida com possíveis erros retornados pelo servidor
+            console.error('Erro de logout:', resJSON.message);
+          }
+        } catch (error) {
+          // Em caso de erro, assume que a autenticação falhou e limpa o localStorage
+          setIsAuthentication(false);
+          console.log('Erro ao verificar autenticação:', error);
+          localStorage.clear();
+          // Redireciona o usuário para a página inicial
+          navigate('/login');
         }
-    };
-
+      };
+      
+    
 
 
 

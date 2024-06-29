@@ -7,7 +7,6 @@ const PRD = 'https://dopsystem-backend.vercel.app/api/';
 const ClassesContext = createContext("");
 
 const ClassesProvider = ({ children }) => {
-    const token = localStorage.getItem('@Auth:Token')
     const [Classes, setClasses] = useState([])
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false)
@@ -16,9 +15,9 @@ const ClassesProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}create/classe`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -45,9 +44,9 @@ const ClassesProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}delete/classe`, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -71,9 +70,9 @@ const ClassesProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}create/classe/requirement`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -102,9 +101,9 @@ const ClassesProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}create/ci/requirement`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -133,9 +132,7 @@ const ClassesProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}get/classe`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                credentials: 'include',
             });
 
             if (!res.ok) {
@@ -149,16 +146,16 @@ const ClassesProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        getClasses(localStorage.getItem('@Auth:Token'));
+        getClasses();
     }, [getClasses]);
 
     const editClasse = async (data) => {
         try {
             const response = await fetch(`${PRD}update/classe`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });

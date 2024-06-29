@@ -8,15 +8,15 @@ const PublicationContext = createContext("");
 const PublicationProvider = ({ children }) => {
     const [message, setMessage] = useState('');
     const [allPublications, setAllPublications] = useState([])
-    const token = localStorage.getItem('@Auth:Token');
+
 
     const createPublication = async (data) => {
         try {
             const res = await fetch(`${PRD}create/publication`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -34,19 +34,12 @@ const PublicationProvider = ({ children }) => {
         }
     };
 
-    const getPublication = async (token) => {
+    const getPublication = async () => {
         try {
-            console.log(token)
-            // Verifique se o token não está undefined ou null
-            if (!token) {
-                throw new Error('Token não fornecido');
-            }
-    
+
             const res = await fetch(`${PRD}publication`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                credentials: 'include',
             });
     
             if (!res.ok) {

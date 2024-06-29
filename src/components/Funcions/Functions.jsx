@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RiFunctionFill } from "react-icons/ri";
 
 const Functions = ({ teams, profile }) => {

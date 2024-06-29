@@ -5,11 +5,7 @@ import { CiSearch } from "react-icons/ci";
 import { useContext, useEffect, useState } from 'react';
 import { RequirementsContext } from "../../context/Requirements";
 import { AuthContext } from "../../context/AuthContext";
-
-
 import Preloader from "../../assets/preloader.gif";
-
-
 import Functions from "../../components/Funcions/Functions";
 import { TeamsContext } from "../../context/TeamsContext";
 
@@ -25,9 +21,8 @@ const Profile = ({ profile }) => {
     useEffect(() => {
         if (profile && profile.users) {
             document.title = `Polícia DOP - Perfil`;
-            const token = localStorage.getItem('@Auth:Token')
             setNewProfile(profile.users[0]);
-            searchRequerimentsUser(profile.users[0].nickname, token); 
+            searchRequerimentsUser(profile.users[0].nickname); 
            // Selecionando o primeiro usuário do array
            getTeams()
         }
