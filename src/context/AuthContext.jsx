@@ -238,37 +238,37 @@ const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-          const res = await fetch(`${PRD}logout`, {
-            method: 'GET',
-            credentials: 'include', // Inclui cookies na solicitação
-          });
-      
-          const resJSON = await res.json();
-          if (res.ok) {
-            // Remove informações de autenticação do localStorage
-            localStorage.removeItem('@Auth:Profile');
-            localStorage.clear();
+            const res = await fetch(`${PRD}logout`, {
+                method: 'GET',
+                credentials: 'include', // Inclui cookies na solicitação
+            });
+    
+            const resJSON = await res.json();
+            if (res.ok) {
+                // Excluir o cookie 'token' se existir
+                document.cookie = 'token=; Max-Age=0; path=/;';
+    
+                // Remove informações de autenticação do localStorage
+                localStorage.removeItem('@Auth:Profile');
+                localStorage.clear();
+                setIsAuthentication(false);
+                // Redireciona o usuário para a página inicial
+                navigate('/login');
+            } else {
+                // Lida com possíveis erros retornados pelo servidor
+                console.error('Erro de logout:', resJSON.message);
+            }
+        } catch (error) {
+            // Em caso de erro, assume que a autenticação falhou e limpa o localStorage
             setIsAuthentication(false);
+            console.log('Erro ao verificar autenticação:', error);
+            localStorage.clear();
             // Redireciona o usuário para a página inicial
             navigate('/login');
-          } else {
-            // Lida com possíveis erros retornados pelo servidor
-            console.error('Erro de logout:', resJSON.message);
-          }
-        } catch (error) {
-          // Em caso de erro, assume que a autenticação falhou e limpa o localStorage
-          setIsAuthentication(false);
-          console.log('Erro ao verificar autenticação:', error);
-          localStorage.clear();
-          // Redireciona o usuário para a página inicial
-          navigate('/login');
         }
-      };
-      
+    };
     
-
-
-
+    
 
 
 
