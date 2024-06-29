@@ -147,7 +147,7 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkAuthentication = async () => {
             try {
-                const res = await fetch(`${PRD}/profile`, {
+                const res = await fetch(`${PRD}profile`, {
                     method: 'GET',
                     credentials: 'include', // Inclui cookies (incluindo HTTPOnly)
                 });
