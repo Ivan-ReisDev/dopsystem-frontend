@@ -179,7 +179,7 @@ const AuthProvider = ({ children }) => {
     const signIn = async (dataLogin) => {
         setLoadingLogin(true);
         try {
-            const res = await fetch(`${PRD}/login`, {
+            const res = await fetch(`${PRD}login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
