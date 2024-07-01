@@ -21,7 +21,6 @@ import Relegation from './pages/Relegation/Relegation';
 import Resignation from './pages/Resignation/Resignation';
 import Contract from './pages/Contract/Contract';
 import Members from './pages/members/Members';
-import Footer from './components/Footer/Footer';
 import DPanel from './pages/DPanel/DPanel';
 import NotFound from './pages/Notfound/NotFound';
 import PostClasseInitial from './pages/PostClasseInitial/PostClasseInitial';

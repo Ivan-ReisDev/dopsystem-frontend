@@ -2,11 +2,10 @@ import { createContext, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
+const PRD = 'http://localhost:3000/api/';
 
 const TeamsContext = createContext({});
 const TeamsProvider = ({ children }) => {
-    const token = localStorage.getItem('@Auth:Token')
     const [message, setMessage] = useState("");
     const [teams, setTeams] = useState([]);
     const [infoTeamsArray, setInfoTeamsArray] = useState([]);
@@ -15,9 +14,7 @@ const TeamsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}teams/info?typeRequirement=${teams}&teams=${teams}`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                credentials: 'include',
             });
     
             if (!res.ok) {
@@ -34,9 +31,9 @@ const TeamsProvider = ({ children }) => {
         try {
             const response = await fetch(`${PRD}teams/update/`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -58,9 +55,9 @@ const TeamsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}teams/delete`, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -83,9 +80,9 @@ const TeamsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}teams/create`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -111,9 +108,9 @@ const TeamsProvider = ({ children }) => {
         try {
             const response = await fetch(`${PRD}teams/remove`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -121,7 +118,7 @@ const TeamsProvider = ({ children }) => {
             const responseData = await response.json();
     
             if (response.ok) {
-                infoTeams(localStorage.getItem("@Auth:Token"), data.nameTeams)
+                infoTeams(data.nameTeams)
                 setMessage(responseData);
             } else {
                 console.error("Erro ao remover usuário :", responseData);
@@ -136,10 +133,11 @@ const TeamsProvider = ({ children }) => {
         try {
             const response = await fetch(`${PRD}teams/add`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
+
                 body: JSON.stringify(data),
             });
     
@@ -160,9 +158,7 @@ const TeamsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}teams/all`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                credentials: 'include',
             });
 
             if (!res.ok) {
@@ -177,10 +173,7 @@ const TeamsProvider = ({ children }) => {
     }, [navigate]);
 
     useEffect(() => {
-        const token = localStorage.getItem('@Auth:Token');
-        if (token) {
-            getTeams(token);
-        }
+            getTeams();
     }, [getTeams]);
     
     return (
@@ -197,7 +190,6 @@ const TeamsProvider = ({ children }) => {
                 getTeams,
                 createTeams,
                 deleteTeams,
-                teams
             }}
         >
             {children}

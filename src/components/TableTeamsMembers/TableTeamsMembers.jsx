@@ -17,10 +17,7 @@ const TableTeamsMembers = ({ team, userOk }) => {
 
     useEffect(() => {
         const fetchTeamInfo = async () => {
-            const token = localStorage.getItem("@Auth:Token");
-            if (token) {
-                await infoTeams(token, team.nameTeams);
-            }
+                await infoTeams(team.nameTeams);
         };
 
         fetchTeamInfo();

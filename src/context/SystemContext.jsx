@@ -2,7 +2,7 @@ import { createContext, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
+const PRD = 'http://localhost:3000/api/';
 
 const SystemContext = createContext("");
 
@@ -10,15 +10,13 @@ const SystemProvider = ({ children }) => {
     const [infoSystem, setInfoSystem] = useState([])
     const [messege, setMessage] = useState('');
     const [patents, setPatents] = useState([]);
-    const token = localStorage.getItem('@Auth:Token')
+
 
     const getSystem = useCallback(async () => {
         try {
             const res = await fetch(`${PRD}all/info`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                credentials: 'include',
             });
 
             if (!res.ok) {
@@ -33,7 +31,7 @@ const SystemProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        getSystem(localStorage.getItem('@Auth:Token'));
+        getSystem();
     }, []);
 
 
@@ -41,9 +39,7 @@ const SystemProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}patents?patent=${patent}`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                credentials: 'include',
             });
 
             if (!res.ok) {

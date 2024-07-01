@@ -2,78 +2,65 @@ import { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
+const PRD = 'http://localhost:3000/api/';
 const AuthContext = createContext('');
 const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const [isAuthentication, setIsAuthentication] = useState(false);
-    const [authToken, setAuthToken] = useState(null);
     const [authProfile, setAuthProfile] = useState(null);
     const [loadingLogin, setLoadingLogin] = useState(false);
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
-    const token = localStorage.getItem('@Auth:Token');
 
-    useEffect(() => {
-        const loadingStorageData = async () => {
-            const storageToken = localStorage.getItem('@Auth:Token');
-            const storageProfile = localStorage.getItem('@Auth:Profile');
+    // useEffect(() => {
+    //     const loadingStorageData = async () => {
+    //         const storageToken = localStorage.getItem('@Auth:Token');
+    //         const storageProfile = localStorage.getItem('@Auth:Profile');
             
-            if (!storageProfile || !storageToken) {
-                localStorage.removeItem('@Auth:Token');
-                localStorage.removeItem('@Auth:Profile');
-                localStorage.removeItem('@Auth:ProfileUser');
-                setIsAuthentication(false);
-                navigate('/login');
-            } else {
-                setIsAuthentication(true);
-                setAuthToken(storageToken);
-            }
-        };
+    //         if (!storageProfile || !storageToken) {
+    //             localStorage.removeItem('@Auth:Token');
+    //             localStorage.removeItem('@Auth:Profile');
+    //             localStorage.removeItem('@Auth:ProfileUser');
+    //             setIsAuthentication(false);
+    //             navigate('/login');
+    //         } else {
+    //             setIsAuthentication(true);
+    //             setAuthToken(storageToken);
+    //         }
+    //     };
 
-        loadingStorageData();
-    }, [navigate, setIsAuthentication, setAuthToken]);
+    //     loadingStorageData();
+    // }, [navigate, setIsAuthentication, setAuthToken]);
 
     useEffect(() => {
         const checkAuthentication = async () => {
             try {
                 const res = await fetch(`${PRD}profile`, {
                     method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                    credentials: 'include' // Inclui cookies na requisição
                 });
-
+    
                 if (res.ok) {
                     const resJSON = await res.json();
-                    const tokenActive = resJSON.tokenActive;
-
-                    if (tokenActive && (tokenActive === token && resJSON.status === "Ativo")) {
-                        localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
-                        localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
-                        setAuthProfile(resJSON);
-                        setIsAuthentication(true);
-                    } else {
-                        setIsAuthentication(false);
-                        navigate('/login');
-                        localStorage.clear();
-                    }
+                    localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
+                    setAuthProfile(resJSON);
+                    setIsAuthentication(true);
                 } else {
                     setIsAuthentication(false);
-                    navigate('/login');
-                    localStorage.clear();
+                    localStorage.clear();// Remove o perfil armazenado localmente
+                    navigate('/login'); // Redireciona para a página de login
                 }
             } catch (error) {
-                setIsAuthentication(false);
                 console.error('Erro ao verificar autenticação:', error);
                 localStorage.clear();
-                window.location.assign('/'); // Correção para recarregar a página corretamente
+                setIsAuthentication(false);
+                navigate('/login'); // Em caso de erro, redireciona para a página de login
             }
         };
-
-        checkAuthentication();
-    }, [authToken, navigate, setAuthProfile, isAuthentication, token]);
-
+    
+        checkAuthentication(); // Chama a função para verificar a autenticação ao montar o componente
+    }, [navigate]);
+    
     const signIn = async (dataLogin) => {
         setLoadingLogin(true);
         try {
@@ -83,36 +70,38 @@ const AuthProvider = ({ children }) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(dataLogin),
+                credentials: 'include', // Garante que o cookie será enviado automaticamente
             });
-
+    
             const resJSON = await res.json();
-            setMessage(resJSON);
-
+    
             if (res.ok) {
-                setAuthToken(resJSON.token);
                 setAuthProfile(resJSON);
-                localStorage.setItem('@Auth:Token', resJSON.token);
-                localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
                 localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
+                localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
                 navigate('/home');
-                setLoadingLogin(false);
+                setIsAuthentication(true);
             } else {
-                localStorage.removeItem('@Auth:Token');
-                localStorage.removeItem('@Auth:Profile');
                 console.error('Erro de login:', resJSON.error);
-                navigate('/');
-                setLoadingLogin(false);
+                localStorage.clear();
+                setIsAuthentication(false);
+                setMessage(resJSON.error); // Defina a mensagem de erro se necessário
             }
         } catch (error) {
             console.error('Erro no login:', error);
+            setIsAuthentication(false);
+            localStorage.clear();
+            setMessage('Erro desconhecido ao tentar fazer login.'); // Mensagem genérica de erro
+        } finally {
             setLoadingLogin(false);
         }
     };
-
+    
     const handleActiveCout = async (data, dataActive) => {
         try {
             const res = await fetch(`${PRD}users/update`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -133,29 +122,23 @@ const AuthProvider = ({ children }) => {
         }
     };
 
-    const logout = async () => {
+    const logout = async (nickname) => {
         try {
-            const storageToken = localStorage.getItem('@Auth:Token');
-            const res = await fetch(`${PRD}logout`, {
+            const res = await fetch(`${PRD}logout?nickname=${nickname}`, {
                 method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${storageToken}`,
-                },
+                credentials: 'include',
             });
-
             const resJSON = await res.json();
             if (res.ok) {
-                localStorage.removeItem('@Auth:Token');
-                localStorage.removeItem('@Auth:Profile');
                 localStorage.clear();
                 setIsAuthentication(false);
-                navigate('/');
+                navigate('/login');
             }
         } catch (error) {
             setIsAuthentication(false);
             console.log(error, 'Erro ao verificar autenticação');
             localStorage.clear();
-            navigate('/');
+            navigate('/login');
         }
     };
 

@@ -1,12 +1,11 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import  { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
+const PRD = 'http://localhost:3000/api/';
 const DocsContext = createContext("");
 const DocsProvider = ({ children }) => {
 
-    const token = localStorage.getItem('@Auth:Token')
     const [message, setMessage] = useState('');
     const [resOk, setResOk] = useState(false)
     const [Documents, setDocuments] = useState([]);
@@ -20,9 +19,9 @@ const DocsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}create/docs`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -50,9 +49,9 @@ const DocsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}delete/docs`, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -74,9 +73,9 @@ const DocsProvider = ({ children }) => {
         try {
             const response = await fetch(`${PRD}update/docs`, {
                 method: 'PUT',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -101,9 +100,7 @@ const DocsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}all/docs?page=${page}&limit=${limit}`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                credentials: 'include',
             });
     
             if (!res.ok) {
@@ -125,9 +122,7 @@ const DocsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}doc/search?typeDocument=${typeDocument}`, {
                 method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
+                credentials: 'include',
             });
             const data = await res.json();
     
@@ -157,9 +152,8 @@ const DocsProvider = ({ children }) => {
         try {
           const res = await fetch(`${PRD}doc?idDocument=${idDocument}`, {
             method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
+            credentials: 'include',
+
           });
           const data = await res.json();
       
