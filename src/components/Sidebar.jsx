@@ -51,7 +51,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
             <div className="imgSidebar border rounded-full overflow-hidden min-w-16 max-w-16 min-h-16 max-h-16 bg-[url('../')] bg-cover bg-center">
               <img
                 className="m-0 relative bottom-3"
-                src={`http://www.habbo.com.br/habbo-imaging/avatarimage?&user=${infoProfileUser.nickname}&action=std&direction=4&head_direction=4&img_format=png&gesture=sml&frame=1&headonly=0&size=m`}
+                src={`https://www.habbo.com.br/habbo-imaging/avatarimage?&user=${infoProfileUser.nickname}&action=std&direction=4&head_direction=4&img_format=png&gesture=sml&frame=1&headonly=0&size=m`}
                 alt=""
               />
             </div>
