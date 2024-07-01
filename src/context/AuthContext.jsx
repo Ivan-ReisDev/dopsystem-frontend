@@ -46,26 +46,33 @@ const AuthProvider = ({ children }) => {
 
                 if (res.ok) {
                     const resJSON = await res.json();
-                    localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
-                    setAuthProfile(resJSON);
-                    setIsAuthentication(true);
+                    const tokenActive = resJSON.tokenActive;
+
+                    if (tokenActive && (tokenActive === token && resJSON.status === "Ativo")) {
+                        localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
+                        localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
+                        setAuthProfile(resJSON);
+                        setIsAuthentication(true);
+                    } else {
+                        setIsAuthentication(false);
+                        navigate('/login');
+                        localStorage.clear();
+                    }
                 } else {
                     setIsAuthentication(false);
-                    localStorage.clear();
                     navigate('/login');
+                    localStorage.clear();
                 }
             } catch (error) {
+                setIsAuthentication(false);
                 console.error('Erro ao verificar autenticação:', error);
                 localStorage.clear();
-                setIsAuthentication(false);
-                navigate('/login');
+                window.location.assign('/'); // Correção para recarregar a página corretamente
             }
         };
 
-        if (token) {
-            checkAuthentication();
-        }
-    }, [token, navigate]);
+        checkAuthentication();
+    }, [authToken, navigate, setAuthProfile, isAuthentication, token]);
 
     const signIn = async (dataLogin) => {
         setLoadingLogin(true);
@@ -76,29 +83,28 @@ const AuthProvider = ({ children }) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(dataLogin),
-                credentials: 'include', // Garante que o cookie será enviado automaticamente
             });
 
             const resJSON = await res.json();
+            setMessage(resJSON);
 
             if (res.ok) {
+                setAuthToken(resJSON.token);
                 setAuthProfile(resJSON);
-                localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
+                localStorage.setItem('@Auth:Token', resJSON.token);
                 localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
+                localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
                 navigate('/home');
-                setIsAuthentication(true);
+                setLoadingLogin(false);
             } else {
+                localStorage.removeItem('@Auth:Token');
+                localStorage.removeItem('@Auth:Profile');
                 console.error('Erro de login:', resJSON.error);
-                localStorage.clear();
-                setIsAuthentication(false);
-                setMessage(resJSON.error); // Defina a mensagem de erro se necessário
+                navigate('/');
+                setLoadingLogin(false);
             }
         } catch (error) {
             console.error('Erro no login:', error);
-            setIsAuthentication(false);
-            localStorage.clear();
-            setMessage('Erro desconhecido ao tentar fazer login.'); // Mensagem genérica de erro
-        } finally {
             setLoadingLogin(false);
         }
     };
