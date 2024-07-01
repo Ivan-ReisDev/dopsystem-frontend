@@ -2,7 +2,7 @@ import { createContext, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-const PRD = 'http://localhost:3000/api/';
+const PRD = 'https://dopsystem-backend.vercel.app/api/';
 
 const TeamsContext = createContext({});
 const TeamsProvider = ({ children }) => {
