@@ -26,7 +26,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await getTeams();
+      await getTeams(localStorage.getItem("@Auth:Token"));
       const docs = await searchDoc("System");
       setDocuments(Array.isArray(docs) ? docs : []);
     };
@@ -135,7 +135,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
       <div className='w-full borderSidebar h-[10%] flex flex-col items-center justify-center'>
         <Button onClick={() => {
           setShowSidebar(!showSidebar);
-          logout(infoProfileUser.nickname);
+          logout();
         }} className='buttonRadiosSidebar mt-3 rounded-full font-bold bg-[#dc3545]' variant="danger">Logout</Button>
       </div>
     </nav>

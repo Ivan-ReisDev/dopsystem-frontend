@@ -25,8 +25,9 @@ const Profile = ({ profile }) => {
     useEffect(() => {
         if (profile && profile.users) {
             document.title = `Polícia DOP - Perfil`;
+            const token = localStorage.getItem('@Auth:Token')
             setNewProfile(profile.users[0]);
-            searchRequerimentsUser(profile.users[0].nickname); 
+            searchRequerimentsUser(profile.users[0].nickname, token); 
            // Selecionando o primeiro usuário do array
            getTeams()
         }

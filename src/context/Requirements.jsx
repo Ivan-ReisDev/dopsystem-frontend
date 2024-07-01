@@ -14,7 +14,7 @@ const RequirementsProvider = ({ children }) => {
     const [requerimentsArray, setRequerimentsArray] = useState([])
     const [loadingReq, setLoadingReq] = useState(false)
     const {setLoading} = useContext(AuthContext);
-
+    const token = localStorage.getItem('@Auth:Token')
     // const getTeams = useCallback(async (tokenAuth) => {
     //     try {
     //         const res = await fetch(`${PRD}teams/all`, {
@@ -39,12 +39,13 @@ const RequirementsProvider = ({ children }) => {
     // }, [getTeams]);
 
     const createRequeriment = async (data) => {
+
         try {
             const res = await fetch(`${PRD}post/requirement/promoted`, {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -72,9 +73,9 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}post/requirement/relegation`, {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -100,9 +101,9 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}post/requirement/warning`, {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -128,9 +129,9 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}put/requirement/resignation`, {
                 method: 'PUT',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({ idUser: idUser }),
             });
@@ -153,9 +154,9 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}post/requirement/resignation`, {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -181,9 +182,9 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}post/requeriments/contract`, {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -209,9 +210,9 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}post/requeriments/sales`, {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -233,12 +234,14 @@ const RequirementsProvider = ({ children }) => {
     };
 
 
-    const searchRequerimentsUser = useCallback(async (nickname) => {
+    const searchRequerimentsUser = useCallback(async (nickname, token) => {
         setLoading(true);
         try {
             const res = await fetch(`${PRD}search/requeriments?promoted=${nickname}`, {
                 method: 'GET',
-                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
             const data = await res.json();
             setRequerimentsArray(data); // Atualize o estado local com os novos dados
@@ -254,8 +257,9 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}search/requeriments/promoteds?typeRequirement=${typeRequirement}&statusRequirement=${statusRequirement}`, {
                 method: 'GET',
-                credentials: 'include',
-
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
 
             const data = await res.json();
@@ -272,7 +276,9 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}search/requeriments/teams?teamRequirement=${teamRequirement}&page=${page}&limit=${limit}`, {
                 method: 'GET',
-                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
 
             const data = await res.json();

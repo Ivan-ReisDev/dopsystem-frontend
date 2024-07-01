@@ -16,7 +16,8 @@ const UserProvider = ({ children }) => {
     const [currentPage, setCurrentPage] = useState(1); // Página atual
     const [itemsPerPage] = useState(10); // Itens por página (ajustável)
     const [loading, setLoading] = useState(false);
-            
+    const token = localStorage.getItem('@Auth:Token');
+              
     const tokenUser = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
     const abortControllerRef = useRef(null);
 
@@ -32,7 +33,9 @@ const UserProvider = ({ children }) => {
       try {
         const res = await fetch(`${PRD}search?nickname=${nickname}&typeRequeriment=${typeRequeriment}`, {
           method: 'GET',
-          credentials: 'include',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
           signal, // Passar o signal para o fetch
         });
     
@@ -59,7 +62,9 @@ const UserProvider = ({ children }) => {
   
           const res = await fetch(url, {
               method: 'GET',
-              credentials: 'include',
+              headers: {
+                  'Authorization': `Bearer ${token}`,
+              },
           });
   
           const data = await res.json();
@@ -80,9 +85,9 @@ const UserProvider = ({ children }) => {
       try {
           const res = await fetch(`${PRD}admin/update`, {
               method: 'PUT',
-              credentials: 'include',
               headers: {
                   'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`,
               },
               body: JSON.stringify(data),
           });
@@ -103,9 +108,9 @@ const UserProvider = ({ children }) => {
       try {
           const res = await fetch(`${PRD}update/tag`, {
               method: 'PUT',
-              credentials: 'include',
               headers: {
                   'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`,
               },
               body: JSON.stringify(data),
           });
@@ -137,7 +142,9 @@ const UserProvider = ({ children }) => {
       try {
         const res = await fetch(`${PRD}loggers?nickname=${tokenUser.nickname}&page=${page}&limit=${limit}&search=${search}`, {
           method: 'GET',
-          credentials: 'include',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
           signal, // Passar o signal para o fetch
         });
 

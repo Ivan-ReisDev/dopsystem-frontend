@@ -9,15 +9,16 @@ const RhContext = createContext("");
 
 const RhProvider = ({ children }) => {
     const [messege, setMessege] = useState("")
+    const token = localStorage.getItem('@Auth:Token')
 
 
     const rhStatus = async (data) => {
         try {
             const res = await fetch(`${PRD}update/status`, {
                 method: 'PUT',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -42,9 +43,9 @@ const RhProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}delete/status`, {
                 method: 'DELETE',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });

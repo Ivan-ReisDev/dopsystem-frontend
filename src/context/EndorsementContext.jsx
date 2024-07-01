@@ -8,6 +8,7 @@ const PRD = 'https://dopsystem-backend.vercel.app/api/';
 const EndorsementContext = createContext("");
 
 const EndorsementProvider = ({ children }) => {
+    const token = localStorage.getItem('@Auth:Token')
     const [EndorsementDb, setEndorsementDb] = useState([]); 
     const [messege, setMessege] = useState('');
     const [loading, setLoading] = useState(false);
@@ -17,9 +18,9 @@ const EndorsementProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}endorsement`, {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -41,12 +42,13 @@ const EndorsementProvider = ({ children }) => {
     };
 
 
-    const getEndorsement = useCallback(async () => {
+    const getEndorsement = useCallback(async (tokenAuth) => {
         try {
             const res = await fetch(`${PRD}endorsement`, {
                 method: 'GET',
-                credentials: 'include',
-
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
             });
 
             if (!res.ok) {
@@ -64,9 +66,9 @@ const EndorsementProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}endorsement/status`, {
                 method: 'PUT',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
@@ -89,10 +91,9 @@ const EndorsementProvider = ({ children }) => {
         try {
             const res = await fetch(`${PRD}endorsement/delete`, {
                 method: 'DELETE',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
