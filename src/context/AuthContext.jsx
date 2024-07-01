@@ -34,68 +34,68 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const checkAuthentication = async () => {
-            try {
-                const res = await fetch(`${PRD}profile`, {
-                    method: 'GET',
-                    credentials: 'include' // Inclui cookies na requisição
-                });
-    
-                if (res.ok) {
-                    const resJSON = await res.json();
-                    localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
-                    setAuthProfile(resJSON);
-                    setIsAuthentication(true);
-                } else {
-                    setIsAuthentication(false);
-                    localStorage.clear();// Remove o perfil armazenado localmente
-                    navigate('/login'); // Redireciona para a página de login
-                }
-            } catch (error) {
-                console.error('Erro ao verificar autenticação:', error);
-                localStorage.clear();
-                setIsAuthentication(false);
-                navigate('/login'); // Em caso de erro, redireciona para a página de login
+          try {
+            const res = await fetch(`${PRD}profile`, {
+              method: 'GET',
+              credentials: 'include' // Inclui cookies na requisição
+            });
+      
+            if (res.ok) {
+              const resJSON = await res.json();
+              localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
+              setAuthProfile(resJSON);
+              setIsAuthentication(true);
+            } else {
+              setIsAuthentication(false);
+              localStorage.clear();// Remove o perfil armazenado localmente
+              navigate('/login'); // Redireciona para a página de login
             }
+          } catch (error) {
+            console.error('Erro ao verificar autenticação:', error);
+            localStorage.clear();
+            setIsAuthentication(false);
+            navigate('/login'); // Em caso de erro, redireciona para a página de login
+          }
         };
-    
+      
         checkAuthentication(); // Chama a função para verificar a autenticação ao montar o componente
-    }, [navigate]);
-    
-    const signIn = async (dataLogin) => {
+      }, [navigate]);
+      
+      const signIn = async (dataLogin) => {
         setLoadingLogin(true);
         try {
-            const res = await fetch(`${PRD}login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataLogin),
-                credentials: 'include', // Garante que o cookie será enviado automaticamente
-            });
-    
-            const resJSON = await res.json();
-    
-            if (res.ok) {
-                setAuthProfile(resJSON);
-                localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
-                localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
-                navigate('/home');
-                setIsAuthentication(true);
-            } else {
-                console.error('Erro de login:', resJSON.error);
-                localStorage.clear();
-                setIsAuthentication(false);
-                setMessage(resJSON.error); // Defina a mensagem de erro se necessário
-            }
-        } catch (error) {
-            console.error('Erro no login:', error);
-            setIsAuthentication(false);
+          const res = await fetch(`${PRD}login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataLogin),
+            credentials: 'include', // Garante que o cookie será enviado automaticamente
+          });
+      
+          const resJSON = await res.json();
+      
+          if (res.ok) {
+            setAuthProfile(resJSON);
+            localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
+            localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
+            navigate('/home');
+            setIsAuthentication(true);
+          } else {
+            console.error('Erro de login:', resJSON.error);
             localStorage.clear();
-            setMessage('Erro desconhecido ao tentar fazer login.'); // Mensagem genérica de erro
+            setIsAuthentication(false);
+            setMessage(resJSON.error); // Defina a mensagem de erro se necessário
+          }
+        } catch (error) {
+          console.error('Erro no login:', error);
+          setIsAuthentication(false);
+          localStorage.clear();
+          setMessage('Erro desconhecido ao tentar fazer login.'); // Mensagem genérica de erro
         } finally {
-            setLoadingLogin(false);
+          setLoadingLogin(false);
         }
-    };
+      };
     
     const handleActiveCout = async (data, dataActive) => {
         try {
