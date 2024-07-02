@@ -29,7 +29,7 @@ const Home = () => {
     document.title = "Polícia DOP - Home";
     const userFromLocalStorage = JSON.parse(localStorage.getItem("@Auth:Profile"));
     const token = localStorage.getItem("@Auth:Token")
-    console.log(teste)
+    console.log(teste())
     setUser(userFromLocalStorage);
 
     if (userFromLocalStorage && userFromLocalStorage.tag === "Vazio") {
