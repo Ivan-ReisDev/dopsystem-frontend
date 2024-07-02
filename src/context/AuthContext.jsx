@@ -76,6 +76,41 @@ const AuthProvider = ({ children }) => {
         checkAuthentication();
     }, [authToken, navigate, isAuthentication, token]);
 
+    // const signIn = async (dataLogin) => {
+    //     setLoadingLogin(true);
+    //     try {
+    //         const res = await fetch(`${PRD}login`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(dataLogin),
+    //         });
+
+    //         const resJSON = await res.json();
+    //         setMessage(resJSON);
+
+    //         if (res.ok) {
+    //             setAuthToken(resJSON.token);
+    //             setAuthProfile(resJSON);
+    //             localStorage.setItem('@Auth:Token', resJSON.token);
+    //             localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
+    //             localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
+    //             navigate('/home');
+    //             setLoadingLogin(false);
+    //         } else {
+    //             localStorage.removeItem('@Auth:Token');
+    //             localStorage.removeItem('@Auth:Profile');
+    //             console.error('Erro de login:', resJSON.error);
+    //             navigate('/');
+    //             setLoadingLogin(false);
+    //         }
+    //     } catch (error) {
+    //         console.error('Erro no login:', error);
+    //         setLoadingLogin(false);
+    //     }
+    // };
+
     const signIn = async (dataLogin) => {
         setLoadingLogin(true);
         try {
@@ -85,11 +120,12 @@ const AuthProvider = ({ children }) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(dataLogin),
+                credentials: 'include' // Garante que os cookies são enviados e recebidos
             });
-
+    
             const resJSON = await res.json();
             setMessage(resJSON);
-
+    
             if (res.ok) {
                 setAuthToken(resJSON.token);
                 setAuthProfile(resJSON);
