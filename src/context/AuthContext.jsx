@@ -141,6 +141,7 @@ const AuthProvider = ({ children }) => {
                 headers: {
                     Authorization: `Bearer ${storageToken}`,
                 },
+                credentials: 'include' 
             });
 
             const resJSON = await res.json();
