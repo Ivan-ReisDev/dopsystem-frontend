@@ -173,25 +173,35 @@ const AuthProvider = ({ children }) => {
 
     const teste = async () => {
         try {
-            const storageToken = localStorage.getItem('@Auth:Token');
-            const res = await fetch(`${PRD}teste`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${storageToken}`,
-                },
-                credentials: 'include' 
-            });
-
-            const resJSON = await res.json();
-            if (res.ok) {
-                console.log(resJSON)
-
+            // Verifica se o localStorage está disponível (apenas no navegador)
+            if (typeof localStorage !== 'undefined') {
+                const storageToken = localStorage.getItem('@Auth:Token');
+                if (!storageToken) {
+                    throw new Error('Token de autenticação não encontrado.');
+                }
+    
+                const res = await fetch(`${PRD}teste`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${storageToken}`,
+                    },
+                    credentials: 'include'
+                });
+    
+                const resJSON = await res.json();
+                if (res.ok) {
+                    console.log(resJSON);
+                } else {
+                    throw new Error(`Erro ao realizar requisição: ${res.status} - ${res.statusText}`);
+                }
+            } else {
+                throw new Error('O localStorage não está disponível neste ambiente.');
             }
         } catch (error) {
-            console.log(error, 'Erro ao verificar autenticação');
-
+            console.error('Erro ao verificar autenticação:', error.message);
         }
     };
+    
 
     const logout = async () => {
         try {
