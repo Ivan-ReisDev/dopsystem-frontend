@@ -21,7 +21,7 @@ const Home = () => {
   const [tag, setTag] = useState('');
   const [isButtonTag, setIsButtonTag] = useState(false);
   
-  const { loading: authLoading } = useContext(AuthContext);
+  const { loading: authLoading, teste } = useContext(AuthContext);
   const { createTag, messege } = useContext(UserContext);
   const { getPublication, allPublications, loading: publicationLoading } = useContext(PublicationContext);
 
@@ -29,6 +29,7 @@ const Home = () => {
     document.title = "Polícia DOP - Home";
     const userFromLocalStorage = JSON.parse(localStorage.getItem("@Auth:Profile"));
     const token = localStorage.getItem("@Auth:Token")
+    console.log(teste)
     setUser(userFromLocalStorage);
 
     if (userFromLocalStorage && userFromLocalStorage.tag === "Vazio") {

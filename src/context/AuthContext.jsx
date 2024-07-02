@@ -133,6 +133,27 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+    const teste = async () => {
+        try {
+            const storageToken = localStorage.getItem('@Auth:Token');
+            const res = await fetch(`${PRD}teste`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${storageToken}`,
+                },
+            });
+
+            const resJSON = await res.json();
+            if (res.ok) {
+                console.log(resJSON)
+
+            }
+        } catch (error) {
+            console.log(error, 'Erro ao verificar autenticação');
+
+        }
+    };
+
     const logout = async () => {
         try {
             const storageToken = localStorage.getItem('@Auth:Token');
@@ -169,7 +190,8 @@ const AuthProvider = ({ children }) => {
                 handleActiveCout,
                 message,
                 loading, setLoading,
-                loadingLogin
+                loadingLogin,
+                teste
             }}
         >
             {children}

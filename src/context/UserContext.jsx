@@ -157,6 +157,7 @@ const UserProvider = ({ children }) => {
         setCurrentPage(data.currentPage); // Definindo a página atual retornada
         setTotalPages(data.totalPages); // Definindo o total de páginas retornadas
         setLoading(false);
+        
       } catch (error) {
         if (error.name !== 'AbortError') {
           setMessage(error.message || 'Erro desconhecido');
