@@ -1,11 +1,13 @@
 import { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { Cookies } from 'universal-cookie';
 
 const PRD = 'https://dopsystem-backend.vercel.app/api/';
 const AuthContext = createContext('');
 const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
+    const cookies = new Cookies();
     const [isAuthentication, setIsAuthentication] = useState(false);
     const [authToken, setAuthToken] = useState(null);
     const [authProfile, setAuthProfile] = useState(null);
