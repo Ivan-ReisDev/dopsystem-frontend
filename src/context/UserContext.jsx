@@ -101,7 +101,7 @@ const UserProvider = ({ children }) => {
 
       } catch (error) {
           console.error(error);
-      };
+      }
     };
 
     const createTag = async (data) => {
