@@ -67,12 +67,12 @@ const AuthProvider = ({ children }) => {
                 setIsAuthentication(false);
                 console.error('Erro ao verificar autenticação:', error);
                 localStorage.clear();
-                window.location.assign('/'); // Correção para recarregar a página corretamente
+                navigate('/'); // Correção para recarregar a página corretamente
             }
         };
 
         checkAuthentication();
-    }, [authToken, navigate, setAuthProfile, isAuthentication, token]);
+    }, [authToken, navigate, isAuthentication, token]);
 
     const signIn = async (dataLogin) => {
         setLoadingLogin(true);
