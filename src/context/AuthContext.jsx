@@ -119,7 +119,6 @@ const AuthProvider = ({ children }) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(dataLogin),
-                credentials: 'include' // Garante que os cookies são enviados e recebidos
             });
     
             const resJSON = await res.json();
@@ -207,7 +206,7 @@ const AuthProvider = ({ children }) => {
                 message,
                 loading, setLoading,
                 loadingLogin,
-                teste
+
             }}
         >
             {children}
