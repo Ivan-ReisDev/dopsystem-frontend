@@ -197,7 +197,6 @@ const TeamsProvider = ({ children }) => {
                 getTeams,
                 createTeams,
                 deleteTeams,
-                teams
             }}
         >
             {children}
