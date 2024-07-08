@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { SystemContext } from '../../context/SystemContext';
-import Preloader from '../Preloader/Preloader';
+import Preloader from '../../assets/preloader.gif';
 
 const DpanelInfo = () => {
   const { getSystemDpanel, infoSystemDpanel, info, loading, updateSystem, messege } = useContext(SystemContext);
@@ -42,7 +42,7 @@ const DpanelInfo = () => {
 
 
   if (loading) {
-    return <Preloader />;
+    return <div className='flex items-center justify-center h-full'> <img src={Preloader} alt="Loading..." /></div>;
   }
   return (
     <div className="flex justify-center items-center w-full">
