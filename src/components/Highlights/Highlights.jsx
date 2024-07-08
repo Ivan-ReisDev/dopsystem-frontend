@@ -6,7 +6,7 @@ import {
 import style from './Highlights.module.css'
 import { Link } from 'react-router-dom';
 import { SystemContext } from '../../context/SystemContext';
-import Preloader from '../Preloader/Preloader';
+import Preloader from '../../assets/preloader.gif';
 const Highlights = () => {
     const { loading, getSystemDpanel, infoSystemDpanel } = useContext(SystemContext);
     useEffect(() => {
@@ -15,7 +15,7 @@ const Highlights = () => {
 
 
     if(loading) {
-        return <Preloader />
+        return <div className='flex items-center justify-center'> <img className='w-[50px]' src={Preloader} alt="Loading..." /></div>
     }
 
     if(!loading) {
