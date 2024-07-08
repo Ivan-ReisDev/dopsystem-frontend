@@ -9,7 +9,6 @@ const Navbar = () => {
     const [showSidebar, setShowSidebar] = useState(false);
     const activeSidebar = () => setShowSidebar(!showSidebar);
     const location = useLocation();
-
     // Verifica se a rota atual é '/contact'
     if (location.pathname === '/dpanel') {
       return null; // Não renderiza o Header

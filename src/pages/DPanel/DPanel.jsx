@@ -11,6 +11,7 @@ import DpanelTeams from '../../components/DpanelTeams/DpanelTeams';
 import DpanelUsers from '../../components/DpanelUsers/DpanelUsers';
 import "./DPanel.module.css"
 import DpanelPublication from '../../components/DpanelPublication/DpanelPublication';
+import DpanelInfo from '../../components/DpanelInfo/DpanelInfo';
 
 const DPanel = () => {
   const [selectFunction, setSelectFunction] = useState('System');
@@ -79,6 +80,7 @@ const DPanel = () => {
           </nav>
         </article>
         <main className="w-full md:w-3/4">
+          {selectFunction === 'System' && <DpanelInfo />}
           {selectFunction === 'DocsEdit' && <DocsDpanel />}
           {selectFunction === 'Logger' && <Logger />}
           {selectFunction === 'Teams' && <DpanelTeams />}

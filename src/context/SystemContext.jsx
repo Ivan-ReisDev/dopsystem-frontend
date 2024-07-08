@@ -8,9 +8,36 @@ const SystemContext = createContext("");
 
 const SystemProvider = ({ children }) => {
     const [infoSystem, setInfoSystem] = useState([])
+    const [info, setInfo] = useState([])
     const [messege, setMessage] = useState('');
     const [patents, setPatents] = useState([]);
+    const [infoSystemDpanel,setInfoSystemDpanel] = useState([])
+    const [loading, setLoading] = useState(true);
     const token = localStorage.getItem('@Auth:Token')
+
+    const getSystemDpanel = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch(`${PRD}infos`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error('Erro na requisição');
+            }
+            const data = await res.json();
+            setInfo(data.info)
+            setInfoSystemDpanel(data.systemInfo);
+            setMessage(data)
+            setLoading(false);
+        } catch (error) {
+            setMessage(error.message || 'Erro desconhecido');
+            setLoading(false)
+        }
+    };
 
     const getSystem = useCallback(async () => {
         try {
@@ -35,6 +62,30 @@ const SystemProvider = ({ children }) => {
     useEffect(() => {
         getSystem(localStorage.getItem('@Auth:Token'));
     }, []);
+
+    const updateSystem = async (data) => {
+        try {
+            const response = await fetch(`${PRD}infos`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+    
+            const responseData = await response.json();
+    
+            if (response.ok) {
+                setMessage(responseData);
+            } else {
+                setMessage({ error: 'Ocorreu um erro na atualização o system.', details: responseData });
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+            setMessage({ error: 'Erro na requisição. Por favor, tente novamente mais tarde.' });
+        }
+    };
 
 
     const getPatents = async (patent) => {
@@ -64,7 +115,12 @@ const SystemProvider = ({ children }) => {
                 messege,
                 getPatents,
                 patents,
-                setPatents
+                setPatents,
+                infoSystemDpanel,
+                getSystemDpanel,
+                info,
+                loading,
+                updateSystem
             }}
         >
             {children}

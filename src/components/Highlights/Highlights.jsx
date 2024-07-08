@@ -1,15 +1,24 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
     FaStar,
 
 } from "react-icons/fa6";
 import style from './Highlights.module.css'
 import { Link } from 'react-router-dom';
-
-
+import { SystemContext } from '../../context/SystemContext';
+import Preloader from '../Preloader/Preloader';
 const Highlights = () => {
+    const { loading, getSystemDpanel, infoSystemDpanel } = useContext(SystemContext);
+    useEffect(() => {
+        getSystemDpanel();
+    }, [])
 
 
+    if(loading) {
+        return <Preloader />
+    }
+
+    if(!loading) {
     return (
         <div className='contentBodyElement'>
             <div className='contentBodyElementTitle'>
@@ -17,35 +26,33 @@ const Highlights = () => {
             </div>
             <div className={style.cards}>
                 <div className={style.card}>
-                    <Link className={style.Link}>
-                        <img src="https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=Tony77&direction=2&head_direction=3&size=m&gesture=sml&action=wlk&frame=2" alt="" />
-                        <h3>Tony77</h3>
+                    <Link className={style.Link} to={`/search/${infoSystemDpanel[0].destaques1}`}>
+                        <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${infoSystemDpanel[0].destaques1}&direction=2&head_direction=3&size=m&gesture=sml&action=wlk&frame=2`} alt="" />
+                        <h3>{infoSystemDpanel[0].destaques1}</h3>
                     </Link>
                 </div>
                 <div className={style.card}>
-                    <Link className={style.Link}>
-                        <img src="https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=souzah2015&direction=2&head_direction=3&size=m&gesture=sml&action=wlk&frame=2" alt="" />
-                        <h3>souzah2015</h3>
+                <Link className={style.Link} to={`/search/${infoSystemDpanel[0].destaques2}`}>
+                        <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${infoSystemDpanel[0].destaques2}&direction=2&head_direction=3&size=m&gesture=sml&action=wlk&frame=2`} alt="" />
+                        <h3>{infoSystemDpanel[0].destaques2}</h3>
                     </Link>
                 </div>
                 <div className={style.card}>
-                    <Link className={style.Link}>
-                        <img src="https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=Cristyanlcs&direction=2&head_direction=3&size=m&gesture=sml&action=wlk&frame=2" alt="" />
-                        <h3>Cristyanlcs</h3>
+                <Link className={style.Link} to={`/search/${infoSystemDpanel[0].destaques3}`}>
+                        <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${infoSystemDpanel[0].destaques3}&direction=2&head_direction=3&size=m&gesture=sml&action=wlk&frame=2`} alt="" />
+                        <h3>{infoSystemDpanel[0].destaques3}</h3>
                     </Link>
                 </div>
                 <div className={style.card}>
-                    <Link className={style.Link}>
-                        <img src="https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=:1854&direction=2&head_direction=3&size=m&gesture=sml&action=wlk&frame=2" alt="" />
-                        <h3>:1854</h3>
+                <Link className={style.Link} to={`/search/${infoSystemDpanel[0].destaques4}`}>
+                        <img src={`https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=png&user=${infoSystemDpanel[0].destaques4}&direction=2&head_direction=3&size=m&gesture=sml&action=wlk&frame=2`} alt="" />
+                        <h3>{infoSystemDpanel[0].destaques4}</h3>
                     </Link>
                 </div>
             </div>
-
-
-
         </div>
     )
+}
 }
 
 export default Highlights;
