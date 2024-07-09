@@ -36,7 +36,6 @@ const PublicationProvider = ({ children }) => {
 
     const getPublication = async (token) => {
         try {
-            console.log(token)
             // Verifique se o token não está undefined ou null
             if (!token) {
                 throw new Error('Token não fornecido');

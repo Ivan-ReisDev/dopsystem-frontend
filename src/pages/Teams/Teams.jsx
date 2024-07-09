@@ -51,10 +51,6 @@ const Teams = ({ team }) => {
   }, [docSelected]);
 
   useEffect(() => {
-    console.log('DocsScripts:', DocsScripts); // Adicione este log para verificar a atualização
-  }, [DocsScripts]);
-
-  useEffect(() => {
     const fetchUsers = async () => {
       try {
         if (userLocalStorage && userLocalStorage.nickname) {

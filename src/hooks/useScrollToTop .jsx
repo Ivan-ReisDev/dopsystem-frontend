@@ -6,7 +6,7 @@ const useScrollToTop = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    console.log("Teste de renderização")
+
   }, [pathname]);
 };
 

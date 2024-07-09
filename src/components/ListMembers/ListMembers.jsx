@@ -9,7 +9,6 @@ const ListMembers = ({ infoSystem, select }) => {
 
     const handleSelect = async (e) => {
         const patentSelected = e.target.value;
-        console.log(patentSelected)
         await getPatents(patentSelected)
     }
     return (

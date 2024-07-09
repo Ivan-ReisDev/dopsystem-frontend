@@ -228,7 +228,7 @@ const DocumentView = () => {
     return <Preloader />;
   }
 
-  console.log(userType.teans)
+
 
   if (userType && (userType.userType === 'Admin' || userType.userType === 'Diretor' || userType.teans.includes(docCompleted.docsType))) {
     if (error) return <div>{error}</div>;

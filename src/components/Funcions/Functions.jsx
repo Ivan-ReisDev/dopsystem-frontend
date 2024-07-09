@@ -5,14 +5,14 @@ const Functions = ({ teams, profile }) => {
   const [teamsProfile, setTeamsProfile] = useState([]);
   const { users } = profile
   const userProfile = users[0];
-  console.log(userProfile)
+
 
   useEffect(() => {
     const userFilter = teams.filter(team => userProfile.teans.includes(team.nameTeams))
     setTeamsProfile(userFilter)
   }, []);
 
-  console.log(teamsProfile)
+
 
   return (<>
    <div className='contentBodyElement'>

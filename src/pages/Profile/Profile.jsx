@@ -38,7 +38,7 @@ const Profile = ({ profile }) => {
         requerimentsArray
     }, []);
 
-    console.log(requerimentsArray)
+
 
     const handleSubmit = (e) => {
         e.preventDefault();

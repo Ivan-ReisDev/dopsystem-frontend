@@ -35,25 +35,25 @@ const AuthProvider = ({ children }) => {
     //     loadingStorageData();
     // }, [navigate]);
 
-    useEffect(() => {
-        const loadingStorageData = async () => {
-            const storageToken = localStorage.getItem('@Auth:Token');
-            const storageProfile = localStorage.getItem('@Auth:Profile');
+    // useEffect(() => {
+    //     const loadingStorageData = async () => {
+    //         const storageToken = localStorage.getItem('@Auth:Token');
+    //         const storageProfile = localStorage.getItem('@Auth:Profile');
             
-            if (!storageProfile || !storageToken) {
-                localStorage.removeItem('@Auth:Token');
-                localStorage.removeItem('@Auth:Profile');
-                localStorage.removeItem('@Auth:ProfileUser');
-                setIsAuthentication(false);
-                navigate('/login');
-            } else {
-                setIsAuthentication(true);
-                setAuthToken(storageToken);
-            }
-        };
+    //         if (!storageProfile || !storageToken) {
+    //             localStorage.removeItem('@Auth:Token');
+    //             localStorage.removeItem('@Auth:Profile');
+    //             localStorage.removeItem('@Auth:ProfileUser');
+    //             setIsAuthentication(false);
+    //             navigate('/login');
+    //         } else {
+    //             setIsAuthentication(true);
+    //             setAuthToken(storageToken);
+    //         }
+    //     };
 
-        loadingStorageData();
-    }, [navigate, setIsAuthentication, setAuthToken]);
+    //     loadingStorageData();
+    // }, [navigate, setIsAuthentication, setAuthToken]);
 
 
     // useEffect(() => {

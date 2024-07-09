@@ -17,7 +17,7 @@ const DpanelUsers = () => {
     }, [currentPage, searchTerm, getAll]);
 
     useEffect(() => {
-        console.log('User:', user);
+
         if (Array.isArray(user)) {
             setArrayUser(user);
         } else {
