@@ -8,8 +8,6 @@ import { AuthContext } from "../../context/AuthContext";
 
 
 import Preloader from "../../assets/preloader.gif";
-
-
 import Functions from "../../components/Funcions/Functions";
 import { TeamsContext } from "../../context/TeamsContext";
 

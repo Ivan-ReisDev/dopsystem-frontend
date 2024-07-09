@@ -22,9 +22,9 @@ const Functions = ({ teams, profile }) => {
       <ul className='w-full flex items-center justify-center p-2 text-wrap'>
 
         {teamsProfile.length > 0 ?
-         teamsProfile.map((team, index) => (
+         teamsProfile.map((team) => (
           <>
-            <div key={index} className='flex items-center justify-center p-2 flex-col min-w-[100px]'>
+            <div key={team.nameTeams} className='flex items-center justify-center p-2 flex-col min-w-[100px]'>
             <img src={team.emblema} alt={team.nameTeams} />
             <h3 className='font-medium text-[11px]'>{team.nameTeams}</h3>
           </div>
