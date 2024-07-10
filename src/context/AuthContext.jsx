@@ -37,8 +37,8 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const loadingStorageData = async () => {
-            const storageToken = localStorage.getItem('@Auth:Token');
-            const storageProfile = localStorage.getItem('@Auth:Profile');
+            const storageToken = await localStorage.getItem('@Auth:Token');
+            const storageProfile = await localStorage.getItem('@Auth:Profile');
             
             if (!storageProfile || !storageToken) {
                 localStorage.removeItem('@Auth:Token');
