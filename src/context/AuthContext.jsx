@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-
 const PRD = 'https://dopsystem-backend.vercel.app/api/';
 const AuthContext = createContext('');
 const AuthProvider = ({ children }) => {
@@ -11,35 +10,14 @@ const AuthProvider = ({ children }) => {
     const [authToken, setAuthToken] = useState(null);
     const [authProfile, setAuthProfile] = useState(null);
     const [loadingLogin, setLoadingLogin] = useState(false);
-    const [message, setMessage ] = useState('')
-    const [loading, setLoading] = useState(false)
-    const token = localStorage.getItem('@Auth:Token')
-
-    // useEffect(() => {
-    //     const loadingStorageData = async () => {
-    //         const storageToken = localStorage.getItem("@Auth:Token");
-    //         const storageProfile = JSON.stringify(localStorage.getItem("@Auth:Profile"));
-            
-    //         if (!storageProfile || !storageToken ) {
-    //             localStorage.removeItem('@Auth:Token');
-    //             localStorage.removeItem('@Auth:Profile');
-    //             localStorage.removeItem('@Auth:ProfileUser');
-    //             setIsAuthentication(false)
-    //             navigate('/login') 
-    //         }          
-    //         else {
-    //             setIsAuthentication(true)
-    //             setAuthToken(storageToken);
-    //         }
-    //     };
-    //     loadingStorageData();
-    // }, [navigate]);
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const loadingStorageData = async () => {
             const storageToken = await localStorage.getItem('@Auth:Token');
             const storageProfile = await localStorage.getItem('@Auth:Profile');
-            
+
             if (!storageProfile || !storageToken) {
                 localStorage.removeItem('@Auth:Token');
                 localStorage.removeItem('@Auth:Profile');
@@ -49,93 +27,22 @@ const AuthProvider = ({ children }) => {
             } else {
                 setIsAuthentication(true);
                 setAuthToken(storageToken);
+                setAuthProfile(JSON.parse(storageProfile));
             }
         };
 
         loadingStorageData();
-    }, [navigate, setIsAuthentication, setAuthToken]);
-
-
-    // useEffect(() => {
-    //     const checkAuthentication = async () => {
-    //         try {
-    //             const storageToken = localStorage.getItem('@Auth:Token');
-    //             setAuthToken(storageToken);
-    //             const res = await fetch(`${PRD}profile`, {
-    //                 method: 'GET',
-    //                 headers: {
-    //                     Authorization: `Bearer ${storageToken}`,
-    //                 },
-    //             });
-    
-    //             if (res.ok) {
-    //                 const resJSON = await res.json();
-
-    //                 localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
-    //                 localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
-    //                 setAuthProfile(resJSON);
-    //                 setIsAuthentication(true);
-
-    //             } else {
-    //                 setIsAuthentication(false);
-    //                 navigate('/login') ;
-    //                 localStorage.clear();
-    //             }
-    //         } catch (error) {
-    //             setIsAuthentication(false);
-    //             console.log(error, 'Erro ao verificar autenticação');
-    //             localStorage.clear();
-    //             window.location.reload('/') ;
-    //         }
-    //     };
-    
-    //     checkAuthentication();
-    // }, [navigate]);
-    
-
-    // useEffect(() => {
-    //     const checkAuthentication = async () => {
-    //         try {
-    //             const storageToken = localStorage.getItem('@Auth:Token');
-    //             setAuthToken(storageToken);
-
-    //             const res = await fetch(`${PRD}profile`, {
-    //                 method: 'GET',
-    //                 headers: {
-    //                     Authorization: `Bearer ${storageToken}`,
-    //                 },
-    //             });
-
-    //             if (res.ok) {
-    //                 const resJSON = await res.json();
-
-    //                 localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
-    //                 localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
-    //                 setAuthProfile(resJSON);
-    //                 setIsAuthentication(true);
-    //             } else {
-    //                 setIsAuthentication(false);
-    //                 navigate('/login');
-    //                 localStorage.clear();
-    //             }
-    //         } catch (error) {
-    //             setIsAuthentication(false);
-    //             console.error('Erro ao verificar autenticação:', error);
-    //             localStorage.clear();
-    //             window.location.assign('/'); // Correção para recarregar a página corretamente
-    //         }
-    //     };
-
-    //     checkAuthentication();
-    // }, [navigate, setAuthToken, setAuthProfile, setIsAuthentication]);
+    }, [navigate]);
 
     useEffect(() => {
         const checkAuthentication = async () => {
+            if (!authToken) return;
+
             try {
                 const res = await fetch(`${PRD}profile`, {
                     method: 'GET',
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${authToken}`,
                     },
                 });
 
@@ -143,7 +50,7 @@ const AuthProvider = ({ children }) => {
                     const resJSON = await res.json();
                     const tokenActive = resJSON.tokenActive; // Assumindo que o token ativo é retornado pela API
 
-                    if (tokenActive && (tokenActive === token && resJSON.status === "Ativo")) {
+                    if (tokenActive && (tokenActive === authToken && resJSON.status === "Ativo")) {
                         localStorage.setItem('@Auth:Profile', JSON.stringify(resJSON));
                         localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
                         setAuthProfile(resJSON);
@@ -162,14 +69,14 @@ const AuthProvider = ({ children }) => {
                 setIsAuthentication(false);
                 console.error('Erro ao verificar autenticação:', error);
                 localStorage.clear();
-                window.location.assign('/'); // Correção para recarregar a página corretamente
+                navigate('/login');
             }
         };
 
         checkAuthentication();
-    }, [authToken, navigate, setAuthProfile, isAuthentication, token]);
-    
-    const signIn = async (dataLogin)  => {
+    }, [authToken, navigate]);
+
+    const signIn = async (dataLogin) => {
         setLoadingLogin(true);
         try {
             const res = await fetch(`${PRD}login`, {
@@ -179,11 +86,10 @@ const AuthProvider = ({ children }) => {
                 },
                 body: JSON.stringify(dataLogin),
             });
-    
+
             const resJSON = await res.json();
             setMessage(resJSON);
-            
-    
+
             if (res.ok) {
                 setAuthToken(resJSON.token);
                 setAuthProfile(resJSON);
@@ -192,13 +98,12 @@ const AuthProvider = ({ children }) => {
                 localStorage.setItem('@Auth:ProfileUser', JSON.stringify(resJSON));
                 navigate('/home');
                 setLoadingLogin(false);
-
             } else {
                 localStorage.removeItem('@Auth:Token');
                 localStorage.removeItem('@Auth:Profile');
                 console.error('Erro de login:', resJSON.error); // Assumindo que o servidor envia uma mensagem de erro no corpo da resposta
-                navigate('/') 
-                setLoadingLogin(false);// Redirecionando o usuário de volta para a página inicial
+                navigate('/login');
+                setLoadingLogin(false); // Redirecionando o usuário de volta para a página inicial
             }
         } catch (error) {
             console.error('Erro no login:', error);
@@ -206,8 +111,8 @@ const AuthProvider = ({ children }) => {
             // Poderia mostrar uma mensagem de erro amigável para o usuário aqui
         }
     };
-    
-        const handleActiveCout = async (data, dataActive) => {
+
+    const handleActiveCout = async (data, dataActive) => {
         try {
             const res = await fetch(`${PRD}users/update`, {
                 method: 'PUT',
@@ -221,12 +126,7 @@ const AuthProvider = ({ children }) => {
             });
 
             const DataMSG = await res.json();
-            if (res.ok) {
-                setMessage(DataMSG);
-            } else {
-                setMessage(DataMSG);
-            }
-
+            setMessage(DataMSG);
         } catch (error) {
             console.error(error);
         }
@@ -247,42 +147,34 @@ const AuthProvider = ({ children }) => {
             if (res.ok) {
                 localStorage.removeItem('@Auth:Token');
                 localStorage.removeItem('@Auth:Profile');
-                localStorage.clear()
-                setIsAuthentication(false)
-                console.error('Erro de login:', resJSON.error);
-                navigate('/');
-
+                localStorage.clear();
+                setIsAuthentication(false);
+                navigate('/login');
             }
         } catch (error) {
             setIsAuthentication(false);
-            console.log(error, 'Erro ao verificar autenticação');
+            console.error('Erro ao deslogar:', error);
             localStorage.clear();
-            navigate('/');
+            navigate('/login');
         }
     };
 
-
-
-
-
-
-
-return (
-    <AuthContext.Provider
-        value={{
-            signIn,
-            isAuthentication,
-            logout,
-            authProfile,
-            handleActiveCout,
-            message,
-            loading, setLoading,
-            loadingLogin
-        }}
-    >
-        {children}
-    </AuthContext.Provider>
-);
+    return (
+        <AuthContext.Provider
+            value={{
+                signIn,
+                isAuthentication,
+                logout,
+                authProfile,
+                handleActiveCout,
+                message,
+                loading, setLoading,
+                loadingLogin,
+            }}
+        >
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 // Propriedades esperadas pelo componente AuthContext

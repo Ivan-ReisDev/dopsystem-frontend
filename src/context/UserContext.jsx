@@ -165,6 +165,31 @@ const UserProvider = ({ children }) => {
         }
       }
     };
+
+    const deleteUser = async (id) => {
+      try {
+          const res = await fetch(`${PRD}/user/delete/${id}`, {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`,
+              },
+
+          });
+
+          const DataMSG = await res.json();
+
+          if (res.ok) {
+              setMessage(DataMSG);
+  
+
+          } else {
+              setMessage(DataMSG);
+          }
+      } catch (error) {
+          console.error('Erro ao deletar documento', error);
+      }
+  };
     
     // Função para mudar de página
     const goToPage = (page) => {
@@ -193,7 +218,8 @@ const UserProvider = ({ children }) => {
               currentPage, 
               setCurrentPage,
               goToPage,
-              loading
+              loading,
+              deleteUser
           }}
       >
           {children}

@@ -4,7 +4,7 @@ import { UserContext } from '../../context/UserContext';
 
 const DpanelEdit = ({ userSelect, setPage }) => {
     const { infoSystem } = useContext(SystemContext);
-    const { updateUserAdmin, messege } = useContext(UserContext);
+    const { updateUserAdmin, messege, deleteUser } = useContext(UserContext);
     const [nickname, setNickname] = useState('');
     const [patent, setPatent] = useState('');
     const [status, setStatus] = useState('');
@@ -43,6 +43,15 @@ const DpanelEdit = ({ userSelect, setPage }) => {
             userType,
         }
         updateUserAdmin(data);
+    };
+
+    const handleDelete = () => {
+        console.log("Entrou aqui")
+        if (window.confirm("Você tem certeza que deseja deletar este usuário?")){
+           console.log(window.confirm) 
+            deleteUser(userSelect._id);
+            setPage("inicial");
+        }
     };
 
     return (
@@ -167,9 +176,21 @@ const DpanelEdit = ({ userSelect, setPage }) => {
                 >
                     Salvar Alterações
                 </button>
-                <button type='button' onClick={() => setPage("inicial")} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded ml-4">
+                <button 
+                    type="button" 
+                    onClick={handleDelete} 
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-4"
+                >
+                    Deletar Usuário
+                </button>
+                <button 
+                    type="button" 
+                    onClick={() => setPage("inicial")} 
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded ml-4"
+                >
                     Voltar
                 </button>
+  
             </form>
         </div>
     );
