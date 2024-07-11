@@ -135,14 +135,12 @@ const AuthProvider = ({ children }) => {
     const logout = async () => {
         try {
             const storageToken = localStorage.getItem('@Auth:Token');
-            setAuthToken(storageToken);
             const res = await fetch(`${PRD}logout`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${storageToken}`,
                 },
             });
-
             const resJSON = await res.json();
             if (res.ok) {
                 localStorage.removeItem('@Auth:Token');
