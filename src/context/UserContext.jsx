@@ -15,8 +15,9 @@ const UserProvider = ({ children }) => {
     const [loggers, setLoggers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1); // Página atual
     const [itemsPerPage] = useState(10); // Itens por página (ajustável)
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const token = localStorage.getItem('@Auth:Token');
+    const [usersPermissions, setUsersPermissions] = useState([])
               
     const tokenUser = JSON.parse(localStorage.getItem("@Auth:ProfileUser"));
     const abortControllerRef = useRef(null);
@@ -125,7 +126,7 @@ const UserProvider = ({ children }) => {
 
       } catch (error) {
           console.error(error);
-      };
+      }
     };
 
     const getLogs = async (page = 1, limit = 12, search = '') => {
@@ -190,6 +191,27 @@ const UserProvider = ({ children }) => {
           console.error('Erro ao deletar documento', error);
       }
   };
+
+  const listPermissions = async () => {
+    setLoading(true);
+    try {
+        const res = await fetch(`${PRD}permissions`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+        const data = await res.json();
+        setUsersPermissions(data);
+        if (res.ok) {
+          setLoading(false);
+        }
+
+    } catch (error) {
+        console.log(error.message || 'Erro desconhecido');
+        setLoading(false);
+    }
+};
     
     // Função para mudar de página
     const goToPage = (page) => {
@@ -209,6 +231,7 @@ const UserProvider = ({ children }) => {
               searchAllUsers,
               setMessege,
               getLogs,
+              listPermissions,
               loggers,
               user,
               messege,
@@ -219,7 +242,9 @@ const UserProvider = ({ children }) => {
               setCurrentPage,
               goToPage,
               loading,
-              deleteUser
+              deleteUser,
+              setLoading,
+              usersPermissions
           }}
       >
           {children}

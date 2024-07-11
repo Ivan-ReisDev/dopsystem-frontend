@@ -5,6 +5,7 @@ import { FaDatabase, FaUsersCog, FaBlogger, FaHome } from 'react-icons/fa';
 import { IoIosMegaphone } from 'react-icons/io';
 import { GrDocumentConfig } from 'react-icons/gr';
 import { BsMicrosoftTeams } from 'react-icons/bs';
+import { GoPasskeyFill } from "react-icons/go";
 import Logger from '../../components/Logger/Logger';
 import DocsDpanel from '../../components/DocsDpanel/DocsDpanel';
 import DpanelTeams from '../../components/DpanelTeams/DpanelTeams';
@@ -12,6 +13,7 @@ import DpanelUsers from '../../components/DpanelUsers/DpanelUsers';
 import "./DPanel.module.css"
 import DpanelPublication from '../../components/DpanelPublication/DpanelPublication';
 import DpanelInfo from '../../components/DpanelInfo/DpanelInfo';
+import DpanelPermissions from '../../components/DpanelPermissions/DpanelPermissions';
 
 const DPanel = () => {
   const [selectFunction, setSelectFunction] = useState('System');
@@ -54,14 +56,25 @@ const DPanel = () => {
             >
               <BsMicrosoftTeams className="mr-2" /> Equipes
             </button>
-            { user && user.userType === "Admin" &&
-              <button
-              className={`block w-full text-left py-2 px-4 rounded-md mb-2 ${selectFunction === 'Users' ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-100'}`}
-              onClick={() => setSelectFunction('Users')}
-              >
-              <FaUsersCog className="mr-2" /> Usuários
-            </button>
+            {user && user.userType === "Admin" &&
+              <>
+                <button
+                  className={`block w-full text-left py-2 px-4 rounded-md mb-2 ${selectFunction === 'Users' ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-100'}`}
+                  onClick={() => setSelectFunction('Users')}
+                >
+                  <FaUsersCog className="mr-2" /> Usuários
+                </button>
+
+
+                <button
+                  className={`block w-full text-left py-2 px-4 rounded-md mb-2 ${selectFunction === 'Permissions' ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-100'}`}
+                  onClick={() => setSelectFunction('Permissions')}
+                >
+                  <GoPasskeyFill className="mr-2" /> Permissões Especiais
+                </button>
+              </>
             }
+
             <button
               className={`block w-full text-left py-2 px-4 rounded-md mb-2 ${selectFunction === 'Publication' ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-100'}`}
               onClick={() => setSelectFunction('Publication')}
@@ -71,11 +84,11 @@ const DPanel = () => {
 
             {user && user.userType === "Admin" &&
               <button
-              className={`block w-full text-left py-2 px-4 rounded-md mb-2 ${selectFunction === 'Logger' ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-100'}`}
-              onClick={() => setSelectFunction('Logger')}
+                className={`block w-full text-left py-2 px-4 rounded-md mb-2 ${selectFunction === 'Logger' ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-100'}`}
+                onClick={() => setSelectFunction('Logger')}
               >
-              <FaBlogger className="mr-2" /> Logs
-            </button>
+                <FaBlogger className="mr-2" /> Logs
+              </button>
             }
           </nav>
         </article>
@@ -86,6 +99,7 @@ const DPanel = () => {
           {selectFunction === 'Teams' && <DpanelTeams />}
           {selectFunction === 'Users' && <DpanelUsers />}
           {selectFunction === 'Publication' && <DpanelPublication />}
+          {selectFunction === 'Permissions' && <DpanelPermissions />}
         </main>
       </div>
     </div>
