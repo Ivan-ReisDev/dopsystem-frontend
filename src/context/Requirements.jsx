@@ -125,7 +125,6 @@ const RequirementsProvider = ({ children }) => {
     };
 
     const createRequerimentResignationUpdateUser = async (idUser, promoted) => {
-
         try {
             const res = await fetch(`${PRD}put/requirement/resignation`, {
                 method: 'PUT',
@@ -165,6 +164,7 @@ const RequirementsProvider = ({ children }) => {
 
             if (res.ok) {
                 createRequerimentResignationUpdateUser(data.idUser, data.promoted);
+                navigate(`/search/${data.promoted}`)
                 setMessage(resJSON)
 
             } else {
@@ -191,7 +191,8 @@ const RequirementsProvider = ({ children }) => {
 
             const resJSON = await res.json();
 
-            if (resJSON.ok) {
+            if (res.ok) {
+
                 setMessage('Requerimento postado com sucesso.');
                 navigate(`/search/${data.promoted}`)
             } else {
