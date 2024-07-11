@@ -168,7 +168,7 @@ const UserProvider = ({ children }) => {
 
     const deleteUser = async (id) => {
       try {
-          const res = await fetch(`${PRD}/user/delete/${id}`, {
+          const res = await fetch(`${PRD}user/delete/${id}`, {
               method: 'DELETE',
               headers: {
                   'Content-Type': 'application/json',
