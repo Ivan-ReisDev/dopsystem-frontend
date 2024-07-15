@@ -10,7 +10,7 @@ const FormClasses = ({ team, userLocalStorage }) => {
     const [operator, setOperator] = useState('');
     const [classeRecebida, setClasseRecebida] = useState('');
     const { infoSystem, getSystem } = useContext(SystemContext);
-    const navigate = useNavigate();
+
 
     const { Classes, createClasseRequeriment, loading, message } = useContext(ClassesContext);
     const newArrayClasses = Classes.filter(classes => classes.team === team.nameTeams);

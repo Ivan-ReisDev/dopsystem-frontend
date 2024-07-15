@@ -7,6 +7,7 @@ const PRD = 'https://dopsystem-backend.vercel.app/api/';
 const TeamsContext = createContext({});
 const TeamsProvider = ({ children }) => {
     const token = localStorage.getItem('@Auth:Token')
+    const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [teams, setTeams] = useState([]);
     const [infoTeamsArray, setInfoTeamsArray] = useState([]);
@@ -133,6 +134,7 @@ const TeamsProvider = ({ children }) => {
 
 
     const addMember = async (data, team) => {
+        setLoading(true);
         try {
             const response = await fetch(`${PRD}teams/add`, {
                 method: 'PUT',
@@ -147,13 +149,16 @@ const TeamsProvider = ({ children }) => {
     
             if (response.ok) {
                 setMessage(responseData);
-                navigate(`/team/${team.nameTeams}`)
+                navigate(`/team/${team.nameTeams}`);
+                setLoading(false);
             } else {
                 setMessage(responseData)
                 console.error("Erro ao remover usuário :", responseData);
+                setLoading(false);
             }
         } catch (error) {
             console.error("Erro na requisição:", error);
+            setLoading(false);
         }
     };
     const getTeams = useCallback(async () => {
@@ -197,6 +202,7 @@ const TeamsProvider = ({ children }) => {
                 getTeams,
                 createTeams,
                 deleteTeams,
+                loading
             }}
         >
             {children}

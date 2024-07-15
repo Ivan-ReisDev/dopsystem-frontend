@@ -6,7 +6,7 @@ export const FormAdd = ({ team }) => {
   // idUser, nickMember, idTeams
   const [nickname, setNickname] = useState("")
   const [office, setOffice] = useState("")
-  const { addMember } = useContext(TeamsContext);
+  const { addMember, loading, message } = useContext(TeamsContext);
   const user = JSON.parse(localStorage.getItem("@Auth:ProfileUser"))
 
   const handleSubmit = (e) => {
@@ -17,6 +17,7 @@ export const FormAdd = ({ team }) => {
       office,
       idTeams: team._id
     }
+    
     addMember(data, team);
 
   }
@@ -43,7 +44,11 @@ export const FormAdd = ({ team }) => {
         </select>
 
       </label>
-      <button type='submit'>Adicionar</button>
+      {message.msg && <p className="mt-4 text-green-500">{message.msg}</p>}
+      {message.error && <p className="mt-4 text-red-500">{message.error}</p>}
+      {!loading && <button type='submit'>Adicionar</button>}
+      {loading && <button className='bg-[#368eec9c]' disabled type='button'>Aguarde...</button>}
+      
     </form>
   )
 }
