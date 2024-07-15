@@ -9,7 +9,7 @@
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    min-height: 93vh;
+    min-height: 100vh;
 }
 
 .one,

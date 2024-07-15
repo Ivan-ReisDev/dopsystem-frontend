@@ -1,8 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-
-
 const PRD = 'https://dopsystem-backend.vercel.app/api/';
 const AuthContext = createContext('');
 const AuthProvider = ({ children }) => {
@@ -14,6 +12,7 @@ const AuthProvider = ({ children }) => {
     const [message, setMessage ] = useState('')
     const [loading, setLoading] = useState(false)
     const token = localStorage.getItem('@Auth:Token')
+
 
     // useEffect(() => {
     //     const loadingStorageData = async () => {
