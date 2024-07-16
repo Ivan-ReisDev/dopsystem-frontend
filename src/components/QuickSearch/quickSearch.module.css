@@ -15,7 +15,7 @@
 
 .info p:nth-child(1) {
     display: flex;
-    font-size: 17px;
+    font-size: 14px;
     align-items: center;
     flex-direction: row;
 }
@@ -81,14 +81,13 @@
     position: absolute;
 }
 
-
 .QuickSearchInfoBody {
-    height: 150px;
+    height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content:center;
-    padding: 10px;
+    padding: 20px;
 }
 
 .QuickSearchInfoBody p {
@@ -103,7 +102,7 @@
 
 .info {
     margin: 10px;
-    margin-left: 50px;
+    margin-left: 20px;
 
 }
 
