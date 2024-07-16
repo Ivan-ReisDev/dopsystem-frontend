@@ -70,7 +70,7 @@ const Profile = ({ profile }) => {
                                 <p><span>Patente: </span>{newProfile.patent}</p>
                                 <p><span>TAG: </span>[{newProfile.tag}]</p>
                                 <p><span>Status: </span>{newProfile.status}</p>
-                                <p><span>Código de Confirmação: </span>{newProfile.code ?? dop }</p>
+                                <p><span>Código de Confirmação: </span>{newProfile.code ?? `[DOP] - ${newProfile.patent}` }</p>
                                 <p><span>Advertências: </span>{newProfile.warnings}</p>
                                 <p><span>Medalhas: </span>{newProfile.medals}</p>
                                 <p><span>Admissão: </span>{formatarDataHora(newProfile.createdAt)}</p>
