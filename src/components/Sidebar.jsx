@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { SlArrowUp } from "react-icons/sl";
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
 import '../index.css';
 import "./style.css";
 import { AuthContext } from '../context/AuthContext';
@@ -10,8 +9,7 @@ import { DocsContext } from '../context/DocsContext';
 import { TeamsContext } from '../context/TeamsContext';
 
 const Sidebar = ({ showSidebar, setShowSidebar }) => {
-  const navigate = useNavigate();
-
+  
   const { logout } = useContext(AuthContext);
   const { getTeams, teams } = useContext(TeamsContext);
   const { searchDoc } = useContext(DocsContext);
@@ -92,7 +90,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
                 if (isMember || infoProfileUser.userType === "Admin" || infoProfileUser.userType === "Diretor") {
                   return (
                     <li onClick={() => setShowSidebar(!showSidebar)} key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-                      <NavLink to={`/team/${team.nameTeams}`}>{team.nameTeams}</NavLink>
+                      <NavLink to={`/team/${team.url}`}>{team.nameTeams}</NavLink>
                     </li>
                   );
                 } else {

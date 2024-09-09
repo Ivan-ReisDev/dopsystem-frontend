@@ -53,7 +53,7 @@ function App() {
               teams.map((team, index) => (
                 <Route
                   key={index}
-                  path={`/team/${team.nameTeams}`}
+                  path={`/team/${team.url}`}
                   element={isAuthentication ? <Teams team={team} /> : <LoginSystem />}
                 />
               ))
@@ -63,7 +63,7 @@ function App() {
                 .map((team, index) => (
                   <Route
                     key={index}
-                    path={`/team/${team.nameTeams}`}
+                    path={`/team/${team.url}`}
                     element={isAuthentication ? <Teams team={team} /> : <LoginSystem />}
                   />
                 ))
