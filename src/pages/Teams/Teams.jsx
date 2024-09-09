@@ -152,7 +152,7 @@ const Teams = ({ team }) => {
                 <ul>
                   {Array.isArray(DocsScripts) && DocsScripts.filter((doc) => doc.script === false).map((doc) => (
                     <li key={doc._id}>
-                      <Link to={`/doc/${doc._id}`}>{doc.nameDocs}</Link>
+                      <Link to={`/doc/${doc.url}`}>{doc.nameDocs}</Link>
                     </li>
                   ))}
                 </ul>
@@ -192,7 +192,7 @@ const Teams = ({ team }) => {
             <div className={style.docs}>
               <div className='divMainForms'>
                 <h2><span> <FaListUl /></span>Gerenciar documentação</h2>
-                <Link to={`/team/${team.nameTeams}/doc/new`} className={style.btnDocs}><FaPlus /></Link>
+                <Link to={`/team/${team.url}/doc/new`} className={style.btnDocs}><FaPlus /></Link>
               </div>
               <DocsTeams
                 DocsScripts={DocsScripts}

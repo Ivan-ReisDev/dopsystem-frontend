@@ -28,7 +28,7 @@ const handleDelete = (idDoc) => {
                             <li key={DocsScripts._id}>
                                 <span>{DocsScripts.nameDocs}</span>
                                 <span>
-                                    <Link className={style.buttonEdit} to={`/editor/${DocsScripts._id}`}> Editar</Link>
+                                    <Link className={style.buttonEdit} to={`/editor/${DocsScripts.url}`}> Editar</Link>
                                     <button onClick={() => handleDelete(DocsScripts._id)} className={style.buttonExcluir}>Excluir</button>
                                 </span>
                             </li>

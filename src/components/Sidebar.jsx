@@ -73,7 +73,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
         <div className={`w-full font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showDocs ? "h-auto " : "h-0 hidden"}`}>
           {Array.isArray(documents) && documents.map((doc, index) => (
             <li onClick={() => setShowSidebar(!showSidebar)} key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-              <NavLink to={`/doc/${doc._id}`} >{doc.nameDocs}</NavLink>
+              <NavLink to={`/doc/${doc.url}`} >{doc.nameDocs}</NavLink>
             </li>
           ))}
         </div>

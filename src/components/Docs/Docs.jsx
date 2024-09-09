@@ -27,7 +27,7 @@ const Docs = () => {
       ) : (
         <ul>
           {docSelected && Array.isArray(docSelected) && docSelected.map((doc, index) => (
-            <li key={index}><Link to={`/doc/${doc._id}`}>{doc.nameDocs}</Link></li>
+            <li key={index}><Link to={`/doc/${doc.url}`}>{doc.nameDocs}</Link></li>
           ))}
         </ul>
       )}

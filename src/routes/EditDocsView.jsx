@@ -6,7 +6,7 @@ import Preloader from "../components/Preloader/Preloader";
 import EditDocs from "../pages/EditDocs/EditDocs";
 
 export const EditDocsView = () => {
-    const { docId } = useParams();
+    const { docUrl } = useParams();
     const { searchDocCompleted } = useContext(DocsContext);
     const { teams, getTeams } = useContext(TeamsContext);
     const [docCompleted, setDocCompleted] = useState(null);
@@ -19,7 +19,7 @@ export const EditDocsView = () => {
     useEffect(() => {
       const fetchDoc = async () => {
         try {
-          const doc = await searchDocCompleted(docId);
+          const doc = await searchDocCompleted(docUrl);
           setDocCompleted(doc);
         } catch (err) {
           setError(err.message);
@@ -36,7 +36,7 @@ export const EditDocsView = () => {
   
       fetchDoc();
       fetchTeams();
-    }, [docId, getTeams]);
+    }, [docUrl, getTeams]);
   
     useEffect(() => {
       if (docCompleted && teams.length > 0) {

@@ -101,12 +101,12 @@ function App() {
           {/*  RODAS DE CONFIGURAÇÃO DE DOCUMENTOS */}
 
           <Route
-            path="/doc/:docId"
+            path="/doc/:docUrl"
             element={isAuthentication ? <DocumentView /> : <LoginSystem />}
           />
 
           <Route
-            path={`/editor/:docId`}
+            path={`/editor/:docUrl`}
             element={isAuthentication ? <EditDocsView /> : <LoginSystem />}
           />
 

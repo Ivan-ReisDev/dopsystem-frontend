@@ -152,10 +152,10 @@ const DocsProvider = ({ children }) => {
         }
     };
 
-      const searchDocCompleted = async (idDocument) => {
+      const searchDocCompleted = async (urlDocument) => {
         setLoadingDocs(true);
         try {
-          const res = await fetch(`${PRD}doc?idDocument=${idDocument}`, {
+          const res = await fetch(`${PRD}doc?urlDocument=${urlDocument}`, {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${token}`,
