@@ -179,7 +179,7 @@ const Teams = ({ team }) => {
                         userLocalStorage.classes.includes("Curso de Formação Avançada - [CFA]") ||
                         userLocalStorage.classes.includes(doc.nameDocs)).map((doc) => (
                       <li key={doc._id}>
-                        <Link to={`/doc/${doc._id}`}>{doc.nameDocs}</Link>
+                        <Link to={`/doc/${doc.url}`}>{doc.nameDocs}</Link>
                       </li>
                     ))
                   }
