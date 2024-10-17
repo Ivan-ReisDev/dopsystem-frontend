@@ -11,7 +11,6 @@ import { AuthContext } from '../context/AuthContext';
 import TagModal from '../components/TagModal/TagModal';
 import { UserContext } from '../context/UserContext';
 import { PublicationContext } from '../context/PublicationContext';
-import Rank from '../components/Rank/Rank';
 import Highlights from '../components/Highlights/Highlights';
 
 const Home = () => {
@@ -67,11 +66,11 @@ const Home = () => {
   return (
     <div className='body'>
       <div className='one'>
-        <FastMenu />
-        <Rank />
+        {/* <FastMenu /> */}
+        {/* <Rank /> */}
       </div>
       <div className='two'>
-        <QuickSearch />
+        {/* <QuickSearch /> */}
         <Highlights />
         <License 
           user={user}

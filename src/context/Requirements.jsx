@@ -1,290 +1,140 @@
-import  { createContext, useCallback, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
-
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
+import axiosInstance from '../provider/axiosInstance'; // Importa o axios configurado
 
 const RequirementsContext = createContext("");
 const RequirementsProvider = ({ children }) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [message, setMessage] = useState("");
-    const [requerimentsFilter, setRequerimentsFilter] = useState([])
-    const [requerimentsClasses, setRequerimentsClasses] = useState([])
-    const [requerimentsArray, setRequerimentsArray] = useState([])
-    const [loadingReq, setLoadingReq] = useState(false)
-    const {setLoading} = useContext(AuthContext);
-    const token = localStorage.getItem('@Auth:Token')
-    // const getTeams = useCallback(async (tokenAuth) => {
-    //     try {
-    //         const res = await fetch(`${PRD}teams/all`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 Authorization: `Bearer ${tokenAuth}`,
-    //             },
-    //         });
-
-    //         if (!res.ok) {
-    //             throw new Error('Erro na requisição');
-    //         }
-    //         const data = await res.json();
-    //         setTeams(data);
-    //     } catch (error) {
-    //         setMessage(error.message || 'Erro desconhecido');
-    //     }
-    // }, []);
-
-    // useEffect(() => {
-    //     getTeams(localStorage.getItem('@Auth:Token'));
-    // }, [getTeams]);
+    const [requerimentsFilter, setRequerimentsFilter] = useState([]);
+    const [requerimentsClasses, setRequerimentsClasses] = useState([]);
+    const [requerimentsArray, setRequerimentsArray] = useState([]);
+    const [loadingReq, setLoadingReq] = useState(false);
+    const { setLoading } = useContext(AuthContext);
 
     const createRequeriment = async (data) => {
-
         try {
-            const res = await fetch(`${PRD}post/requirement/promoted`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-            });
-
-            const resJSON = await res.json();
-
-            if (res.ok) {
-                setMessage(resJSON);
-                navigate(`/search/${data.promoted}`)
-            } else {
-                setMessage(resJSON);
-                
+            const res = await axiosInstance.post('post/requirement/promoted', data);
+            setMessage(res.data);
+            if (res.status === 200) {
+                navigate(`/search/${data.promoted}`);
             }
         } catch (error) {
             console.error('Erro na criação do documento:', error);
-            
+            setMessage(error.response?.data || 'Erro desconhecido');
         }
-
     };
-    
-
 
     const createRequerimentRelegation = async (data) => {
-
         try {
-            const res = await fetch(`${PRD}post/requirement/relegation`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-            });
-
-            const resJSON = await res.json();
-
-            if (res.ok) {
-                setMessage(resJSON);
-                navigate(`/search/${data.promoted}`)
-            } else {
-                setMessage(resJSON);
-                
+            const res = await axiosInstance.post('post/requirement/relegation', data);
+            setMessage(res.data);
+            if (res.status === 200) {
+                navigate(`/search/${data.promoted}`);
             }
         } catch (error) {
             console.error('Erro na criação do documento:', error);
-            
+            setMessage(error.response?.data || 'Erro desconhecido');
         }
-
     };
 
     const createRequerimentWarning = async (data) => {
-
         try {
-            const res = await fetch(`${PRD}post/requirement/warning`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-            });
-
-            const resJSON = await res.json();
-
-            if (res.ok) {
-                setMessage(resJSON);
-                navigate(`/search/${data.promoted}`)
-            } else {
-                setMessage(resJSON);
-                
+            const res = await axiosInstance.post('post/requirement/warning', data);
+            setMessage(res.data);
+            if (res.status === 200) {
+                navigate(`/search/${data.promoted}`);
             }
         } catch (error) {
             console.error('Erro na criação do documento:', error);
-            
+            setMessage(error.response?.data || 'Erro desconhecido');
         }
-
     };
 
     const createRequerimentResignationUpdateUser = async (idUser, promoted) => {
         try {
-            const res = await fetch(`${PRD}put/requirement/resignation`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify({ idUser: idUser }),
-            });
-    
-            const DataMSG = await res.json();
-    
-            if (res.ok) {
-                setMessage(DataMSG)
-                navigate(`/search/${promoted}`)
-            } else {
-                setMessage(DataMSG)
+            const res = await axiosInstance.put('put/requirement/resignation', { idUser });
+            setMessage(res.data);
+            if (res.status === 200) {
+                navigate(`/search/${promoted}`);
             }
         } catch (error) {
             console.error('Erro ao atualizar produto', error);
+            setMessage(error.response?.data || 'Erro desconhecido');
         }
     };
 
     const createRequerimentResignation = async (data) => {
-
         try {
-            const res = await fetch(`${PRD}post/requirement/resignation`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-            });
-
-            const resJSON = await res.json();
-
-            if (res.ok) {
+            const res = await axiosInstance.post('post/requirement/resignation', data);
+            setMessage(res.data);
+            if (res.status === 200) {
                 createRequerimentResignationUpdateUser(data.idUser, data.promoted);
-                navigate(`/search/${data.promoted}`)
-                setMessage(resJSON)
-
-            } else {
-                setMessage(resJSON);
-                
+                navigate(`/search/${data.promoted}`);
             }
         } catch (error) {
             console.error('Erro na criação do documento:', error);
-            
+            setMessage(error.response?.data || 'Erro desconhecido');
         }
-
     };
 
     const createRequerimentContract = async (data) => {
         try {
-            const res = await fetch(`${PRD}post/requeriments/contract`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-            });
-
-            const resJSON = await res.json();
-
-            if (res.ok) {
-
+            const res = await axiosInstance.post('post/requeriments/contract', data);
+            setMessage(res.data);
+            if (res.status === 200) {
                 setMessage('Requerimento postado com sucesso.');
-                navigate(`/search/${data.promoted}`)
-            } else {
-                setMessage('Não foi possível criar o documento.');
-                
+                navigate(`/search/${data.promoted}`);
             }
         } catch (error) {
             console.error('Erro na criação do documento:', error);
-            
+            setMessage(error.response?.data || 'Erro desconhecido');
         }
-
     };
 
     const createRequerimentSale = async (data) => {
-
         try {
-            const res = await fetch(`${PRD}post/requeriments/sales`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-            });
-
-            const resJSON = await res.json();
-
-            if (res.ok) {
-                setMessage(resJSON);
-                navigate(`/search/${data.promoted}`)
-            } else {
-                setMessage(resJSON);
-                
+            const res = await axiosInstance.post('post/requeriments/sales', data);
+            setMessage(res.data);
+            if (res.status === 200) {
+                navigate(`/search/${data.promoted}`);
             }
         } catch (error) {
             console.error('Erro na criação do documento:', error);
-            
+            setMessage(error.response?.data || 'Erro desconhecido');
         }
-
     };
 
-
-    const searchRequerimentsUser = useCallback(async (nickname, token) => {
+    const searchRequerimentsUser = useCallback(async (nickname) => {
         setLoading(true);
         try {
-            const res = await fetch(`${PRD}search/requeriments?promoted=${nickname}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-            const data = await res.json();
-            setRequerimentsArray(data); // Atualize o estado local com os novos dados
-            setLoading(false);
-            return data;
+            const res = await axiosInstance.get(`search/requeriments?promoted=${nickname}`);
+            setRequerimentsArray(res.data);
         } catch (error) {
             console.log(error);
+        } finally {
+            setLoading(false);
         }
     }, []);
 
     const searchRequerimentsPromotedsUser = async (typeRequirement, statusRequirement) => {
         setLoadingReq(true);
         try {
-            const res = await fetch(`${PRD}search/requeriments/promoteds?typeRequirement=${typeRequirement}&statusRequirement=${statusRequirement}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-
-            const data = await res.json();
-            setRequerimentsFilter(data); // Atualize o estado local com os novos dados
-            setLoadingReq(false);
-            return data;
+            const res = await axiosInstance.get(`search/requeriments/promoteds?typeRequirement=${typeRequirement}&statusRequirement=${statusRequirement}`);
+            setRequerimentsFilter(res.data);
         } catch (error) {
             console.log(error);
+        } finally {
             setLoadingReq(false);
         }
     };
 
-    const searchRequerimentsClasses= async (teamRequirement, page, limit) => {
+    const searchRequerimentsClasses = async (teamRequirement, page, limit) => {
         try {
-            const res = await fetch(`${PRD}search/requeriments/teams?teamRequirement=${teamRequirement}&page=${page}&limit=${limit}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-
-            const data = await res.json();
-            setRequerimentsClasses(data); // Atualize o estado local com os novos dados
-            return data;
+            const res = await axiosInstance.get(`search/requeriments/teams?teamRequirement=${teamRequirement}&page=${page}&limit=${limit}`);
+            setRequerimentsClasses(res.data);
         } catch (error) {
             console.log(error);
         }
@@ -295,23 +145,17 @@ const RequirementsProvider = ({ children }) => {
             "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
             "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
         ];
-    
+
         const dataHora = new Date(dataHoraString);
         const dia = String(dataHora.getDate()).padStart(2, '0');
-        const mesIndex = dataHora.getMonth();
-        const mes = meses[mesIndex];
+        const mes = meses[dataHora.getMonth()];
         const ano = dataHora.getFullYear();
         const hora = String(dataHora.getHours()).padStart(2, '0');
         const minuto = String(dataHora.getMinutes()).padStart(2, '0');
         const segundo = String(dataHora.getSeconds()).padStart(2, '0');
-    
+
         return `${dia} de ${mes} de ${ano} ${hora}:${minuto}:${segundo}`;
     }
-
-
-
-
-
 
     return (
         <RequirementsContext.Provider
@@ -332,7 +176,6 @@ const RequirementsProvider = ({ children }) => {
                 searchRequerimentsClasses,
                 loadingReq,
                 message
-                
             }}
         >
             {children}

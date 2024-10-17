@@ -1,14 +1,10 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
-
-
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
+import axiosInstance from '../provider/axiosInstance'; // Importa o axios configurado
 
 const EndorsementContext = createContext("");
 
 const EndorsementProvider = ({ children }) => {
-    const token = localStorage.getItem('@Auth:Token')
     const [EndorsementDb, setEndorsementDb] = useState([]); 
     const [messege, setMessege] = useState('');
     const [loading, setLoading] = useState(false);
@@ -16,72 +12,36 @@ const EndorsementProvider = ({ children }) => {
     const createEndorsement = async (data) => {
         setLoading(true);
         try {
-            const res = await fetch(`${PRD}endorsement`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-            });
+            const res = await axiosInstance.post('endorsement', data);
 
-            const resJSON = await res.json();
-
-            if (res.ok) {
-                setMessege(resJSON);
-                setLoading(false);
-            } else {
-                setMessege(resJSON);
-                setLoading(false);
-            }
+            setMessege(res.data);
         } catch (error) {
             console.error('Erro ao postar aval:', error);
-            setMessege('Erro ao postar aval');
+            setMessege(error.response?.data || 'Erro ao postar aval');
+        } finally {
             setLoading(false);
         }
     };
 
-
-    const getEndorsement = useCallback(async (tokenAuth) => {
+    const getEndorsement = useCallback(async () => {
+        setLoading(true);
         try {
-            const res = await fetch(`${PRD}endorsement`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
+            const res = await axiosInstance.get('endorsement');
 
-            if (!res.ok) {
-                throw new Error('Erro na requisição');
-            }
-            const data = await res.json();
-            setEndorsementDb(data);
-            setMessege(data)
+            setEndorsementDb(res.data);
+            setMessege(res.data);
         } catch (error) {
             setMessege(error.message || 'Erro desconhecido');
+        } finally {
+            setLoading(false);
         }
     }, []);
 
     const EndorsementStatus = async (data) => {
         try {
-            const res = await fetch(`${PRD}endorsement/status`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-            });
-    
-            const DataMSG = await res.json();
-    
-            if (res.ok) {
-                setMessege(DataMSG)
+            const res = await axiosInstance.put('endorsement/status', data);
 
-            } else {
-                getEndorsement()
- 
-            }
+            setMessege(res.data);
         } catch (error) {
             console.error('Erro ao atualizar produto', error);
         }
@@ -89,28 +49,16 @@ const EndorsementProvider = ({ children }) => {
 
     const deleteEndorsement = async (data) => {
         try {
-            const res = await fetch(`${PRD}endorsement/delete`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
+            const res = await axiosInstance.delete('endorsement/delete', {
+                data: data,
             });
 
-            const DataMSG = await res.json();
-
-            if (res.ok) {
-                setMessege(DataMSG);
-
-            } else {
-                setMessege(DataMSG);
-            }
+            setMessege(res.data);
         } catch (error) {
             console.error('Erro ao deletar documento', error);
+            setMessege(error.response?.data || 'Erro ao deletar documento');
         }
     };
-
 
     return (
         <EndorsementContext.Provider
@@ -122,8 +70,7 @@ const EndorsementProvider = ({ children }) => {
                 getEndorsement,
                 EndorsementDb,
                 EndorsementStatus,
-                deleteEndorsement
-
+                deleteEndorsement,
             }}
         >
             {children}
@@ -131,7 +78,7 @@ const EndorsementProvider = ({ children }) => {
     );
 };
 
-// Propriedades esperadas pelo componente DocsProvider
+// Propriedades esperadas pelo componente EndorsementProvider
 EndorsementProvider.propTypes = {
     children: PropTypes.node.isRequired,
 };

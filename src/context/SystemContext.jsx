@@ -1,7 +1,6 @@
 import { createContext, useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
+import axiosInstance from '../provider/axiosInstance'; // Importa o axios configurado
 
 const SystemContext = createContext("");
 
@@ -12,29 +11,19 @@ const SystemProvider = ({ children }) => {
     const [patents, setPatents] = useState([]);
     const [infoSystemDpanel, setInfoSystemDpanel] = useState([]);
     const [loading, setLoading] = useState(true);
-    const token = localStorage.getItem('@Auth:Token');
 
     const getSystemDpanel = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`${PRD}infos`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
+            const response = await axiosInstance.get('infos');
 
-            if (!res.ok) {
-                throw new Error('Erro na requisição');
-            }
-            const data = await res.json();
-            if (data && data.systemInfo) {
-                setInfo(data.info || []);
-                setInfoSystemDpanel(data.systemInfo || []);
+            if (response.data && response.data.systemInfo) {
+                setInfo(response.data.info || []);
+                setInfoSystemDpanel(response.data.systemInfo || []);
             } else {
                 throw new Error('Dados incompletos na resposta da API');
             }
-            setMessage(data);
+            setMessage(response.data);
         } catch (error) {
             setMessage(error.message || 'Erro desconhecido');
         } finally {
@@ -44,68 +33,37 @@ const SystemProvider = ({ children }) => {
 
     const getSystem = useCallback(async () => {
         try {
-            const res = await fetch(`${PRD}all/info`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-
-            if (!res.ok) {
-                throw new Error('Erro na requisição');
-            }
-            const data = await res.json();
-            setInfoSystem(data || []);
-            setMessage(data);
+            const response = await axiosInstance.get('all/info');
+            setInfoSystem(response.data || []);
+            setMessage(response.data);
         } catch (error) {
             setMessage(error.message || 'Erro desconhecido');
         }
-    }, [token]);
+    }, []);
 
     useEffect(() => {
-        getSystem(localStorage.getItem('@Auth:Token'));
+        getSystem();
     }, [getSystem]);
 
     const updateSystem = async (data) => {
         try {
-            const response = await fetch(`${PRD}infos`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-            });
-
-            const responseData = await response.json();
-
+            const response = await axiosInstance.put('infos', data);
             if (response.ok) {
-                setMessage(responseData);
+                setMessage(response.data);
             } else {
-                setMessage({ error: 'Ocorreu um erro na atualização do sistema.', details: responseData });
+                setMessage({ error: 'Ocorreu um erro na atualização do sistema.', details: response.data });
             }
         } catch (error) {
-            console.error("Erro na requisição:", error);
             setMessage({ error: 'Erro na requisição. Por favor, tente novamente mais tarde.' });
         }
     };
 
     const getPatents = async (patent) => {
         try {
-            const res = await fetch(`${PRD}patents?patent=${patent}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-
-            if (!res.ok) {
-                throw new Error('Erro na requisição');
-            }
-            const data = await res.json();
-            setPatents(data || []);
+            const response = await axiosInstance.get(`patents?patent=${patent}`);
+            setPatents(response.data || []);
         } catch (error) {
-            console.log(error.message || 'Erro desconhecido');
+            setMessage(error.message || 'Erro desconhecido');
         }
     };
 

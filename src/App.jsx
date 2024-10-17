@@ -32,6 +32,7 @@ function App() {
   useScrollToTop()
   const { isAuthentication } = useContext(AuthContext);
   const userType = JSON.parse(localStorage.getItem('@Auth:ProfileUser'));
+
   // Configurações de equipe
   const { teams } = useContext(TeamsContext);
   return (

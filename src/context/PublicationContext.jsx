@@ -1,78 +1,54 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
-
-const PRD = 'https://dopsystem-backend.vercel.app/api/';
+import axiosInstance from '../provider/axiosInstance'; // Importa o axios configurado
 
 const PublicationContext = createContext("");
 
 const PublicationProvider = ({ children }) => {
     const [message, setMessage] = useState('');
-    const [allPublications, setAllPublications] = useState([])
+    const [allPublications, setAllPublications] = useState([]);
     const token = localStorage.getItem('@Auth:Token');
 
     const createPublication = async (data) => {
         try {
-            const res = await fetch(`${PRD}create/publication`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-                body: JSON.stringify(data),
-            });
+            const res = await axiosInstance.post('create/publication', data);
 
-            const resJSON = await res.json();
-
-            if (res.ok) {
-                setMessage(resJSON);
-            } else {
-                setMessage(resJSON);
-            }
+            setMessage(res.data); // Supondo que a resposta contenha a mensagem desejada
         } catch (error) {
             console.error('Erro na criação do documento:', error);
-            setMessage('Erro na criação do documento');
+            setMessage(error.response?.data || 'Erro na criação do documento');
         }
     };
 
-    const getPublication = async (token) => {
+    const getPublication = async () => {
         try {
             // Verifique se o token não está undefined ou null
             if (!token) {
                 throw new Error('Token não fornecido');
             }
-    
-            const res = await fetch(`${PRD}publication`, {
-                method: 'GET',
+
+            const res = await axiosInstance.get('publication', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 },
             });
-    
-            if (!res.ok) {
-                // Log adicional para depuração
-                console.error('Erro na requisição', res.status, res.statusText);
-                throw new Error(`Erro na requisição: ${res.status} ${res.statusText}`);
-            }
-    
-            const data = await res.json();
-            setAllPublications(data); // Verifique se setAllPublications está definido
-            setMessage(data); // Verifique se setMessage está definido
- 
+
+            setAllPublications(res.data); // Verifique se setAllPublications está definido
+            setMessage(res.data); // Verifique se setMessage está definido
         } catch (error) {
-            // Log adicional para depuração
             console.error('Erro ao buscar publicações:', error);
-            setMessage(error.message || 'Erro desconhecido');
+            setMessage(error.response?.data || 'Erro desconhecido');
         }
     };
+
     return (
         <PublicationContext.Provider
             value={{
-                message, 
+                message,
                 setMessage,
                 createPublication,
                 getPublication,
-                allPublications
-  
+                allPublications,
             }}
         >
             {children}

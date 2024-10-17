@@ -2,6 +2,16 @@ import { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { SlArrowUp } from "react-icons/sl";
 import Button from 'react-bootstrap/Button';
+import { IoSpeedometerOutline, IoHomeOutline, IoFileTrayFullOutline } from "react-icons/io5";
+import { MdFormatAlignLeft } from "react-icons/md";
+
+import { CiUser } from "react-icons/ci";
+import { MdPostAdd } from "react-icons/md";
+import { FaRegBuilding } from "react-icons/fa";
+import { TbUsersGroup, TbLicense } from "react-icons/tb";
+import { ImExit } from "react-icons/im";
+
+import LogoDOP from "../assets/DOP Padrão (com borda).png";
 import '../index.css';
 import "./style.css";
 import { AuthContext } from '../context/AuthContext';
@@ -9,7 +19,7 @@ import { DocsContext } from '../context/DocsContext';
 import { TeamsContext } from '../context/TeamsContext';
 
 const Sidebar = ({ showSidebar, setShowSidebar }) => {
-  
+
   const { logout } = useContext(AuthContext);
   const { getTeams, teams } = useContext(TeamsContext);
   const { searchDoc } = useContext(DocsContext);
@@ -41,101 +51,119 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
   };
 
   return (
-    <nav className={showSidebar ?  `custom-scrollbar overflow-y-scroll p-2 z-10 duration-1000 fixed right-0 top-[61px] px-3 min-h-[100vh] h-[100vh] w-[330px] bg-[#2c3136] text-[#ffffff] overflow-y-auto`
-      : `custom-scrollbar  overflow-y-scroll p-2 z-10 fixed duration-1000 top-[8vh] px-3 min-h-[100vh] h-[100vh] w-[330px] right-[-330px] bg-[#2c3136] text-[#ffffff] nabBarNew overflow-y-auto`}>
-      <div className='borderSidebar w-full h-[160px] flex flex-col items-center justify-center border-b'>
-        {infoProfileUser && (
-          <>
-            <div className="imgSidebar border rounded-full overflow-hidden min-w-16 max-w-16 min-h-16 max-h-16 bg-[url('../')] bg-cover bg-center">
-              <img
-                className="m-0 relative bottom-3"
-                src={`https://www.habbo.com.br/habbo-imaging/avatarimage?&user=${infoProfileUser.nickname}&action=std&direction=4&head_direction=4&img_format=png&gesture=sml&frame=1&headonly=0&size=m`}
-                alt=""
-              />
-            </div>
-
-            <h2 className='mt-2 font-bold'>{infoProfileUser.nickname}</h2>
-            <span>{infoProfileUser.patent}</span>
-          </>
-        )}
+    <nav className={showSidebar ? `overflow-hidden p-2 z-10 duration-1000 fixed left-0 top-[0] px-3 min-h-[100dvh] h-[100dvh] w-[260px] bg-[#000000] text-[#ffffff] `
+      : `overflow-hidden p-2 z-10 fixed duration-1000 top-0 px-3 min-h-[100dvh] h-[100dvh] w-[260px] left-[-330px] text-[#ffffff] nabBarNew`}>
+      <div
+        className='w-full flex flex-row items-center justify-center h-[20%]'>
+        <NavLink
+          onClick={() => setShowSidebar(!showSidebar)}
+          className='flex flex-row items-center justify-center text-xl '
+          to={'/home'}>
+          <img
+            className='w-[45px] mr-2'
+            src={LogoDOP} alt="Logo Polícia DOP" /><span className='text-[#0084ff] font-bold'>DOP</span>System</NavLink>
       </div>
-      {infoProfileUser && (infoProfileUser.userType === "Admin" || infoProfileUser.userType === "Diretor") && (
-        <div className='borderSidebar w-full h-[70px] flex flex-col items-center justify-center border-b'>
-          <NavLink onClick={() => setShowSidebar(!showSidebar)} to={'/dpanel'} className='buttonRadiosSidebar bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> Painel <span className='uppercase'>admin</span></NavLink>
-        </div>
-      )}
-      <ul className='border-b borderSidebar h-auto'>
-        <li onClick={() => setShowSidebar(!showSidebar)} className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/home'}>Home</NavLink></li>
+      <div className='h-auto min-h-[60%]'>
+        {(infoProfileUser && (infoProfileUser.userType === "Admin" || infoProfileUser.userType === "Diretor")) &&
+          <NavLink
+            onClick={() => setShowSidebar(!showSidebar)}
+            className={"w-full flex flex-row items-center text-[13px] p-2 bg-[#0084ff] rounded-md"}
+          >
+            <IoSpeedometerOutline
+              className='mr-2 text-[16px]' />
+            DPanel
+          </NavLink>
+        }
+        <NavLink
+          to={'/home'}
+          onClick={() => setShowSidebar(!showSidebar)}
+          className="w-full flex flex-row items-center text-[13px] px-2 py-[10px] border-b hover:bg-[#63626277]  transition-colors duration-300"
+        >
+          <IoHomeOutline className="mr-2 text-[16px]" />
+          Home
+        </NavLink>
 
-        <button className='w-full h-[30px] font-bold flex items-center ml-5' onClick={activeShowDocs}>
-          Documentos <span className={`ml-2 text-[13px] ${showDocs ? "activeRotate" : ""}`}><SlArrowUp /></span>
+        <NavLink
+          to={'/postclasse'}
+          onClick={() => setShowSidebar(!showSidebar)}
+          className="w-full flex flex-row items-center text-[13px] px-2 py-[10px] border-b hover:bg-[#63626277]  transition-colors duration-300"
+        >
+          <MdPostAdd className="mr-2 text-[16px]" />
+          Postar Curso Inicial
+        </NavLink>
+        <button
+          className="w-full flex flex-row items-center justify-between text-[13px] px-2 py-[10px] border-b hover:bg-[#63626277]  transition-colors duration-300"
+        >
+          <div className='flex flex-row items-center'>
+            <IoFileTrayFullOutline className="mr-2 text-[16px]" />
+            Documentos
+          </div>
+          <SlArrowUp className='mr-2' />
         </button>
-        <div className={`w-full font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showDocs ? "h-auto " : "h-0 hidden"}`}>
-          {Array.isArray(documents) && documents.map((doc, index) => (
-            <li onClick={() => setShowSidebar(!showSidebar)} key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-              <NavLink to={`/doc/${doc.url}`} >{doc.nameDocs}</NavLink>
-            </li>
-          ))}
-        </div>
 
-        {infoProfileUserCompleted && (infoProfileUserCompleted.teams !== "" || infoProfileUserCompleted.userType === "Admin") && (
-          <>
-            <button className='w-full h-[30px] font-bold flex items-center ml-5' onClick={activeShowClasses}>
-              Funções <span className={`ml-2 text-[13px] ${showClasses ? "activeRotate" : ""}`}><SlArrowUp /></span>
-            </button>
-            <div className={`w-full font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showClasses ? "h-auto " : "h-0 hidden"}`}>
-              {teams && teams.map((team, index) => {
-                const isMember = team.members.some(member => member.nickname === infoProfileUser.nickname);
-
-                if (isMember || infoProfileUser.userType === "Admin" || infoProfileUser.userType === "Diretor") {
-                  return (
-                    <li onClick={() => setShowSidebar(!showSidebar)} key={index} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-                      <NavLink to={`/team/${team.url}`}>{team.nameTeams}</NavLink>
-                    </li>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </div>
-          </>
-        )}
-
-        <button className='w-full h-[30px] font-bold flex items-center ml-5' onClick={() => setShowForms(!showForms)}>
-          Requerimentos <span className={`ml-2 text-[13px] ${showForms ? "activeRotate" : ""}`}><SlArrowUp /></span>
+        <button
+          className="w-full flex flex-row items-center justify-between text-[13px] px-2 py-[10px] border-b hover:bg-[#63626277]  transition-colors duration-300"
+        >
+          <div className='flex flex-row items-center'>
+            <FaRegBuilding className="mr-2 text-[16px]" />
+            Departamentos
+          </div>
+          <SlArrowUp className='mr-2' />
         </button>
-        <div className={`w-full font-bold flex items-center ml-8 flex-col duration-1000 text-[13px] text-[#d3d3d3] ${showForms ? "h-auto " : "h-0 hidden"}`}>
-          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-            <NavLink to={'/promotion'}>Promoções</NavLink>
-          </li>
-          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-            <NavLink to={'/warning'}>Advertências</NavLink>
-          </li>
-          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-            <NavLink to={'/relegation'}>Rebaixamentos</NavLink>
-          </li>
-          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-            <NavLink to={'/resignation'}>Demissões</NavLink>
-          </li>
-          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-            <NavLink to={'/contract'}>Contratos</NavLink>
-          </li>
-          <li onClick={() => setShowSidebar(!showSidebar)} className='w-full italic h-[25px] font-bold flex items-center ml-5'>
-            <NavLink to={'/sale'}>Vendas de Cargo</NavLink>
-          </li>
-        </div>
 
-        <li onClick={() => setShowSidebar(!showSidebar)} className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={'/members'}>Membros</NavLink></li>
-        {infoProfileUserCompleted && (infoProfileUserCompleted.userType === "Diretor" || infoProfileUserCompleted.userType === "Admin" || infoProfileUserCompleted.userType === "Recursos Humanos") && <li className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={`/endorsement`}>Avais</NavLink></li>}
-        <li onClick={() => setShowSidebar(!showSidebar)} className='w-full h-[30px] font-bold flex items-center ml-5'><NavLink to={`/search/${infoProfileUserCompleted.nickname}`}>Perfil</NavLink></li>
-      </ul>
+        <button
+          className="w-full flex flex-row items-center justify-between text-[13px] px-2 py-[10px] border-b hover:bg-[#63626277]  transition-colors duration-300"
+        >
+          <div className='flex flex-row items-center'>
+            <MdFormatAlignLeft className="mr-2 text-[16px]" />
+            Requerimentos
+          </div>
+          <SlArrowUp className='mr-2' />
+        </button>
 
-      <div className='w-full borderSidebar h-[10%] flex flex-col items-center justify-center'>
-        <Button onClick={() => {
-          setShowSidebar(!showSidebar);
-          logout();
-        }} className='buttonRadiosSidebar mt-3 rounded-full font-bold bg-[#dc3545]' variant="danger">Logout</Button>
+        <NavLink
+          to={'/members'}
+          onClick={() => setShowSidebar(!showSidebar)}
+          className="w-full flex flex-row items-center text-[13px] px-2 py-[10px] border-b hover:bg-[#63626277]  transition-colors duration-300"
+        >
+          <TbUsersGroup className="mr-2 text-[16px]" />
+          Membros
+        </NavLink>
+
+        {(infoProfileUser && (infoProfileUser.userType === "Admin" || infoProfileUser.userType === "Diretor" || infoProfileUser.userType === "Recursos Humanos")) &&
+          <NavLink
+            to={'/endorsement'}
+            onClick={() => setShowSidebar(!showSidebar)}
+            className="w-full flex flex-row items-center text-[13px] px-2 py-[10px] border-b hover:bg-[#63626277]  transition-colors duration-300"
+          >
+            <TbLicense className="mr-2 text-[16px]" />
+            Avais
+          </NavLink>
+        }
+
+        <NavLink
+          to={`/search/${infoProfileUser.nickname}`}
+          onClick={() => setShowSidebar(!showSidebar)}
+          className="w-full flex flex-row items-center text-[13px] px-2 py-[10px] border-b hover:bg-[#63626277]  transition-colors duration-300"
+        >
+          <CiUser className="mr-2 text-[16px]" />
+          Perfil
+        </NavLink>
       </div>
+
+      <div className='h-[20%] flex items-center justify-center w-full'>
+        <button
+          onClick={() => {
+            setShowSidebar(!showSidebar);
+            logout();
+          }
+          }
+          className="w-full flex flex-row items-center text-[13px] px-2 py-[10px] transition-colors duration-300">
+          <ImExit className="mr-2 text-[16px]" />
+          Logout
+        </button>
+      </div>
+
     </nav>
   );
 };
