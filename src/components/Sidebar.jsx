@@ -130,7 +130,7 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
 </ul>
 
         {infoProfileUserCompleted &&
-          (infoProfileUserCompleted.teans > 1 ||
+          (infoProfileUserCompleted.teans.length > 1 ||
             infoProfileUserCompleted.userType === "Admin" ||
             infoProfileUserCompleted.userType === "Diretor") && (
             <>
