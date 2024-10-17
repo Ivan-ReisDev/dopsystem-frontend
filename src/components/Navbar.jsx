@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoMdClose } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { UserContext } from "../context/UserContext";
 
 const Navbar = () => {
   const infoProfileUser = JSON.parse(localStorage.getItem("@Auth:Profile"));
@@ -11,6 +12,8 @@ const Navbar = () => {
   const activeSidebar = () => setShowSidebar(!showSidebar);
   const location = useLocation();
 
+  const { searchAllUsers, user } = useContext(UserContext);
+  const [search, setSearch] = useState("");
   if (location.pathname === "/dpanel") {
     return null; // Não renderiza o Header
   }
@@ -38,14 +41,31 @@ const Navbar = () => {
 
         {/* Input de pesquisa e perfil do usuário */}
         <div className="flex items-center">
-          <div className="bg-[#e2e2e2de] h-8 p-2 rounded-3xl w-[350px] flex items-center mr-4">
-            <CiSearch className="text-xl mr-2 text-[#9e9e9e]" />
-            <input
-              className="w-full h-full bg-transparent outline-none"
-              placeholder="Pesquisa rápida de militar"
-              type="text"
-            />
-          </div>
+        <div className="bg-[#e2e2e2de] h-8 p-2 rounded-3xl w-[350px] flex items-center mr-4 relative"> 
+  <CiSearch className="text-xl mr-2 text-[#9e9e9e]" />
+  <input
+    onChange={(e) => {
+      setSearch(e.target.value)
+      searchAllUsers(e.target.value)}}
+    className="w-full h-full bg-transparent outline-none"
+    placeholder="Pesquisa rápida de militar"
+    type="text"
+  />
+  {/* Condição para exibir a div de resultados somente se o input não estiver vazio */}
+  {search && (
+    <div className="w-full p-2 flex flex-col bg-white absolute left-0 top-[100%] z-10 max-h-60 overflow-y-auto rounded-lg shadow-lg">
+      {/* Se houver usuários, exibe a lista */}
+      {user.users && user.users.length > 0 ? (
+        user.users.map((user) => (
+          <NavLink to={`/search/${user.nickname}`} key={user._id} className="p-2 hover:bg-gray-200">{user.nickname}</NavLink>
+        ))
+      ) : (
+        // Caso nenhum usuário seja encontrado
+        <div className="p-2 text-gray-500">Usuário não encontrado</div>
+      )}
+    </div>
+  )}
+</div>
 
           {infoProfileUser && (
             <div className="flex items-center mr-10">
@@ -68,7 +88,7 @@ const Navbar = () => {
       </header>
 
       {/* Sidebar */}
-      {showSidebar && <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />}
+      <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
     </div>
   );
 };

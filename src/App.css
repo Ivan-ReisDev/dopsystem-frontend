@@ -23,3 +23,17 @@
 .autofill-bg:-webkit-autofill {
   background-color: #f3f3f3; /* Define a cor de fundo desejada */
 }
+
+.rotate-0 {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.nabBarNew {
+  transition: transform 0.3s ease-in-out;
+}

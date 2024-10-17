@@ -66,7 +66,7 @@ const Home = () => {
   return (
     <div className='body'>
       <div className='one'>
-        {/* <FastMenu /> */}
+        <FastMenu />
         {/* <Rank /> */}
       </div>
       <div className='two'>
