@@ -18,7 +18,7 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await axiosInstance.post('post/requirement/promoted', data);
             setMessage(res.data);
-            if (res.status === 200) {
+            if (res.status === 201) {
                 navigate(`/search/${data.promoted}`);
             }
         } catch (error) {
@@ -31,7 +31,7 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await axiosInstance.post('post/requirement/relegation', data);
             setMessage(res.data);
-            if (res.status === 200) {
+            if (res.status === 201) {
                 navigate(`/search/${data.promoted}`);
             }
         } catch (error) {
@@ -44,7 +44,7 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await axiosInstance.post('post/requirement/warning', data);
             setMessage(res.data);
-            if (res.status === 200) {
+            if (res.status === 201) {
                 navigate(`/search/${data.promoted}`);
             }
         } catch (error) {
@@ -70,7 +70,7 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await axiosInstance.post('post/requirement/resignation', data);
             setMessage(res.data);
-            if (res.status === 200) {
+            if (res.status === 201) {
                 createRequerimentResignationUpdateUser(data.idUser, data.promoted);
                 navigate(`/search/${data.promoted}`);
             }
@@ -84,7 +84,7 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await axiosInstance.post('post/requeriments/contract', data);
             setMessage(res.data);
-            if (res.status === 200) {
+            if (res.status === 201) {
                 setMessage('Requerimento postado com sucesso.');
                 navigate(`/search/${data.promoted}`);
             }
@@ -98,7 +98,7 @@ const RequirementsProvider = ({ children }) => {
         try {
             const res = await axiosInstance.post('post/requeriments/sales', data);
             setMessage(res.data);
-            if (res.status === 200) {
+            if (res.status === 201) {
                 navigate(`/search/${data.promoted}`);
             }
         } catch (error) {

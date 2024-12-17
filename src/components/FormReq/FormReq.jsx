@@ -95,6 +95,7 @@ const FormReq = ({ requerimentSelected }) => {
 
                 <label>
                     * Nova Patente:
+                    
                     <input
                         type="text"
                         required

@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
+import { useContext, useEffect, useState } from 'react';
 import FastMenu from '../components/FastMenu/FastMenu';
 import './Home.css';
 import Docs from '../components/Docs/Docs';
-import QuickSearch from '../components/QuickSearch/QuickSearch';
 import Publication from '../components/Publication/Publication';
 import License from '../components/License/License';
 import Preloader from '../assets/preloader.gif';

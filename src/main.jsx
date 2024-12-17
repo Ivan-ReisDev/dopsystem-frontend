@@ -14,6 +14,8 @@ import { RhProvider } from "./context/RhContext.jsx";
 import { PublicationProvider } from "./context/PublicationContext.jsx";
 import { EndorsementProvider } from "./context/EndorsementContext.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ThemeProvider } from 'styled-components';
+import { theme } from './style/theme.js'
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -29,7 +31,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     <RhProvider>
                       <PublicationProvider>
                         <EndorsementProvider>
+                        <ThemeProvider theme={theme}>
                           <App />
+                          </ThemeProvider>
                         </EndorsementProvider>
                       </PublicationProvider>
                     </RhProvider>
