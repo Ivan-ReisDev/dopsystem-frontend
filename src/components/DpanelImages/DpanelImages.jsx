@@ -3,41 +3,51 @@ import { SystemContext } from '../../context/SystemContext';
 import Preloader from '../../assets/preloader.gif';
 
 const DpanelIMages = () => {
-  const { getImages, loading, message, updateSystemImages } = useContext(SystemContext);
+  const { getImages, loading, message, images, updateSystemImages } = useContext(SystemContext);
 
-  const [destaque1, setDestaque1] = useState("");
-  const [destaque2, setDestaque2] = useState("");
-  const [destaque3, setDestaque3] = useState("");
-  const [destaque4, setDestaque4] = useState("");
+  const [destaque1, setDestaque1] = useState('');
+  const [destaque2, setDestaque2] = useState('');
+  const [destaque3, setDestaque3] = useState('');
+  const [destaque4, setDestaque4] = useState('');
   
+  // Espera até que as imagens sejam carregadas
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const images = await getImages();
-        setDestaque1(images?.imageOne || '');
-        setDestaque2(images?.imageTwo || '');
-        setDestaque3(images?.imageThree || '');
-        setDestaque4(images?.imageFour || '');
+        await getImages();
       } catch (error) {
         console.error('Erro ao carregar as imagens:', error);
       }
     };
 
     fetchData();
-  }, [getImages]);
+  }, []);
+
+  useEffect(() => {
+    if (!loading && images) {
+      setDestaque1(images.imageOne);
+      setDestaque2(images.imageTwo);
+      setDestaque3(images.imageThree);
+      setDestaque4(images.imageFour);
+    }
+  }, [loading, images]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
-      imageOne: destaque1,
-      imageTwo: destaque2,
-      imageThree: destaque3,
-      imageFour: destaque4,
+      data:{
+        imageOne: destaque1,
+        imageTwo: destaque2,
+        imageThree: destaque3,
+        imageFour: destaque4,
+      }
+
     };
 
     await updateSystemImages(data);
   };
 
+  // Quando está carregando, exibe o preloader
   if (loading) {
     return <div className='flex items-center justify-center h-full'> <img src={Preloader} alt="Loading..." /></div>;
   }
@@ -61,7 +71,9 @@ const DpanelIMages = () => {
               className="w-full p-2 border border-gray-300 rounded"
               required
             />
+            {destaque1 && <img src={destaque1} alt="Imagem 1" className="mt-2 max-w-full h-auto" />}
           </div>
+
           <div className="mb-4">
             <label htmlFor="destaques2" className="block text-sm font-medium text-gray-700 mb-2">
               Imagem 2
@@ -75,7 +87,9 @@ const DpanelIMages = () => {
               className="w-full p-2 border border-gray-300 rounded"
               required
             />
+            {destaque2 && <img src={destaque2} alt="Imagem 2" className="mt-2 max-w-full h-auto" />}
           </div>
+
           <div className="mb-4">
             <label htmlFor="destaques3" className="block text-sm font-medium text-gray-700 mb-2">
               Imagem 3
@@ -89,7 +103,9 @@ const DpanelIMages = () => {
               className="w-full p-2 border border-gray-300 rounded"
               required
             />
+            {destaque3 && <img src={destaque3} alt="Imagem 3" className="mt-2 max-w-full h-auto" />}
           </div>
+
           <div className="mb-6">
             <label htmlFor="destaques4" className="block text-sm font-medium text-gray-700 mb-2">
               Imagem 4
@@ -103,6 +119,7 @@ const DpanelIMages = () => {
               className="w-full p-2 border border-gray-300 rounded"
               required
             />
+            {destaque4 && <img src={destaque4} alt="Imagem 4" className="mt-2 max-w-full h-auto" />}
           </div>
 
           {message && <p className="mt-4 text-green-500">{message.msg}</p>}

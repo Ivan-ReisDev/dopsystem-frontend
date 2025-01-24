@@ -9,6 +9,7 @@ const SystemProvider = ({ children }) => {
     const [info, setInfo] = useState([]);
     const [messege, setMessage] = useState('');
     const [patents, setPatents] = useState([]);
+    const [images, setImages] = useState({})
     const [infoSystemDpanel, setInfoSystemDpanel] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -75,7 +76,7 @@ const SystemProvider = ({ children }) => {
         try {
             setLoading(true)
             const response = await axiosInstance.get(`images`);
-            setPatents(response.data || []);
+            setImages(response.data || []);
             setLoading(false)
         } catch (error) {
             setMessage(error.message || 'Erro desconhecido');
@@ -107,7 +108,8 @@ const SystemProvider = ({ children }) => {
                 getSystemDpanel,
                 info,
                 loading,
-                updateSystem
+                updateSystem,
+                images, setImages
             }}
         >
             {children}
