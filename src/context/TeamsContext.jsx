@@ -118,11 +118,8 @@ const TeamsProvider = ({ children }) => {
     );
 };
 
-// Propriedades esperadas pelo componente TeamsProvider
 TeamsProvider.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-// Exporta o contexto e o provedor
 export { TeamsProvider, TeamsContext };
-//aa

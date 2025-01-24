@@ -10,6 +10,7 @@ import TagModal from '../components/TagModal/TagModal';
 import { UserContext } from '../context/UserContext';
 import { PublicationContext } from '../context/PublicationContext';
 import Highlights from '../components/Highlights/Highlights';
+import SlideShow from '../components/Slide/Slide';
 
 const Home = () => {
   
@@ -69,21 +70,20 @@ const Home = () => {
       </div>
       <div className='two'>
         {/* <QuickSearch /> */}
-        <Highlights />
+        <SlideShow />
         <License 
           user={user}
         />
 
       </div>
       <div className="try">
-      <h1>Publicações</h1>
+      {allPublications.lenght > 0 &&  <h1>Publicações</h1>}
         {allPublications && 
           allPublications.map((publi) => (
           <Publication key={publi._id} publi={publi} />
         ))}
-
         <Docs />
-
+        <Highlights />
       </div>
       <TagModal isOpen={isModalOpen} onClose={closeModal}>
         <h2 className="text-2xl font-bold mb-4">Crie sua TAG</h2>

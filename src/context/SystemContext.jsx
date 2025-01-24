@@ -45,6 +45,20 @@ const SystemProvider = ({ children }) => {
         getSystem();
     }, [getSystem]);
 
+
+    const updateSystemImages = async (data) => {
+        try {
+            const response = await axiosInstance.put('images', data);
+            if (response.ok) {
+                setMessage(response.data);
+            } else {
+                setMessage({ error: 'Ocorreu um erro na atualização do sistema.', details: response.data });
+            }
+        } catch (error) {
+            setMessage({ error: 'Erro na requisição. Por favor, tente novamente mais tarde.' });
+        }
+    };
+
     const updateSystem = async (data) => {
         try {
             const response = await axiosInstance.put('infos', data);
@@ -55,6 +69,17 @@ const SystemProvider = ({ children }) => {
             }
         } catch (error) {
             setMessage({ error: 'Erro na requisição. Por favor, tente novamente mais tarde.' });
+        }
+    };
+    const getImages = async () => {
+        try {
+            setLoading(true)
+            const response = await axiosInstance.get(`images`);
+            setPatents(response.data || []);
+            setLoading(false)
+        } catch (error) {
+            setMessage(error.message || 'Erro desconhecido');
+            setLoading(false)
         }
     };
 
@@ -70,6 +95,8 @@ const SystemProvider = ({ children }) => {
     return (
         <SystemContext.Provider
             value={{
+                updateSystemImages,
+                getImages,
                 infoSystem,
                 getSystem,
                 messege,

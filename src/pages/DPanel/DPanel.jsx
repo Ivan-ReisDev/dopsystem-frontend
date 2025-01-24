@@ -6,6 +6,8 @@ import { IoIosMegaphone } from 'react-icons/io';
 import { GrDocumentConfig } from 'react-icons/gr';
 import { BsMicrosoftTeams } from 'react-icons/bs';
 import { GoPasskeyFill } from "react-icons/go";
+import { CiImageOn } from "react-icons/ci";
+
 import Logger from '../../components/Logger/Logger';
 import DocsDpanel from '../../components/DocsDpanel/DocsDpanel';
 import DpanelTeams from '../../components/DpanelTeams/DpanelTeams';
@@ -14,6 +16,7 @@ import "./DPanel.module.css"
 import DpanelPublication from '../../components/DpanelPublication/DpanelPublication';
 import DpanelInfo from '../../components/DpanelInfo/DpanelInfo';
 import DpanelPermissions from '../../components/DpanelPermissions/DpanelPermissions';
+import DpanelIMages from '../../components/DpanelImages/DpanelImages';
 
 const DPanel = () => {
   const [selectFunction, setSelectFunction] = useState('System');
@@ -56,6 +59,13 @@ const DPanel = () => {
             >
               <BsMicrosoftTeams className="mr-2" /> Equipes
             </button>
+
+            <button
+              className={`block w-full text-left py-2 px-4 rounded-md mb-2 ${selectFunction === 'Slide' ? 'bg-blue-500 text-white' : 'bg-white hover:bg-gray-100'}`}
+              onClick={() => setSelectFunction('Slide')}
+            >
+              <CiImageOn className="mr-2" /> Slide
+            </button>
             {user && user.userType === "Admin" &&
               <>
                 <button
@@ -97,6 +107,7 @@ const DPanel = () => {
           {selectFunction === 'DocsEdit' && <DocsDpanel />}
           {selectFunction === 'Logger' && <Logger />}
           {selectFunction === 'Teams' && <DpanelTeams />}
+          {selectFunction === 'Slide' && <DpanelIMages />}
           {selectFunction === 'Users' && <DpanelUsers />}
           {selectFunction === 'Publication' && <DpanelPublication />}
           {selectFunction === 'Permissions' && <DpanelPermissions />}
