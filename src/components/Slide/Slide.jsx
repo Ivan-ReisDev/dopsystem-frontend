@@ -24,7 +24,7 @@ function SlideShow() {
     };
 
     fetchImages();
-  }, [getImages]);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
