@@ -61,8 +61,9 @@ const LoginSystem = ({ setLoading }) => {
 
     return (
         <div className={`${style.ImgLogin} text-[#ffffff] min-h-screen flex flex-col items-center justify-center`}>
-            <h1 className='text-3xl mb-4'><span className='text-[#3146ff] font-bold'>DOP</span>System</h1>
-            <div className='bg-white rounded-md p-4 max-w-md w-full flex flex-col items-center text-[#636363]'>
+            <h1>FECHADO PARA MANUTENÇÃO</h1>
+            {/* <h1 className='text-3xl mb-4'><span className='text-[#3146ff] font-bold'>DOP</span>System</h1> */}
+            {/* <div className='bg-white rounded-md p-4 max-w-md w-full flex flex-col items-center text-[#636363]'>
                 <div className='w-full flex flex-col items-center p-2 border-b'>
                     <img src={LogoDOP} alt="logo da DOP" className='w-20 mb-3' />
                     {createCont === false ? (
@@ -139,7 +140,7 @@ const LoginSystem = ({ setLoading }) => {
                         handleSecondDivBlur={handleSecondDivBlur}
                         code={code} />
                 )}
-            </div>
+            </div> */}
         </div>
     );
 }
